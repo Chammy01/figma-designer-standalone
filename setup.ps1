@@ -1,4 +1,4 @@
-# Windows PowerShell 5.1+. Always prepare missing plugin assets; flags request other local actions.
+# Windows PowerShell 5.1+. Always prepare missing runtime assets; flags request other local actions.
 [CmdletBinding()]
 param([switch]$Configure, [switch]$InstallDependencies, [switch]$InstallBrowser, [switch]$SkipBrowser)
 $ErrorActionPreference = 'Stop'
@@ -18,7 +18,7 @@ function ToolVersion([string]$Name) {
     } catch { return $null }
 }
 Write-Host 'Figma Designer Setup'
-Write-Host 'Prepares missing Figma plugin assets from source. Other installs/configuration require the corresponding flags.'
+Write-Host 'Prepares missing Figma MCP and plugin assets from source. Other installs/configuration require the corresponding flags.'
 Result ($env:OS -eq 'Windows_NT') 'Windows' 'Use the Windows release on Windows.'
 if ($env:OS -ne 'Windows_NT') { exit 1 }
 Result ([Environment]::Is64BitOperatingSystem -and $env:PROCESSOR_ARCHITECTURE -eq 'AMD64') 'Windows x64' 'This beta executable is validated for Windows x64 only.'
@@ -42,7 +42,75 @@ $missing = @($paths | Where-Object { -not (Test-Path -LiteralPath (Join-Path $Pr
 Result ($missing.Count -eq 0) 'Project files' ("Extract the complete Release ZIP. Missing: " + ($missing -join ', '))
 $exe = Join-Path $ProjectRoot 'bin/figma-mcp-go.exe'
 $manifest = Join-Path $ProjectRoot 'vendor/figma-mcp/plugin/manifest.json'
-Result (Test-Path -LiteralPath $exe -PathType Leaf) 'Figma MCP executable' 'Use the prebuilt Release ZIP. Source contributors: see docs/DEVELOPMENT.md.'
+# Reject links/junctions so builds and output stay inside this installation.
+function RequireLocalPath([string]$Path) {
+    $probe = Get-Item -LiteralPath $Path -Force
+    while ($probe) {
+        if (($probe.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { throw 'Runtime/source paths must not use links or junctions.' }
+        if ($probe.FullName -eq $ProjectRoot) { return }
+        if ($probe -is [IO.FileInfo]) { $probe = $probe.Directory } else { $probe = $probe.Parent }
+    }
+    throw 'Runtime/source path escaped the project.'
+}
+$buildOutput = $null
+try {
+    $approved = Get-Content -LiteralPath (Join-Path $ProjectRoot 'docs/APPROVED_RUNTIME.json') -Raw | ConvertFrom-Json
+    $exeHash = $approved.sha256.'bin/figma-mcp-go.exe'
+    if ($exeHash -notmatch '^[a-f0-9]{64}$') { throw 'Approved MCP SHA-256 is missing or invalid.' }
+    if (Test-Path -LiteralPath $exe) {
+        RequireLocalPath $exe
+        Write-Host '[INFO] Existing Figma MCP executable preserved; no Go toolchain or rebuild needed.'
+    } else {
+        $goRoot = Join-Path $ProjectRoot 'vendor/figma-mcp'
+        foreach ($relative in @('go.mod','go.sum','cmd/figma-mcp-go/main.go','internal/node.go','internal/tools.go','internal/schema.go')) {
+            $source = Join-Path $goRoot $relative
+            if (-not (Test-Path -LiteralPath $source -PathType Leaf)) { throw "Figma MCP source is incomplete ($relative). Restore the complete Git checkout/source archive, or re-extract the official Windows Release ZIP." }
+            RequireLocalPath $source
+        }
+        foreach ($directory in @('cmd','internal')) {
+            foreach ($item in Get-ChildItem -LiteralPath (Join-Path $goRoot $directory) -Recurse -Force) { RequireLocalPath $item.FullName }
+        }
+        Result $true 'Figma MCP source' ''
+        $go = Get-Command go -ErrorAction SilentlyContinue
+        if (-not $go) { throw 'Go 1.26.1 is required for source setup and was not found on PATH. Install Go 1.26.1 from https://go.dev/dl/, reopen PowerShell, and rerun setup. Setup does not install Go.' }
+        # Match the approved non-Git release build, regardless of user Go settings or Git metadata.
+        $buildEnv = @{}
+        foreach ($name in @('CGO_ENABLED','GOOS','GOARCH','GOFLAGS','GOWORK','GOTOOLCHAIN','GOENV','GOAMD64')) { $buildEnv[$name] = [Environment]::GetEnvironmentVariable($name, 'Process') }
+        try {
+            $env:CGO_ENABLED = '0'; $env:GOOS = 'windows'; $env:GOARCH = 'amd64'
+            $env:GOFLAGS = ''; $env:GOWORK = 'off'; $env:GOTOOLCHAIN = 'local'; $env:GOENV = 'off'; $env:GOAMD64 = 'v1'
+            $goVersion = (& $go.Source version 2>&1 | Out-String).Trim()
+            if ($LASTEXITCODE -ne 0 -or $goVersion -ne 'go version go1.26.1 windows/amd64') { throw "Go 1.26.1 for Windows x64 is required to reproduce the approved executable; detected: $goVersion. Install that version from https://go.dev/dl/ and reopen PowerShell." }
+            Result $true 'Go toolchain (1.26.1 Windows x64)' ''
+            $bin = Split-Path -Parent $exe
+            New-Item -ItemType Directory -Path $bin -Force | Out-Null
+            RequireLocalPath $bin
+            $buildOutput = Join-Path $bin ('figma-mcp-build-' + [guid]::NewGuid().ToString('N') + '.tmp')
+            Write-Host '[INFO] Building Figma MCP from checked-out pinned Go source.'
+            Push-Location $goRoot
+            try {
+                & $go.Source build -trimpath -buildvcs=false -ldflags '-X main.version=1.2.0-standalone-hardening' -o $buildOutput ./cmd/figma-mcp-go
+                if ($LASTEXITCODE -ne 0) { throw 'Go build failed. Check the compiler/network output above, restore pinned source and go.mod/go.sum, then rerun setup.' }
+            } finally { Pop-Location }
+            if (-not (Test-Path -LiteralPath $buildOutput -PathType Leaf)) { throw 'Go build did not produce the MCP executable.' }
+            RequireLocalPath $buildOutput
+            if ((Get-FileHash -LiteralPath $buildOutput -Algorithm SHA256).Hash.ToLowerInvariant() -ne $exeHash) { throw 'Source-built MCP SHA-256 differs from the approved release. Restore pinned source/build inputs and Go 1.26.1; no executable was installed.' }
+            Move-Item -LiteralPath $buildOutput -Destination $exe
+            Result $true 'Figma MCP build' ''
+        } finally {
+            foreach ($name in $buildEnv.Keys) { [Environment]::SetEnvironmentVariable($name, $buildEnv[$name], 'Process') }
+        }
+    }
+    if ((Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash.ToLowerInvariant() -ne $exeHash) { throw 'MCP executable SHA-256 differs from the approved release. Re-extract the official Windows ZIP, or remove only the unapproved local executable after restoring pinned source and rerun setup. Existing files are never overwritten.' }
+    Result $true 'Figma MCP runtime verified' ''
+} catch {
+    Result $false 'Figma MCP runtime' 'Problem: the MCP executable could not be prepared or verified.'
+    Write-Host 'Why it matters: OpenCode cannot use Figma Designer until this runtime passes verification.'
+    Write-Host 'What to do: fix the cause below and rerun setup.ps1 with your original flags. See docs/INSTALLATION.md.'
+    Write-Host "Technical detail: $($_.Exception.Message)"
+} finally {
+    if ($buildOutput -and (Test-Path -LiteralPath $buildOutput)) { Remove-Item -LiteralPath $buildOutput }
+}
 $pluginRoot = Split-Path -Parent $manifest
 $dispatcher = Join-Path $pluginRoot 'dist/code.js'
 $rerunSetup = 'powershell -NoProfile -ExecutionPolicy Bypass -File "' + (Join-Path $ProjectRoot 'setup.ps1') + '" -Configure -InstallDependencies -InstallBrowser'
@@ -50,7 +118,10 @@ try {
     $approved = Get-Content -LiteralPath (Join-Path $ProjectRoot 'docs/APPROVED_RUNTIME.json') -Raw | ConvertFrom-Json
     $dispatcherHash = $approved.sha256.'vendor/figma-mcp/plugin/dist/code.js'
     if ($dispatcherHash -notmatch '^[a-f0-9]{64}$') { throw 'Approved dispatcher SHA-256 is missing or invalid.' }
-    if (-not (Test-Path -LiteralPath $dispatcher -PathType Leaf)) {
+    if (-not (Test-Path -LiteralPath $dispatcher -PathType Leaf) -or -not (Test-Path -LiteralPath (Join-Path $pluginRoot 'dist/index.html') -PathType Leaf)) {
+        if (Test-Path -LiteralPath $dispatcher -PathType Leaf) {
+            if ((Get-FileHash -LiteralPath $dispatcher -Algorithm SHA256).Hash.ToLowerInvariant() -ne $dispatcherHash) { throw 'Existing dispatcher is unapproved; restore pinned source or re-extract the approved package before retrying.' }
+        }
         $sourceFiles = @('manifest.json','package.json','bun.lock','vite.config.ts','vite.config.main.ts','src/main.ts','src/ui/index.html')
         foreach ($relative in $sourceFiles) {
             if (-not (Test-Path -LiteralPath (Join-Path $pluginRoot $relative) -PathType Leaf)) {

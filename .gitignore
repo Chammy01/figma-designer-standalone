@@ -24,4 +24,4 @@ __pycache__/
 bin/figma-mcp-go.exe
 release/
 release-staging/
-# Approved plugin dist, manifests, sources/tests and inactive skill reference material are intentionally retained.
+# Generated MCP executable and plugin dist are omitted; manifests, sources/tests and inactive skill references are retained.

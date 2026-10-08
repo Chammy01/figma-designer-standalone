@@ -11,8 +11,9 @@
   "previousApprovedMcpSha256": "7ef0688e0dccf1abc52b0fd903b9bb2f907af898b548f73a419d9daded574ccb",
   "publicBuild": {
     "goVersion": "go1.26.1 windows/amd64",
-    "command": "CGO_ENABLED=0 go build -trimpath -ldflags \"-X main.version=1.2.0-standalone-hardening\" -o <staging>/bin/figma-mcp-go.exe ./cmd/figma-mcp-go",
+    "command": "CGO_ENABLED=0 go build -trimpath -buildvcs=false -ldflags \"-X main.version=1.2.0-standalone-hardening\" -o <staging>/bin/figma-mcp-go.exe ./cmd/figma-mcp-go",
     "source": "unchanged pinned vendor source",
-    "buildMetadataDifference": "Go module (devel), no VCS stamping in non-Git source candidate; trimpath=true"
+    "buildMetadataDifference": "Go module (devel); buildvcs=false explicitly reproduces the approved non-Git release metadata; trimpath=true",
+    "sourceBootstrapPolicy": "Go 1.26.1 windows/amd64, CGO_ENABLED=0; exact approved SHA-256 for both source builds and packaged executables. Never accept a local receipt/version alone."
   }
 }

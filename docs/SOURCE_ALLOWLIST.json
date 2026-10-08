@@ -249,5 +249,7 @@
   "vendor/figma-mcp/plugin/tsconfig.json",
   "vendor/figma-mcp/plugin/vite.config.main.ts",
   "vendor/figma-mcp/plugin/vite.config.ts",
-  "vendor/figma-mcp/README.md"
+  "vendor/figma-mcp/README.md",
+  "docs/SOURCE_BOOTSTRAP.md",
+  "scripts/source-bootstrap.test.ps1"
 ]

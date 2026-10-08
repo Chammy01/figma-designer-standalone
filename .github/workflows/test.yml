@@ -58,3 +58,14 @@ jobs:
         working-directory: vendor/figma-mcp
       - run: go vet ./...
         working-directory: vendor/figma-mcp
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.15.0'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.2'
+      - name: Install compatible OpenCode on disposable runner
+        run: npm install --global @opencode/cli@2.0.24
+      - name: Real clean source archive and release setup regression
+        shell: pwsh
+        run: ./scripts/source-bootstrap.test.ps1 -OutputRoot "${{ runner.temp }}/Source bootstrap acceptance"

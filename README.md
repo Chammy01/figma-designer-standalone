@@ -25,6 +25,10 @@ Designers, students, and product builders who want to start with a written brief
 
 Windows x64, Figma Desktop with development-plugin access, Node.js 20+ and npm, and OpenCode available in your terminal. Internet is needed for installation and your AI provider. OpenCode may require provider sign-in; provider access, limits, and costs are separate. The preserved model is `opencode/space-bunny-free`; availability must be checked in OpenCode. If unavailable, choose a provider/model deliberately; setup does not change it.
 
+## Normal users — Windows Release ZIP
+
+Download **Figma-Designer-v1.2.1-beta.1-Windows.zip**. Do **NOT** use GitHub's automatically generated **Source code (zip)** if you just want to use Figma Designer. That source archive requires developer build toolchains, just like a Git clone.
+
 ## Quick Start
 
 1. Download `Figma-Designer-v1.2.1-beta.1-Windows.zip` from the repository's **Releases → Assets** when available. Do not choose GitHub's automatic Source code ZIP.
@@ -75,9 +79,17 @@ Figma is not a full application runtime. Browser PASS does not establish complet
 
 Extract into a new folder and preserve configuration/output. See [Updating](docs/UPDATING.md).
 
-## Developer setup
+## Developers / contributors — Git clone or Source code ZIP
 
-This source candidate retains source/tests, lockfiles, and required skills. Generated plugin assets are omitted from Git. Run the same setup command above: it installs the plugin's pinned dependencies, builds missing assets from checked-out source, and verifies the dispatcher against the approved release hash. No manual Bun build is normally needed. An approved dispatcher already in a Release ZIP is verified and preserved without rebuilding. Source checkouts require Bun 1.4.2 as a one-time build prerequisite; setup explains recovery if it is missing. The MCP executable is supplied separately by the Release ZIP; that prerequisite remains required for full setup success. See [Installation](docs/INSTALLATION.md), [Development](docs/DEVELOPMENT.md), and [Release packaging](docs/RELEASE_PACKAGING.md).
+Git clone is a supported self-building installation. The repository intentionally excludes generated `bin/figma-mcp-go.exe` and plugin `dist` assets. Install **Go 1.26.1 for Windows x64** and **Bun 1.4.2**, plus the normal Node/npm/OpenCode prerequisites, then run:
+
+```powershell
+git clone https://github.com/Chammy01/figma-designer-standalone.git
+Set-Location figma-designer-standalone
+powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -Configure -InstallDependencies -InstallBrowser
+```
+
+Setup builds missing MCP and plugin runtimes from this checkout's pinned source, verifies all three exact approved SHA-256 hashes, and creates configuration pointing to this folder's executable. GitHub's Source code ZIP follows the same setup path without requiring Git. Existing approved assets are preserved without Go/Bun checks or rebuilds. Setup does not install Go or Bun. See [Installation](docs/INSTALLATION.md), [Development](docs/DEVELOPMENT.md), and [source bootstrap verification](docs/SOURCE_BOOTSTRAP.md).
 
 ## Architecture
 

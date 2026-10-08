@@ -17,10 +17,10 @@ Normal users need no Go/Bun build. Node/npm installs pinned Playwright/Chromium 
 Build the executable from unchanged vendor source with Go 1.26.1 and `CGO_ENABLED=0`:
 
 ```powershell
-go build -trimpath -ldflags "-X main.version=1.2.0-standalone-hardening" -o <staged-runtime>/bin/figma-mcp-go.exe ./cmd/figma-mcp-go
+go build -trimpath -buildvcs=false -ldflags "-X main.version=1.2.0-standalone-hardening" -o <staged-runtime>/bin/figma-mcp-go.exe ./cmd/figma-mcp-go
 ```
 
-Run from `vendor/figma-mcp`. The output placeholder is a contributor staging path, never the installed executable. Copy the unchanged approved plugin core/UI into that runtime root at their recorded relative paths. Verify Go tests/vet, privacy scanning, MCP initialization/version/catalog/rejection probes, and the full safe regressions before recording the public hash in `APPROVED_RUNTIME.json`.
+Run from `vendor/figma-mcp`. The output placeholder is a contributor staging path. Source setup uses the same command with a temporary output before exact-hash verification and installation. `-buildvcs=false` explicitly reproduces the approved non-Git metadata for Git clones too. Build plugin core/UI from pinned source using Bun 1.4.2 (`bun install --frozen-lockfile`, `bun run build`) and verify their approved hashes in that runtime root; no maintainer artifact copying is needed. Verify Go tests/vet, privacy scanning, MCP initialization/version/catalog/rejection probes, and the full safe regressions before recording the public hash in `APPROVED_RUNTIME.json`.
 
 From the source root, package into fresh external staging:
 

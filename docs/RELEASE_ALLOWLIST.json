@@ -125,5 +125,6 @@
   "vendor/figma-mcp/plugin/dist/code.js",
   "vendor/figma-mcp/plugin/dist/index.html",
   "vendor/figma-mcp/plugin/manifest.json",
-  "VERSION"
+  "VERSION",
+  "docs/SOURCE_BOOTSTRAP.md"
 ]

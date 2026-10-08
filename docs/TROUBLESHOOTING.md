@@ -111,3 +111,13 @@ Resolve every FAIL; setup gives the recovery command if the build tool or depend
 **What to do:** Decide whether the new design is accepted. If so, export and test it again, then check status. Do not overwrite output merely to hide a failure.
 
 **Technical details:** Local/source/overall freshness are separate. A browser PASS can coexist with STALE; timestamps alone cannot prove freshness.
+
+## Setup cannot prepare or verify the Figma MCP runtime
+
+**Problem:** `bin/figma-mcp-go.exe` is missing, a Go build failed, or its SHA-256 is unapproved.
+
+**Why it matters:** OpenCode cannot start the supported Figma MCP connector; plugin preparation alone does not establish readiness.
+
+**What to do:** For a Git clone or GitHub Source code ZIP, install Go 1.26.1 for Windows x64 from [Go downloads](https://go.dev/dl/), reopen PowerShell, and rerun the documented setup command. Setup also needs Bun 1.4.2 if plugin assets are missing. Restore incomplete/modified pinned source and lockfiles before retrying. For an incomplete or altered official Windows Release ZIP, re-extract the complete approved ZIP; it does not require Go/Bun. Do not copy executables from another installation. Existing unapproved executables are preserved for inspection: after restoring pinned source, remove only `bin/figma-mcp-go.exe` if you deliberately want setup to rebuild it.
+
+**Technical detail:** Setup uses Go 1.26.1, CGO disabled, Windows amd64, trimpath, the pinned MCP version, and no VCS stamping. A source build must match the exact approved Release SHA-256 before its temporary output is installed. Failures remove temporary output and exit nonzero without readiness instructions. Arbitrary source markers or local build receipts never relax verification. See [SOURCE_BOOTSTRAP](SOURCE_BOOTSTRAP.md).
