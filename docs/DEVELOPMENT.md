@@ -52,7 +52,9 @@ The source candidate omits the MCP executable. For local development only, creat
 go build -trimpath -ldflags "-X main.version=1.2.0-standalone-hardening" -o ../../bin/figma-mcp-go.exe ./cmd/figma-mcp-go
 ```
 
-Plugin `bun run build` rebuilds UI and core. Do not run it to recreate the approved release artifacts: the UI/core hashes must remain the exact activated ones for this beta. A locally rebuilt executable is not automatically approved for release. Use the validated sanitized public executable and unchanged approved plugin assets with [packaging](RELEASE_PACKAGING.md). Never install a new pair into a working user project without deliberate activation and rollback verification.
+Plugin `bun run build` rebuilds UI and core. Setup uses this path only when the dispatcher is absent, with Bun 1.4.2 and the frozen lockfile, and requires the existing approved dispatcher hash. It preserves an already approved dispatcher without rebuilding. UI/core hashes must remain the exact approved ones for this beta. A locally rebuilt executable is not automatically approved for release. Use the validated sanitized public executable and approved plugin assets with [packaging](RELEASE_PACKAGING.md). Never install a new pair into a working user project without deliberate activation and rollback verification.
+
+Offline setup regressions: `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/setup.test.ps1`. Release source checks also run them. Fixtures exercise missing source assets, preserved release assets, failed dependencies/build, missing build output/tool/source/hash metadata, wrong Bun version, hash mismatches, and paths containing spaces. Native build commands are stubbed; the separate clean-source test must prove the real pinned build and approved hashes.
 
 ## CI
 

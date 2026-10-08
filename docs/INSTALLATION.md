@@ -19,7 +19,7 @@ Open the extracted folder in File Explorer, type `powershell` in the address bar
 powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -Configure -InstallDependencies -InstallBrowser
 ```
 
-`-Configure` creates only missing local `opencode.json` from the template and your current folder path. `-InstallDependencies` uses `npm ci` with the unchanged lockfile. It replaces only local `node_modules`, as npm ci normally does. `-InstallBrowser` invokes the installed pinned Playwright CLI to install Chromium to its normal user cache. Each action is announced. No elevated terminal is required. Without these flags, setup is detection-only. Setup exits nonzero if required checks fail and prints the corrective step.
+`-Configure` creates only missing local `opencode.json` from the template and your current folder path. `-InstallDependencies` uses `npm ci` with the unchanged lockfile. It replaces only local `node_modules`, as npm ci normally does. `-InstallBrowser` invokes the installed pinned Playwright CLI to install Chromium to its normal user cache. Each action is announced. No elevated terminal is required. Every setup invocation also prepares missing Figma plugin assets from checked-out source and verifies the dispatcher SHA-256 against `APPROVED_RUNTIME.json`. Existing approved ZIP assets are verified without installing plugin dependencies or rebuilding. Other configuration/browser actions require their flags. Setup exits nonzero if required checks fail and prints recovery instructions instead of plugin-import instructions.
 
 Existing config is read and preserved. A wrong executable path is reported; edit only `mcp.figma.command[0]` to the current `bin/figma-mcp-go.exe`, retaining your settings. The placeholder in `opencode.example.json` is not executable and must not be copied unchanged into `opencode.json`.
 
@@ -33,6 +33,16 @@ Run `/figma/doctor` in OpenCode chat. It checks the connected document and local
 
 Chromium is needed for `/figma/browser-test`. It is downloaded during the setup command above. For a design-only session, use `-SkipBrowser` to report browser checks as optional; install it later before browser testing. Do not use SkipBrowser for browser acceptance. Browser testing generates local evidence under `.figma-designer/browser-prototype/`; do not share that folder without reviewing its design content.
 
-Source contributors: follow [Development](DEVELOPMENT.md). The source repository intentionally omits the MCP executable; setup reports that a prebuilt Release ZIP or deliberate contributor build is needed.
+## Source checkout prerequisites
+
+Git intentionally omits generated plugin assets and the MCP executable. Setup handles plugin preparation using the same **Bun 1.4.2** and frozen lockfile as hosted CI. If setup asks for the build tool, install that exact version using the [official Bun installer](https://bun.com/docs/installation#installing-older-versions):
+
+```powershell
+iex "& {$(irm https://bun.com/install.ps1)} -Version 1.4.2"
+```
+
+This separate command installs Bun in your user profile; setup does not install it or change your PATH. Reopen PowerShell in the project folder and rerun the setup command above. Setup runs `bun install --frozen-lockfile` and `bun run build` in `vendor/figma-mcp/plugin` when the dispatcher is missing, then requires the approved hash. You normally do not run those build commands yourself. A failed build, missing output, or hash mismatch blocks readiness. For a source hash mismatch, restore pinned source/lockfiles, remove only the unapproved generated dispatcher using the exact command setup prints, and rerun setup. For an altered ZIP, re-extract the approved package. Do not copy `code.js` from another project.
+
+The MCP executable remains a separate requirement: use the approved Release ZIP for normal use, or follow the deliberate contributor build in [Development](DEVELOPMENT.md). Plugin preparation can pass while setup still reports the missing executable; that does not establish full onboarding readiness.
 
 This bundle uses native Windows PowerShell/OpenCode and a Windows executable. Follow the native Windows npm route above; WSL is not the validated path for this ZIP even though upstream OpenCode recommends WSL generally. Installation reference: [OpenCode official docs](https://opencode.ai/docs/). In OpenCode, `/connect` opens provider setup; follow its prompts and keep any API key in OpenCode's credential storage, never shared project files. `/models` shows model choices if your preserved model is unavailable. The bundled AGENTS.md is already prepared; you do not need `/init` for this project.

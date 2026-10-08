@@ -1,4 +1,4 @@
-# Windows PowerShell 5.1+. Default mode only checks; flags request local actions.
+# Windows PowerShell 5.1+. Always prepare missing plugin assets; flags request other local actions.
 [CmdletBinding()]
 param([switch]$Configure, [switch]$InstallDependencies, [switch]$InstallBrowser, [switch]$SkipBrowser)
 $ErrorActionPreference = 'Stop'
@@ -18,7 +18,7 @@ function ToolVersion([string]$Name) {
     } catch { return $null }
 }
 Write-Host 'Figma Designer Setup'
-Write-Host 'Checks only unless you requested -Configure, -InstallDependencies, or -InstallBrowser.'
+Write-Host 'Prepares missing Figma plugin assets from source. Other installs/configuration require the corresponding flags.'
 Result ($env:OS -eq 'Windows_NT') 'Windows' 'Use the Windows release on Windows.'
 if ($env:OS -ne 'Windows_NT') { exit 1 }
 Result ([Environment]::Is64BitOperatingSystem -and $env:PROCESSOR_ARCHITECTURE -eq 'AMD64') 'Windows x64' 'This beta executable is validated for Windows x64 only.'
@@ -43,13 +43,57 @@ Result ($missing.Count -eq 0) 'Project files' ("Extract the complete Release ZIP
 $exe = Join-Path $ProjectRoot 'bin/figma-mcp-go.exe'
 $manifest = Join-Path $ProjectRoot 'vendor/figma-mcp/plugin/manifest.json'
 Result (Test-Path -LiteralPath $exe -PathType Leaf) 'Figma MCP executable' 'Use the prebuilt Release ZIP. Source contributors: see docs/DEVELOPMENT.md.'
+$pluginRoot = Split-Path -Parent $manifest
+$dispatcher = Join-Path $pluginRoot 'dist/code.js'
+$rerunSetup = 'powershell -NoProfile -ExecutionPolicy Bypass -File "' + (Join-Path $ProjectRoot 'setup.ps1') + '" -Configure -InstallDependencies -InstallBrowser'
+try {
+    $approved = Get-Content -LiteralPath (Join-Path $ProjectRoot 'docs/APPROVED_RUNTIME.json') -Raw | ConvertFrom-Json
+    $dispatcherHash = $approved.sha256.'vendor/figma-mcp/plugin/dist/code.js'
+    if ($dispatcherHash -notmatch '^[a-f0-9]{64}$') { throw 'Approved dispatcher SHA-256 is missing or invalid.' }
+    if (-not (Test-Path -LiteralPath $dispatcher -PathType Leaf)) {
+        $sourceFiles = @('manifest.json','package.json','bun.lock','vite.config.ts','vite.config.main.ts','src/main.ts','src/ui/index.html')
+        foreach ($relative in $sourceFiles) {
+            if (-not (Test-Path -LiteralPath (Join-Path $pluginRoot $relative) -PathType Leaf)) {
+                throw "Plugin source is incomplete ($relative). Restore the complete source checkout or re-extract the Release ZIP."
+            }
+        }
+        Result $true 'Figma plugin source' ''
+        $bunVersion = ToolVersion 'bun'
+        if ($bunVersion -ne '1.4.2') {
+            Write-Host '[INFO] Install the same build tool as hosted CI (Bun 1.4.2), then reopen PowerShell:'
+            Write-Host 'iex "& {$(irm https://bun.com/install.ps1)} -Version 1.4.2"'
+            throw "Bun 1.4.2 is required to prepare source assets; detected: $bunVersion. See docs/INSTALLATION.md."
+        }
+        Write-Host '[INFO] Preparing the Figma plugin from checked-out source with pinned dependencies.'
+        Push-Location $pluginRoot
+        try {
+            & bun install --frozen-lockfile
+            if ($LASTEXITCODE -ne 0) { throw 'Plugin dependency installation failed. Check internet/proxy access and the Bun output above.' }
+            Result $true 'Figma plugin dependencies' ''
+            & bun run build
+            if ($LASTEXITCODE -ne 0) { throw 'Plugin build failed. Check the build output above; restore modified source/lockfiles before retrying.' }
+        } finally { Pop-Location }
+        if (-not (Test-Path -LiteralPath $dispatcher -PathType Leaf)) { throw 'The plugin build did not produce dist/code.js.' }
+        Result $true 'Figma plugin build' ''
+    } else { Write-Host '[INFO] Existing Figma plugin dispatcher preserved; no dependency install or rebuild needed.' }
+    $actualHash = (Get-FileHash -LiteralPath $dispatcher -Algorithm SHA256).Hash.ToLowerInvariant()
+    Write-Host "[INFO] Figma plugin dispatcher SHA-256: $actualHash"
+    if ($actualHash -ne $dispatcherHash) {
+        $removeUnapproved = "Remove-Item -LiteralPath '" + $dispatcher.Replace("'", "''") + "'"
+        throw "Dispatcher SHA-256 differs from the approved $($approved.releaseVersion) hash ($dispatcherHash). For a source checkout, restore pinned source/lockfiles, then remove only the unapproved generated dispatcher with: $removeUnapproved. For a Release ZIP, re-extract the approved package. Then rerun setup; do not copy code.js from another project."
+    }
+    Result $true 'Figma plugin dispatcher verified' ''
+} catch {
+    Result $false 'Figma plugin could not be prepared.' 'The plugin needs to be built and verified before Figma can load it.'
+    Write-Host "Recovery: fix the cause below, then run: $rerunSetup"
+    Write-Host "Technical details: $($_.Exception.Message)"
+}
 $pluginOK = $false
 try {
     $plugin = Get-Content -LiteralPath $manifest -Raw | ConvertFrom-Json
-    $pluginRoot = Split-Path -Parent $manifest
     $pluginOK = (Test-Path -LiteralPath (Join-Path $pluginRoot $plugin.main) -PathType Leaf) -and (Test-Path -LiteralPath (Join-Path $pluginRoot $plugin.ui) -PathType Leaf)
 } catch {}
-Result $pluginOK 'Figma plugin manifest and assets' 'Extract the complete ZIP; manifest.json and both dist assets must stay together.'
+Result $pluginOK 'Figma plugin manifest and assets' 'Run setup.ps1 again to prepare source assets, or re-extract the complete Release ZIP.'
 try {
     $approved = Get-Content -LiteralPath (Join-Path $ProjectRoot 'docs/APPROVED_RUNTIME.json') -Raw | ConvertFrom-Json
     $hashOK = $true
@@ -113,17 +157,17 @@ else {
     Result $browserOK 'Chromium browser files' 'Run with -InstallBrowser. This file check does not prove a browser launch succeeds.'
 }
 if ($script:Failures -gt 0) { Write-Host 'Fix the FAIL items, then run setup again. See docs/TROUBLESHOOTING.md.'; exit 1 }
-Write-Host @'
+Write-Host @"
 
 Next:
 1. Open a design file in Figma Desktop.
 2. Plugins > Development > Import plugin from manifest.
-3. Select vendor\figma-mcp\plugin\manifest.json in this folder.
-4. Start OpenCode in this folder by typing: opencode
-5. Run the imported plugin in Figma and keep its window open. Wait for Connected.
+3. Import: $manifest
+4. Run the imported plugin in Figma and keep its window open.
+5. Open OpenCode in this folder by typing: opencode. Wait for the plugin to say Connected.
 6. In OpenCode chat run: /figma/doctor
 7. Try: /figma/design Create a simple portfolio landing page.
 
 Setup checks local readiness. Doctor checks the connected Figma document.
-'@
+"@
 exit 0

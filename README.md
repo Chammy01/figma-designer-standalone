@@ -35,7 +35,7 @@ Windows x64, Figma Desktop with development-plugin access, Node.js 20+ and npm, 
    powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -Configure -InstallDependencies -InstallBrowser
    ```
 
-   This exception applies only to this process. The script announces local config creation and dependency/browser installation; it changes no global configuration and preserves existing `opencode.json`.
+   This exception applies only to this process. The script announces local config creation and dependency/browser installation, and prepares and verifies the Figma plugin before printing its import path. It changes no global configuration and preserves existing `opencode.json`. Resolve every FAIL before importing the plugin.
 4. Open a Figma design file. In **Plugins → Development → Import plugin from manifest**, choose `vendor\figma-mcp\plugin\manifest.json` inside the extracted folder.
 5. In the same PowerShell window run `opencode`. On first use, follow OpenCode's provider sign-in instructions. Keep it open; then run the imported development plugin in Figma. It should say **Connected**.
 6. In OpenCode's chat enter `/figma/doctor`, then `/figma/design Create a simple portfolio landing page.`
@@ -77,7 +77,7 @@ Extract into a new folder and preserve configuration/output. See [Updating](docs
 
 ## Developer setup
 
-This source candidate retains source/tests, lockfiles, required skills, and the approved plugin assets. The executable is supplied separately by the release ZIP. Contributors need Go 1.26.1 and Bun 1.4.2. See [Development](docs/DEVELOPMENT.md) and [Release packaging](docs/RELEASE_PACKAGING.md).
+This source candidate retains source/tests, lockfiles, and required skills. Generated plugin assets are omitted from Git. Run the same setup command above: it installs the plugin's pinned dependencies, builds missing assets from checked-out source, and verifies the dispatcher against the approved release hash. No manual Bun build is normally needed. An approved dispatcher already in a Release ZIP is verified and preserved without rebuilding. Source checkouts require Bun 1.4.2 as a one-time build prerequisite; setup explains recovery if it is missing. The MCP executable is supplied separately by the Release ZIP; that prerequisite remains required for full setup success. See [Installation](docs/INSTALLATION.md), [Development](docs/DEVELOPMENT.md), and [Release packaging](docs/RELEASE_PACKAGING.md).
 
 ## Architecture
 

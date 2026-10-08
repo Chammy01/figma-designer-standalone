@@ -39,6 +39,11 @@ jobs:
           if (-not (Test-Path -LiteralPath vendor/figma-mcp/plugin/dist/code.js -PathType Leaf)) {
             throw 'Plugin build did not produce dist/code.js.'
           }
+          $approved = Get-Content -LiteralPath docs/APPROVED_RUNTIME.json -Raw | ConvertFrom-Json
+          $hash = (Get-FileHash -LiteralPath vendor/figma-mcp/plugin/dist/code.js -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($hash -ne $approved.sha256.'vendor/figma-mcp/plugin/dist/code.js') {
+            throw 'Built dispatcher differs from the approved release hash.'
+          }
           $env:FIGMA_PLUGIN_BUNDLE = (Resolve-Path vendor/figma-mcp/plugin/dist/code.js).Path
           bun test scripts/figma-hardening.test.ts scripts/figma-variants.test.ts scripts/figma-live-source.test.ts
   go:

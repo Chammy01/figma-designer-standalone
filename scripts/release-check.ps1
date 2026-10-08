@@ -7,6 +7,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $failures = @()
+& (Join-Path $PSScriptRoot 'setup.test.ps1')
 & node (Join-Path $PSScriptRoot 'release-privacy-check.mjs') --self-check
 if ($LASTEXITCODE -ne 0) { $failures += 'Binary privacy scanner self-check' }
 $allowlist = Get-Content -LiteralPath (Join-Path $root 'docs/RELEASE_ALLOWLIST.json') -Raw | ConvertFrom-Json
@@ -89,6 +90,6 @@ $ErrorActionPreference = 'Stop'
 if ($packageExit -eq 0 -or (Test-Path -LiteralPath $output)) { $failures += 'Packaging runtime hash stop gate' }
 # Test fixtures contain no user data and are retained in the OS temporary directory.
 if ($failures.Count) { throw ($failures -join "`n") }
-Write-Host "$Mode checks PASS: source files, JSON, PowerShell/JS syntax, approved config, setup path/config preservation, invalid-config failure, and packaging runtime mismatch stop."
+Write-Host "$Mode checks PASS: source files, JSON, PowerShell/JS syntax, approved config, plugin setup regressions, setup path/config preservation, invalid-config failure, and packaging runtime mismatch stop."
 if ($Mode -eq 'Release') { Write-Host 'Release runtime PASS: all approved artifact hashes and executable privacy.' }
 exit 0

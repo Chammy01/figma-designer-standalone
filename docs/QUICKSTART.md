@@ -16,11 +16,11 @@ In File Explorer's address bar type `powershell` and press Enter. This opens a t
 powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -Configure -InstallDependencies -InstallBrowser
 ```
 
-The process-only execution-policy flag does not change Windows' global policy. If your organization blocks scripts, ask its administrator. Setup announces each requested action. It creates local `opencode.json` only if absent, installs the pinned local dependencies, and downloads Chromium to Playwright's normal user cache. It does not install Go/Bun, change your provider, or overwrite existing config. Internet is required. Resolve any FAIL before proceeding. Running `powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1` alone just checks readiness.
+The process-only execution-policy flag does not change Windows' global policy. If your organization blocks scripts, ask its administrator. Setup announces each requested action. It creates local `opencode.json` only if absent, installs the pinned local dependencies, and downloads Chromium to Playwright's normal user cache. It also prepares and verifies the Figma plugin: approved ZIP assets are preserved, while missing source-checkout assets are built automatically. It does not install Go/Bun, change your provider, or overwrite existing config. Internet is required. Resolve any FAIL before proceeding. Running setup alone still prepares missing plugin assets; configuration and browser installs require the flags above. If using a Git clone, follow the source prerequisites in [Installation](INSTALLATION.md); normally you do not run Bun manually.
 
 ## 3. Import the development plugin
 
-Open Figma Desktop and create/open a **design file**, preferably a new empty practice file. In its menu find **Plugins → Development → Import plugin from manifest**. Select `vendor\figma-mcp\plugin\manifest.json` in the extracted folder. Keep both files in its `dist` subfolder. Menu wording may vary by Figma version; search Figma's plugin menu for Development if needed.
+After setup succeeds and reports **Figma plugin dispatcher verified**, open Figma Desktop and create/open a **design file**, preferably a new empty practice file. In its menu find **Plugins → Development → Import plugin from manifest**. Select the full manifest path printed by setup (`vendor\figma-mcp\plugin\manifest.json` inside your project). Keep both files in its `dist` subfolder. Menu wording may vary by Figma version; search Figma's plugin menu for Development if needed.
 
 ## 4. Start the plugin and OpenCode
 

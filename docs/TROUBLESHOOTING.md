@@ -50,6 +50,20 @@ Find the message you see. Share version/error text through the Setup Problem for
 
 **Technical details:** Keep `manifest.json`, `dist/code.js`, and `dist/index.html` together. Development-plugin access may depend on your Figma environment.
 
+## "An error occurred while loading the plugin environment"
+
+**What it means:** Figma may have imported a manifest whose generated runtime is missing. A clean Git clone does not include the dispatcher.
+
+**What to do:** From the folder containing `setup.ps1`, rerun:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -Configure -InstallDependencies -InstallBrowser
+```
+
+Resolve every FAIL; setup gives the recovery command if the build tool or dependencies are unavailable. Then import the full manifest path printed by successful setup and run the plugin again. Do not copy `code.js` manually from another checkout. If an approved ZIP is incomplete or altered, re-extract it before rerunning setup.
+
+**Technical details:** Check whether `vendor/figma-mcp/plugin/dist/code.js` exists, alongside `dist/index.html`. Setup builds absent source assets with Bun 1.4.2 and the frozen lockfile, then verifies SHA-256 against `docs/APPROVED_RUNTIME.json`. An existing mismatched dispatcher fails verification and is not overwritten. Figma's console may show `ENOENT`, `Unable to load code`, or `web:getLocalFileExtensionSource` when the dispatcher is missing. `/figma/doctor` checks the local runtime before connection diagnostics without changing Figma.
+
 ## Browser test fails
 
 **What it means:** The export did not satisfy one or more browser checks.
