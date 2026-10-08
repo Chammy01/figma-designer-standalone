@@ -52,7 +52,7 @@ $inputs = @{}
 foreach ($relative in $allowlist) {
     if ($relative -match '(^|/)(node_modules|\.git|\.figma-designer|\.orca|out)(/|$)' -or $relative -match '\.test\.' -or $relative -match '\.(log|zip|bak)$') { throw "Forbidden release entry: $relative" }
     $root = $ProjectRoot
-    if ($relative -eq 'bin/figma-mcp-go.exe') { $root = $RuntimeRoot }
+    if ($relative -in @($approved.sha256.PSObject.Properties.Name)) { $root = $RuntimeRoot }
     $inputs[$relative] = AllowedFile $root $relative
 }
 foreach ($entry in $approved.sha256.PSObject.Properties) {

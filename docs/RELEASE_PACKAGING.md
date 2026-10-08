@@ -2,7 +2,7 @@
 
 ## GitHub source candidate
 
-`SOURCE_ALLOWLIST.json` records the baseline files retained in the public candidate. Source/tests, pinned lockfiles, agents/core commands, rules, the MIT root LICENSE, full third-party notices, and approved plugin assets remain. Vendor upstream is pinned to `5806e71b8fd4bad97671038a0b010f04df1aaa41`; its custom variants, hardening, collector, and timeouts retain their bytes. No Git or nested repository is initialized.
+`SOURCE_ALLOWLIST.json` records the baseline files retained in the public candidate. Source/tests, pinned lockfiles, agents/core commands, rules, the MIT root LICENSE, and full third-party notices remain. Generated plugin assets are omitted from Git; source CI builds them with the committed Bun lockfile before dispatcher regressions. Approved release assets are supplied separately. Vendor upstream is pinned to `5806e71b8fd4bad97671038a0b010f04df1aaa41`; its custom variants, hardening, collector, and timeouts retain their bytes.
 
 Optional Impeccable engine/launchers/command are removed. Its active skill is archived as reference-only material; original license/notice texts remain. See [the engine audit](SKILL_ENGINE_AUDIT.md). Dependencies, staging/evidence, configuration, logs, generated history, private design data, caches, and arbitrary archives are excluded from source inventories.
 
@@ -28,6 +28,8 @@ From the source root, package into fresh external staging:
 .\scripts\package-release.ps1 -RuntimeRoot <sanitized-approved-runtime> -OutputRoot <fresh-release-folder>
 ```
 
-The script rejects existing output, runtime hash mismatches, traversal/reparse points, missing root LICENSE, optional engine material, and private compiler paths before creating staging. It copies exact allowlisted files, verifies hashes and every ZIP entry, and regenerates `SHA256SUMS.txt` and `RUNTIME_SHA256SUMS.txt`. Hidden `.opencode` files are included. Checksums establish content identity; they are not publisher signatures.
+The script takes all three approved artifacts (MCP executable, plugin dispatcher, and UI) from RuntimeRoot, and other files from source. It rejects existing output, runtime hash mismatches, traversal/reparse points, missing root LICENSE, optional engine material, and private compiler paths before creating staging. It copies exact allowlisted files, verifies hashes and every ZIP entry, and regenerates `SHA256SUMS.txt` and `RUNTIME_SHA256SUMS.txt`. Hidden `.opencode` files are included. Checksums establish content identity; they are not publisher signatures.
+
+Use `scripts/release-check.ps1 -Mode Source` for a source checkout, even before build. Use `-Mode Release -RuntimeRoot <approved-runtime-folder>` to additionally require every approved runtime hash and executable privacy. A source build passing regressions does not automatically approve replacement release assets.
 
 Original working files are never build/cleanup targets. Publication and the post-public GitHub security toggle remain separate [launch actions](LAUNCH_CHECKLIST.md).

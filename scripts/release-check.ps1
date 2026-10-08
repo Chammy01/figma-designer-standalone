@@ -1,4 +1,9 @@
 # Offline JSON/syntax checks plus small behavior checks for setup/packaging.
+[CmdletBinding()]
+param(
+    [ValidateSet('Source','Release')][string]$Mode = 'Source',
+    [string]$RuntimeRoot
+)
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $failures = @()
@@ -32,8 +37,21 @@ foreach ($file in Get-ChildItem -LiteralPath $PSScriptRoot -File | Where-Object 
 $template = Get-Content -LiteralPath (Join-Path $root 'opencode.example.json') -Raw | ConvertFrom-Json
 if ($template.model -ne 'opencode/space-bunny-free' -or $template.default_agent -ne 'web-designer' -or $template.mcp.figma.timeout -ne 10000 -or $template.mcp.figma.command[0] -ne '__SETUP_MANAGED_MCP_EXECUTABLE__') { $failures += 'Preserved config policy' }
 $approved = Get-Content -LiteralPath (Join-Path $root 'docs/APPROVED_RUNTIME.json') -Raw | ConvertFrom-Json
-foreach ($entry in $approved.sha256.PSObject.Properties | Where-Object { $_.Name -ne 'bin/figma-mcp-go.exe' }) {
-    if ((Get-FileHash -LiteralPath (Join-Path $root $entry.Name) -Algorithm SHA256).Hash.ToLowerInvariant() -ne $entry.Value) { $failures += "Approved plugin: $($entry.Name)" }
+$sourceFiles = Get-Content -LiteralPath (Join-Path $root 'docs/SOURCE_ALLOWLIST.json') -Raw | ConvertFrom-Json
+foreach ($relative in $sourceFiles | Where-Object { $_ -notin @($approved.sha256.PSObject.Properties.Name) }) {
+    if (-not (Test-Path -LiteralPath (Join-Path $root $relative) -PathType Leaf)) { $failures += "Source file missing: $relative" }
+}
+if ($Mode -eq 'Release') {
+    if (-not $RuntimeRoot) { $RuntimeRoot = $root }
+    foreach ($entry in $approved.sha256.PSObject.Properties) {
+        $file = Join-Path $RuntimeRoot $entry.Name
+        if (-not (Test-Path -LiteralPath $file -PathType Leaf)) { $failures += "Approved runtime missing: $($entry.Name)" }
+        elseif ((Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash.ToLowerInvariant() -ne $entry.Value) { $failures += "Approved runtime hash: $($entry.Name)" }
+    }
+    if (-not $failures.Count) {
+        & node (Join-Path $PSScriptRoot 'release-privacy-check.mjs') (Join-Path $RuntimeRoot 'bin/figma-mcp-go.exe')
+        if ($LASTEXITCODE -ne 0) { $failures += 'Approved runtime binary privacy' }
+    }
 }
 $temporary = Join-Path ([IO.Path]::GetTempPath()) ('figma-release-check-' + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $temporary | Out-Null
@@ -71,5 +89,6 @@ $ErrorActionPreference = 'Stop'
 if ($packageExit -eq 0 -or (Test-Path -LiteralPath $output)) { $failures += 'Packaging runtime hash stop gate' }
 # Test fixtures contain no user data and are retained in the OS temporary directory.
 if ($failures.Count) { throw ($failures -join "`n") }
-Write-Host 'Release checks PASS: JSON, PowerShell/JS syntax, approved config/plugin identity, setup path/config preservation, invalid-config failure, and runtime mismatch stop.'
+Write-Host "$Mode checks PASS: source files, JSON, PowerShell/JS syntax, approved config, setup path/config preservation, invalid-config failure, and packaging runtime mismatch stop."
+if ($Mode -eq 'Release') { Write-Host 'Release runtime PASS: all approved artifact hashes and executable privacy.' }
 exit 0

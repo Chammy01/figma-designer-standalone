@@ -4,7 +4,7 @@ Figma Designer lets you describe an interface in plain English and have OpenCode
 
 No prior MCP knowledge is required. You do not need to understand AI agents to begin. This public beta candidate is Windows-focused. Normal users should download the **GitHub Release ZIP**, rather than build the project themselves. No Go or Bun builds are needed for that ZIP.
 
-Release publication is pending. The intended repository is [Chammy01/figma-designer-standalone](https://github.com/Chammy01/figma-designer-standalone); it must remain PRIVATE until the owner chooses the root license. Links to GitHub will become usable after repository creation and authorized publication.
+Release publication is pending. [Chammy01/figma-designer-standalone](https://github.com/Chammy01/figma-designer-standalone) is currently private while beta validation is completed. The root project license is [MIT](LICENSE); public visibility and release publication require separate authorization.
 
 ## Demo
 

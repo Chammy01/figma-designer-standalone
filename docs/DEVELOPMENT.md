@@ -12,9 +12,13 @@ npm run test:source
 npm run test:browser
 ```
 
-The browser integration suite uses isolated fixtures/Chromium, not a live Figma document. Install Chromium with `npm run figma:install-browser` first. Root contract/freshness, hardening/variants, and live-source tests use mocks/local state. Packaged dispatcher verification:
+The browser integration suite uses isolated fixtures/Chromium, not a live Figma document. Install Chromium with `npm run figma:install-browser` first. Root contract/freshness, hardening/variants, and live-source tests use mocks/local state. A fresh source checkout omits generated plugin assets. Build them with the committed lockfile before dispatcher verification:
 
 ```powershell
+Push-Location vendor/figma-mcp/plugin
+bun install --frozen-lockfile
+bun run build
+Pop-Location
 $env:FIGMA_PLUGIN_BUNDLE = (Resolve-Path vendor/figma-mcp/plugin/dist/code.js).Path
 bun test scripts/figma-hardening.test.ts scripts/figma-variants.test.ts scripts/figma-live-source.test.ts
 Remove-Item Env:FIGMA_PLUGIN_BUNDLE
@@ -52,4 +56,6 @@ Plugin `bun run build` rebuilds UI and core. Do not run it to recreate the appro
 
 ## CI
 
-Offline suites run without Figma Desktop. CI separately pins Node, Bun, and Go and checks contracts, freshness, plugin units, packaged dispatcher, Go tests/vet, syntax, and release-engineering self-checks. No model/provider invocation or live write is needed. See [Contributing](../CONTRIBUTING.md).
+Offline suites run without Figma Desktop. CI separately pins Node, Bun, and Go and checks contracts, freshness, plugin units, the freshly built dispatcher, Go tests/vet, syntax, and source release-engineering checks. No model/provider invocation or live write is needed. See [Contributing](../CONTRIBUTING.md).
+
+`scripts/release-check.ps1 -Mode Source` (the default) checks source files/configuration/syntax and packaging failure guards without requiring generated release artifacts. `scripts/release-check.ps1 -Mode Release -RuntimeRoot <approved-runtime-folder>` additionally requires the executable, dispatcher, and UI with every hash in APPROVED_RUNTIME.json and executable privacy checks. Packaging also takes all three approved runtime artifacts from RuntimeRoot and retains its exact hash, allowlist, privacy, and ZIP gates. A successful CI build is regression evidence, not approval to replace a release artifact; see [CI build verification](HOSTED_CI_FIX.md).
