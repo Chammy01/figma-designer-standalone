@@ -1,0 +1,66 @@
+{
+  "oldSha256": "7ef0688e0dccf1abc52b0fd903b9bb2f907af898b548f73a419d9daded574ccb",
+  "newSha256": "bc9eec0d9a9cddd20e27331a41319a59b84bd51f88a78e59885b901456562f3f",
+  "bytes": 24238592,
+  "go": "go1.26.1 windows/amd64",
+  "counts": [
+    {
+      "category": "Windows user root",
+      "ascii": 0,
+      "utf16le": 0,
+      "utf16leUnaligned": 0
+    },
+    {
+      "category": "Windows user root forward",
+      "ascii": 0,
+      "utf16le": 0,
+      "utf16leUnaligned": 0
+    },
+    {
+      "category": "E drive backslash",
+      "ascii": 0,
+      "utf16le": 0,
+      "utf16leUnaligned": 0
+    },
+    {
+      "category": "E drive forward",
+      "ascii": 1,
+      "utf16le": 0,
+      "utf16leUnaligned": 0,
+      "classifiedNonPathBytes": 1,
+      "privatePathMatches": 0
+    },
+    {
+      "category": "original checkout name",
+      "ascii": 0,
+      "utf16le": 0,
+      "utf16leUnaligned": 0
+    },
+    {
+      "category": "public checkout build directory",
+      "ascii": 0,
+      "utf16le": 0,
+      "utf16leUnaligned": 0
+    },
+    {
+      "category": "Go compiler workspace",
+      "ascii": 0,
+      "utf16le": 0,
+      "utf16leUnaligned": 0
+    },
+    {
+      "category": "old builder identity 1",
+      "ascii": 0,
+      "utf16le": 0,
+      "utf16leUnaligned": 0
+    }
+  ],
+  "linkedDependencies": "identical names, versions, and checksums",
+  "classifications": [
+    "Module-relative package paths and Go standard-library filenames: acceptable public identifiers",
+    "Public CA certificate URLs (including /root/ paths): acceptable public trust-store data",
+    "Short drive-like encoded-data fragments and escaped JSON struct tags: non-filesystem syntax",
+    "Private builder/user/checkout and compiler workspace paths: none found"
+  ],
+  "result": "PASS"
+}

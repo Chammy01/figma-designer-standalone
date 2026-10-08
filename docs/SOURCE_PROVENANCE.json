@@ -1,0 +1,1280 @@
+{
+  "upstreamCommit": "5806e71b8fd4bad97671038a0b010f04df1aaa41",
+  "baselineCopiedFiles": 252,
+  "baselineOriginalPreserved": true,
+  "baselineOriginalFileCount": 4642,
+  "candidatePresentationOnlyChanges": [
+    ".opencode/commands/figma/doctor.md",
+    ".opencode/commands/figma/version.md"
+  ],
+  "copiedFiles": [
+    {
+      "file": ".opencode/agents/figma-designer.md",
+      "baselineSha256": "ecabe85ac950a761b1a388a2d528d6fc328db0f9e3025af25ccff250d131a2cb",
+      "candidateSha256": "ecabe85ac950a761b1a388a2d528d6fc328db0f9e3025af25ccff250d131a2cb"
+    },
+    {
+      "file": ".opencode/agents/web-designer.md",
+      "baselineSha256": "d06853470ee6b3ef55654325255c2f015ffc3470cfa7d3958819b60c091c6aef",
+      "candidateSha256": "d06853470ee6b3ef55654325255c2f015ffc3470cfa7d3958819b60c091c6aef"
+    },
+    {
+      "file": ".opencode/commands/figma/browser-test.md",
+      "baselineSha256": "947be1ce58c3ed5ae09dfdee82d1d0cd7ffd50702418f8afe699158b08ca30a2",
+      "candidateSha256": "947be1ce58c3ed5ae09dfdee82d1d0cd7ffd50702418f8afe699158b08ca30a2"
+    },
+    {
+      "file": ".opencode/commands/figma/browser.md",
+      "baselineSha256": "7fe54c5c848fff770e614b24e642923122faf4e6b6501ba44e9ac2be7b211352",
+      "candidateSha256": "7fe54c5c848fff770e614b24e642923122faf4e6b6501ba44e9ac2be7b211352"
+    },
+    {
+      "file": ".opencode/commands/figma/design.md",
+      "baselineSha256": "bb3ab2165e71586756045490e324a5e4ef3a0e3c3e98ec9ce74b68d1d48c3bb0",
+      "candidateSha256": "bb3ab2165e71586756045490e324a5e4ef3a0e3c3e98ec9ce74b68d1d48c3bb0"
+    },
+    {
+      "file": ".opencode/commands/figma/doctor.md",
+      "baselineSha256": "ab080fcd34b6b283214a92d54fb9c96af4ea5846d2a4ad6e12b6eca9a7d5f439",
+      "candidateSha256": "1b777593f2b416d843dfac4eb333eac305b7f351b4d2376bf3cce35658f28003"
+    },
+    {
+      "file": ".opencode/commands/figma/flow.md",
+      "baselineSha256": "1369eca532d2a1d64120ef9d012d805ce3e5ecc5ad23f8971eb5f5e1b6a4b0af",
+      "candidateSha256": "1369eca532d2a1d64120ef9d012d805ce3e5ecc5ad23f8971eb5f5e1b6a4b0af"
+    },
+    {
+      "file": ".opencode/commands/figma/interactive.md",
+      "baselineSha256": "9d5437eab955dfe5e245c41b57c71e34ae2dbe36a959bedac539fe322484c0cc",
+      "candidateSha256": "9d5437eab955dfe5e245c41b57c71e34ae2dbe36a959bedac539fe322484c0cc"
+    },
+    {
+      "file": ".opencode/commands/figma/motion.md",
+      "baselineSha256": "d2f007e362987cf70dfd6db66625430f7aaf8bd4dd9fe818c0ae68a98b75b707",
+      "candidateSha256": "d2f007e362987cf70dfd6db66625430f7aaf8bd4dd9fe818c0ae68a98b75b707"
+    },
+    {
+      "file": ".opencode/commands/figma/qa.md",
+      "baselineSha256": "c79af342debb969546cf4db74ae1e4d4dc29a303b6c9ad19e9611e57de188a81",
+      "candidateSha256": "c79af342debb969546cf4db74ae1e4d4dc29a303b6c9ad19e9611e57de188a81"
+    },
+    {
+      "file": ".opencode/commands/figma/revise.md",
+      "baselineSha256": "4c1ca7ebeb90a1f4904ccbcc17106ad3b929c1900ec71c71c51fafc97819ff06",
+      "candidateSha256": "4c1ca7ebeb90a1f4904ccbcc17106ad3b929c1900ec71c71c51fafc97819ff06"
+    },
+    {
+      "file": ".opencode/commands/figma/setup.md",
+      "baselineSha256": "9ae5e34c1c2a7b70744ecb7b769532f3131d892fc70fad0d32f5a280f89dc700",
+      "candidateSha256": "9ae5e34c1c2a7b70744ecb7b769532f3131d892fc70fad0d32f5a280f89dc700"
+    },
+    {
+      "file": ".opencode/commands/figma/states.md",
+      "baselineSha256": "275908d6173364751e114b4180f3525e75dbabd06a5e2127e416c3518c45a6d8",
+      "candidateSha256": "275908d6173364751e114b4180f3525e75dbabd06a5e2127e416c3518c45a6d8"
+    },
+    {
+      "file": ".opencode/commands/figma/status.md",
+      "baselineSha256": "315678e85a636b3032ff7aec00bf6a6719251a2d07d801ee5fa76d3a681ad91a",
+      "candidateSha256": "315678e85a636b3032ff7aec00bf6a6719251a2d07d801ee5fa76d3a681ad91a"
+    },
+    {
+      "file": ".opencode/commands/figma/version.md",
+      "baselineSha256": "39497ddfaeba82fabe79b8652dce215cc02da95be92afbf7e1fc04aab13d96e4",
+      "candidateSha256": "c044685010e0dbc19457c3dbb9f624ba8b00684453610cdf1d3bda71bf816c80"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/.gitignore",
+      "baselineSha256": "7f98fb16347c0c61c2ffbdac30b15676b4e4b0b9d88eb1ad10e7474fc9d7963f",
+      "candidateSha256": "7f98fb16347c0c61c2ffbdac30b15676b4e4b0b9d88eb1ad10e7474fc9d7963f"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/LICENSE",
+      "baselineSha256": "bb9bcae2e74f5e621b25183bcc1eca7a0c86311a1998b0cf18a74095507868a2",
+      "candidateSha256": "bb9bcae2e74f5e621b25183bcc1eca7a0c86311a1998b0cf18a74095507868a2"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/README.md",
+      "baselineSha256": "0c77dc464d81eec6046f91f5ce0622e32eebc6200e4b4e0fed1a7b416d5ac995",
+      "candidateSha256": "0c77dc464d81eec6046f91f5ce0622e32eebc6200e4b4e0fed1a7b416d5ac995"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/SKILL.md",
+      "baselineSha256": "05e7a109834d9158283ec7377ad824bc76a8f9f7bf2683269e610e429b1e9937",
+      "candidateSha256": "05e7a109834d9158283ec7377ad824bc76a8f9f7bf2683269e610e429b1e9937"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/checklists/accessibility_basics.md",
+      "baselineSha256": "5ef08ab2f119af806215e0bf7b3f0870476ca69cffcbb283c633a91c48419599",
+      "candidateSha256": "5ef08ab2f119af806215e0bf7b3f0870476ca69cffcbb283c633a91c48419599"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/checklists/dashboard_checklist.md",
+      "baselineSha256": "a85524035b92ea67249a87b3740d11e375dc31a12ce0dc674bf39fdac7c30eb9",
+      "candidateSha256": "a85524035b92ea67249a87b3740d11e375dc31a12ce0dc674bf39fdac7c30eb9"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/checklists/landing_page_checklist.md",
+      "baselineSha256": "9eabdcd8f903aceeb92833a12ba103363768f3d9c1487dfe6667572fce491b72",
+      "candidateSha256": "9eabdcd8f903aceeb92833a12ba103363768f3d9c1487dfe6667572fce491b72"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/checklists/ui_review_checklist.md",
+      "baselineSha256": "d669b5f20cf82e53f7d1abd7825b42e488dfe9e270c7733d378f5c8afb5374c7",
+      "candidateSha256": "d669b5f20cf82e53f7d1abd7825b42e488dfe9e270c7733d378f5c8afb5374c7"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/examples/bad_to_good_dashboard.md",
+      "baselineSha256": "dc6a61d2d651991beddb0196813fec08d879d9df70b1411254a78e3189246a0a",
+      "candidateSha256": "dc6a61d2d651991beddb0196813fec08d879d9df70b1411254a78e3189246a0a"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/examples/bad_to_good_landing.md",
+      "baselineSha256": "bc355272b55dda746de9d360b4606fd65e291180a3947591fc06d8e33db30e65",
+      "candidateSha256": "bc355272b55dda746de9d360b4606fd65e291180a3947591fc06d8e33db30e65"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/examples/native_macos_utility_example.md",
+      "baselineSha256": "ff1a1976cf67123244a803ec7422c969be1cef3e08d7aeb0a16402d6956de6f3",
+      "candidateSha256": "ff1a1976cf67123244a803ec7422c969be1cef3e08d7aeb0a16402d6956de6f3"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/examples/prompt_examples.md",
+      "baselineSha256": "b38584fdd6cf924a64f739f21d2da02f4bccd5320756030136ec0c774eff9076",
+      "candidateSha256": "b38584fdd6cf924a64f739f21d2da02f4bccd5320756030136ec0c774eff9076"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/references/anti_slop_patterns.md",
+      "baselineSha256": "c7a9a6aed741f76d4290f96cfc453cf0ed2ebf451bf782e9d90020677862660d",
+      "candidateSha256": "c7a9a6aed741f76d4290f96cfc453cf0ed2ebf451bf782e9d90020677862660d"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/references/layout_patterns.md",
+      "baselineSha256": "9dce5c6b92af479f9d52734c79843d724db921384b30cd427adc6b817688773e",
+      "candidateSha256": "9dce5c6b92af479f9d52734c79843d724db921384b30cd427adc6b817688773e"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/references/motion_rules.md",
+      "baselineSha256": "363dab87bccb7a68e3193af6032d3e8a52890b6d129ebf5f91edb714b3e9863f",
+      "candidateSha256": "363dab87bccb7a68e3193af6032d3e8a52890b6d129ebf5f91edb714b3e9863f"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/references/typography_guidance.md",
+      "baselineSha256": "d8d9bcb2c9297e45e7770c015cedefef84b92b0a7414c92b6c3f8b28ef9da3bd",
+      "candidateSha256": "d8d9bcb2c9297e45e7770c015cedefef84b92b0a7414c92b6c3f8b28ef9da3bd"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/references/visual_directions.md",
+      "baselineSha256": "70fb51b1374f7fbdc0927eb72332d7d8e083b029521e397acca072cd723e8b74",
+      "candidateSha256": "70fb51b1374f7fbdc0927eb72332d7d8e083b029521e397acca072cd723e8b74"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/rubrics/ai_slop_score.md",
+      "baselineSha256": "cf4d546b8685603c46ccfb55aa82344b79b7dd213524429b6ecf396180b112ad",
+      "candidateSha256": "cf4d546b8685603c46ccfb55aa82344b79b7dd213524429b6ecf396180b112ad"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/rubrics/distinctiveness_score.md",
+      "baselineSha256": "0717199cc6f90fe727a1567b6c03ce2c551854866226c0aeb7e9f94ec6b35e97",
+      "candidateSha256": "0717199cc6f90fe727a1567b6c03ce2c551854866226c0aeb7e9f94ec6b35e97"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/rubrics/implementation_readiness_score.md",
+      "baselineSha256": "74b32fe0c7a993de1be48bc1a3488ced081dcc74d2d1340b6a8985202e5ab98d",
+      "candidateSha256": "74b32fe0c7a993de1be48bc1a3488ced081dcc74d2d1340b6a8985202e5ab98d"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/scripts/install_skill.py",
+      "baselineSha256": "2e932bf318a0bc63e587a1eb65ffd1825b065d6f88010aeeeb0cf3101ba6c464",
+      "candidateSha256": "2e932bf318a0bc63e587a1eb65ffd1825b065d6f88010aeeeb0cf3101ba6c464"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/scripts/ui_lint.py",
+      "baselineSha256": "ab8d4ad83aa3b9fd89ea3b7328e7a98619450b44627bdcf807a4c646526cd030",
+      "candidateSha256": "ab8d4ad83aa3b9fd89ea3b7328e7a98619450b44627bdcf807a4c646526cd030"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/templates/design_brief_template.md",
+      "baselineSha256": "dc2bcd6652fc3d8834f775422d3a7f8ff00a1153cb2e2a64f0feb9f1e857627c",
+      "candidateSha256": "dc2bcd6652fc3d8834f775422d3a7f8ff00a1153cb2e2a64f0feb9f1e857627c"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/templates/design_tokens_template.json",
+      "baselineSha256": "6338349626667e521dae983260734355656bbb52b060a03d729afaa2a52c6cb1",
+      "candidateSha256": "6338349626667e521dae983260734355656bbb52b060a03d729afaa2a52c6cb1"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/templates/ui_generation_output.md",
+      "baselineSha256": "bf121591edec2d868cc1b2117d254d9480f882ca97592a2b757e7bc27cad6474",
+      "candidateSha256": "bf121591edec2d868cc1b2117d254d9480f882ca97592a2b757e7bc27cad6474"
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/templates/ui_review_output.md",
+      "baselineSha256": "eafad25bf098cf6c9da01dbb7802af3dc834193fc70d399bcedc8225125481eb",
+      "candidateSha256": "eafad25bf098cf6c9da01dbb7802af3dc834193fc70d399bcedc8225125481eb"
+    },
+    {
+      "file": ".opencode/skills/impeccable/REFERENCE_ONLY.md",
+      "baselineSha256": "ef2e97cd690baf6fe5c895dd2d8844aff9fcc4a8bc04973402678a739c81d712",
+      "candidateSha256": "2d54bb28b6fb8a988dcc149cadb171f2a59c54fc67850b8e43dae6c6bd91046b"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/adapt.md",
+      "baselineSha256": "0648e4e06d01cabc91fa7dc19256ceedeeeea213b9265e9d36b0918370e16fb2",
+      "candidateSha256": "0648e4e06d01cabc91fa7dc19256ceedeeeea213b9265e9d36b0918370e16fb2"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/adapt.native.md",
+      "baselineSha256": "17c583cf8ad41266ea1e787b666b9d91fe13469d3d0f6af57c08e0146f9b17ac",
+      "candidateSha256": "17c583cf8ad41266ea1e787b666b9d91fe13469d3d0f6af57c08e0146f9b17ac"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/android.md",
+      "baselineSha256": "058f81f256134841875fd3183e06b37a023de0c877fd2b9eecd97011640791fe",
+      "candidateSha256": "058f81f256134841875fd3183e06b37a023de0c877fd2b9eecd97011640791fe"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/animate.md",
+      "baselineSha256": "94b4ce6299fea93d9f256b2d25705961a76bc5ea940c56db4145686ebc99df1b",
+      "candidateSha256": "94b4ce6299fea93d9f256b2d25705961a76bc5ea940c56db4145686ebc99df1b"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/audit.md",
+      "baselineSha256": "d9963fd73bf6129fe0c8ec25c5148f50617ec85683b8eeae7e411c9a42e2db33",
+      "candidateSha256": "d9963fd73bf6129fe0c8ec25c5148f50617ec85683b8eeae7e411c9a42e2db33"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/audit.native.md",
+      "baselineSha256": "fe91fcf28638f95577af481a50edaf339d6c9a3ad3b9fa477bc81c116b8bc392",
+      "candidateSha256": "fe91fcf28638f95577af481a50edaf339d6c9a3ad3b9fa477bc81c116b8bc392"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/bolder.md",
+      "baselineSha256": "c1f3766091019b6f9183bc1d11b1e0fe03d44c168dc05a682c55df32f904dcfd",
+      "candidateSha256": "c1f3766091019b6f9183bc1d11b1e0fe03d44c168dc05a682c55df32f904dcfd"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/clarify.md",
+      "baselineSha256": "6c382f8283756e8a693d832b750f7e4cbff1ca5bdcc3825b2b4ef4da9f21876a",
+      "candidateSha256": "6c382f8283756e8a693d832b750f7e4cbff1ca5bdcc3825b2b4ef4da9f21876a"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/colorize.md",
+      "baselineSha256": "d1fbd55074abb2251bdaa03749d34acc42c38e46e47549f18f5848df57d43c42",
+      "candidateSha256": "d1fbd55074abb2251bdaa03749d34acc42c38e46e47549f18f5848df57d43c42"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/component-review.md",
+      "baselineSha256": "b2732083f8f1d1924d38f84f179491430aebda8e0fd1f1d0785e3f883bcf3a40",
+      "candidateSha256": "b2732083f8f1d1924d38f84f179491430aebda8e0fd1f1d0785e3f883bcf3a40"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/craft-floor.md",
+      "baselineSha256": "96e2e6bd4fcf9a2c6da65fb029f96d9176308fae2efd9d8653d3b8d838960e07",
+      "candidateSha256": "96e2e6bd4fcf9a2c6da65fb029f96d9176308fae2efd9d8653d3b8d838960e07"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/craft.md",
+      "baselineSha256": "9205e222bc6565b37fb504ceec93233c2d2a456802b69d16e6b1c44723907c4c",
+      "candidateSha256": "9205e222bc6565b37fb504ceec93233c2d2a456802b69d16e6b1c44723907c4c"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/critique.md",
+      "baselineSha256": "73549b5536699c915156339976192fb38534bb43158cf9262ff5b89090388c64",
+      "candidateSha256": "73549b5536699c915156339976192fb38534bb43158cf9262ff5b89090388c64"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/degraded/asset-producer.md",
+      "baselineSha256": "0bc2bc36ca6e74f9f610392f1a4fb8f57b2676238ba1f9c65cd8714f5d27e8a2",
+      "candidateSha256": "0bc2bc36ca6e74f9f610392f1a4fb8f57b2676238ba1f9c65cd8714f5d27e8a2"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/degraded/documenter.md",
+      "baselineSha256": "bcc05ea92faebb5c74037a9d4263a5ce9a56f5ab07c8ab3c59ee704d8cade745",
+      "candidateSha256": "bcc05ea92faebb5c74037a9d4263a5ce9a56f5ab07c8ab3c59ee704d8cade745"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/degraded/finish-reviewer.md",
+      "baselineSha256": "275dd1b6e63bbd30d2713227c4f79b880a8bc4e01cc48d392068bb86939d3afa",
+      "candidateSha256": "275dd1b6e63bbd30d2713227c4f79b880a8bc4e01cc48d392068bb86939d3afa"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/degraded/manual-edit-applier.md",
+      "baselineSha256": "5fae7f8a2fc3ddd49ad0a413446dc44daedef5b6b7de5eb935bd2fbfad646d58",
+      "candidateSha256": "5fae7f8a2fc3ddd49ad0a413446dc44daedef5b6b7de5eb935bd2fbfad646d58"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/delight.md",
+      "baselineSha256": "56500b1f9d2fcec8324d7f448d813048b5831a46d3feeb1055bd3eb17ec3660f",
+      "candidateSha256": "56500b1f9d2fcec8324d7f448d813048b5831a46d3feeb1055bd3eb17ec3660f"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/distill.md",
+      "baselineSha256": "42a71df98075f66e6eb396b69ef3d6b1c3db46d1c1d24b4edc9d15f53d193ecb",
+      "candidateSha256": "42a71df98075f66e6eb396b69ef3d6b1c3db46d1c1d24b4edc9d15f53d193ecb"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/doctor.md",
+      "baselineSha256": "c6f15d20d8d8748c4c475ff70cdb0ee426f2e6c9e7eab6169311f4dffd279ea1",
+      "candidateSha256": "c6f15d20d8d8748c4c475ff70cdb0ee426f2e6c9e7eab6169311f4dffd279ea1"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/document.md",
+      "baselineSha256": "79f85e381d1d6fdc8d39f54e1c8753fccf19b4ba3abb9827b6a7cc61eb376d1f",
+      "candidateSha256": "79f85e381d1d6fdc8d39f54e1c8753fccf19b4ba3abb9827b6a7cc61eb376d1f"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/extract.md",
+      "baselineSha256": "8eb39a13e3d3650d4261f8fb06e91d6c0b888ca12ddbd3a5610cd8f0b05ad176",
+      "candidateSha256": "8eb39a13e3d3650d4261f8fb06e91d6c0b888ca12ddbd3a5610cd8f0b05ad176"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/generate.md",
+      "baselineSha256": "c2dfc965319745c403b99e00e9e97de15f1300ea721bd3f708f0ac47aadc537b",
+      "candidateSha256": "c2dfc965319745c403b99e00e9e97de15f1300ea721bd3f708f0ac47aadc537b"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/harden.md",
+      "baselineSha256": "3898bd9b56a042e860a0db4fb4dd81ac81126fa218b604702e2ac0c2287ae09b",
+      "candidateSha256": "3898bd9b56a042e860a0db4fb4dd81ac81126fa218b604702e2ac0c2287ae09b"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/hooks.md",
+      "baselineSha256": "deaaa533475b6a9f7dd52e01a1f1997aa3af146694334981650f8c846f939559",
+      "candidateSha256": "deaaa533475b6a9f7dd52e01a1f1997aa3af146694334981650f8c846f939559"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/init.md",
+      "baselineSha256": "dcf7340da023e64144af5768b8bf44ecf45b1bfdec12d3b1c9e6618f17f8c60a",
+      "candidateSha256": "dcf7340da023e64144af5768b8bf44ecf45b1bfdec12d3b1c9e6618f17f8c60a"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/ios.md",
+      "baselineSha256": "40c87038b5f75147a5952a96237acf312a327bf70c1bcd8e0a5f064625ae9668",
+      "candidateSha256": "40c87038b5f75147a5952a96237acf312a327bf70c1bcd8e0a5f064625ae9668"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/layout.md",
+      "baselineSha256": "86d10faab62da852aa1f4304157871545c853da708b6fe61c80aefb552c1f300",
+      "candidateSha256": "86d10faab62da852aa1f4304157871545c853da708b6fe61c80aefb552c1f300"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/live-setup.md",
+      "baselineSha256": "a4cfd2330c8cca94b62986679b3f9e3bb9ada0cb30c2c63c5d19c6039f5a45ae",
+      "candidateSha256": "a4cfd2330c8cca94b62986679b3f9e3bb9ada0cb30c2c63c5d19c6039f5a45ae"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/live.md",
+      "baselineSha256": "464c0c2b33d278375aec66caf95518f5e7ccd0aad1bea3f9dd553ed47815daa1",
+      "candidateSha256": "464c0c2b33d278375aec66caf95518f5e7ccd0aad1bea3f9dd553ed47815daa1"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/mode-operate.md",
+      "baselineSha256": "385a0efe833bd4afe4a257e7159590de0cf1b7fd8f7b213b732f1e537c62dab7",
+      "candidateSha256": "385a0efe833bd4afe4a257e7159590de0cf1b7fd8f7b213b732f1e537c62dab7"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/mode-persuade.md",
+      "baselineSha256": "21e78c8a77badb3f83290cd4577ed3b24bd4dd3b57136d7da75733d4f3ee9ac0",
+      "candidateSha256": "21e78c8a77badb3f83290cd4577ed3b24bd4dd3b57136d7da75733d4f3ee9ac0"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/mode-read.md",
+      "baselineSha256": "a569989e6a3d6453b4c45e9474e162a15cc54e11732ac6baa7990a6e7cccc0b5",
+      "candidateSha256": "a569989e6a3d6453b4c45e9474e162a15cc54e11732ac6baa7990a6e7cccc0b5"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/new-work.md",
+      "baselineSha256": "d6489d7f3e607ce3f8514a7a7d3a0eb5e8f1ac55859eaf7d5c31b53de8fab9f3",
+      "candidateSha256": "d6489d7f3e607ce3f8514a7a7d3a0eb5e8f1ac55859eaf7d5c31b53de8fab9f3"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/onboard.md",
+      "baselineSha256": "9a2c08ee2516d2ee87129e7ebe6a0895f9990c9852d1f6fa7e70be9a6a88a659",
+      "candidateSha256": "9a2c08ee2516d2ee87129e7ebe6a0895f9990c9852d1f6fa7e70be9a6a88a659"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/operate.md",
+      "baselineSha256": "a9d2203acd45ca33a13d5c68b02b23ed512425ac15f0e8438318ed124b43729d",
+      "candidateSha256": "a9d2203acd45ca33a13d5c68b02b23ed512425ac15f0e8438318ed124b43729d"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/optimize.md",
+      "baselineSha256": "6d368b679a0ed1815812815de65863b5840d419589dfbda06224c01149240287",
+      "candidateSha256": "6d368b679a0ed1815812815de65863b5840d419589dfbda06224c01149240287"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/overdrive.md",
+      "baselineSha256": "3753448bca49da76dd8b12d5a8b4264414673f26e49028d37616faa8beb210b7",
+      "candidateSha256": "3753448bca49da76dd8b12d5a8b4264414673f26e49028d37616faa8beb210b7"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/polish.md",
+      "baselineSha256": "4b0e2eea17f297daa06b17578131775be099ef43addf91007f4b7e295454f64f",
+      "candidateSha256": "4b0e2eea17f297daa06b17578131775be099ef43addf91007f4b7e295454f64f"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/quieter.md",
+      "baselineSha256": "dfd6f341b156bc604e7556b27cba437d5870fbc82d4c673d0127cf18151b2226",
+      "candidateSha256": "dfd6f341b156bc604e7556b27cba437d5870fbc82d4c673d0127cf18151b2226"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/region-map.md",
+      "baselineSha256": "f5efb1b1dd4cd18e1d4789d7c8e0188f4342b25fffd53af6088ba8b67774fb99",
+      "candidateSha256": "f5efb1b1dd4cd18e1d4789d7c8e0188f4342b25fffd53af6088ba8b67774fb99"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/routing.md",
+      "baselineSha256": "1c6258015ed02c522948f8f1a3b6457395a8f7954497b87c1cd83f1791f9f819",
+      "candidateSha256": "1c6258015ed02c522948f8f1a3b6457395a8f7954497b87c1cd83f1791f9f819"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/shape.md",
+      "baselineSha256": "a55f016c046cb6a27c55bd7f346375aeb506a755c4fbca19a5f92dbd42309c23",
+      "candidateSha256": "a55f016c046cb6a27c55bd7f346375aeb506a755c4fbca19a5f92dbd42309c23"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/typeset.md",
+      "baselineSha256": "1652d639d91889a08bda7f351456c43ee30e5677aa4866a90f375e1e4be15deb",
+      "candidateSha256": "1652d639d91889a08bda7f351456c43ee30e5677aa4866a90f375e1e4be15deb"
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/visualize.md",
+      "baselineSha256": "3ef9a43006bc68d83bc958fc8401e59f9beb6379048f5ced047747fdad05b895",
+      "candidateSha256": "3ef9a43006bc68d83bc958fc8401e59f9beb6379048f5ced047747fdad05b895"
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/VERSION",
+      "baselineSha256": "66d60356172ccafdd334fca9bf33243c8409216a733dcde0d66a24fd70ee8132",
+      "candidateSha256": "66d60356172ccafdd334fca9bf33243c8409216a733dcde0d66a24fd70ee8132"
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/command-metadata.json",
+      "baselineSha256": "e8720f3aa41135211cc58cc299a39eeda86c75651f4279cc1ede8db10dcc0584",
+      "candidateSha256": "e8720f3aa41135211cc58cc299a39eeda86c75651f4279cc1ede8db10dcc0584"
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/data/font-index-failures.json",
+      "baselineSha256": "835f19a0a3812f3652dd6979a2ce5597f654fd01f26e1b420b92d5f42b997ce4",
+      "candidateSha256": "835f19a0a3812f3652dd6979a2ce5597f654fd01f26e1b420b92d5f42b997ce4"
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/data/font-index.json",
+      "baselineSha256": "47edbdfaf27073c47033d1ac7dfee881be49e2dcbda7671d1157300481dde6da",
+      "candidateSha256": "47edbdfaf27073c47033d1ac7dfee881be49e2dcbda7671d1157300481dde6da"
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/live-browser-dom.js",
+      "baselineSha256": "de1b7404f4cdfd7b515196afb17b74b1980f0bc88cb8681ae93a76ca48ec7bdb",
+      "candidateSha256": "de1b7404f4cdfd7b515196afb17b74b1980f0bc88cb8681ae93a76ca48ec7bdb"
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/live-browser-ignores.js",
+      "baselineSha256": "c1cb6877ca99a0c1b38ba0c7d59f32702d3022f6821d8045f7133f7c40b6362f",
+      "candidateSha256": "c1cb6877ca99a0c1b38ba0c7d59f32702d3022f6821d8045f7133f7c40b6362f"
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/live-browser-session.js",
+      "baselineSha256": "42831c3cd874346d8e7f120808d91e6ed3cda5c3eca6eefd76b126659536bc87",
+      "candidateSha256": "42831c3cd874346d8e7f120808d91e6ed3cda5c3eca6eefd76b126659536bc87"
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+      "baselineSha256": "f68a3d68ac92606e91aa8878e003d9432ddd09aa97ca01c6b3ce46c937dca316",
+      "candidateSha256": "f68a3d68ac92606e91aa8878e003d9432ddd09aa97ca01c6b3ce46c937dca316"
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/modern-screenshot.umd.js",
+      "baselineSha256": "bb36665889124a0b6e15f16045265737449c3bdcf2712cdb08af3cfa01563e2b",
+      "candidateSha256": "bb36665889124a0b6e15f16045265737449c3bdcf2712cdb08af3cfa01563e2b"
+    },
+    {
+      "file": "SOURCE_FRESHNESS.md",
+      "baselineSha256": "40ef8ab0392a3c25767091815b893805cf1ac6d9d7f5b23d5ec77d9eba746ffc",
+      "candidateSha256": "40ef8ab0392a3c25767091815b893805cf1ac6d9d7f5b23d5ec77d9eba746ffc"
+    },
+    {
+      "file": "orca.ps1",
+      "baselineSha256": "2546de2ea4f28a909edc7d2b0121c4efbb8b81a5fc5856f4fecae9ed3eb8c7a0",
+      "candidateSha256": "2546de2ea4f28a909edc7d2b0121c4efbb8b81a5fc5856f4fecae9ed3eb8c7a0"
+    },
+    {
+      "file": "package-lock.json",
+      "baselineSha256": "8a78acd8405cafbc1db9878e886dcbcf885f90d6145e871c70999605c7968d61",
+      "candidateSha256": "8a78acd8405cafbc1db9878e886dcbcf885f90d6145e871c70999605c7968d61"
+    },
+    {
+      "file": "package.json",
+      "baselineSha256": "f694067f0042cbcebd59297257c55e539e173a99156e484e6a46d9a73e9bb5bf",
+      "candidateSha256": "f694067f0042cbcebd59297257c55e539e173a99156e484e6a46d9a73e9bb5bf"
+    },
+    {
+      "file": "rules/figma-design-rules.md",
+      "baselineSha256": "3d3abe65518af23c73f9d8516a5e441225337f3c9cf10490da448315146d5800",
+      "candidateSha256": "3d3abe65518af23c73f9d8516a5e441225337f3c9cf10490da448315146d5800"
+    },
+    {
+      "file": "rules/figma-standalone-rules.md",
+      "baselineSha256": "bfae55bea159816e77d6d2c769705b7a016dae6bec7b2907478a57ee7e047068",
+      "candidateSha256": "bfae55bea159816e77d6d2c769705b7a016dae6bec7b2907478a57ee7e047068"
+    },
+    {
+      "file": "scripts/figma-browser-contract.mjs",
+      "baselineSha256": "6b0479e50ca80fe7fd3b33d5aa65e8594eb622a5a42d4446ae559d65285611c0",
+      "candidateSha256": "6b0479e50ca80fe7fd3b33d5aa65e8594eb622a5a42d4446ae559d65285611c0"
+    },
+    {
+      "file": "scripts/figma-browser-contract.test.mjs",
+      "baselineSha256": "ca510434ddc5337d81b45f3044ae8c893d9dd9ef6c116043592e0a10e710412e",
+      "candidateSha256": "ca510434ddc5337d81b45f3044ae8c893d9dd9ef6c116043592e0a10e710412e"
+    },
+    {
+      "file": "scripts/figma-browser-freshness.mjs",
+      "baselineSha256": "8c6966c8f4e4823a2c78b603bbf8503bd0cecac30bfe0bd27feda0cb21adbe22",
+      "candidateSha256": "8c6966c8f4e4823a2c78b603bbf8503bd0cecac30bfe0bd27feda0cb21adbe22"
+    },
+    {
+      "file": "scripts/figma-browser-freshness.test.mjs",
+      "baselineSha256": "96e942f6b2ea456cee2d89cd73911a1494ff91b51d133b1c3ad3b0afb7f8faa4",
+      "candidateSha256": "96e942f6b2ea456cee2d89cd73911a1494ff91b51d133b1c3ad3b0afb7f8faa4"
+    },
+    {
+      "file": "scripts/figma-browser-integration.test.mjs",
+      "baselineSha256": "c43dbcbaf222fa72b737508aec662ef9256b4808a1fa501d277750957a2f2c65",
+      "candidateSha256": "c43dbcbaf222fa72b737508aec662ef9256b4808a1fa501d277750957a2f2c65"
+    },
+    {
+      "file": "scripts/figma-browser-source.mjs",
+      "baselineSha256": "eb2b245c6eb236a18bd1bbbc754d75388e8b81f9a7c5cab11122170b56194352",
+      "candidateSha256": "eb2b245c6eb236a18bd1bbbc754d75388e8b81f9a7c5cab11122170b56194352"
+    },
+    {
+      "file": "scripts/figma-browser-status.mjs",
+      "baselineSha256": "05cc7a8d0d56eafc0b8d8031836771147695dafc429b92f56fa2d243f1a68bf7",
+      "candidateSha256": "05cc7a8d0d56eafc0b8d8031836771147695dafc429b92f56fa2d243f1a68bf7"
+    },
+    {
+      "file": "scripts/figma-browser-test.mjs",
+      "baselineSha256": "6e200f3e572078ab98c3e903aa933f205ac09b9eb684f21dc255e81a5a442a6b",
+      "candidateSha256": "6e200f3e572078ab98c3e903aa933f205ac09b9eb684f21dc255e81a5a442a6b"
+    },
+    {
+      "file": "scripts/figma-hardening.test.ts",
+      "baselineSha256": "8755319382a50106f0df9aaf3d360fb80bc530d5970003f5529c60d41f27cd19",
+      "candidateSha256": "8755319382a50106f0df9aaf3d360fb80bc530d5970003f5529c60d41f27cd19"
+    },
+    {
+      "file": "scripts/figma-live-source.mjs",
+      "baselineSha256": "f429094f1849892f40983f66c540f19e96bf3fb29e750977d9414105b09cdc82",
+      "candidateSha256": "f429094f1849892f40983f66c540f19e96bf3fb29e750977d9414105b09cdc82"
+    },
+    {
+      "file": "scripts/figma-live-source.test.ts",
+      "baselineSha256": "ef27cb16fb40e305ca3f23208d571240b79dbb35859e00266aa6a241f96ec922",
+      "candidateSha256": "ef27cb16fb40e305ca3f23208d571240b79dbb35859e00266aa6a241f96ec922"
+    },
+    {
+      "file": "scripts/figma-mcp-release-check.mjs",
+      "baselineSha256": "94c9adc3f62ceadf129a0a876af2e5d0ce154f5b0d72fed7ef99017413869ee4",
+      "candidateSha256": "5902353b686434e35b3e4ad176d99d63e7dceffc67ee38d1223bbe0fd065148d"
+    },
+    {
+      "file": "scripts/figma-opencode-timeouts.test.mjs",
+      "baselineSha256": "da2a734fc537ae48854b72c46b6bec70f476f95c6b23cecf5a4435cd6eec5bff",
+      "candidateSha256": "da2a734fc537ae48854b72c46b6bec70f476f95c6b23cecf5a4435cd6eec5bff"
+    },
+    {
+      "file": "scripts/figma-plugin-test-dispatch.ts",
+      "baselineSha256": "c8b64a8852c8ef0f6ee16e9ec62427f9e85a6e5fca1add34c675f4f94898a46a",
+      "candidateSha256": "c8b64a8852c8ef0f6ee16e9ec62427f9e85a6e5fca1add34c675f4f94898a46a"
+    },
+    {
+      "file": "scripts/figma-variants.test.ts",
+      "baselineSha256": "f52a790e6c57a06b4c9df505c976828e542b7afd8afec4098339030d533122f6",
+      "candidateSha256": "f52a790e6c57a06b4c9df505c976828e542b7afd8afec4098339030d533122f6"
+    },
+    {
+      "file": "vendor/figma-mcp/.gitignore",
+      "baselineSha256": "3cfd06c4c9239a91975eb2366c39be21347dea496572f4ea6f57b1c797fe2429",
+      "candidateSha256": "3cfd06c4c9239a91975eb2366c39be21347dea496572f4ea6f57b1c797fe2429"
+    },
+    {
+      "file": "vendor/figma-mcp/LICENSE",
+      "baselineSha256": "9c4ddb09445ab7afb04c6e139fdf90afc8cf1380ca108d671337ca45e4dbf893",
+      "candidateSha256": "9c4ddb09445ab7afb04c6e139fdf90afc8cf1380ca108d671337ca45e4dbf893"
+    },
+    {
+      "file": "vendor/figma-mcp/Makefile",
+      "baselineSha256": "61ee034270ab796115859b63d7e2c19432331190c785cdb105f2707c6f426e1d",
+      "candidateSha256": "61ee034270ab796115859b63d7e2c19432331190c785cdb105f2707c6f426e1d"
+    },
+    {
+      "file": "vendor/figma-mcp/README.md",
+      "baselineSha256": "775d03ae48f1b0dc7c3b76631642ae8c750f01a008f22b8194c58f6454ca3141",
+      "candidateSha256": "775d03ae48f1b0dc7c3b76631642ae8c750f01a008f22b8194c58f6454ca3141"
+    },
+    {
+      "file": "vendor/figma-mcp/cmd/figma-mcp-go/main.go",
+      "baselineSha256": "b64e4372bfd551f1754faa85a4e30e2bcbe9fd3a944c4ae6469d297fbb8a89b9",
+      "candidateSha256": "b64e4372bfd551f1754faa85a4e30e2bcbe9fd3a944c4ae6469d297fbb8a89b9"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/README.md",
+      "baselineSha256": "eb021748377e6fa44f7b0d6b370b52b41f6a0b52d95a9a3a4073b198bc7f48e0",
+      "candidateSha256": "eb021748377e6fa44f7b0d6b370b52b41f6a0b52d95a9a3a4073b198bc7f48e0"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/ROADMAP.md",
+      "baselineSha256": "291a8f3ed5114e4292afbfa91286e3ac8a302d75072dd3f576830e4aa4918604",
+      "candidateSha256": "291a8f3ed5114e4292afbfa91286e3ac8a302d75072dd3f576830e4aa4918604"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/agent-toolkit-v1.3.md",
+      "baselineSha256": "fb28b22fa8fa3b63f5863f93a93d81921ee13f727d28ababdefd5915e3d1305a",
+      "candidateSha256": "fb28b22fa8fa3b63f5863f93a93d81921ee13f727d28ababdefd5915e3d1305a"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/architecture.md",
+      "baselineSha256": "9cfa04d69920c4707564d6099f41a33577982ea649bfd7b7ce1a781e4250f0fa",
+      "candidateSha256": "9cfa04d69920c4707564d6099f41a33577982ea649bfd7b7ce1a781e4250f0fa"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/bug-fixes-v1.3.md",
+      "baselineSha256": "2e66269d8a9a611ef6127cf7940b5f8eb516f7cf9de5312c3d70c793fa53b47e",
+      "candidateSha256": "2e66269d8a9a611ef6127cf7940b5f8eb516f7cf9de5312c3d70c793fa53b47e"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/cowork-mcp-guide.md",
+      "baselineSha256": "531753abfef374331bcd106fe74a3c053a8789ecb09b11f06787fda783111f44",
+      "candidateSha256": "531753abfef374331bcd106fe74a3c053a8789ecb09b11f06787fda783111f44"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/recipes/carousel-slides.md",
+      "baselineSha256": "4e225642f334bf661fac500cf5c37ecb5a7fa31c957981ec8b1824dd2a32830d",
+      "candidateSha256": "4e225642f334bf661fac500cf5c37ecb5a7fa31c957981ec8b1824dd2a32830d"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/recipes/design-system-bootstrap.md",
+      "baselineSha256": "1f810f5a9f2300c6b1d6c52870e01f27bb4a057d4cb10c28be479f0e709087b1",
+      "candidateSha256": "1f810f5a9f2300c6b1d6c52870e01f27bb4a057d4cb10c28be479f0e709087b1"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/recipes/edit-not-rewrite.md",
+      "baselineSha256": "0c520d32087d4e0920ebf58689c8333cf90b27ef092661a7aed0f843cbce04f4",
+      "candidateSha256": "0c520d32087d4e0920ebf58689c8333cf90b27ef092661a7aed0f843cbce04f4"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/skill/SKILL.md",
+      "baselineSha256": "91c42644ad6e4a49b8eb4789d82a6b820353c6fa5cba1d5a3420f8a44a56ba7c",
+      "candidateSha256": "91c42644ad6e4a49b8eb4789d82a6b820353c6fa5cba1d5a3420f8a44a56ba7c"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/skill/decision-tree.md",
+      "baselineSha256": "8ba4594bafcbd07b0c5ed351f44909125a66c5f5c6a9ee55a24ddb31f8ecc096",
+      "candidateSha256": "8ba4594bafcbd07b0c5ed351f44909125a66c5f5c6a9ee55a24ddb31f8ecc096"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/skill/examples/01-create-cover-slide.md",
+      "baselineSha256": "ef661e64b53a3340350978b3b871dddaf8014e502ceab011049531ee1a02380e",
+      "candidateSha256": "ef661e64b53a3340350978b3b871dddaf8014e502ceab011049531ee1a02380e"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/skill/examples/02-edit-not-rewrite.md",
+      "baselineSha256": "2907245032abe62274e47102e7c7371e5d87e7faae70aff3df9fa3d83c463520",
+      "candidateSha256": "2907245032abe62274e47102e7c7371e5d87e7faae70aff3df9fa3d83c463520"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/skill/examples/03-design-tokens.md",
+      "baselineSha256": "3310f4f742945f072815354f26dd1dacb6a90f2b2b69b0cc24a3278b231748ee",
+      "candidateSha256": "3310f4f742945f072815354f26dd1dacb6a90f2b2b69b0cc24a3278b231748ee"
+    },
+    {
+      "file": "vendor/figma-mcp/docs/tools-reference.md",
+      "baselineSha256": "88154d6b1f4ee1f434a3b60fc362083345caf77a298fe41e4a4e1f9b9703be81",
+      "candidateSha256": "88154d6b1f4ee1f434a3b60fc362083345caf77a298fe41e4a4e1f9b9703be81"
+    },
+    {
+      "file": "vendor/figma-mcp/go.mod",
+      "baselineSha256": "8e8625119e7fcad7a559d0d44f2be428127cff24fe937f7d46eba8baeb62394b",
+      "candidateSha256": "8e8625119e7fcad7a559d0d44f2be428127cff24fe937f7d46eba8baeb62394b"
+    },
+    {
+      "file": "vendor/figma-mcp/go.sum",
+      "baselineSha256": "0b9cf89771ebb560424bfa1612fe7a9d0e45d3fbcc86a3269e01a426059dd5f1",
+      "candidateSha256": "0b9cf89771ebb560424bfa1612fe7a9d0e45d3fbcc86a3269e01a426059dd5f1"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/bridge.go",
+      "baselineSha256": "fc542dc31a196c118a44e618c88a7a0ad68d7227d74ff9cf43acbaead25dcdf7",
+      "candidateSha256": "fc542dc31a196c118a44e618c88a7a0ad68d7227d74ff9cf43acbaead25dcdf7"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/bridge_test.go",
+      "baselineSha256": "a3949893af6641cc74f8d543ade7b814039e36473f9cf31b41342a9cf92f7436",
+      "candidateSha256": "a3949893af6641cc74f8d543ade7b814039e36473f9cf31b41342a9cf92f7436"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/election.go",
+      "baselineSha256": "eae900279abb6bb0c696c47aff010b469a48d13537556ef4341c1408f2705c06",
+      "candidateSha256": "eae900279abb6bb0c696c47aff010b469a48d13537556ef4341c1408f2705c06"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/election_test.go",
+      "baselineSha256": "fb922c772a1e1b61f3c840eccb7f9b65f8c773bb9e3bdfa7c5c97abb7f463dd6",
+      "candidateSha256": "fb922c772a1e1b61f3c840eccb7f9b65f8c773bb9e3bdfa7c5c97abb7f463dd6"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/follower.go",
+      "baselineSha256": "c2c6090f10c526619e25b310b1fc2099d2b499e1eb023c6493e3968fa7e08232",
+      "candidateSha256": "c2c6090f10c526619e25b310b1fc2099d2b499e1eb023c6493e3968fa7e08232"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/follower_test.go",
+      "baselineSha256": "bb4632533263b7ed7810837fd04793d59deb5ae53e1a9845c0ee860bc1fc24a8",
+      "candidateSha256": "bb4632533263b7ed7810837fd04793d59deb5ae53e1a9845c0ee860bc1fc24a8"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/helpers_test.go",
+      "baselineSha256": "3d9a7c126b10186c9a3f00ed0192876cc211903a0ede2061b8f48982c5a0371c",
+      "candidateSha256": "3d9a7c126b10186c9a3f00ed0192876cc211903a0ede2061b8f48982c5a0371c"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/leader.go",
+      "baselineSha256": "dc559491d592aff2cf5ced14e25e665c42fba6e5e9ec8647a2098422a51a98af",
+      "candidateSha256": "dc559491d592aff2cf5ced14e25e665c42fba6e5e9ec8647a2098422a51a98af"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/leader_test.go",
+      "baselineSha256": "b73a5236902e52f6ebbac63c3391468b853ed9552f19e9d1ccfd303d6513fc48",
+      "candidateSha256": "b73a5236902e52f6ebbac63c3391468b853ed9552f19e9d1ccfd303d6513fc48"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/node.go",
+      "baselineSha256": "ecac680e179da1cef4999ca1f63969634e81d76b9b61a59940f08d51b827cd23",
+      "candidateSha256": "ecac680e179da1cef4999ca1f63969634e81d76b9b61a59940f08d51b827cd23"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/node_test.go",
+      "baselineSha256": "9a6e6bd6823bf0a3da824b2653d425c340e6a9091c1c79c2eb9ab899de0ec81e",
+      "candidateSha256": "9a6e6bd6823bf0a3da824b2653d425c340e6a9091c1c79c2eb9ab899de0ec81e"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/annotation_conversion_strategy.go",
+      "baselineSha256": "ac5bb8c6ecfc9dab3520b50f187842bcfde68fc96a9879c571e42a8c719a13f5",
+      "candidateSha256": "ac5bb8c6ecfc9dab3520b50f187842bcfde68fc96a9879c571e42a8c719a13f5"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/bulk_rename_strategy.go",
+      "baselineSha256": "066cd33ba147d6dda7635e5d7c62a32fea941d70fd2a0b4231a2f412ca011309",
+      "candidateSha256": "066cd33ba147d6dda7635e5d7c62a32fea941d70fd2a0b4231a2f412ca011309"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/design_strategy.go",
+      "baselineSha256": "88e887251096f29a5b2fdd032892cb70fdcdd0df22df5423455ab6691db56db3",
+      "candidateSha256": "88e887251096f29a5b2fdd032892cb70fdcdd0df22df5423455ab6691db56db3"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/design_token_generation_strategy.go",
+      "baselineSha256": "e5003c9689296d7446b4a786a6083fd80a475e5b2a22201c4dbf2997ae4c2145",
+      "candidateSha256": "e5003c9689296d7446b4a786a6083fd80a475e5b2a22201c4dbf2997ae4c2145"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/generate_color_palette.go",
+      "baselineSha256": "025527c5d0e6fad488a1cfab971e18ac45e53febeac48c53ddc830188dfb2c7c",
+      "candidateSha256": "025527c5d0e6fad488a1cfab971e18ac45e53febeac48c53ddc830188dfb2c7c"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/generate_component_variants.go",
+      "baselineSha256": "8d537acbdd31f7c785ac6ede98516cb4685e2b02c668f0b70928fd6195aa59e6",
+      "candidateSha256": "8d537acbdd31f7c785ac6ede98516cb4685e2b02c668f0b70928fd6195aa59e6"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/generate_type_scale.go",
+      "baselineSha256": "ae7f083f84d8433a9c79824e5adf238e49dcbf2d6dfafd7ccbfa6a7cb44c371e",
+      "candidateSha256": "ae7f083f84d8433a9c79824e5adf238e49dcbf2d6dfafd7ccbfa6a7cb44c371e"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/prompts.go",
+      "baselineSha256": "2188aafe4f2723d68fe5bd827751b0575e987f12c90e2b0ca6bdf1282ea94462",
+      "candidateSha256": "2188aafe4f2723d68fe5bd827751b0575e987f12c90e2b0ca6bdf1282ea94462"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/prompts_test.go",
+      "baselineSha256": "e7d1cc941ab3f725fc865493b1ad8c4edde5e839cb97ec9da0489f795fbd18ab",
+      "candidateSha256": "e7d1cc941ab3f725fc865493b1ad8c4edde5e839cb97ec9da0489f795fbd18ab"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/reaction_to_connector_strategy.go",
+      "baselineSha256": "fc97ccd3d0f24b2bc8b061c2bd60682ec9218d928200a1ecc4c46eb2f55e6653",
+      "candidateSha256": "fc97ccd3d0f24b2bc8b061c2bd60682ec9218d928200a1ecc4c46eb2f55e6653"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/read_design_strategy.go",
+      "baselineSha256": "792898830776d4256afdd9a3670c342bc374551161b8476eba3fe01d0d5b9cf7",
+      "candidateSha256": "792898830776d4256afdd9a3670c342bc374551161b8476eba3fe01d0d5b9cf7"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/style_audit_strategy.go",
+      "baselineSha256": "3b8e0dc2a3399d9a4517f576ae5c65ced1192d217ae033acf932d3158bfd155e",
+      "candidateSha256": "3b8e0dc2a3399d9a4517f576ae5c65ced1192d217ae033acf932d3158bfd155e"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/swap_overrides_instances.go",
+      "baselineSha256": "666c98a4e9577b3a5f0677b9d00a4de35bc2410588bef424920330c0d3041bf8",
+      "candidateSha256": "666c98a4e9577b3a5f0677b9d00a4de35bc2410588bef424920330c0d3041bf8"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/text_replacement_strategy.go",
+      "baselineSha256": "5de096719cd98e824636b7cafd8e9d71efd1eba978bbef3eadfd300028a6415c",
+      "candidateSha256": "5de096719cd98e824636b7cafd8e9d71efd1eba978bbef3eadfd300028a6415c"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/reaction_hardening_test.go",
+      "baselineSha256": "2e16fdddc2108ebdddb1765f3def9ec3f7b4a6e20efa9e5e2878373ff42c1322",
+      "candidateSha256": "2e16fdddc2108ebdddb1765f3def9ec3f7b4a6e20efa9e5e2878373ff42c1322"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/schema.go",
+      "baselineSha256": "ec304009c1303ec84822ec1e122320a2b111ce5671ec9760eb959d501023f066",
+      "candidateSha256": "ec304009c1303ec84822ec1e122320a2b111ce5671ec9760eb959d501023f066"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/schema_test.go",
+      "baselineSha256": "b9975442fa461900d54c2175946792546c60ccb03260477079cbcec3e1e52879",
+      "candidateSha256": "b9975442fa461900d54c2175946792546c60ccb03260477079cbcec3e1e52879"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/timeout_model_test.go",
+      "baselineSha256": "3a434a7f3e32abf2835670224c3bbc94165f1eeff3e8d3a28a2d7fdd9fca9dcd",
+      "candidateSha256": "3a434a7f3e32abf2835670224c3bbc94165f1eeff3e8d3a28a2d7fdd9fca9dcd"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools.go",
+      "baselineSha256": "5ac4f437177657cd9658679d76912cabb11d98f2e5bee8034756f71f2756ce0a",
+      "candidateSha256": "5ac4f437177657cd9658679d76912cabb11d98f2e5bee8034756f71f2756ce0a"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_components_v2.go",
+      "baselineSha256": "b160057984ebff4e9f72dab8cb1f81810f09901f5a1ac51eeb68939dfd87ebc2",
+      "candidateSha256": "b160057984ebff4e9f72dab8cb1f81810f09901f5a1ac51eeb68939dfd87ebc2"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_diagnostics.go",
+      "baselineSha256": "683029c0c3fd6f2efea5fa4050293563e75310de0007dc6de407443500911389",
+      "candidateSha256": "683029c0c3fd6f2efea5fa4050293563e75310de0007dc6de407443500911389"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_edit.go",
+      "baselineSha256": "a2d7ab04b0d58f4ef130699756cd68df39a3946ba5d50adefb1b5791f74694e6",
+      "candidateSha256": "a2d7ab04b0d58f4ef130699756cd68df39a3946ba5d50adefb1b5791f74694e6"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_export_v2.go",
+      "baselineSha256": "c98508105c1a4a3d59a65b590be9a82da9718296eb285191151afd890f8424b6",
+      "candidateSha256": "c98508105c1a4a3d59a65b590be9a82da9718296eb285191151afd890f8424b6"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_handler_test.go",
+      "baselineSha256": "281476c263bafbc4e77d0cb962452828d88d6584cde405ea08b3806af2926f36",
+      "candidateSha256": "281476c263bafbc4e77d0cb962452828d88d6584cde405ea08b3806af2926f36"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_layout.go",
+      "baselineSha256": "22e1389eb396549c2c181d965bcb0197a3cc81c2a5ddf442648509f7b77fcb4e",
+      "candidateSha256": "22e1389eb396549c2c181d965bcb0197a3cc81c2a5ddf442648509f7b77fcb4e"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_read.go",
+      "baselineSha256": "adbd2b26197f552f9d1107dde971ffa6fed4fd8c43b231fcdff1fa18be970df4",
+      "candidateSha256": "adbd2b26197f552f9d1107dde971ffa6fed4fd8c43b231fcdff1fa18be970df4"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_read_document.go",
+      "baselineSha256": "e55ac3a68180e31489c726c295438be59993ec33c35c665bcb640abff70d86ab",
+      "candidateSha256": "e55ac3a68180e31489c726c295438be59993ec33c35c665bcb640abff70d86ab"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_read_export.go",
+      "baselineSha256": "fd785b2d460e2844109e1c7354140c0f048557b0b037c9cbb4f15fe82d35457c",
+      "candidateSha256": "fd785b2d460e2844109e1c7354140c0f048557b0b037c9cbb4f15fe82d35457c"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_read_export_test.go",
+      "baselineSha256": "f68728c76c6d50abfcb8e04cfc28df562feafa9cf846fca013b9ceef722812f4",
+      "candidateSha256": "f68728c76c6d50abfcb8e04cfc28df562feafa9cf846fca013b9ceef722812f4"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_read_styles.go",
+      "baselineSha256": "f1a7301cb7883a5eb2c55382debd3e7766d96376532d00bb036620e8b154a900",
+      "candidateSha256": "f1a7301cb7883a5eb2c55382debd3e7766d96376532d00bb036620e8b154a900"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_schema_test.go",
+      "baselineSha256": "edcdfd29fd827b89abb50f7978c78dc51b438e29de81cdb8f5da865183367388",
+      "candidateSha256": "edcdfd29fd827b89abb50f7978c78dc51b438e29de81cdb8f5da865183367388"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_slides.go",
+      "baselineSha256": "96facf5b5854731cf061a22fe389e4fea22e3b84db1362dab548c71b45ac9a9e",
+      "candidateSha256": "96facf5b5854731cf061a22fe389e4fea22e3b84db1362dab548c71b45ac9a9e"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+      "baselineSha256": "09b4c59132c51b53a09200166477a64b540332b53daefa8562c93f6ae99cf9af",
+      "candidateSha256": "09b4c59132c51b53a09200166477a64b540332b53daefa8562c93f6ae99cf9af"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_test.go",
+      "baselineSha256": "a21df303031c87eea33c41fa7796ea549a040d1c783fc2a44a477dc3f10e7cb1",
+      "candidateSha256": "a21df303031c87eea33c41fa7796ea549a040d1c783fc2a44a477dc3f10e7cb1"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_validation.go",
+      "baselineSha256": "7a7afa2b89c888dc7c1ee1befdfed955bc75435b117f76979e513e40c7f88f28",
+      "candidateSha256": "7a7afa2b89c888dc7c1ee1befdfed955bc75435b117f76979e513e40c7f88f28"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write.go",
+      "baselineSha256": "585adf7a6972c57372000fcf601a1a933eb3ff1d045fdbd092207eaad194aeb2",
+      "candidateSha256": "585adf7a6972c57372000fcf601a1a933eb3ff1d045fdbd092207eaad194aeb2"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_components.go",
+      "baselineSha256": "b5ff948b112535fcf682173901e2a93645526bd87f6139e8922dbd36177aec05",
+      "candidateSha256": "b5ff948b112535fcf682173901e2a93645526bd87f6139e8922dbd36177aec05"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_create.go",
+      "baselineSha256": "f2b705bb0dd1237a997079851fe134457842c98df9e44827907006699ce7f214",
+      "candidateSha256": "f2b705bb0dd1237a997079851fe134457842c98df9e44827907006699ce7f214"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_html.go",
+      "baselineSha256": "3f2a1ec1c5aac5a4e13a294714ec9dff0c45601c34dd6fb82ecd1ada95525c45",
+      "candidateSha256": "3f2a1ec1c5aac5a4e13a294714ec9dff0c45601c34dd6fb82ecd1ada95525c45"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_html_test.go",
+      "baselineSha256": "83564978cc4c94f04ca70fa6727e70482b3824aa0ea6e0ff5215d21fc234c7f1",
+      "candidateSha256": "83564978cc4c94f04ca70fa6727e70482b3824aa0ea6e0ff5215d21fc234c7f1"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_modify.go",
+      "baselineSha256": "c2a0841fb88ee68e5b6ef1a56a6739cb9e88be928caa6367f370e0b9b05535f9",
+      "candidateSha256": "c2a0841fb88ee68e5b6ef1a56a6739cb9e88be928caa6367f370e0b9b05535f9"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_page.go",
+      "baselineSha256": "6c1c4c7585f6803747435c2752a1c7efe4524d5ea1c232d9fa7e9cb0c13da8ca",
+      "candidateSha256": "6c1c4c7585f6803747435c2752a1c7efe4524d5ea1c232d9fa7e9cb0c13da8ca"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_prototype.go",
+      "baselineSha256": "348b6549715ef7f811fb0af2b038568c0f3990f8db4b29667e9c25013f8ecac8",
+      "candidateSha256": "348b6549715ef7f811fb0af2b038568c0f3990f8db4b29667e9c25013f8ecac8"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_styles.go",
+      "baselineSha256": "a4444681641f75c39de2f8437de74896ed4f259842dd2594b8eff72f14fdce00",
+      "candidateSha256": "a4444681641f75c39de2f8437de74896ed4f259842dd2594b8eff72f14fdce00"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_variables.go",
+      "baselineSha256": "5ef8a497c186ce44c6a6e5f26a6a72aa55bf1e5af2d3c81b5a4673aec1eef575",
+      "candidateSha256": "5ef8a497c186ce44c6a6e5f26a6a72aa55bf1e5af2d3c81b5a4673aec1eef575"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/types.go",
+      "baselineSha256": "5917c8f65cd25b7143c1f15c175f8515138e943df3636733e7612e3939fa7967",
+      "candidateSha256": "5917c8f65cd25b7143c1f15c175f8515138e943df3636733e7612e3939fa7967"
+    },
+    {
+      "file": "vendor/figma-mcp/internal/types_test.go",
+      "baselineSha256": "9168f0274b3d35b2f49d6e4941011f84cd807ff411712d75c271d24b31d8525b",
+      "candidateSha256": "9168f0274b3d35b2f49d6e4941011f84cd807ff411712d75c271d24b31d8525b"
+    },
+    {
+      "file": "vendor/figma-mcp/npm/bin/run.js",
+      "baselineSha256": "bf73be04857bfacef7bbd86884dce102dbb7ec7a5249d15e9ed2a558de512440",
+      "candidateSha256": "bf73be04857bfacef7bbd86884dce102dbb7ec7a5249d15e9ed2a558de512440"
+    },
+    {
+      "file": "vendor/figma-mcp/npm/package.json",
+      "baselineSha256": "f88e80f49668cd126cbf845741e496115b1c8e931050a4401dd922b9e5424d9f",
+      "candidateSha256": "f88e80f49668cd126cbf845741e496115b1c8e931050a4401dd922b9e5424d9f"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/bun.lock",
+      "baselineSha256": "b342e94bd92cab20284d698cc59a941f637eb1ad554262022debc8b7b5324ded",
+      "candidateSha256": "b342e94bd92cab20284d698cc59a941f637eb1ad554262022debc8b7b5324ded"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/dist/code.js",
+      "baselineSha256": "24bb648c96cc7288938e87aedc07f44de48d9ea25fe9f19f3256633c31dad849",
+      "candidateSha256": "24bb648c96cc7288938e87aedc07f44de48d9ea25fe9f19f3256633c31dad849"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/dist/index.html",
+      "baselineSha256": "661fb49dd3ca38ed4648e70858822f59f565093718d02143c6b1b85628f054ee",
+      "candidateSha256": "661fb49dd3ca38ed4648e70858822f59f565093718d02143c6b1b85628f054ee"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/manifest.json",
+      "baselineSha256": "926c3daa15ff20ffaa8642cbced07fc37395f7b2835aa3443d3e59fc73b68f25",
+      "candidateSha256": "926c3daa15ff20ffaa8642cbced07fc37395f7b2835aa3443d3e59fc73b68f25"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/package.json",
+      "baselineSha256": "983b6a3e908204b8bb0923d4705187b365848b0dae2c77b62b2d341f4672b57e",
+      "candidateSha256": "983b6a3e908204b8bb0923d4705187b365848b0dae2c77b62b2d341f4672b57e"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/browser-source.ts",
+      "baselineSha256": "4bb4e72b5b1e370163b6771580fd9d0ccdecd9fb998da7f2939c7be43af5d8dd",
+      "candidateSha256": "4bb4e72b5b1e370163b6771580fd9d0ccdecd9fb998da7f2939c7be43af5d8dd"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/components-v2.ts",
+      "baselineSha256": "30a422062917fbb8dd53fffcd1dccd00882819170426372856c74d70f7f716cb",
+      "candidateSha256": "30a422062917fbb8dd53fffcd1dccd00882819170426372856c74d70f7f716cb"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/diagnostics.ts",
+      "baselineSha256": "196acb0702e2eb9534baa19dcf7118d9ab2ce15efbfc251965e1cac3983ce82c",
+      "candidateSha256": "196acb0702e2eb9534baa19dcf7118d9ab2ce15efbfc251965e1cac3983ce82c"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/edit.ts",
+      "baselineSha256": "9eb313e619800974596a454a35f32e5e468a16d3bc2366daecd91f48ac73ceb6",
+      "candidateSha256": "9eb313e619800974596a454a35f32e5e468a16d3bc2366daecd91f48ac73ceb6"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/export-v2.ts",
+      "baselineSha256": "fd60c0141ca19977088de5bfa82e76691e81f9773871ffdcbf2de9b41576e2c2",
+      "candidateSha256": "fd60c0141ca19977088de5bfa82e76691e81f9773871ffdcbf2de9b41576e2c2"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/global.d.ts",
+      "baselineSha256": "e05f99dbcefc8af133cddaa661898339ceff8d909917287b65da85443adac126",
+      "candidateSha256": "e05f99dbcefc8af133cddaa661898339ceff8d909917287b65da85443adac126"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/layout.ts",
+      "baselineSha256": "232048c16f62727a7fee8fa228e0703da1b5a8e73087c5256cb4a9ffddaf61aa",
+      "candidateSha256": "232048c16f62727a7fee8fa228e0703da1b5a8e73087c5256cb4a9ffddaf61aa"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/main.ts",
+      "baselineSha256": "897b5988d6e431c52422ebfbc91b755461c64b24eed5431df7e4dbba829711b3",
+      "candidateSha256": "897b5988d6e431c52422ebfbc91b755461c64b24eed5431df7e4dbba829711b3"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/read-document.ts",
+      "baselineSha256": "f5ae7ef2a31cc59c78e599c59d4f0723e9ae882166de6c46850100c3056cc6bb",
+      "candidateSha256": "f5ae7ef2a31cc59c78e599c59d4f0723e9ae882166de6c46850100c3056cc6bb"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/read-export.ts",
+      "baselineSha256": "c200271893ffc687ee7761bfbbc4b87dbba39d942852d74889cfd67dee494710",
+      "candidateSha256": "c200271893ffc687ee7761bfbbc4b87dbba39d942852d74889cfd67dee494710"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/read-handlers.ts",
+      "baselineSha256": "b6769372c9f5246a0856339556362616472d346e4389de58494a23123bab3cdd",
+      "candidateSha256": "b6769372c9f5246a0856339556362616472d346e4389de58494a23123bab3cdd"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+      "baselineSha256": "14ac3d3ad4d19d667075b5bc1fd9c041d679748b18f177060de5ad776c6f3d78",
+      "candidateSha256": "14ac3d3ad4d19d667075b5bc1fd9c041d679748b18f177060de5ad776c6f3d78"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/read-styles.ts",
+      "baselineSha256": "338702a7eaa5908ead8c1110bd3d15b662d4c93f7bf7d807ee33ff115106e3f5",
+      "candidateSha256": "338702a7eaa5908ead8c1110bd3d15b662d4c93f7bf7d807ee33ff115106e3f5"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/serializers.test.ts",
+      "baselineSha256": "7bd993454c213e5e8b3ac621ce22288eece002f0618b2490d659a4dc69c798e8",
+      "candidateSha256": "7bd993454c213e5e8b3ac621ce22288eece002f0618b2490d659a4dc69c798e8"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/serializers.ts",
+      "baselineSha256": "4a0da825be2122e46bf8845c3ee450ed7d01061de9122a186c631a99eaba6fbd",
+      "candidateSha256": "4a0da825be2122e46bf8845c3ee450ed7d01061de9122a186c631a99eaba6fbd"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/slides.ts",
+      "baselineSha256": "a4933a9edcf5de853da75abd13c8d164c48752959b3c99bc327df7d17f22d83b",
+      "candidateSha256": "a4933a9edcf5de853da75abd13c8d164c48752959b3c99bc327df7d17f22d83b"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/style-ecosystem.ts",
+      "baselineSha256": "5266d5eae504ab76158c3ca016568e36b08d9e6a9a5ce332b3c0022861593b0b",
+      "candidateSha256": "5266d5eae504ab76158c3ca016568e36b08d9e6a9a5ce332b3c0022861593b0b"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/toolkit-v2.test.ts",
+      "baselineSha256": "117e7bac33204e68a1529ff744fe63de71a579d34b357850d2fe14de8c49bf39",
+      "candidateSha256": "117e7bac33204e68a1529ff744fe63de71a579d34b357850d2fe14de8c49bf39"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/ui/App.svelte",
+      "baselineSha256": "56ff75522d7718175de70a42b661ce2e8473b957ef64af4c158b66690b3e5952",
+      "candidateSha256": "56ff75522d7718175de70a42b661ce2e8473b957ef64af4c158b66690b3e5952"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/ui/index.html",
+      "baselineSha256": "60c3bdab91049c24323b4c44847598884afb303e5ced91fb797dc9c1a17f4e70",
+      "candidateSha256": "60c3bdab91049c24323b4c44847598884afb303e5ced91fb797dc9c1a17f4e70"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/ui/main.ts",
+      "baselineSha256": "3e5b47e4ba42d249b9cf192aded49dfffd658cd910b1f4c81d250e96dee6e8f3",
+      "candidateSha256": "3e5b47e4ba42d249b9cf192aded49dfffd658cd910b1f4c81d250e96dee6e8f3"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/validation.ts",
+      "baselineSha256": "32745b81aa5c16f8cdc4aad23f0ace734be3975a6fa4eff6ec8c1f13cd5a3b51",
+      "candidateSha256": "32745b81aa5c16f8cdc4aad23f0ace734be3975a6fa4eff6ec8c1f13cd5a3b51"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-components.test.ts",
+      "baselineSha256": "273593e78704af1002c92ce0db5cc6964dd252c9f9f50b5a699dde9cfa601b97",
+      "candidateSha256": "273593e78704af1002c92ce0db5cc6964dd252c9f9f50b5a699dde9cfa601b97"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-components.ts",
+      "baselineSha256": "eea35f1f92a30f63799fcae44c43066a28041dad96ea5f3a699d91bccbddca45",
+      "candidateSha256": "eea35f1f92a30f63799fcae44c43066a28041dad96ea5f3a699d91bccbddca45"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-create.test.ts",
+      "baselineSha256": "b127e07ab17a3d2b4076e518d0c3d3110d3b7c545caa49bf2a9313d9054ffd32",
+      "candidateSha256": "b127e07ab17a3d2b4076e518d0c3d3110d3b7c545caa49bf2a9313d9054ffd32"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-create.ts",
+      "baselineSha256": "622fbb1a302ab8b392e011a011c1f857873310ee9b716ce9fd573c037ef82bfd",
+      "candidateSha256": "622fbb1a302ab8b392e011a011c1f857873310ee9b716ce9fd573c037ef82bfd"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-effects.test.ts",
+      "baselineSha256": "cb4e559cf07cd8498044932b2a41c762d411b3df3c135d54c6663d4e767b5e8f",
+      "candidateSha256": "cb4e559cf07cd8498044932b2a41c762d411b3df3c135d54c6663d4e767b5e8f"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-handlers.ts",
+      "baselineSha256": "6c2146827af7bb3c28e64f5af80e07c0f8f2f4ba75f980eb8706fc1cb28b9a50",
+      "candidateSha256": "6c2146827af7bb3c28e64f5af80e07c0f8f2f4ba75f980eb8706fc1cb28b9a50"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-helpers.test.ts",
+      "baselineSha256": "0de7bc6dbe82523fa6246dc9b1121b8cd44454ddefb6341d4afccc755b2741b0",
+      "candidateSha256": "0de7bc6dbe82523fa6246dc9b1121b8cd44454ddefb6341d4afccc755b2741b0"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-helpers.ts",
+      "baselineSha256": "3e2af998a7c66f8d72d5172599efe6c677373e1d93abbd5a5f64e6b4dd20f397",
+      "candidateSha256": "3e2af998a7c66f8d72d5172599efe6c677373e1d93abbd5a5f64e6b4dd20f397"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-html.test.ts",
+      "baselineSha256": "4be01039408edbe5b852d82bfde723f46f1ceab13c43e7bbcbf1e39bb9c7ce56",
+      "candidateSha256": "4be01039408edbe5b852d82bfde723f46f1ceab13c43e7bbcbf1e39bb9c7ce56"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-html.ts",
+      "baselineSha256": "9f2bc66f086086b594022c360d13b67d37740c98a011e53fe545f98efe5f9998",
+      "candidateSha256": "9f2bc66f086086b594022c360d13b67d37740c98a011e53fe545f98efe5f9998"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-modify.test.ts",
+      "baselineSha256": "452c321ff9cb68119c6b1b7c9e801679f8d6d18366e84867e30763dc1bdf39b4",
+      "candidateSha256": "452c321ff9cb68119c6b1b7c9e801679f8d6d18366e84867e30763dc1bdf39b4"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-modify.ts",
+      "baselineSha256": "50defbe8eed2681449bd056dc298de1efa463ddd576537078866acc1418bba73",
+      "candidateSha256": "50defbe8eed2681449bd056dc298de1efa463ddd576537078866acc1418bba73"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-page.test.ts",
+      "baselineSha256": "eacf0600da413b45afab60465785444dbe9b9831776498c9666ab839e7b76753",
+      "candidateSha256": "eacf0600da413b45afab60465785444dbe9b9831776498c9666ab839e7b76753"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-page.ts",
+      "baselineSha256": "47d788120c8bd5fc41534aa4add9d5a1c076e53510909a4f28deb07c92230554",
+      "candidateSha256": "47d788120c8bd5fc41534aa4add9d5a1c076e53510909a4f28deb07c92230554"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-prototype.test.ts",
+      "baselineSha256": "02c4341ab527de8983a03d42c20aa4230f03cd038b0cf82e6d8f08884a62a491",
+      "candidateSha256": "02c4341ab527de8983a03d42c20aa4230f03cd038b0cf82e6d8f08884a62a491"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-prototype.ts",
+      "baselineSha256": "f87d859ae3f2ebd50e02a3d18860dd415c78cecbe1e188071dff4c9bc80b9f48",
+      "candidateSha256": "f87d859ae3f2ebd50e02a3d18860dd415c78cecbe1e188071dff4c9bc80b9f48"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-styles.ts",
+      "baselineSha256": "a3ae26c832d7b7411959de105e1a05f1ca601b305a7c1c669f1262ac42dc560f",
+      "candidateSha256": "a3ae26c832d7b7411959de105e1a05f1ca601b305a7c1c669f1262ac42dc560f"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-variables.ts",
+      "baselineSha256": "6333d3eae8e70952260cab6c40a56d859e799cd59938961e3ff0efcb0fc3855e",
+      "candidateSha256": "6333d3eae8e70952260cab6c40a56d859e799cd59938961e3ff0efcb0fc3855e"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/svelte.config.js",
+      "baselineSha256": "4e2863144e05fb29c6b4965de78fef7d703154259436bc09583b66ff439babf8",
+      "candidateSha256": "4e2863144e05fb29c6b4965de78fef7d703154259436bc09583b66ff439babf8"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/tsconfig.json",
+      "baselineSha256": "e729b37edabd0fa94637c16e2e35aad774366c5987aea6bf4806e6aa6a5dd76e",
+      "candidateSha256": "e729b37edabd0fa94637c16e2e35aad774366c5987aea6bf4806e6aa6a5dd76e"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/vite.config.main.ts",
+      "baselineSha256": "e84070ba26e2ace9522754be6908c1a71077f2f917dcab92a9bf5dab5bf3a434",
+      "candidateSha256": "e84070ba26e2ace9522754be6908c1a71077f2f917dcab92a9bf5dab5bf3a434"
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/vite.config.ts",
+      "baselineSha256": "beffa7a711e6a5abaf36697fefda40ed33eced970d1b1c98ba790c3a38eac6d0",
+      "candidateSha256": "beffa7a711e6a5abaf36697fefda40ed33eced970d1b1c98ba790c3a38eac6d0"
+    }
+  ],
+  "publicReleaseRemovedFiles": [
+    {
+      "file": ".opencode/commands/impeccable.md",
+      "baselineSha256": "73bd60faec1d8360753595f1ee9e970b44933448202767d7b0e87c275d399396",
+      "candidateSha256": "73bd60faec1d8360753595f1ee9e970b44933448202767d7b0e87c275d399396"
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/bin/windows-x64/impeccable.exe",
+      "baselineSha256": "605b5b442d2a65d270ef989de13371444849526249f511d397ca7424c184db49",
+      "candidateSha256": "605b5b442d2a65d270ef989de13371444849526249f511d397ca7424c184db49"
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/impeccable",
+      "baselineSha256": "39d9600489073e227e4f4d55c451ce4252a6632ed7ae37923efbbcbc91f16d07",
+      "candidateSha256": "39d9600489073e227e4f4d55c451ce4252a6632ed7ae37923efbbcbc91f16d07"
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/impeccable.cmd",
+      "baselineSha256": "69cad1ae7355825ef320ac9638a1c9675ba9fda01c9a0fa12244cc4a1973e550",
+      "candidateSha256": "69cad1ae7355825ef320ac9638a1c9675ba9fda01c9a0fa12244cc4a1973e550"
+    }
+  ],
+  "publicReleaseChanges": [
+    "Optional engine/launchers/command removed; active skill archived as reference-only",
+    "Owner-selected root MIT LICENSE added separately from baseline copy",
+    "Sanitized executable built from unchanged pinned vendor; approved plugin assets unchanged"
+  ],
+  "retainedBaselineFiles": 248
+}

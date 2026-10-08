@@ -1,0 +1,18 @@
+{
+  "releaseVersion": "v1.2.1-beta.1",
+  "systemVersion": "1.2.1",
+  "mcpVersion": "1.2.0-standalone-hardening",
+  "upstreamCommit": "5806e71b8fd4bad97671038a0b010f04df1aaa41",
+  "sha256": {
+    "bin/figma-mcp-go.exe": "bc9eec0d9a9cddd20e27331a41319a59b84bd51f88a78e59885b901456562f3f",
+    "vendor/figma-mcp/plugin/dist/code.js": "24bb648c96cc7288938e87aedc07f44de48d9ea25fe9f19f3256633c31dad849",
+    "vendor/figma-mcp/plugin/dist/index.html": "661fb49dd3ca38ed4648e70858822f59f565093718d02143c6b1b85628f054ee"
+  },
+  "previousApprovedMcpSha256": "7ef0688e0dccf1abc52b0fd903b9bb2f907af898b548f73a419d9daded574ccb",
+  "publicBuild": {
+    "goVersion": "go1.26.1 windows/amd64",
+    "command": "CGO_ENABLED=0 go build -trimpath -ldflags \"-X main.version=1.2.0-standalone-hardening\" -o <staging>/bin/figma-mcp-go.exe ./cmd/figma-mcp-go",
+    "source": "unchanged pinned vendor source",
+    "buildMetadataDifference": "Go module (devel), no VCS stamping in non-Git source candidate; trimpath=true"
+  }
+}

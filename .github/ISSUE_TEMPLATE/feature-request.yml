@@ -1,0 +1,27 @@
+name: "Feature request"
+description: "Suggest a focused improvement"
+body:
+  - type: markdown
+    attributes:
+      value: "Remove secrets, private URLs, personal paths, and design data. Private Figma files are not required."
+  - type: textarea
+    id: problem
+    attributes:
+      label: "What are you trying to do?"
+      placeholder: "Describe the user problem"
+    validations:
+      required: true
+  - type: textarea
+    id: request
+    attributes:
+      label: "What would help?"
+      placeholder: "Describe the requested behavior"
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "What do you do today?"
+      placeholder: "Optional alternatives"
+    validations:
+      required: false

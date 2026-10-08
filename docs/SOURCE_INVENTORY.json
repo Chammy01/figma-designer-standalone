@@ -1,0 +1,1693 @@
+{
+  "scope": "Complete public source inventory; this inventory is listed in SOURCE_CONTENTS but excludes its own hash to avoid self-reference.",
+  "files": [
+    {
+      "file": ".gitattributes",
+      "sha256": "5661e7a42fd4093e444a5a7fe77d5e24cf8bb5e7fbdf75dd1a9619f6c1eed8d4",
+      "bytes": 649
+    },
+    {
+      "file": ".github/ISSUE_TEMPLATE/bug.yml",
+      "sha256": "55985796aeb741c88f2454c15e41f06dc6816de89310e2e565ab4ff307d057b9",
+      "bytes": 1956
+    },
+    {
+      "file": ".github/ISSUE_TEMPLATE/config.yml",
+      "sha256": "1f103c6a9dd07cd13a9a6f17ace6b813f47747eb9cb7e00488cb2073caaf91bb",
+      "bytes": 28
+    },
+    {
+      "file": ".github/ISSUE_TEMPLATE/feature-request.yml",
+      "sha256": "71e20af423f4455b61694a07677ea07000930353d232f91bcda36712e2c98096",
+      "bytes": 753
+    },
+    {
+      "file": ".github/ISSUE_TEMPLATE/setup-problem.yml",
+      "sha256": "629ec7b7c988adfe908eb0c26f54dfa7d78388d9cd246879561b922c79dbcdf0",
+      "bytes": 1874
+    },
+    {
+      "file": ".github/PULL_REQUEST_TEMPLATE.md",
+      "sha256": "18c0aec004e6bfe19c2713d9b20d5b2d999139a4b8fdf397217ef9c857dd9325",
+      "bytes": 617
+    },
+    {
+      "file": ".github/workflows/test.yml",
+      "sha256": "040c2db1983c31c9372d7a16949a12f288e6ee8e2200b204ac4dd45ec7e72d3a",
+      "bytes": 1554
+    },
+    {
+      "file": ".gitignore",
+      "sha256": "9f3440c760c247780848279ea97e08732995d49f23a612b529eba7a5bf9a3b8b",
+      "bytes": 448
+    },
+    {
+      "file": ".opencode/agents/figma-designer.md",
+      "sha256": "ecabe85ac950a761b1a388a2d528d6fc328db0f9e3025af25ccff250d131a2cb",
+      "bytes": 8597
+    },
+    {
+      "file": ".opencode/agents/web-designer.md",
+      "sha256": "d06853470ee6b3ef55654325255c2f015ffc3470cfa7d3958819b60c091c6aef",
+      "bytes": 3646
+    },
+    {
+      "file": ".opencode/commands/figma/browser-test.md",
+      "sha256": "947be1ce58c3ed5ae09dfdee82d1d0cd7ffd50702418f8afe699158b08ca30a2",
+      "bytes": 2577
+    },
+    {
+      "file": ".opencode/commands/figma/browser.md",
+      "sha256": "7fe54c5c848fff770e614b24e642923122faf4e6b6501ba44e9ac2be7b211352",
+      "bytes": 11320
+    },
+    {
+      "file": ".opencode/commands/figma/design.md",
+      "sha256": "bb3ab2165e71586756045490e324a5e4ef3a0e3c3e98ec9ce74b68d1d48c3bb0",
+      "bytes": 2638
+    },
+    {
+      "file": ".opencode/commands/figma/doctor.md",
+      "sha256": "1b777593f2b416d843dfac4eb333eac305b7f351b4d2376bf3cce35658f28003",
+      "bytes": 1219
+    },
+    {
+      "file": ".opencode/commands/figma/flow.md",
+      "sha256": "1369eca532d2a1d64120ef9d012d805ce3e5ecc5ad23f8971eb5f5e1b6a4b0af",
+      "bytes": 6998
+    },
+    {
+      "file": ".opencode/commands/figma/interactive.md",
+      "sha256": "9d5437eab955dfe5e245c41b57c71e34ae2dbe36a959bedac539fe322484c0cc",
+      "bytes": 16773
+    },
+    {
+      "file": ".opencode/commands/figma/motion.md",
+      "sha256": "d2f007e362987cf70dfd6db66625430f7aaf8bd4dd9fe818c0ae68a98b75b707",
+      "bytes": 9180
+    },
+    {
+      "file": ".opencode/commands/figma/qa.md",
+      "sha256": "c79af342debb969546cf4db74ae1e4d4dc29a303b6c9ad19e9611e57de188a81",
+      "bytes": 10164
+    },
+    {
+      "file": ".opencode/commands/figma/revise.md",
+      "sha256": "4c1ca7ebeb90a1f4904ccbcc17106ad3b929c1900ec71c71c51fafc97819ff06",
+      "bytes": 1295
+    },
+    {
+      "file": ".opencode/commands/figma/setup.md",
+      "sha256": "9ae5e34c1c2a7b70744ecb7b769532f3131d892fc70fad0d32f5a280f89dc700",
+      "bytes": 1009
+    },
+    {
+      "file": ".opencode/commands/figma/states.md",
+      "sha256": "275908d6173364751e114b4180f3525e75dbabd06a5e2127e416c3518c45a6d8",
+      "bytes": 15837
+    },
+    {
+      "file": ".opencode/commands/figma/status.md",
+      "sha256": "315678e85a636b3032ff7aec00bf6a6719251a2d07d801ee5fa76d3a681ad91a",
+      "bytes": 1875
+    },
+    {
+      "file": ".opencode/commands/figma/version.md",
+      "sha256": "c044685010e0dbc19457c3dbb9f624ba8b00684453610cdf1d3bda71bf816c80",
+      "bytes": 694
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/.gitignore",
+      "sha256": "7f98fb16347c0c61c2ffbdac30b15676b4e4b0b9d88eb1ad10e7474fc9d7963f",
+      "bytes": 77
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/checklists/accessibility_basics.md",
+      "sha256": "5ef08ab2f119af806215e0bf7b3f0870476ca69cffcbb283c633a91c48419599",
+      "bytes": 1014
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/checklists/dashboard_checklist.md",
+      "sha256": "a85524035b92ea67249a87b3740d11e375dc31a12ce0dc674bf39fdac7c30eb9",
+      "bytes": 1356
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/checklists/landing_page_checklist.md",
+      "sha256": "9eabdcd8f903aceeb92833a12ba103363768f3d9c1487dfe6667572fce491b72",
+      "bytes": 1513
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/checklists/ui_review_checklist.md",
+      "sha256": "d669b5f20cf82e53f7d1abd7825b42e488dfe9e270c7733d378f5c8afb5374c7",
+      "bytes": 1892
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/examples/bad_to_good_dashboard.md",
+      "sha256": "dc6a61d2d651991beddb0196813fec08d879d9df70b1411254a78e3189246a0a",
+      "bytes": 1732
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/examples/bad_to_good_landing.md",
+      "sha256": "bc355272b55dda746de9d360b4606fd65e291180a3947591fc06d8e33db30e65",
+      "bytes": 1812
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/examples/native_macos_utility_example.md",
+      "sha256": "ff1a1976cf67123244a803ec7422c969be1cef3e08d7aeb0a16402d6956de6f3",
+      "bytes": 3753
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/examples/prompt_examples.md",
+      "sha256": "b38584fdd6cf924a64f739f21d2da02f4bccd5320756030136ec0c774eff9076",
+      "bytes": 2285
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/LICENSE",
+      "sha256": "bb9bcae2e74f5e621b25183bcc1eca7a0c86311a1998b0cf18a74095507868a2",
+      "bytes": 1083
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/README.md",
+      "sha256": "0c77dc464d81eec6046f91f5ce0622e32eebc6200e4b4e0fed1a7b416d5ac995",
+      "bytes": 3666
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/references/anti_slop_patterns.md",
+      "sha256": "c7a9a6aed741f76d4290f96cfc453cf0ed2ebf451bf782e9d90020677862660d",
+      "bytes": 7195
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/references/layout_patterns.md",
+      "sha256": "9dce5c6b92af479f9d52734c79843d724db921384b30cd427adc6b817688773e",
+      "bytes": 3888
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/references/motion_rules.md",
+      "sha256": "363dab87bccb7a68e3193af6032d3e8a52890b6d129ebf5f91edb714b3e9863f",
+      "bytes": 1620
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/references/typography_guidance.md",
+      "sha256": "d8d9bcb2c9297e45e7770c015cedefef84b92b0a7414c92b6c3f8b28ef9da3bd",
+      "bytes": 1983
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/references/visual_directions.md",
+      "sha256": "70fb51b1374f7fbdc0927eb72332d7d8e083b029521e397acca072cd723e8b74",
+      "bytes": 9215
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/rubrics/ai_slop_score.md",
+      "sha256": "cf4d546b8685603c46ccfb55aa82344b79b7dd213524429b6ecf396180b112ad",
+      "bytes": 1794
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/rubrics/distinctiveness_score.md",
+      "sha256": "0717199cc6f90fe727a1567b6c03ce2c551854866226c0aeb7e9f94ec6b35e97",
+      "bytes": 1455
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/rubrics/implementation_readiness_score.md",
+      "sha256": "74b32fe0c7a993de1be48bc1a3488ced081dcc74d2d1340b6a8985202e5ab98d",
+      "bytes": 1315
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/scripts/install_skill.py",
+      "sha256": "2e932bf318a0bc63e587a1eb65ffd1825b065d6f88010aeeeb0cf3101ba6c464",
+      "bytes": 4166
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/scripts/ui_lint.py",
+      "sha256": "ab8d4ad83aa3b9fd89ea3b7328e7a98619450b44627bdcf807a4c646526cd030",
+      "bytes": 7341
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/SKILL.md",
+      "sha256": "05e7a109834d9158283ec7377ad824bc76a8f9f7bf2683269e610e429b1e9937",
+      "bytes": 9483
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/templates/design_brief_template.md",
+      "sha256": "dc2bcd6652fc3d8834f775422d3a7f8ff00a1153cb2e2a64f0feb9f1e857627c",
+      "bytes": 1722
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/templates/design_tokens_template.json",
+      "sha256": "6338349626667e521dae983260734355656bbb52b060a03d729afaa2a52c6cb1",
+      "bytes": 1231
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/templates/ui_generation_output.md",
+      "sha256": "bf121591edec2d868cc1b2117d254d9480f882ca97592a2b757e7bc27cad6474",
+      "bytes": 857
+    },
+    {
+      "file": ".opencode/skills/anti-ai-slop-ui/templates/ui_review_output.md",
+      "sha256": "eafad25bf098cf6c9da01dbb7802af3dc834193fc70d399bcedc8225125481eb",
+      "bytes": 1103
+    },
+    {
+      "file": ".opencode/skills/impeccable/LICENSE",
+      "sha256": "02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812",
+      "bytes": 10766
+    },
+    {
+      "file": ".opencode/skills/impeccable/NOTICE.md",
+      "sha256": "c60a093c2845fd9fb82f9c6f742ece31f379f8190b535309d32d66c45ccffdcb",
+      "bytes": 503
+    },
+    {
+      "file": ".opencode/skills/impeccable/REFERENCE_ONLY.md",
+      "sha256": "2d54bb28b6fb8a988dcc149cadb171f2a59c54fc67850b8e43dae6c6bd91046b",
+      "bytes": 12496
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/adapt.md",
+      "sha256": "0648e4e06d01cabc91fa7dc19256ceedeeeea213b9265e9d36b0918370e16fb2",
+      "bytes": 11301
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/adapt.native.md",
+      "sha256": "17c583cf8ad41266ea1e787b666b9d91fe13469d3d0f6af57c08e0146f9b17ac",
+      "bytes": 3910
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/android.md",
+      "sha256": "058f81f256134841875fd3183e06b37a023de0c877fd2b9eecd97011640791fe",
+      "bytes": 4093
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/animate.md",
+      "sha256": "94b4ce6299fea93d9f256b2d25705961a76bc5ea940c56db4145686ebc99df1b",
+      "bytes": 5236
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/audit.md",
+      "sha256": "d9963fd73bf6129fe0c8ec25c5148f50617ec85683b8eeae7e411c9a42e2db33",
+      "bytes": 8528
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/audit.native.md",
+      "sha256": "fe91fcf28638f95577af481a50edaf339d6c9a3ad3b9fa477bc81c116b8bc392",
+      "bytes": 8364
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/bolder.md",
+      "sha256": "c1f3766091019b6f9183bc1d11b1e0fe03d44c168dc05a682c55df32f904dcfd",
+      "bytes": 3466
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/clarify.md",
+      "sha256": "6c382f8283756e8a693d832b750f7e4cbff1ca5bdcc3825b2b4ef4da9f21876a",
+      "bytes": 4590
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/colorize.md",
+      "sha256": "d1fbd55074abb2251bdaa03749d34acc42c38e46e47549f18f5848df57d43c42",
+      "bytes": 4537
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/component-review.md",
+      "sha256": "b2732083f8f1d1924d38f84f179491430aebda8e0fd1f1d0785e3f883bcf3a40",
+      "bytes": 7678
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/craft-floor.md",
+      "sha256": "96e2e6bd4fcf9a2c6da65fb029f96d9176308fae2efd9d8653d3b8d838960e07",
+      "bytes": 4484
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/craft.md",
+      "sha256": "9205e222bc6565b37fb504ceec93233c2d2a456802b69d16e6b1c44723907c4c",
+      "bytes": 555
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/critique.md",
+      "sha256": "73549b5536699c915156339976192fb38534bb43158cf9262ff5b89090388c64",
+      "bytes": 42722
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/degraded/asset-producer.md",
+      "sha256": "0bc2bc36ca6e74f9f610392f1a4fb8f57b2676238ba1f9c65cd8714f5d27e8a2",
+      "bytes": 8332
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/degraded/documenter.md",
+      "sha256": "bcc05ea92faebb5c74037a9d4263a5ce9a56f5ab07c8ab3c59ee704d8cade745",
+      "bytes": 3325
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/degraded/finish-reviewer.md",
+      "sha256": "275dd1b6e63bbd30d2713227c4f79b880a8bc4e01cc48d392068bb86939d3afa",
+      "bytes": 15415
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/degraded/manual-edit-applier.md",
+      "sha256": "5fae7f8a2fc3ddd49ad0a413446dc44daedef5b6b7de5eb935bd2fbfad646d58",
+      "bytes": 7196
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/delight.md",
+      "sha256": "56500b1f9d2fcec8324d7f448d813048b5831a46d3feeb1055bd3eb17ec3660f",
+      "bytes": 3716
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/distill.md",
+      "sha256": "42a71df98075f66e6eb396b69ef3d6b1c3db46d1c1d24b4edc9d15f53d193ecb",
+      "bytes": 5619
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/doctor.md",
+      "sha256": "c6f15d20d8d8748c4c475ff70cdb0ee426f2e6c9e7eab6169311f4dffd279ea1",
+      "bytes": 5485
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/document.md",
+      "sha256": "79f85e381d1d6fdc8d39f54e1c8753fccf19b4ba3abb9827b6a7cc61eb376d1f",
+      "bytes": 27423
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/extract.md",
+      "sha256": "8eb39a13e3d3650d4261f8fb06e91d6c0b888ca12ddbd3a5610cd8f0b05ad176",
+      "bytes": 3335
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/generate.md",
+      "sha256": "c2dfc965319745c403b99e00e9e97de15f1300ea721bd3f708f0ac47aadc537b",
+      "bytes": 13133
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/harden.md",
+      "sha256": "3898bd9b56a042e860a0db4fb4dd81ac81126fa218b604702e2ac0c2287ae09b",
+      "bytes": 9450
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/hooks.md",
+      "sha256": "deaaa533475b6a9f7dd52e01a1f1997aa3af146694334981650f8c846f939559",
+      "bytes": 13934
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/init.md",
+      "sha256": "dcf7340da023e64144af5768b8bf44ecf45b1bfdec12d3b1c9e6618f17f8c60a",
+      "bytes": 11438
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/ios.md",
+      "sha256": "40c87038b5f75147a5952a96237acf312a327bf70c1bcd8e0a5f064625ae9668",
+      "bytes": 3812
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/layout.md",
+      "sha256": "86d10faab62da852aa1f4304157871545c853da708b6fe61c80aefb552c1f300",
+      "bytes": 5163
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/live-setup.md",
+      "sha256": "a4cfd2330c8cca94b62986679b3f9e3bb9ada0cb30c2c63c5d19c6039f5a45ae",
+      "bytes": 8188
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/live.md",
+      "sha256": "464c0c2b33d278375aec66caf95518f5e7ccd0aad1bea3f9dd553ed47815daa1",
+      "bytes": 36273
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/mode-operate.md",
+      "sha256": "385a0efe833bd4afe4a257e7159590de0cf1b7fd8f7b213b732f1e537c62dab7",
+      "bytes": 4483
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/mode-persuade.md",
+      "sha256": "21e78c8a77badb3f83290cd4577ed3b24bd4dd3b57136d7da75733d4f3ee9ac0",
+      "bytes": 3638
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/mode-read.md",
+      "sha256": "a569989e6a3d6453b4c45e9474e162a15cc54e11732ac6baa7990a6e7cccc0b5",
+      "bytes": 4396
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/new-work.md",
+      "sha256": "d6489d7f3e607ce3f8514a7a7d3a0eb5e8f1ac55859eaf7d5c31b53de8fab9f3",
+      "bytes": 57044
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/onboard.md",
+      "sha256": "9a2c08ee2516d2ee87129e7ebe6a0895f9990c9852d1f6fa7e70be9a6a88a659",
+      "bytes": 7740
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/operate.md",
+      "sha256": "a9d2203acd45ca33a13d5c68b02b23ed512425ac15f0e8438318ed124b43729d",
+      "bytes": 4145
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/optimize.md",
+      "sha256": "6d368b679a0ed1815812815de65863b5840d419589dfbda06224c01149240287",
+      "bytes": 7614
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/overdrive.md",
+      "sha256": "3753448bca49da76dd8b12d5a8b4264414673f26e49028d37616faa8beb210b7",
+      "bytes": 9080
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/polish.md",
+      "sha256": "4b0e2eea17f297daa06b17578131775be099ef43addf91007f4b7e295454f64f",
+      "bytes": 6650
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/quieter.md",
+      "sha256": "dfd6f341b156bc604e7556b27cba437d5870fbc82d4c673d0127cf18151b2226",
+      "bytes": 4854
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/region-map.md",
+      "sha256": "f5efb1b1dd4cd18e1d4789d7c8e0188f4342b25fffd53af6088ba8b67774fb99",
+      "bytes": 3367
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/routing.md",
+      "sha256": "1c6258015ed02c522948f8f1a3b6457395a8f7954497b87c1cd83f1791f9f819",
+      "bytes": 3340
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/shape.md",
+      "sha256": "a55f016c046cb6a27c55bd7f346375aeb506a755c4fbca19a5f92dbd42309c23",
+      "bytes": 3547
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/typeset.md",
+      "sha256": "1652d639d91889a08bda7f351456c43ee30e5677aa4866a90f375e1e4be15deb",
+      "bytes": 5258
+    },
+    {
+      "file": ".opencode/skills/impeccable/reference/visualize.md",
+      "sha256": "3ef9a43006bc68d83bc958fc8401e59f9beb6379048f5ced047747fdad05b895",
+      "bytes": 12987
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/command-metadata.json",
+      "sha256": "e8720f3aa41135211cc58cc299a39eeda86c75651f4279cc1ede8db10dcc0584",
+      "bytes": 8392
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/data/font-index-failures.json",
+      "sha256": "835f19a0a3812f3652dd6979a2ce5597f654fd01f26e1b420b92d5f42b997ce4",
+      "bytes": 2437
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/data/font-index.json",
+      "sha256": "47edbdfaf27073c47033d1ac7dfee881be49e2dcbda7671d1157300481dde6da",
+      "bytes": 1100013
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/live-browser-dom.js",
+      "sha256": "de1b7404f4cdfd7b515196afb17b74b1980f0bc88cb8681ae93a76ca48ec7bdb",
+      "bytes": 4917
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/live-browser-ignores.js",
+      "sha256": "c1cb6877ca99a0c1b38ba0c7d59f32702d3022f6821d8045f7133f7c40b6362f",
+      "bytes": 10346
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/live-browser-session.js",
+      "sha256": "42831c3cd874346d8e7f120808d91e6ed3cda5c3eca6eefd76b126659536bc87",
+      "bytes": 4346
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+      "sha256": "f68a3d68ac92606e91aa8878e003d9432ddd09aa97ca01c6b3ce46c937dca316",
+      "bytes": 547395
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/modern-screenshot.umd.js",
+      "sha256": "bb36665889124a0b6e15f16045265737449c3bdcf2712cdb08af3cfa01563e2b",
+      "bytes": 29290
+    },
+    {
+      "file": ".opencode/skills/impeccable/scripts/VERSION",
+      "sha256": "66d60356172ccafdd334fca9bf33243c8409216a733dcde0d66a24fd70ee8132",
+      "bytes": 7
+    },
+    {
+      "file": "AGENTS.md",
+      "sha256": "cd814c2ade2f8b349e2003a044467380f523ca56afd9aee3802c73bbb6decb66",
+      "bytes": 1688
+    },
+    {
+      "file": "CHANGELOG.md",
+      "sha256": "5c3d8554630825547ccf5b23896bb68de106ef15471d84884c013276ce335a62",
+      "bytes": 1194
+    },
+    {
+      "file": "CODE_OF_CONDUCT.md",
+      "sha256": "9c49eac81f221ccd9985a6bfd30e7dd0cfadf3cf9b84d7f75965cd1c4338b3be",
+      "bytes": 752
+    },
+    {
+      "file": "CONTRIBUTING.md",
+      "sha256": "ea848ae6669f45f1dd91070134f2428bed90984f5b9b4019da4c1daf111fa85d",
+      "bytes": 1820
+    },
+    {
+      "file": "docs/APPROVED_RUNTIME.json",
+      "sha256": "8faad1b1994341fc5ad7c65160e584ffa173ab7e21eea577a53c78fc3d9d940e",
+      "bytes": 1022
+    },
+    {
+      "file": "docs/ARCHITECTURE.md",
+      "sha256": "524e27a8fd57b82d52888381924d1a7b358b3c221d62fe1baf1bc8bfa0616834",
+      "bytes": 2677
+    },
+    {
+      "file": "docs/BEGINNER_REVIEW.md",
+      "sha256": "86b450cdff11455a9d74f0e4791ecc7d5065c70d7378034e2d105125a6b7a6a8",
+      "bytes": 1981
+    },
+    {
+      "file": "docs/COMMANDS.md",
+      "sha256": "b7232d0949099839cc628ad26ca4756b50619e4a1f89eb353e00d1014f7d40e8",
+      "bytes": 2796
+    },
+    {
+      "file": "docs/DEVELOPMENT.md",
+      "sha256": "38c30435d8b7c198b5e8b1d2af3dbc3b589cbaa76f0d6ff94dcbfedd222ac65e",
+      "bytes": 2630
+    },
+    {
+      "file": "docs/FIRST_DESIGN.md",
+      "sha256": "75a8781f6942e5eadca2756fee89097ccf0a94b228c2e58aa9eff7fafc0c9642",
+      "bytes": 1497
+    },
+    {
+      "file": "docs/INSTALLATION.md",
+      "sha256": "f881759d5e40036679c5b1d340d4d61b320d45e27cbc79dca1d5f4592369db87",
+      "bytes": 4501
+    },
+    {
+      "file": "docs/KNOWN_LIMITATIONS.md",
+      "sha256": "0df0d0d17d606ac41213143ae7047bf1a752b118873ede9af1eff3393cd353c1",
+      "bytes": 1763
+    },
+    {
+      "file": "docs/LAUNCH_CHECKLIST.md",
+      "sha256": "807f4ed5be94b8bdd7e166c1d356484ebfb028542d719f5212ff2e8a18d196b3",
+      "bytes": 1162
+    },
+    {
+      "file": "docs/LICENSE_DECISION.md",
+      "sha256": "2380606efa684b60f825917c9fbd3d3b88cf4ae0141c3676c417fa54c03ce0c1",
+      "bytes": 967
+    },
+    {
+      "file": "docs/PRIVACY_FINDINGS.json",
+      "sha256": "eb114a240b33a92ea1ccff94ebab7dd722e4bce20c05424f7e77784e7216a01e",
+      "bytes": 162135
+    },
+    {
+      "file": "docs/PRIVACY_SCAN.md",
+      "sha256": "5d5f34eb5abc37c2f8d7ac24f77a401087987ca742f34652f04491384ea16789",
+      "bytes": 2768
+    },
+    {
+      "file": "docs/PUBLIC_BINARY_VERIFICATION.json",
+      "sha256": "31e6d6274ec0e11bd8ecd0b7b06bfe70cf4a6e8185132682c5ac6add41893179",
+      "bytes": 1775
+    },
+    {
+      "file": "docs/QUICKSTART.md",
+      "sha256": "069749d5e8061d34ff6e22e6fa0b8366ae893f3fc7bea6313a1fc6cbb90541e9",
+      "bytes": 4706
+    },
+    {
+      "file": "docs/RELEASE_ALLOWLIST.json",
+      "sha256": "502cef76f677bbeaebe38621411abca5629b648df0aa1045c3b17acdc53ea1c5",
+      "bytes": 5705
+    },
+    {
+      "file": "docs/RELEASE_INVENTORY.json",
+      "sha256": "ffc7d92bbe862673a36025cdd4f475ec1cf93407ca755b0f46d621417de33ba3",
+      "bytes": 22804
+    },
+    {
+      "file": "docs/RELEASE_PACKAGING.md",
+      "sha256": "842fb80cd68de373e2cfdce2066047f6209acce6aee791ce0c3fb15c08aa74d5",
+      "bytes": 2986
+    },
+    {
+      "file": "docs/RELEASE_VALIDATION.json",
+      "sha256": "e503c37a2688fe1f24d1c0378485cd00cce10dfa430d7ad3f337d09dc8080334",
+      "bytes": 4186
+    },
+    {
+      "file": "docs/SKILL_ENGINE_AUDIT.md",
+      "sha256": "c94e34a3b380405afda6ef55d1fa81854e22e42f4a2145831c602a45d023550d",
+      "bytes": 3151
+    },
+    {
+      "file": "docs/SOURCE_ALLOWLIST.json",
+      "sha256": "ef9cd9b2e158e4de72ba5126a81d8455b8e9b08f7af0dec847186067c8473467",
+      "bytes": 13003
+    },
+    {
+      "file": "docs/SOURCE_CONTENTS.json",
+      "sha256": "b505fd03b3f3e4742c2a054a91b2a6e4a97cdee08ab81e69d181560e4ce9522b",
+      "bytes": 17328
+    },
+    {
+      "file": "docs/SOURCE_PROVENANCE.json",
+      "sha256": "ec68b95df5f4cd13cd1e73b521d3650aaf7f7793949b7d8ce2e5dc9387e2ffaa",
+      "bytes": 67588
+    },
+    {
+      "file": "docs/THIRD_PARTY_INVENTORY.json",
+      "sha256": "78cfa1d59a88ca978172a35eb0498fcb4e078b4c41b1994960d874de538dd20a",
+      "bytes": 6370
+    },
+    {
+      "file": "docs/TROUBLESHOOTING.md",
+      "sha256": "f3e0e0e465c8bdcce8b620050925e18f061739251f434b8ca38963f563e90b84",
+      "bytes": 5699
+    },
+    {
+      "file": "docs/UPDATING.md",
+      "sha256": "604a5833ec88c0ddc3a37c4ff734a369298dc7a5aa93393126b1d11bf5e59757",
+      "bytes": 1480
+    },
+    {
+      "file": "examples/atlas/README.md",
+      "sha256": "e83e1317c7d61cf7b83d2d84d107aade5d908c285dae8f9bf6da3d136b746640",
+      "bytes": 934
+    },
+    {
+      "file": "LAUNCH_BLOCKERS_RESOLVED_v1.2.1-beta.1.md",
+      "sha256": "e7bb44de204b466087b293a6ba46ed72df1e8f22a50c6865e2c952b1d1016deb",
+      "bytes": 4341
+    },
+    {
+      "file": "LICENSE",
+      "sha256": "1684d72544b7aaa679084a05ca7f0c794acbbb76d6f6df8376e721387e177f65",
+      "bytes": 1095
+    },
+    {
+      "file": "licenses/go-runtime/LICENSE",
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "bytes": 1453
+    },
+    {
+      "file": "licenses/go/github.com__clipperhouse__uax29__v2@v2.2.0/LICENSE",
+      "sha256": "07e9e3daaccc707c9b7d535ed1405a65d37919fdd42197fe55e68820e974688c",
+      "bytes": 1069
+    },
+    {
+      "file": "licenses/go/github.com__coder__websocket@v1.8.14/LICENSE.txt",
+      "sha256": "cc0975a5f6305145bdd7b41ce9479632fdac3870e6ac4281f28017f18c767c4e",
+      "bytes": 720
+    },
+    {
+      "file": "licenses/go/github.com__google__jsonschema-go@v0.4.2/LICENSE",
+      "sha256": "2d56c53449691d85d9aea245eb8dac12713e9075d70d5557b82ae1e94805b357",
+      "bytes": 1087
+    },
+    {
+      "file": "licenses/go/github.com__google__uuid@v1.6.0/LICENSE",
+      "sha256": "0a8d61ed3cbfd5312326e8126c31ce9c627a283adc99131b56896d29ada04b2d",
+      "bytes": 1480
+    },
+    {
+      "file": "licenses/go/github.com__hhrutter__lzw@v1.0.0/LICENSE",
+      "sha256": "2d36597f7117c38b006835ae7f537487207d8ec407aa9d9980794b2030cbc067",
+      "bytes": 1479
+    },
+    {
+      "file": "licenses/go/github.com__hhrutter__pkcs7@v0.2.0/LICENSE",
+      "sha256": "d01c6d371866b3c7a1a7e20994d88d2ce83f22974ec6d3596a6125b44495813d",
+      "bytes": 1080
+    },
+    {
+      "file": "licenses/go/github.com__hhrutter__tiff@v1.0.2/LICENSE",
+      "sha256": "2d36597f7117c38b006835ae7f537487207d8ec407aa9d9980794b2030cbc067",
+      "bytes": 1479
+    },
+    {
+      "file": "licenses/go/github.com__mark3labs__mcp-go@v0.46.0/LICENSE",
+      "sha256": "5e13dbbc1d120fc2a03cecde7c91424ae2d7de11b63d58ded2f4431e261ee50d",
+      "bytes": 1071
+    },
+    {
+      "file": "licenses/go/github.com__mattn__go-runewidth@v0.0.19/LICENSE",
+      "sha256": "88a2379b3ca34bf5c57127aff9dcb802bbb60ece0805cdbda65b3bd115f971d9",
+      "bytes": 1085
+    },
+    {
+      "file": "licenses/go/github.com__pdfcpu__pdfcpu@v0.11.1/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    {
+      "file": "licenses/go/github.com__pkg__errors@v0.9.1/LICENSE",
+      "sha256": "8d427fd87bc9579ea368fde3d49f9ca22eac857f91a9dec7e3004bdfab7dee86",
+      "bytes": 1312
+    },
+    {
+      "file": "licenses/go/github.com__spf13__cast@v1.10.0/LICENSE",
+      "sha256": "feb6d17a0e7a64e5ab0f7e2b0e0ee3e69c1a6396626fd554dc0cddaa06851b44",
+      "bytes": 1079
+    },
+    {
+      "file": "licenses/go/github.com__yosida95__uritemplate__v3@v3.0.2/LICENSE",
+      "sha256": "0761aadfb1921103752869ee942d4a71bdd54494697684d4b13dc17ad9781191",
+      "bytes": 1546
+    },
+    {
+      "file": "licenses/go/golang.org__x__crypto@v0.43.0/LICENSE",
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "bytes": 1453
+    },
+    {
+      "file": "licenses/go/golang.org__x__crypto@v0.43.0/PATENTS",
+      "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc",
+      "bytes": 1303
+    },
+    {
+      "file": "licenses/go/golang.org__x__image@v0.32.0/LICENSE",
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "bytes": 1453
+    },
+    {
+      "file": "licenses/go/golang.org__x__image@v0.32.0/PATENTS",
+      "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc",
+      "bytes": 1303
+    },
+    {
+      "file": "licenses/go/golang.org__x__text@v0.30.0/LICENSE",
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "bytes": 1453
+    },
+    {
+      "file": "licenses/go/golang.org__x__text@v0.30.0/PATENTS",
+      "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc",
+      "bytes": 1303
+    },
+    {
+      "file": "licenses/go/gopkg.in__yaml.v2@v2.4.0/LICENSE",
+      "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "bytes": 11357
+    },
+    {
+      "file": "licenses/go/gopkg.in__yaml.v2@v2.4.0/LICENSE.libyaml",
+      "sha256": "a94710b55e03b5285f77d048c5ba61bb9d6ee04a06c0eb90e68821e11b0c707a",
+      "bytes": 1313
+    },
+    {
+      "file": "licenses/go/gopkg.in__yaml.v2@v2.4.0/NOTICE",
+      "sha256": "f6c2dd3a67b576eafb89b80200b8b1627230bf3821a0c14cb99a22ac19107d00",
+      "bytes": 560
+    },
+    {
+      "file": "licenses/modern-screenshot/LICENSE",
+      "sha256": "1daae2db27daba18a7e21bb56e12e19b8de6c1197658921f09bbe550f7106579",
+      "bytes": 1077
+    },
+    {
+      "file": "licenses/node/@playwright__test/LICENSE",
+      "sha256": "45873d00a0dd243596deb4aa23b2493b3d1f0671921bf2538ea431d7380220eb",
+      "bytes": 11601
+    },
+    {
+      "file": "licenses/node/@playwright__test/NOTICE",
+      "sha256": "6d602191187b35b9b01d2cffa01c8469c2c8d9de8a96f1bf868e0f264f51c81d",
+      "bytes": 254
+    },
+    {
+      "file": "licenses/node/playwright-core/LICENSE",
+      "sha256": "45873d00a0dd243596deb4aa23b2493b3d1f0671921bf2538ea431d7380220eb",
+      "bytes": 11601
+    },
+    {
+      "file": "licenses/node/playwright-core/NOTICE",
+      "sha256": "6d602191187b35b9b01d2cffa01c8469c2c8d9de8a96f1bf868e0f264f51c81d",
+      "bytes": 254
+    },
+    {
+      "file": "licenses/node/playwright/LICENSE",
+      "sha256": "45873d00a0dd243596deb4aa23b2493b3d1f0671921bf2538ea431d7380220eb",
+      "bytes": 11601
+    },
+    {
+      "file": "licenses/node/playwright/NOTICE",
+      "sha256": "6d602191187b35b9b01d2cffa01c8469c2c8d9de8a96f1bf868e0f264f51c81d",
+      "bytes": 254
+    },
+    {
+      "file": "licenses/platform-design-skills/LICENSE",
+      "sha256": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+      "bytes": 1056
+    },
+    {
+      "file": "licenses/plugin/clsx/license",
+      "sha256": "9a9edad7baae52622bddf3c15b2ef8a33d2c89f2d25408ad13e8a7481c6b0c97",
+      "bytes": 1104
+    },
+    {
+      "file": "licenses/plugin/esm-env/LICENSE",
+      "sha256": "6df5276ee7531fcc5446f19082c12e77bb6c5f081fd2b6d6cf88180a5ee36acd",
+      "bytes": 1063
+    },
+    {
+      "file": "licenses/plugin/svelte/LICENSE.md",
+      "sha256": "06257f4847b13a49a039efb17b944c141e71b12fd8d231b362d86919067d77a3",
+      "bytes": 1126
+    },
+    {
+      "file": "opencode.example.json",
+      "sha256": "1ae3a309192d62ea967a5711ff44d8aef2eb5d6367fee6831c75041cd5caaa84",
+      "bytes": 362
+    },
+    {
+      "file": "orca.ps1",
+      "sha256": "2546de2ea4f28a909edc7d2b0121c4efbb8b81a5fc5856f4fecae9ed3eb8c7a0",
+      "bytes": 166048
+    },
+    {
+      "file": "package-lock.json",
+      "sha256": "8a78acd8405cafbc1db9878e886dcbcf885f90d6145e871c70999605c7968d61",
+      "bytes": 1765
+    },
+    {
+      "file": "package.json",
+      "sha256": "f694067f0042cbcebd59297257c55e539e173a99156e484e6a46d9a73e9bb5bf",
+      "bytes": 910
+    },
+    {
+      "file": "README.md",
+      "sha256": "f0adc84156cdeed3a6504075f0afa23d9bef6c73cf4ad2fda5ff038ab5db6a41",
+      "bytes": 6135
+    },
+    {
+      "file": "RELEASE_NOTES_v1.2.1-beta.1.md",
+      "sha256": "7e114af425921f41c357546870189de39dc42eb0ba36ced73f90368618bcaafa",
+      "bytes": 2309
+    },
+    {
+      "file": "RELEASE_READINESS_v1.2.1-beta.1.md",
+      "sha256": "ed46538c3e646351471930982ef584072bbf9bdab44746051a3dac6885daf3ac",
+      "bytes": 6961
+    },
+    {
+      "file": "ROADMAP.md",
+      "sha256": "22b6e37ab5d7f896157079c6c7ae07385185fc7421fa1476e6e6a5892d62964b",
+      "bytes": 637
+    },
+    {
+      "file": "rules/figma-design-rules.md",
+      "sha256": "3d3abe65518af23c73f9d8516a5e441225337f3c9cf10490da448315146d5800",
+      "bytes": 6122
+    },
+    {
+      "file": "rules/figma-standalone-rules.md",
+      "sha256": "bfae55bea159816e77d6d2c769705b7a016dae6bec7b2907478a57ee7e047068",
+      "bytes": 6697
+    },
+    {
+      "file": "scripts/figma-browser-contract.mjs",
+      "sha256": "6b0479e50ca80fe7fd3b33d5aa65e8594eb622a5a42d4446ae559d65285611c0",
+      "bytes": 4012
+    },
+    {
+      "file": "scripts/figma-browser-contract.test.mjs",
+      "sha256": "ca510434ddc5337d81b45f3044ae8c893d9dd9ef6c116043592e0a10e710412e",
+      "bytes": 4378
+    },
+    {
+      "file": "scripts/figma-browser-freshness.mjs",
+      "sha256": "8c6966c8f4e4823a2c78b603bbf8503bd0cecac30bfe0bd27feda0cb21adbe22",
+      "bytes": 4221
+    },
+    {
+      "file": "scripts/figma-browser-freshness.test.mjs",
+      "sha256": "96e942f6b2ea456cee2d89cd73911a1494ff91b51d133b1c3ad3b0afb7f8faa4",
+      "bytes": 2964
+    },
+    {
+      "file": "scripts/figma-browser-integration.test.mjs",
+      "sha256": "c43dbcbaf222fa72b737508aec662ef9256b4808a1fa501d277750957a2f2c65",
+      "bytes": 4723
+    },
+    {
+      "file": "scripts/figma-browser-source.mjs",
+      "sha256": "eb2b245c6eb236a18bd1bbbc754d75388e8b81f9a7c5cab11122170b56194352",
+      "bytes": 1839
+    },
+    {
+      "file": "scripts/figma-browser-status.mjs",
+      "sha256": "05cc7a8d0d56eafc0b8d8031836771147695dafc429b92f56fa2d243f1a68bf7",
+      "bytes": 2835
+    },
+    {
+      "file": "scripts/figma-browser-test.mjs",
+      "sha256": "6e200f3e572078ab98c3e903aa933f205ac09b9eb684f21dc255e81a5a442a6b",
+      "bytes": 17398
+    },
+    {
+      "file": "scripts/figma-hardening.test.ts",
+      "sha256": "8755319382a50106f0df9aaf3d360fb80bc530d5970003f5529c60d41f27cd19",
+      "bytes": 5620
+    },
+    {
+      "file": "scripts/figma-live-source.mjs",
+      "sha256": "f429094f1849892f40983f66c540f19e96bf3fb29e750977d9414105b09cdc82",
+      "bytes": 6862
+    },
+    {
+      "file": "scripts/figma-live-source.test.ts",
+      "sha256": "ef27cb16fb40e305ca3f23208d571240b79dbb35859e00266aa6a241f96ec922",
+      "bytes": 15863
+    },
+    {
+      "file": "scripts/figma-mcp-release-check.mjs",
+      "sha256": "5902353b686434e35b3e4ad176d99d63e7dceffc67ee38d1223bbe0fd065148d",
+      "bytes": 3259
+    },
+    {
+      "file": "scripts/figma-opencode-timeouts.test.mjs",
+      "sha256": "da2a734fc537ae48854b72c46b6bec70f476f95c6b23cecf5a4435cd6eec5bff",
+      "bytes": 1840
+    },
+    {
+      "file": "scripts/figma-plugin-test-dispatch.ts",
+      "sha256": "c8b64a8852c8ef0f6ee16e9ec62427f9e85a6e5fca1add34c675f4f94898a46a",
+      "bytes": 1026
+    },
+    {
+      "file": "scripts/figma-variants.test.ts",
+      "sha256": "f52a790e6c57a06b4c9df505c976828e542b7afd8afec4098339030d533122f6",
+      "bytes": 5310
+    },
+    {
+      "file": "scripts/package-release.ps1",
+      "sha256": "3f2f28bc3f9814c4ae3f77fc23ea1eec5773c484383045ea8869190c903d8ec7",
+      "bytes": 6876
+    },
+    {
+      "file": "scripts/release-check.ps1",
+      "sha256": "a2b32964841258542035aa967ff4402dd813c3325f465f2f5d181f95a337d218",
+      "bytes": 6342
+    },
+    {
+      "file": "scripts/release-privacy-check.mjs",
+      "sha256": "0f75242cdfafefef932825b1f02904182f22787e8cc198b3f76af6674d9ec768",
+      "bytes": 2179
+    },
+    {
+      "file": "SECURITY.md",
+      "sha256": "cc76ac9889fc374cabcca2adca751be1b54a9d947508f5c8564b83d364c00034",
+      "bytes": 1129
+    },
+    {
+      "file": "setup.ps1",
+      "sha256": "67d3389ba31442eb9df02c61a67adc487dfb1b02a369b2580a545ea72f2bc123",
+      "bytes": 8894
+    },
+    {
+      "file": "SOURCE_FRESHNESS.md",
+      "sha256": "40ef8ab0392a3c25767091815b893805cf1ac6d9d7f5b23d5ec77d9eba746ffc",
+      "bytes": 13884
+    },
+    {
+      "file": "SUPPORT.md",
+      "sha256": "72f90dee32706d8483254ec1d1c4d2c71f772cbed856e468ce57007d6b945c9d",
+      "bytes": 716
+    },
+    {
+      "file": "THIRD_PARTY_LICENSES.md",
+      "sha256": "924e0f0cc98ac92753314ad866f2b4bdfb11c93e9d27193493ef45d27cbc37fd",
+      "bytes": 11550
+    },
+    {
+      "file": "vendor/figma-mcp/.gitignore",
+      "sha256": "3cfd06c4c9239a91975eb2366c39be21347dea496572f4ea6f57b1c797fe2429",
+      "bytes": 302
+    },
+    {
+      "file": "vendor/figma-mcp/cmd/figma-mcp-go/main.go",
+      "sha256": "b64e4372bfd551f1754faa85a4e30e2bcbe9fd3a944c4ae6469d297fbb8a89b9",
+      "bytes": 1718
+    },
+    {
+      "file": "vendor/figma-mcp/docs/agent-toolkit-v1.3.md",
+      "sha256": "fb28b22fa8fa3b63f5863f93a93d81921ee13f727d28ababdefd5915e3d1305a",
+      "bytes": 7832
+    },
+    {
+      "file": "vendor/figma-mcp/docs/architecture.md",
+      "sha256": "9cfa04d69920c4707564d6099f41a33577982ea649bfd7b7ce1a781e4250f0fa",
+      "bytes": 4637
+    },
+    {
+      "file": "vendor/figma-mcp/docs/bug-fixes-v1.3.md",
+      "sha256": "2e66269d8a9a611ef6127cf7940b5f8eb516f7cf9de5312c3d70c793fa53b47e",
+      "bytes": 4715
+    },
+    {
+      "file": "vendor/figma-mcp/docs/cowork-mcp-guide.md",
+      "sha256": "531753abfef374331bcd106fe74a3c053a8789ecb09b11f06787fda783111f44",
+      "bytes": 16679
+    },
+    {
+      "file": "vendor/figma-mcp/docs/README.md",
+      "sha256": "eb021748377e6fa44f7b0d6b370b52b41f6a0b52d95a9a3a4073b198bc7f48e0",
+      "bytes": 2377
+    },
+    {
+      "file": "vendor/figma-mcp/docs/recipes/carousel-slides.md",
+      "sha256": "4e225642f334bf661fac500cf5c37ecb5a7fa31c957981ec8b1824dd2a32830d",
+      "bytes": 2909
+    },
+    {
+      "file": "vendor/figma-mcp/docs/recipes/design-system-bootstrap.md",
+      "sha256": "1f810f5a9f2300c6b1d6c52870e01f27bb4a057d4cb10c28be479f0e709087b1",
+      "bytes": 3725
+    },
+    {
+      "file": "vendor/figma-mcp/docs/recipes/edit-not-rewrite.md",
+      "sha256": "0c520d32087d4e0920ebf58689c8333cf90b27ef092661a7aed0f843cbce04f4",
+      "bytes": 2367
+    },
+    {
+      "file": "vendor/figma-mcp/docs/ROADMAP.md",
+      "sha256": "291a8f3ed5114e4292afbfa91286e3ac8a302d75072dd3f576830e4aa4918604",
+      "bytes": 19961
+    },
+    {
+      "file": "vendor/figma-mcp/docs/skill/decision-tree.md",
+      "sha256": "8ba4594bafcbd07b0c5ed351f44909125a66c5f5c6a9ee55a24ddb31f8ecc096",
+      "bytes": 3380
+    },
+    {
+      "file": "vendor/figma-mcp/docs/skill/examples/01-create-cover-slide.md",
+      "sha256": "ef661e64b53a3340350978b3b871dddaf8014e502ceab011049531ee1a02380e",
+      "bytes": 1955
+    },
+    {
+      "file": "vendor/figma-mcp/docs/skill/examples/02-edit-not-rewrite.md",
+      "sha256": "2907245032abe62274e47102e7c7371e5d87e7faae70aff3df9fa3d83c463520",
+      "bytes": 1636
+    },
+    {
+      "file": "vendor/figma-mcp/docs/skill/examples/03-design-tokens.md",
+      "sha256": "3310f4f742945f072815354f26dd1dacb6a90f2b2b69b0cc24a3278b231748ee",
+      "bytes": 2314
+    },
+    {
+      "file": "vendor/figma-mcp/docs/skill/SKILL.md",
+      "sha256": "91c42644ad6e4a49b8eb4789d82a6b820353c6fa5cba1d5a3420f8a44a56ba7c",
+      "bytes": 3566
+    },
+    {
+      "file": "vendor/figma-mcp/docs/tools-reference.md",
+      "sha256": "88154d6b1f4ee1f434a3b60fc362083345caf77a298fe41e4a4e1f9b9703be81",
+      "bytes": 5322
+    },
+    {
+      "file": "vendor/figma-mcp/go.mod",
+      "sha256": "8e8625119e7fcad7a559d0d44f2be428127cff24fe937f7d46eba8baeb62394b",
+      "bytes": 842
+    },
+    {
+      "file": "vendor/figma-mcp/go.sum",
+      "sha256": "0b9cf89771ebb560424bfa1612fe7a9d0e45d3fbcc86a3269e01a426059dd5f1",
+      "bytes": 4633
+    },
+    {
+      "file": "vendor/figma-mcp/internal/bridge_test.go",
+      "sha256": "a3949893af6641cc74f8d543ade7b814039e36473f9cf31b41342a9cf92f7436",
+      "bytes": 7255
+    },
+    {
+      "file": "vendor/figma-mcp/internal/bridge.go",
+      "sha256": "fc542dc31a196c118a44e618c88a7a0ad68d7227d74ff9cf43acbaead25dcdf7",
+      "bytes": 7694
+    },
+    {
+      "file": "vendor/figma-mcp/internal/election_test.go",
+      "sha256": "fb922c772a1e1b61f3c840eccb7f9b65f8c773bb9e3bdfa7c5c97abb7f463dd6",
+      "bytes": 7362
+    },
+    {
+      "file": "vendor/figma-mcp/internal/election.go",
+      "sha256": "eae900279abb6bb0c696c47aff010b469a48d13537556ef4341c1408f2705c06",
+      "bytes": 2774
+    },
+    {
+      "file": "vendor/figma-mcp/internal/follower_test.go",
+      "sha256": "bb4632533263b7ed7810837fd04793d59deb5ae53e1a9845c0ee860bc1fc24a8",
+      "bytes": 4672
+    },
+    {
+      "file": "vendor/figma-mcp/internal/follower.go",
+      "sha256": "c2c6090f10c526619e25b310b1fc2099d2b499e1eb023c6493e3968fa7e08232",
+      "bytes": 2940
+    },
+    {
+      "file": "vendor/figma-mcp/internal/helpers_test.go",
+      "sha256": "3d9a7c126b10186c9a3f00ed0192876cc211903a0ede2061b8f48982c5a0371c",
+      "bytes": 320
+    },
+    {
+      "file": "vendor/figma-mcp/internal/leader_test.go",
+      "sha256": "b73a5236902e52f6ebbac63c3391468b853ed9552f19e9d1ccfd303d6513fc48",
+      "bytes": 5400
+    },
+    {
+      "file": "vendor/figma-mcp/internal/leader.go",
+      "sha256": "dc559491d592aff2cf5ced14e25e665c42fba6e5e9ec8647a2098422a51a98af",
+      "bytes": 4267
+    },
+    {
+      "file": "vendor/figma-mcp/internal/node_test.go",
+      "sha256": "9a6e6bd6823bf0a3da824b2653d425c340e6a9091c1c79c2eb9ab899de0ec81e",
+      "bytes": 6011
+    },
+    {
+      "file": "vendor/figma-mcp/internal/node.go",
+      "sha256": "ecac680e179da1cef4999ca1f63969634e81d76b9b61a59940f08d51b827cd23",
+      "bytes": 3686
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/annotation_conversion_strategy.go",
+      "sha256": "ac5bb8c6ecfc9dab3520b50f187842bcfde68fc96a9879c571e42a8c719a13f5",
+      "bytes": 3189
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/bulk_rename_strategy.go",
+      "sha256": "066cd33ba147d6dda7635e5d7c62a32fea941d70fd2a0b4231a2f412ca011309",
+      "bytes": 3106
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/design_strategy.go",
+      "sha256": "88e887251096f29a5b2fdd032892cb70fdcdd0df22df5423455ab6691db56db3",
+      "bytes": 3372
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/design_token_generation_strategy.go",
+      "sha256": "e5003c9689296d7446b4a786a6083fd80a475e5b2a22201c4dbf2997ae4c2145",
+      "bytes": 5191
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/generate_color_palette.go",
+      "sha256": "025527c5d0e6fad488a1cfab971e18ac45e53febeac48c53ddc830188dfb2c7c",
+      "bytes": 3582
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/generate_component_variants.go",
+      "sha256": "8d537acbdd31f7c785ac6ede98516cb4685e2b02c668f0b70928fd6195aa59e6",
+      "bytes": 3663
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/generate_type_scale.go",
+      "sha256": "ae7f083f84d8433a9c79824e5adf238e49dcbf2d6dfafd7ccbfa6a7cb44c371e",
+      "bytes": 3498
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/prompts_test.go",
+      "sha256": "e7d1cc941ab3f725fc865493b1ad8c4edde5e839cb97ec9da0489f795fbd18ab",
+      "bytes": 244
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/prompts.go",
+      "sha256": "2188aafe4f2723d68fe5bd827751b0575e987f12c90e2b0ca6bdf1282ea94462",
+      "bytes": 534
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/reaction_to_connector_strategy.go",
+      "sha256": "fc97ccd3d0f24b2bc8b061c2bd60682ec9218d928200a1ecc4c46eb2f55e6653",
+      "bytes": 2753
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/read_design_strategy.go",
+      "sha256": "792898830776d4256afdd9a3670c342bc374551161b8476eba3fe01d0d5b9cf7",
+      "bytes": 2981
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/style_audit_strategy.go",
+      "sha256": "3b8e0dc2a3399d9a4517f576ae5c65ced1192d217ae033acf932d3158bfd155e",
+      "bytes": 2621
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/swap_overrides_instances.go",
+      "sha256": "666c98a4e9577b3a5f0677b9d00a4de35bc2410588bef424920330c0d3041bf8",
+      "bytes": 2506
+    },
+    {
+      "file": "vendor/figma-mcp/internal/prompts/text_replacement_strategy.go",
+      "sha256": "5de096719cd98e824636b7cafd8e9d71efd1eba978bbef3eadfd300028a6415c",
+      "bytes": 3908
+    },
+    {
+      "file": "vendor/figma-mcp/internal/reaction_hardening_test.go",
+      "sha256": "2e16fdddc2108ebdddb1765f3def9ec3f7b4a6e20efa9e5e2878373ff42c1322",
+      "bytes": 3890
+    },
+    {
+      "file": "vendor/figma-mcp/internal/schema_test.go",
+      "sha256": "b9975442fa461900d54c2175946792546c60ccb03260477079cbcec3e1e52879",
+      "bytes": 51398
+    },
+    {
+      "file": "vendor/figma-mcp/internal/schema.go",
+      "sha256": "ec304009c1303ec84822ec1e122320a2b111ce5671ec9760eb959d501023f066",
+      "bytes": 36698
+    },
+    {
+      "file": "vendor/figma-mcp/internal/timeout_model_test.go",
+      "sha256": "3a434a7f3e32abf2835670224c3bbc94165f1eeff3e8d3a28a2d7fdd9fca9dcd",
+      "bytes": 2600
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_components_v2.go",
+      "sha256": "b160057984ebff4e9f72dab8cb1f81810f09901f5a1ac51eeb68939dfd87ebc2",
+      "bytes": 9597
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_diagnostics.go",
+      "sha256": "683029c0c3fd6f2efea5fa4050293563e75310de0007dc6de407443500911389",
+      "bytes": 3029
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_edit.go",
+      "sha256": "a2d7ab04b0d58f4ef130699756cd68df39a3946ba5d50adefb1b5791f74694e6",
+      "bytes": 11240
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_export_v2.go",
+      "sha256": "c98508105c1a4a3d59a65b590be9a82da9718296eb285191151afd890f8424b6",
+      "bytes": 5044
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_handler_test.go",
+      "sha256": "281476c263bafbc4e77d0cb962452828d88d6584cde405ea08b3806af2926f36",
+      "bytes": 16786
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_layout.go",
+      "sha256": "22e1389eb396549c2c181d965bcb0197a3cc81c2a5ddf442648509f7b77fcb4e",
+      "bytes": 7413
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_read_document.go",
+      "sha256": "e55ac3a68180e31489c726c295438be59993ec33c35c665bcb640abff70d86ab",
+      "bytes": 8143
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_read_export_test.go",
+      "sha256": "f68728c76c6d50abfcb8e04cfc28df562feafa9cf846fca013b9ceef722812f4",
+      "bytes": 3980
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_read_export.go",
+      "sha256": "fd785b2d460e2844109e1c7354140c0f048557b0b037c9cbb4f15fe82d35457c",
+      "bytes": 6916
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_read_styles.go",
+      "sha256": "f1a7301cb7883a5eb2c55382debd3e7766d96376532d00bb036620e8b154a900",
+      "bytes": 2414
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_read.go",
+      "sha256": "adbd2b26197f552f9d1107dde971ffa6fed4fd8c43b231fcdff1fa18be970df4",
+      "bytes": 235
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_schema_test.go",
+      "sha256": "edcdfd29fd827b89abb50f7978c78dc51b438e29de81cdb8f5da865183367388",
+      "bytes": 4177
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_slides.go",
+      "sha256": "96facf5b5854731cf061a22fe389e4fea22e3b84db1362dab548c71b45ac9a9e",
+      "bytes": 8396
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+      "sha256": "09b4c59132c51b53a09200166477a64b540332b53daefa8562c93f6ae99cf9af",
+      "bytes": 6259
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_test.go",
+      "sha256": "a21df303031c87eea33c41fa7796ea549a040d1c783fc2a44a477dc3f10e7cb1",
+      "bytes": 8670
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_validation.go",
+      "sha256": "7a7afa2b89c888dc7c1ee1befdfed955bc75435b117f76979e513e40c7f88f28",
+      "bytes": 4758
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_components.go",
+      "sha256": "b5ff948b112535fcf682173901e2a93645526bd87f6139e8922dbd36177aec05",
+      "bytes": 4074
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_create.go",
+      "sha256": "f2b705bb0dd1237a997079851fe134457842c98df9e44827907006699ce7f214",
+      "bytes": 9605
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_html_test.go",
+      "sha256": "83564978cc4c94f04ca70fa6727e70482b3824aa0ea6e0ff5215d21fc234c7f1",
+      "bytes": 4688
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_html.go",
+      "sha256": "3f2a1ec1c5aac5a4e13a294714ec9dff0c45601c34dd6fb82ecd1ada95525c45",
+      "bytes": 11608
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_modify.go",
+      "sha256": "c2a0841fb88ee68e5b6ef1a56a6739cb9e88be928caa6367f370e0b9b05535f9",
+      "bytes": 21432
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_page.go",
+      "sha256": "6c1c4c7585f6803747435c2752a1c7efe4524d5ea1c232d9fa7e9cb0c13da8ca",
+      "bytes": 2646
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_prototype.go",
+      "sha256": "348b6549715ef7f811fb0af2b038568c0f3990f8db4b29667e9c25013f8ecac8",
+      "bytes": 4407
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_styles.go",
+      "sha256": "a4444681641f75c39de2f8437de74896ed4f259842dd2594b8eff72f14fdce00",
+      "bytes": 10905
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write_variables.go",
+      "sha256": "5ef8a497c186ce44c6a6e5f26a6a72aa55bf1e5af2d3c81b5a4673aec1eef575",
+      "bytes": 4906
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools_write.go",
+      "sha256": "585adf7a6972c57372000fcf601a1a933eb3ff1d045fdbd092207eaad194aeb2",
+      "bytes": 992
+    },
+    {
+      "file": "vendor/figma-mcp/internal/tools.go",
+      "sha256": "5ac4f437177657cd9658679d76912cabb11d98f2e5bee8034756f71f2756ce0a",
+      "bytes": 8239
+    },
+    {
+      "file": "vendor/figma-mcp/internal/types_test.go",
+      "sha256": "9168f0274b3d35b2f49d6e4941011f84cd807ff411712d75c271d24b31d8525b",
+      "bytes": 2880
+    },
+    {
+      "file": "vendor/figma-mcp/internal/types.go",
+      "sha256": "5917c8f65cd25b7143c1f15c175f8515138e943df3636733e7612e3939fa7967",
+      "bytes": 1411
+    },
+    {
+      "file": "vendor/figma-mcp/LICENSE",
+      "sha256": "9c4ddb09445ab7afb04c6e139fdf90afc8cf1380ca108d671337ca45e4dbf893",
+      "bytes": 1087
+    },
+    {
+      "file": "vendor/figma-mcp/Makefile",
+      "sha256": "61ee034270ab796115859b63d7e2c19432331190c785cdb105f2707c6f426e1d",
+      "bytes": 517
+    },
+    {
+      "file": "vendor/figma-mcp/npm/bin/run.js",
+      "sha256": "bf73be04857bfacef7bbd86884dce102dbb7ec7a5249d15e9ed2a558de512440",
+      "bytes": 1015
+    },
+    {
+      "file": "vendor/figma-mcp/npm/package.json",
+      "sha256": "f88e80f49668cd126cbf845741e496115b1c8e931050a4401dd922b9e5424d9f",
+      "bytes": 890
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/bun.lock",
+      "sha256": "b342e94bd92cab20284d698cc59a941f637eb1ad554262022debc8b7b5324ded",
+      "bytes": 28409
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/dist/code.js",
+      "sha256": "24bb648c96cc7288938e87aedc07f44de48d9ea25fe9f19f3256633c31dad849",
+      "bytes": 261037
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/dist/index.html",
+      "sha256": "661fb49dd3ca38ed4648e70858822f59f565093718d02143c6b1b85628f054ee",
+      "bytes": 43634
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/manifest.json",
+      "sha256": "926c3daa15ff20ffaa8642cbced07fc37395f7b2835aa3443d3e59fc73b68f25",
+      "bytes": 486
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/package.json",
+      "sha256": "983b6a3e908204b8bb0923d4705187b365848b0dae2c77b62b2d341f4672b57e",
+      "bytes": 570
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/browser-source.ts",
+      "sha256": "4bb4e72b5b1e370163b6771580fd9d0ccdecd9fb998da7f2939c7be43af5d8dd",
+      "bytes": 10293
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/components-v2.ts",
+      "sha256": "30a422062917fbb8dd53fffcd1dccd00882819170426372856c74d70f7f716cb",
+      "bytes": 16388
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/diagnostics.ts",
+      "sha256": "196acb0702e2eb9534baa19dcf7118d9ab2ce15efbfc251965e1cac3983ce82c",
+      "bytes": 6986
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/edit.ts",
+      "sha256": "9eb313e619800974596a454a35f32e5e468a16d3bc2366daecd91f48ac73ceb6",
+      "bytes": 16312
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/export-v2.ts",
+      "sha256": "fd60c0141ca19977088de5bfa82e76691e81f9773871ffdcbf2de9b41576e2c2",
+      "bytes": 12478
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/global.d.ts",
+      "sha256": "e05f99dbcefc8af133cddaa661898339ceff8d909917287b65da85443adac126",
+      "bytes": 49
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/layout.ts",
+      "sha256": "232048c16f62727a7fee8fa228e0703da1b5a8e73087c5256cb4a9ffddaf61aa",
+      "bytes": 9338
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/main.ts",
+      "sha256": "897b5988d6e431c52422ebfbc91b755461c64b24eed5431df7e4dbba829711b3",
+      "bytes": 2028
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/read-document.ts",
+      "sha256": "f5ae7ef2a31cc59c78e599c59d4f0723e9ae882166de6c46850100c3056cc6bb",
+      "bytes": 17130
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/read-export.ts",
+      "sha256": "c200271893ffc687ee7761bfbbc4b87dbba39d942852d74889cfd67dee494710",
+      "bytes": 2933
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/read-handlers.ts",
+      "sha256": "b6769372c9f5246a0856339556362616472d346e4389de58494a23123bab3cdd",
+      "bytes": 377
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+      "sha256": "14ac3d3ad4d19d667075b5bc1fd9c041d679748b18f177060de5ad776c6f3d78",
+      "bytes": 7191
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/read-styles.ts",
+      "sha256": "338702a7eaa5908ead8c1110bd3d15b662d4c93f7bf7d807ee33ff115106e3f5",
+      "bytes": 10595
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/serializers.test.ts",
+      "sha256": "7bd993454c213e5e8b3ac621ce22288eece002f0618b2490d659a4dc69c798e8",
+      "bytes": 19422
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/serializers.ts",
+      "sha256": "4a0da825be2122e46bf8845c3ee450ed7d01061de9122a186c631a99eaba6fbd",
+      "bytes": 8104
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/slides.ts",
+      "sha256": "a4933a9edcf5de853da75abd13c8d164c48752959b3c99bc327df7d17f22d83b",
+      "bytes": 14277
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/style-ecosystem.ts",
+      "sha256": "5266d5eae504ab76158c3ca016568e36b08d9e6a9a5ce332b3c0022861593b0b",
+      "bytes": 8695
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/toolkit-v2.test.ts",
+      "sha256": "117e7bac33204e68a1529ff744fe63de71a579d34b357850d2fe14de8c49bf39",
+      "bytes": 17725
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/ui/App.svelte",
+      "sha256": "56ff75522d7718175de70a42b661ce2e8473b957ef64af4c158b66690b3e5952",
+      "bytes": 11728
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/ui/index.html",
+      "sha256": "60c3bdab91049c24323b4c44847598884afb303e5ced91fb797dc9c1a17f4e70",
+      "bytes": 200
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/ui/main.ts",
+      "sha256": "3e5b47e4ba42d249b9cf192aded49dfffd658cd910b1f4c81d250e96dee6e8f3",
+      "bytes": 108
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/validation.ts",
+      "sha256": "32745b81aa5c16f8cdc4aad23f0ace734be3975a6fa4eff6ec8c1f13cd5a3b51",
+      "bytes": 21083
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-components.test.ts",
+      "sha256": "273593e78704af1002c92ce0db5cc6964dd252c9f9f50b5a699dde9cfa601b97",
+      "bytes": 6756
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-components.ts",
+      "sha256": "eea35f1f92a30f63799fcae44c43066a28041dad96ea5f3a699d91bccbddca45",
+      "bytes": 5263
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-create.test.ts",
+      "sha256": "b127e07ab17a3d2b4076e518d0c3d3110d3b7c545caa49bf2a9313d9054ffd32",
+      "bytes": 7458
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-create.ts",
+      "sha256": "622fbb1a302ab8b392e011a011c1f857873310ee9b716ce9fd573c037ef82bfd",
+      "bytes": 6919
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-effects.test.ts",
+      "sha256": "cb4e559cf07cd8498044932b2a41c762d411b3df3c135d54c6663d4e767b5e8f",
+      "bytes": 7509
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-handlers.ts",
+      "sha256": "6c2146827af7bb3c28e64f5af80e07c0f8f2f4ba75f980eb8706fc1cb28b9a50",
+      "bytes": 1840
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-helpers.test.ts",
+      "sha256": "0de7bc6dbe82523fa6246dc9b1121b8cd44454ddefb6341d4afccc755b2741b0",
+      "bytes": 8801
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-helpers.ts",
+      "sha256": "3e2af998a7c66f8d72d5172599efe6c677373e1d93abbd5a5f64e6b4dd20f397",
+      "bytes": 3770
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-html.test.ts",
+      "sha256": "4be01039408edbe5b852d82bfde723f46f1ceab13c43e7bbcbf1e39bb9c7ce56",
+      "bytes": 19755
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-html.ts",
+      "sha256": "9f2bc66f086086b594022c360d13b67d37740c98a011e53fe545f98efe5f9998",
+      "bytes": 51257
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-modify.test.ts",
+      "sha256": "452c321ff9cb68119c6b1b7c9e801679f8d6d18366e84867e30763dc1bdf39b4",
+      "bytes": 26264
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-modify.ts",
+      "sha256": "50defbe8eed2681449bd056dc298de1efa463ddd576537078866acc1418bba73",
+      "bytes": 17955
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-page.test.ts",
+      "sha256": "eacf0600da413b45afab60465785444dbe9b9831776498c9666ab839e7b76753",
+      "bytes": 7744
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-page.ts",
+      "sha256": "47d788120c8bd5fc41534aa4add9d5a1c076e53510909a4f28deb07c92230554",
+      "bytes": 2721
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-prototype.test.ts",
+      "sha256": "02c4341ab527de8983a03d42c20aa4230f03cd038b0cf82e6d8f08884a62a491",
+      "bytes": 7558
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-prototype.ts",
+      "sha256": "f87d859ae3f2ebd50e02a3d18860dd415c78cecbe1e188071dff4c9bc80b9f48",
+      "bytes": 7860
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-styles.ts",
+      "sha256": "a3ae26c832d7b7411959de105e1a05f1ca601b305a7c1c669f1262ac42dc560f",
+      "bytes": 14247
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/src/write-variables.ts",
+      "sha256": "6333d3eae8e70952260cab6c40a56d859e799cd59938961e3ff0efcb0fc3855e",
+      "bytes": 4954
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/svelte.config.js",
+      "sha256": "4e2863144e05fb29c6b4965de78fef7d703154259436bc09583b66ff439babf8",
+      "bytes": 121
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/tsconfig.json",
+      "sha256": "e729b37edabd0fa94637c16e2e35aad774366c5987aea6bf4806e6aa6a5dd76e",
+      "bytes": 217
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/vite.config.main.ts",
+      "sha256": "e84070ba26e2ace9522754be6908c1a71077f2f917dcab92a9bf5dab5bf3a434",
+      "bytes": 313
+    },
+    {
+      "file": "vendor/figma-mcp/plugin/vite.config.ts",
+      "sha256": "beffa7a711e6a5abaf36697fefda40ed33eced970d1b1c98ba790c3a38eac6d0",
+      "bytes": 465
+    },
+    {
+      "file": "vendor/figma-mcp/README.md",
+      "sha256": "775d03ae48f1b0dc7c3b76631642ae8c750f01a008f22b8194c58f6454ca3141",
+      "bytes": 16525
+    },
+    {
+      "file": "VERSION",
+      "sha256": "cc9203f5473374d97f7adc64fd13cabc5328a02cb0e8c47dd8fc0b6ba80ab3c6",
+      "bytes": 14
+    }
+  ],
+  "hashedFiles": 337,
+  "releaseVersion": "v1.2.1-beta.1",
+  "count": 338
+}

@@ -1,0 +1,49 @@
+name: Offline tests
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  node-contracts:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.15.0'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: JSON, syntax, release-engineering self-checks
+        shell: pwsh
+        run: ./scripts/release-check.ps1
+  plugin:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.2'
+      - run: bun install --frozen-lockfile
+        working-directory: vendor/figma-mcp/plugin
+      - run: bun test
+        working-directory: vendor/figma-mcp/plugin
+      - run: bun test scripts/figma-hardening.test.ts scripts/figma-variants.test.ts scripts/figma-live-source.test.ts
+      - name: Approved plugin dispatcher regression
+        shell: pwsh
+        run: |
+          $env:FIGMA_PLUGIN_BUNDLE = (Resolve-Path vendor/figma-mcp/plugin/dist/code.js).Path
+          bun test scripts/figma-hardening.test.ts scripts/figma-variants.test.ts scripts/figma-live-source.test.ts
+  go:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.1'
+          cache-dependency-path: vendor/figma-mcp/go.sum
+      - run: go test -count=1 ./...
+        working-directory: vendor/figma-mcp
+      - run: go vet ./...
+        working-directory: vendor/figma-mcp

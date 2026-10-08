@@ -1,0 +1,76 @@
+name: "Bug report"
+description: "Report a reproducible problem"
+body:
+  - type: markdown
+    attributes:
+      value: "Remove secrets, private URLs, personal paths, and design data. Private Figma files are not required."
+  - type: input
+    id: designer
+    attributes:
+      label: "Figma Designer version"
+      placeholder: "Run /figma/version, or read VERSION"
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: "Windows version"
+      placeholder: "Settings \u2192 System \u2192 About"
+    validations:
+      required: true
+  - type: input
+    id: opencode
+    attributes:
+      label: "OpenCode version"
+      placeholder: "opencode --version (or say unknown)"
+    validations:
+      required: true
+  - type: input
+    id: node
+    attributes:
+      label: "Node version"
+      placeholder: "node --version (or say unknown)"
+    validations:
+      required: true
+  - type: input
+    id: figma
+    attributes:
+      label: "Figma Desktop version"
+      placeholder: "Figma Help/About (or say unknown)"
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: "Doctor result"
+      placeholder: "Paste /figma/doctor summary; remove private details"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Steps to reproduce"
+      placeholder: "What did you do?"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Expected behavior"
+      placeholder: "What should happen?"
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: "Actual behavior"
+      placeholder: "What happened instead?"
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: "Relevant error output"
+      placeholder: "Sanitized text; no private file required"
+    validations:
+      required: false

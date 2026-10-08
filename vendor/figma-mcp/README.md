@@ -1,0 +1,335 @@
+# figma-mcp-go — Tharun's Fork
+
+Figma MCP — Free, No Rate Limits
+
+<p>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
+  <a href="https://github.com/vkhanhqui/figma-mcp-go"><img src="https://img.shields.io/badge/upstream-vkhanhqui%2Ffigma--mcp--go-blue" alt="Upstream" /></a>
+</p>
+
+> Fork of [vkhanhqui/figma-mcp-go](https://github.com/vkhanhqui/figma-mcp-go) with bug fixes, HTML-to-Figma tools, and custom branding.
+
+Open-source Figma MCP server with full read/write access via plugin — no REST API, no rate limits. Turn text into designs and designs into real code. Works with Cursor, Claude, GitHub Copilot, and any MCP-compatible AI tool.
+
+**Highlights**
+- No API token, no environment variables — the plugin bridge means no secrets to manage
+- No rate limits — free plan friendly
+- **Read and Write** live Figma data via plugin bridge — **105 tools total**
+- Full design automation — styles, variables, components, prototypes, and content
+- Design strategies included — read_design_strategy, design_strategy, and more prompts built in
+- **HTML-to-Figma** — `write_html`, `write_html_batch`, `get_html` for rapid layout creation
+- **v1.3.0 toolkit overhaul** — 28 new agent-friendly tools across 8 categories (edit-not-rewrite, validation, layout intelligence, slides, diagnostics, …) and 8 surgical bug fixes to the HTML engine. See [docs/](docs/) for the full breakdown.
+- **Bug fixes** — 100px width default, Windows path resolution, clone fill preservation
+
+---
+
+## What's different in this fork
+
+### v1.3.0 — Bug fixes B-1..B-8 + Agent Toolkit
+
+**8 surgical bug fixes** to the HTML-to-Figma engine ([details](docs/bug-fixes-v1.3.md)):
+
+| # | Bug | What broke | Fix |
+|---|-----|-----------|-----|
+| B-1 | Dead-code HUG branch | Buttons/headers never shrink-wrapped | Removed unreachable `else if`; HUG now fires |
+| B-2 | `right`/`bottom` CSS not parsed | Right-anchored elements at x=0 | New `computeAbsolutePosition` helper |
+| B-3 | textAutoResize set after characters | Long text overflowed widths | Reordered: autoresize before characters |
+| B-4 | Empty divs collapsed in auto-layout | 1px dividers invisible | Only HUG when children exist |
+| B-5 | Root flex broke absolute children | Slide layouts mangled | Skip flex when children use position:absolute |
+| B-6 | All new nodes at (0,0) | Stacking | New `x`/`y`/`autoOffset` params on `write_html` |
+| B-7 | 100px fallback in non-flex | Children clipped | Inherit parent width; refit to children |
+| B-8 | Variables couldn't bind via class | Token workflows broken | StyleMapping `variables` array + `data-variable-*` attrs |
+
+**28 new tools** ([details](docs/agent-toolkit-v1.3.md)) across 8 categories:
+
+- **A. Edit-not-rewrite** — `update_node_props`, `patch_html`, `inspect_node_as_html`, `move_to_anchor`
+- **B. Validation** — `validate_html`, `diff_node_vs_html`, `explain_layout`
+- **C. Layout intelligence** — `auto_layout_from_positions`, `align_nodes`, `distribute_nodes`, `pack_grid`
+- **D. Component ergonomics** — `create_component_from_html`, `instantiate_by_name`, `set_instance_overrides_batch`
+- **E. Style ecosystem** — `create_styles_from_palette`, `create_text_scale`, `import_design_tokens`, `bind_variable_to_style`
+- **F. Asset & export** — `export_node_as_react`, `export_html_self_contained`, `replace_image_globally`
+- **G. Slide / carousel** — `slide_template`, `regenerate_slide`, `make_slide_grid`, `list_slides`
+- **H. Diagnostics** — `health_check`, `get_recent_errors`, `explain_node`
+
+The full vision document, decision tree, and recipes live in [docs/](docs/) — structured so any agent can pick this up as a skill.
+
+### Bug Fixes (v1.1.0)
+
+| Bug | Problem | Fix |
+|-----|---------|-----|
+| **100px width** | Frames defaulted to 100px ignoring CSS width, flex:1, percentages | Explicit px first, `flex:1` → FILL, `width:100%` → FILL, hug-contents fallback |
+| **save_screenshots path** | Windows: paths resolved from `C:\WINDOWS\system32`, absolute paths blocked | Accept absolute paths freely, added `--output-dir` flag |
+| **clone_node fills** | Badge components lost pill backgrounds on clone | Apply size overrides, re-assert child fills for non-instance clones |
+| **PDF export path** | Same Windows path issue as save_screenshots | Uses `node.OutputDir()` consistently |
+| **layoutGrow deprecated** | `flex:1` used deprecated Figma API | Uses `layoutSizingHorizontal="FILL"` |
+
+### HTML Tools (3 new)
+
+| Tool | Description |
+|------|-------------|
+| `write_html` | Parse HTML+CSS into Figma nodes (div→Frame, p→Text, img→Image fill) |
+| `write_html_batch` | Create multiple slides/frames in a single call |
+| `get_html` | Export Figma nodes as HTML for read-modify-write workflows |
+
+### Branding
+- Plugin name: **Figma MCP Go — Tharun**
+- MCP server ID: `figma-mcp-go-tharun`
+
+**Styles, Variables, Components, Prototypes, and Content**
+
+https://github.com/user-attachments/assets/eae41471-fc72-4574-8261-4f42c38b8c99
+
+**Text to Design, Design to Code**
+
+https://github.com/user-attachments/assets/17bda971-0e83-4f18-8758-8ac2b8dcba62
+
+---
+
+## Why this exists
+
+[Upstream](https://github.com/vkhanhqui/figma-mcp-go) solved the hard problem: making Figma *writable* from MCP without the REST API and its rate limits, by bridging to a local plugin over WebSocket. That gave agents unlimited, token-free write access to a live Figma file — a genuinely great foundation.
+
+What it didn't solve is *iteration*. An agent would write a layout, Figma would render it slightly wrong, and with no good way to observe or edit what was there, the cheapest move was delete-and-rewrite. That loop burns tokens, destroys bound styles and component links, and produces inconsistent results. This fork makes the file **iterable by agents**: observe → edit → validate loops built on `inspect_node_as_html`, `patch_html`, `validate_html`, and `diff_node_vs_html`, plus the HTML-to-Figma engine (`write_html`) and the v1.3 agent toolkit — 28 tools across editing, validation, layout intelligence, components, styles, export, slides, and diagnostics.
+
+I'm an architect building AI tooling for design workflows, and this fork is the toolkit I wanted my own agents to have: one where fixing a title costs one surgical call, not a rebuild of the slide.
+
+---
+
+## Installation & Setup
+
+No API token, no environment variables — the plugin bridge means no secrets to manage. Two pieces to install: the MCP server binary and the Figma plugin.
+
+### 1. Get the server binary and plugin
+
+**Option A — Download a release**
+
+Grab the latest [GitHub Release](https://github.com/tharuneswarj/figma-mcp/releases):
+
+- The server binary for your platform: `figma-mcp-go_darwin_arm64`, `figma-mcp-go_darwin_amd64`, `figma-mcp-go_linux_amd64`, `figma-mcp-go_linux_arm64`, `figma-mcp-go_windows_amd64.exe`, or `figma-mcp-go_windows_arm64.exe`
+- `plugin.zip` — the pre-built Figma plugin
+
+**Option B — Build from source**
+
+```bash
+git clone https://github.com/tharuneswarj/figma-mcp.git
+cd figma-mcp
+
+# Server binary
+go build ./cmd/figma-mcp-go
+
+# Figma plugin
+cd plugin && bun install && bun run build
+```
+
+### 2. Configure your AI tool
+
+Point your MCP client at the binary (use the full path to wherever you downloaded or built it).
+
+**Claude Code CLI**
+```bash
+claude mcp add -s project figma-mcp-go -- /path/to/figma-mcp-go
+```
+
+**.mcp.json** (Claude and other MCP-compatible tools)
+```json
+{
+  "mcpServers": {
+    "figma-mcp-go": {
+      "command": "/path/to/figma-mcp-go"
+    }
+  }
+}
+```
+
+**.vscode/mcp.json** (Cursor / VS Code / GitHub Copilot)
+```json
+{
+  "servers": {
+    "figma-mcp-go": {
+      "type": "stdio",
+      "command": "/path/to/figma-mcp-go"
+    }
+  }
+}
+```
+
+### 3. Install the Figma plugin
+
+1. In Figma Desktop: **Plugins → Development → Import plugin from manifest**
+2. Select `manifest.json` — from the unzipped `plugin.zip`, or from the `plugin/` folder if you built from source
+3. Run the plugin inside any Figma file and keep its window open
+
+---
+
+## Quickstart
+
+With the server connected and the plugin running, ask your agent something like:
+
+> Use `write_html` to add a 400×200 card to frame `12:34` — white background, 16px corner radius, a bold title that says "Hello" and a caption under it. Then use `patch_html` to change the title to "Hello, Figma".
+
+The agent writes the card in one call, then edits the title in place — no delete-and-rewrite. From there the loop is: `inspect_node_as_html` to see what's on the canvas, `validate_html` before big writes, `patch_html` / `update_node_props` for changes, and `get_recent_errors` to surface anything the plugin skipped.
+
+More end-to-end workflows live in [docs/recipes/](docs/recipes/) — carousel posts, design-system bootstrap, and the edit-not-rewrite pattern.
+
+---
+
+## Available Tools
+
+### Write — Create
+
+| Tool | Description |
+|------|-------------|
+| `create_frame` | Create a frame with optional auto-layout, fill, and parent |
+| `create_rectangle` | Create a rectangle with optional fill and corner radius |
+| `create_ellipse` | Create an ellipse or circle |
+| `create_text` | Create a text node (font loaded automatically) |
+| `import_image` | Decode base64 image and place it as a rectangle fill |
+| `create_component` | Convert an existing FRAME node into a reusable component |
+| `create_section` | Create a Figma Section node to organise frames on a page |
+
+### Write — Modify
+
+| Tool | Description |
+|------|-------------|
+| `set_text` | Update text content of an existing TEXT node |
+| `set_fills` | Set solid fill color (hex) on a node |
+| `set_strokes` | Set solid stroke color and weight on a node |
+| `set_opacity` | Set opacity of one or more nodes (0 = transparent, 1 = opaque) |
+| `set_corner_radius` | Set corner radius — uniform or per-corner |
+| `set_auto_layout` | Set or update auto-layout (flex) properties on a frame |
+| `set_visible` | Show or hide one or more nodes |
+| `lock_nodes` | Lock one or more nodes to prevent accidental edits |
+| `unlock_nodes` | Unlock one or more nodes |
+| `rotate_nodes` | Set absolute rotation in degrees on one or more nodes |
+| `reorder_nodes` | Change z-order: `bringToFront`, `sendToBack`, `bringForward`, `sendBackward` |
+| `set_blend_mode` | Set blend mode (MULTIPLY, SCREEN, OVERLAY, …) on one or more nodes |
+| `set_constraints` | Set responsive constraints `{ horizontal, vertical }` on one or more nodes |
+| `move_nodes` | Move nodes to an absolute x/y position |
+| `resize_nodes` | Resize nodes by width and/or height |
+| `rename_node` | Rename a node |
+| `clone_node` | Clone a node, optionally repositioning or reparenting |
+| `reparent_nodes` | Move nodes to a different parent frame, group, or section |
+| `batch_rename_nodes` | Bulk rename nodes via find/replace, regex, or prefix/suffix |
+| `find_replace_text` | Find and replace text across all TEXT nodes in a subtree or page; supports regex |
+
+### Write — Delete
+
+| Tool | Description |
+|------|-------------|
+| `delete_nodes` | Delete one or more nodes permanently |
+
+### Write — Prototype
+
+| Tool | Description |
+|------|-------------|
+| `set_reactions` | Set prototype reactions (triggers + actions) on a node; mode `replace` or `append` |
+| `remove_reactions` | Remove all or specific reactions by zero-based index from a node |
+
+### Write — Styles
+
+| Tool | Description |
+|------|-------------|
+| `set_effects` | Apply drop shadow / blur effects directly on a node (no style required) |
+| `create_paint_style` | Create a named paint style with a solid color |
+| `create_text_style` | Create a named text style with font, size, and spacing |
+| `create_effect_style` | Create a named effect style (drop shadow, inner shadow, blur) |
+| `create_grid_style` | Create a named layout grid style (columns, rows, or grid) |
+| `update_paint_style` | Rename or recolor an existing paint style |
+| `apply_style_to_node` | Apply an existing local style to a node, linking it to that style |
+| `delete_style` | Delete any style (paint, text, effect, or grid) by ID |
+
+### Write — Variables
+
+| Tool | Description |
+|------|-------------|
+| `create_variable_collection` | Create a new local variable collection with an optional initial mode |
+| `add_variable_mode` | Add a new mode to an existing collection (e.g. Light/Dark) |
+| `create_variable` | Create a variable (COLOR/FLOAT/STRING/BOOLEAN) in a collection |
+| `set_variable_value` | Set a variable's value for a specific mode |
+| `bind_variable_to_node` | Bind a variable to a node property — supports `fillColor`, `strokeColor`, `visible`, `opacity`, `rotation`, `width`, `height`, corner radii, spacing, and more |
+| `delete_variable` | Delete a variable or an entire collection |
+
+### Write — Pages
+
+| Tool | Description |
+|------|-------------|
+| `add_page` | Add a new page to the document (optional name and index) |
+| `delete_page` | Delete a page by ID or name (cannot delete the only page) |
+| `rename_page` | Rename a page by ID or current name |
+
+### Write — Components & Navigation
+
+| Tool | Description |
+|------|-------------|
+| `navigate_to_page` | Switch the active Figma page by ID or name |
+| `group_nodes` | Group two or more nodes into a GROUP |
+| `ungroup_nodes` | Ungroup GROUP nodes, moving children to the parent |
+| `swap_component` | Swap the main component of an INSTANCE node |
+| `detach_instance` | Detach component instances, converting them to plain frames |
+
+### Read — Document & Selection
+
+| Tool | Description |
+|------|-------------|
+| `get_document` | Full current page tree |
+| `get_metadata` | File name, pages, current page |
+| `get_pages` | All pages (IDs + names) — lightweight, no tree loading |
+| `get_selection` | Currently selected nodes |
+| `get_node` | Single node by ID |
+| `get_nodes_info` | Multiple nodes by ID |
+| `get_design_context` | Depth-limited tree with `detail` level (`minimal`/`compact`/`full`) |
+| `search_nodes` | Find nodes by name substring and/or type within a subtree |
+| `scan_text_nodes` | All text nodes in a subtree |
+| `scan_nodes_by_types` | Nodes matching given type list |
+| `get_viewport` | Current viewport center, zoom, and visible bounds |
+
+### Read — Styles & Variables
+
+| Tool | Description |
+|------|-------------|
+| `get_styles` | Paint, text, effect, and grid styles |
+| `get_variable_defs` | Variable collections and values |
+| `get_local_components` | All components + component sets with variant properties |
+| `get_annotations` | Dev-mode annotations |
+| `get_fonts` | All fonts used on the current page, sorted by frequency |
+| `get_reactions` | Prototype/interaction reactions on a node |
+
+### Export
+
+| Tool | Description |
+|------|-------------|
+| `get_screenshot` | Base64 image export of any node |
+| `save_screenshots` | Export images to disk (server-side, no API call) |
+| `export_frames_to_pdf` | Export multiple frames as a single multi-page PDF file saved to disk |
+| `export_tokens` | Export design tokens (variables + paint styles) as JSON or CSS |
+
+### MCP Prompts
+
+| Prompt | Description |
+|--------|-------------|
+| `read_design_strategy` | Best practices for reading Figma designs |
+| `design_strategy` | Best practices for creating and modifying designs |
+| `text_replacement_strategy` | Chunked approach for replacing text across a design |
+| `annotation_conversion_strategy` | Convert manual annotations to native Figma annotations |
+| `swap_overrides_instances` | Transfer overrides between component instances |
+| `reaction_to_connector_strategy` | Map prototype reactions into interaction flow diagrams |
+
+---
+
+## CLI Flags
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--ip` | `127.0.0.1` | IP address to listen on |
+| `--port` | `1994` | WebSocket port |
+| `--output-dir` | (cwd) | Base directory for file output (screenshots, PDFs) |
+
+---
+
+## Contributing
+
+Issues and PRs welcome. This is a personal fork — for upstream contributions, see [vkhanhqui/figma-mcp-go](https://github.com/vkhanhqui/figma-mcp-go).
+
+## Credits
+
+Built on [figma-mcp-go](https://github.com/vkhanhqui/figma-mcp-go) by [@vkhanhqui](https://github.com/vkhanhqui) — MIT License.

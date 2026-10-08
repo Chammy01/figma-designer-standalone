@@ -1,0 +1,22 @@
+# New project-owned text; vendor and bundled skills retain byte/EOL stability.
+/README.md text eol=lf
+/CHANGELOG.md text eol=lf
+/CONTRIBUTING.md text eol=lf
+/CODE_OF_CONDUCT.md text eol=lf
+/SECURITY.md text eol=lf
+/SUPPORT.md text eol=lf
+/ROADMAP.md text eol=lf
+/THIRD_PARTY_LICENSES.md text eol=lf
+/RELEASE_NOTES_v1.2.1-beta.1.md text eol=lf
+/RELEASE_READINESS_v1.2.1-beta.1.md text eol=lf
+/VERSION text eol=lf
+/docs/** text eol=lf
+/.github/** text eol=lf
+/setup.ps1 text eol=crlf
+/scripts/package-release.ps1 text eol=crlf
+/scripts/release-check.ps1 text eol=crlf
+/vendor/** -text
+/.opencode/skills/** -text
+*.exe binary
+*.png binary
+*.zip binary

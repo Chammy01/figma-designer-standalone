@@ -1,0 +1,210 @@
+[
+  {
+    "project": "Impeccable (retained reference material 4.5.0; engine excluded)",
+    "versionOrLicense": "Apache-2.0",
+    "notice": ".opencode/skills/impeccable/LICENSE",
+    "license": "Apache-2.0"
+  },
+  {
+    "project": "Impeccable (retained reference material 4.5.0; engine excluded)",
+    "versionOrLicense": "Apache-2.0",
+    "notice": ".opencode/skills/impeccable/NOTICE.md"
+  },
+  {
+    "project": "modern-screenshot",
+    "versionOrLicense": "MIT (upstream license text)",
+    "notice": "licenses/modern-screenshot/LICENSE",
+    "license": "MIT"
+  },
+  {
+    "project": "platform-design-skills",
+    "versionOrLicense": "MIT (upstream license text)",
+    "notice": "licenses/platform-design-skills/LICENSE",
+    "license": "MIT"
+  },
+  {
+    "project": "github.com/clipperhouse/uax29/v2",
+    "versionOrLicense": "v2.2.0",
+    "notice": "licenses/go/github.com__clipperhouse__uax29__v2@v2.2.0/LICENSE",
+    "license": "MIT"
+  },
+  {
+    "project": "github.com/coder/websocket",
+    "versionOrLicense": "v1.8.14",
+    "notice": "licenses/go/github.com__coder__websocket@v1.8.14/LICENSE.txt",
+    "license": "ISC"
+  },
+  {
+    "project": "github.com/google/jsonschema-go",
+    "versionOrLicense": "v0.4.2",
+    "notice": "licenses/go/github.com__google__jsonschema-go@v0.4.2/LICENSE",
+    "license": "MIT"
+  },
+  {
+    "project": "github.com/google/uuid",
+    "versionOrLicense": "v1.6.0",
+    "notice": "licenses/go/github.com__google__uuid@v1.6.0/LICENSE",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "project": "github.com/hhrutter/lzw",
+    "versionOrLicense": "v1.0.0",
+    "notice": "licenses/go/github.com__hhrutter__lzw@v1.0.0/LICENSE",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "project": "github.com/hhrutter/pkcs7",
+    "versionOrLicense": "v0.2.0",
+    "notice": "licenses/go/github.com__hhrutter__pkcs7@v0.2.0/LICENSE",
+    "license": "MIT"
+  },
+  {
+    "project": "github.com/hhrutter/tiff",
+    "versionOrLicense": "v1.0.2",
+    "notice": "licenses/go/github.com__hhrutter__tiff@v1.0.2/LICENSE",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "project": "github.com/mark3labs/mcp-go",
+    "versionOrLicense": "v0.46.0",
+    "notice": "licenses/go/github.com__mark3labs__mcp-go@v0.46.0/LICENSE",
+    "license": "MIT"
+  },
+  {
+    "project": "github.com/mattn/go-runewidth",
+    "versionOrLicense": "v0.0.19",
+    "notice": "licenses/go/github.com__mattn__go-runewidth@v0.0.19/LICENSE",
+    "license": "MIT"
+  },
+  {
+    "project": "github.com/pdfcpu/pdfcpu",
+    "versionOrLicense": "v0.11.1",
+    "notice": "licenses/go/github.com__pdfcpu__pdfcpu@v0.11.1/LICENSE.txt",
+    "license": "Apache-2.0"
+  },
+  {
+    "project": "github.com/pkg/errors",
+    "versionOrLicense": "v0.9.1",
+    "notice": "licenses/go/github.com__pkg__errors@v0.9.1/LICENSE",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "project": "github.com/spf13/cast",
+    "versionOrLicense": "v1.10.0",
+    "notice": "licenses/go/github.com__spf13__cast@v1.10.0/LICENSE",
+    "license": "MIT"
+  },
+  {
+    "project": "github.com/yosida95/uritemplate/v3",
+    "versionOrLicense": "v3.0.2",
+    "notice": "licenses/go/github.com__yosida95__uritemplate__v3@v3.0.2/LICENSE",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "project": "golang.org/x/crypto",
+    "versionOrLicense": "v0.43.0",
+    "notice": "licenses/go/golang.org__x__crypto@v0.43.0/LICENSE",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "project": "golang.org/x/crypto",
+    "versionOrLicense": "v0.43.0",
+    "notice": "licenses/go/golang.org__x__crypto@v0.43.0/PATENTS"
+  },
+  {
+    "project": "golang.org/x/image",
+    "versionOrLicense": "v0.32.0",
+    "notice": "licenses/go/golang.org__x__image@v0.32.0/LICENSE",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "project": "golang.org/x/image",
+    "versionOrLicense": "v0.32.0",
+    "notice": "licenses/go/golang.org__x__image@v0.32.0/PATENTS"
+  },
+  {
+    "project": "golang.org/x/text",
+    "versionOrLicense": "v0.30.0",
+    "notice": "licenses/go/golang.org__x__text@v0.30.0/LICENSE",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "project": "golang.org/x/text",
+    "versionOrLicense": "v0.30.0",
+    "notice": "licenses/go/golang.org__x__text@v0.30.0/PATENTS"
+  },
+  {
+    "project": "gopkg.in/yaml.v2",
+    "versionOrLicense": "v2.4.0",
+    "notice": "licenses/go/gopkg.in__yaml.v2@v2.4.0/LICENSE",
+    "license": "Apache-2.0"
+  },
+  {
+    "project": "gopkg.in/yaml.v2",
+    "versionOrLicense": "v2.4.0",
+    "notice": "licenses/go/gopkg.in__yaml.v2@v2.4.0/LICENSE.libyaml",
+    "license": "MIT"
+  },
+  {
+    "project": "gopkg.in/yaml.v2",
+    "versionOrLicense": "v2.4.0",
+    "notice": "licenses/go/gopkg.in__yaml.v2@v2.4.0/NOTICE"
+  },
+  {
+    "project": "Go runtime",
+    "versionOrLicense": "1.26.1 / BSD-3-Clause",
+    "notice": "licenses/go-runtime/LICENSE",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "project": "svelte",
+    "versionOrLicense": "5.55.0 / MIT",
+    "notice": "licenses/plugin/svelte/LICENSE.md",
+    "license": "MIT"
+  },
+  {
+    "project": "esm-env",
+    "versionOrLicense": "1.2.2 / MIT",
+    "notice": "licenses/plugin/esm-env/LICENSE",
+    "license": "MIT"
+  },
+  {
+    "project": "clsx",
+    "versionOrLicense": "2.1.1 / MIT",
+    "notice": "licenses/plugin/clsx/license",
+    "license": "MIT"
+  },
+  {
+    "project": "@playwright/test",
+    "versionOrLicense": "1.64.0 / Apache-2.0",
+    "notice": "licenses/node/@playwright__test/LICENSE",
+    "license": "Apache-2.0"
+  },
+  {
+    "project": "@playwright/test",
+    "versionOrLicense": "1.64.0 / Apache-2.0",
+    "notice": "licenses/node/@playwright__test/NOTICE"
+  },
+  {
+    "project": "playwright",
+    "versionOrLicense": "1.64.0 / Apache-2.0",
+    "notice": "licenses/node/playwright/LICENSE",
+    "license": "Apache-2.0"
+  },
+  {
+    "project": "playwright",
+    "versionOrLicense": "1.64.0 / Apache-2.0",
+    "notice": "licenses/node/playwright/NOTICE"
+  },
+  {
+    "project": "playwright-core",
+    "versionOrLicense": "1.64.0 / Apache-2.0",
+    "notice": "licenses/node/playwright-core/LICENSE",
+    "license": "Apache-2.0"
+  },
+  {
+    "project": "playwright-core",
+    "versionOrLicense": "1.64.0 / Apache-2.0",
+    "notice": "licenses/node/playwright-core/NOTICE"
+  }
+]

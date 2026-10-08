@@ -1,0 +1,69 @@
+name: "Setup Problem"
+description: "Get help installing or connecting"
+body:
+  - type: markdown
+    attributes:
+      value: "Remove secrets, private URLs, personal paths, and design data. Private Figma files are not required."
+  - type: input
+    id: designer
+    attributes:
+      label: "Figma Designer version"
+      placeholder: "Run /figma/version, or read VERSION"
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: "Windows version"
+      placeholder: "Settings \u2192 System \u2192 About"
+    validations:
+      required: true
+  - type: input
+    id: opencode
+    attributes:
+      label: "OpenCode version"
+      placeholder: "opencode --version (or say unknown)"
+    validations:
+      required: true
+  - type: input
+    id: node
+    attributes:
+      label: "Node version"
+      placeholder: "node --version (or say unknown)"
+    validations:
+      required: true
+  - type: input
+    id: figma
+    attributes:
+      label: "Figma Desktop version"
+      placeholder: "Figma Help/About (or say unknown)"
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: "Doctor result"
+      placeholder: "Paste /figma/doctor summary; remove private details"
+    validations:
+      required: true
+  - type: input
+    id: step
+    attributes:
+      label: "Where did you get stuck?"
+      placeholder: "Download / extract / setup / import / connection / first design"
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: "What have you tried?"
+      placeholder: "Tell us in your own words"
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: "What message do you see?"
+      placeholder: "Copy the message without private details; unknown is fine"
+    validations:
+      required: true

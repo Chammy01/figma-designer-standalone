@@ -1,0 +1,18 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode/space-bunny-free",
+  "default_agent": "web-designer",
+  "instructions": [
+    "rules/figma-design-rules.md"
+  ],
+  "mcp": {
+    "figma": {
+      "type": "local",
+      "command": [
+        "__SETUP_MANAGED_MCP_EXECUTABLE__"
+      ],
+      "enabled": true,
+      "timeout": 10000
+    }
+  }
+}

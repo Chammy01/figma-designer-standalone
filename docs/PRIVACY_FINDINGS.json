@@ -1,0 +1,4162 @@
+[
+  {
+    "file": ".github/ISSUE_TEMPLATE/bug.yml",
+    "line": 6,
+    "category": "credential terminology",
+    "match": "secrets",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".github/ISSUE_TEMPLATE/feature-request.yml",
+    "line": 6,
+    "category": "credential terminology",
+    "match": "secrets",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".github/ISSUE_TEMPLATE/setup-problem.yml",
+    "line": 6,
+    "category": "credential terminology",
+    "match": "secrets",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/commands/figma/motion.md",
+    "line": 35,
+    "category": "credential terminology",
+    "match": "TOKENS",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/commands/figma/motion.md",
+    "line": 45,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/commands/figma/motion.md",
+    "line": 53,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/commands/figma/motion.md",
+    "line": 193,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/commands/figma/motion.md",
+    "line": 208,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/commands/figma/motion.md",
+    "line": 209,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/commands/figma/motion.md",
+    "line": 210,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/commands/figma/motion.md",
+    "line": 216,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/commands/figma/motion.md",
+    "line": 230,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/README.md",
+    "line": 3,
+    "category": "URL review",
+    "match": "https://skills.sh/b/rwcod/anti-ai-slop-ui",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/README.md",
+    "line": 3,
+    "category": "URL review",
+    "match": "https://skills.sh/rwcod/anti-ai-slop-ui",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/README.md",
+    "line": 7,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/README.md",
+    "line": 9,
+    "category": "URL review",
+    "match": "https://cursor.com",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/README.md",
+    "line": 9,
+    "category": "URL review",
+    "match": "https://docs.anthropic.com/en/docs/claude-code",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/README.md",
+    "line": 9,
+    "category": "URL review",
+    "match": "https://openai.com/codex",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/README.md",
+    "line": 9,
+    "category": "URL review",
+    "match": "https://agentskills.io/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/README.md",
+    "line": 28,
+    "category": "URL review",
+    "match": "https://github.com/rwcod/anti-ai-slop-ui.git",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/README.md",
+    "line": 39,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/README.md",
+    "line": 56,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/README.md",
+    "line": 94,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/SKILL.md",
+    "line": 5,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/SKILL.md",
+    "line": 16,
+    "category": "URL review",
+    "match": "https://github.com/rwcod/anti-ai-slop-ui",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/SKILL.md",
+    "line": 23,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/SKILL.md",
+    "line": 99,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/SKILL.md",
+    "line": 211,
+    "category": "credential terminology",
+    "match": "Token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/SKILL.md",
+    "line": 238,
+    "category": "credential terminology",
+    "match": "Token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/SKILL.md",
+    "line": 283,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/examples/native_macos_utility_example.md",
+    "line": 30,
+    "category": "credential terminology",
+    "match": "Token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/examples/prompt_examples.md",
+    "line": 12,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/examples/prompt_examples.md",
+    "line": 63,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/examples/prompt_examples.md",
+    "line": 85,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/references/visual_directions.md",
+    "line": 311,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/rubrics/distinctiveness_score.md",
+    "line": 23,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/rubrics/implementation_readiness_score.md",
+    "line": 26,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/rubrics/implementation_readiness_score.md",
+    "line": 28,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/rubrics/implementation_readiness_score.md",
+    "line": 29,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/scripts/ui_lint.py",
+    "line": 83,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/templates/design_brief_template.md",
+    "line": 77,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/templates/ui_generation_output.md",
+    "line": 9,
+    "category": "credential terminology",
+    "match": "Token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/anti-ai-slop-ui/templates/ui_review_output.md",
+    "line": 30,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/LICENSE",
+    "line": 3,
+    "category": "URL review",
+    "match": "http://www.apache.org/licenses/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/LICENSE",
+    "line": 185,
+    "category": "URL review",
+    "match": "http://www.apache.org/licenses/LICENSE-2.0",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/NOTICE.md",
+    "line": 9,
+    "category": "URL review",
+    "match": "https://github.com/ehmo/platform-design-skills",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/REFERENCE_ONLY.md",
+    "line": 7,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/REFERENCE_ONLY.md",
+    "line": 27,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/REFERENCE_ONLY.md",
+    "line": 57,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/android.md",
+    "line": 30,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/audit.md",
+    "line": 39,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/audit.md",
+    "line": 41,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/audit.md",
+    "line": 41,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/audit.md",
+    "line": 41,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/audit.md",
+    "line": 44,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/audit.md",
+    "line": 44,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/audit.md",
+    "line": 44,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/audit.md",
+    "line": 44,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/audit.md",
+    "line": 108,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/audit.native.md",
+    "line": 36,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/audit.native.md",
+    "line": 41,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/audit.native.md",
+    "line": 41,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/colorize.md",
+    "line": 14,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/colorize.md",
+    "line": 49,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/colorize.md",
+    "line": 49,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/critique.md",
+    "line": 76,
+    "category": "URL review",
+    "match": "http://localhost:PORT/detect.js",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/degraded/documenter.md",
+    "line": 6,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/degraded/documenter.md",
+    "line": 16,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/degraded/finish-reviewer.md",
+    "line": 23,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/doctor.md",
+    "line": 41,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 3,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 3,
+    "category": "credential terminology",
+    "match": "Tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 3,
+    "category": "URL review",
+    "match": "https://raw.githubusercontent.com/google-labs-code/design.md/main/docs/spec.md",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 5,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 7,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 45,
+    "category": "credential terminology",
+    "match": "Token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 45,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 47,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 75,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 78,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 88,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 89,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 89,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 89,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 89,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 92,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 96,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 96,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 107,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 109,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 114,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 253,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 253,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 253,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 303,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 303,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 303,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 303,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 303,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 303,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 310,
+    "category": "credential terminology",
+    "match": "Token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 310,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 310,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 324,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 328,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 352,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 364,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 369,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 383,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 388,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 394,
+    "category": "credential terminology",
+    "match": "Tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 394,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 396,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 398,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 409,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 415,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/document.md",
+    "line": 416,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/extract.md",
+    "line": 3,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/extract.md",
+    "line": 7,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/extract.md",
+    "line": 16,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/extract.md",
+    "line": 29,
+    "category": "credential terminology",
+    "match": "Tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/extract.md",
+    "line": 29,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/extract.md",
+    "line": 31,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/extract.md",
+    "line": 41,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/extract.md",
+    "line": 41,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/extract.md",
+    "line": 58,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/extract.md",
+    "line": 67,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/extract.md",
+    "line": 67,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/generate.md",
+    "line": 49,
+    "category": "URL review",
+    "match": "http://127.0.0.1:5173/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live-setup.md",
+    "line": 58,
+    "category": "URL review",
+    "match": "http://localhost:8400",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live-setup.md",
+    "line": 62,
+    "category": "URL review",
+    "match": "http://localhost:8400",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live-setup.md",
+    "line": 80,
+    "category": "URL review",
+    "match": "http://localhost:8400",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live-setup.md",
+    "line": 83,
+    "category": "URL review",
+    "match": "https://github.com/pbakaus/impeccable/blob/8dac6ae7e020c43ab10ce9b41939f6fd42627b96/tests/framework-fixtures/nextjs-turborepo/expected-after-patch.ts",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live-setup.md",
+    "line": 83,
+    "category": "URL review",
+    "match": "https://github.com/pbakaus/impeccable/blob/8dac6ae7e020c43ab10ce9b41939f6fd42627b96/tests/framework-fixtures/sveltekit-csp/expected-after-patch.js",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live-setup.md",
+    "line": 92,
+    "category": "URL review",
+    "match": "http://localhost:8400",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live-setup.md",
+    "line": 98,
+    "category": "URL review",
+    "match": "https://github.com/pbakaus/impeccable/blob/8dac6ae7e020c43ab10ce9b41939f6fd42627b96/tests/framework-fixtures/nextjs-inline-csp/expected-after-patch.js",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live-setup.md",
+    "line": 98,
+    "category": "URL review",
+    "match": "https://github.com/pbakaus/impeccable/blob/8dac6ae7e020c43ab10ce9b41939f6fd42627b96/tests/framework-fixtures/nuxt-csp/expected-after-patch.ts",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live-setup.md",
+    "line": 102,
+    "category": "URL review",
+    "match": "http://localhost:8400",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live.md",
+    "line": 16,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live.md",
+    "line": 30,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live.md",
+    "line": 143,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live.md",
+    "line": 147,
+    "category": "credential terminology",
+    "match": "authorization",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live.md",
+    "line": 151,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/live.md",
+    "line": 201,
+    "category": "URL review",
+    "match": "https://github.com/pbakaus/impeccable/blob/8dac6ae7e020c43ab10ce9b41939f6fd42627b96/tests/live-e2e/agent.mjs",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/new-work.md",
+    "line": 9,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/new-work.md",
+    "line": 87,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/new-work.md",
+    "line": 150,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/polish.md",
+    "line": 9,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/polish.md",
+    "line": 13,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/polish.md",
+    "line": 66,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/polish.md",
+    "line": 83,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/routing.md",
+    "line": 5,
+    "category": "URL review",
+    "match": "https://impeccable.style/docs/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/reference/typeset.md",
+    "line": 42,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/command-metadata.json",
+    "line": 15,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4,
+    "category": "URL review",
+    "match": "http://localhost:PORT/live.js",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 18,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 22,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 25,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 31,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 34,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 35,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 90,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 103,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 462,
+    "category": "URL review",
+    "match": "http://www.w3.org/2000/svg",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 572,
+    "category": "URL review",
+    "match": "http://www.w3.org/2000/svg",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 583,
+    "category": "URL review",
+    "match": "http://www.w3.org/2000/svg",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 720,
+    "category": "URL review",
+    "match": "http://www.w3.org/2000/svg",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 918,
+    "category": "URL review",
+    "match": "http://www.w3.org/2000/svg",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 925,
+    "category": "URL review",
+    "match": "http://www.w3.org/2000/svg",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 3805,
+    "category": "credential terminology",
+    "match": "Token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 3805,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 3808,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 3808,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 3808,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 3812,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 3812,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 3901,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4125,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4125,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4125,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4145,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4145,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4145,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4189,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4189,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4189,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4238,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4238,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4238,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4257,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4257,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4257,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4261,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 4261,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 5322,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 5322,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 5322,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 5469,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 5470,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 5480,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 5544,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 5545,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 5545,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 5569,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 5795,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 5795,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 5795,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 5942,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6267,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6267,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6267,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6424,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6424,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6424,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6509,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6510,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6515,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6516,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6516,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6518,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6519,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6523,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6524,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6528,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6529,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6529,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6531,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6539,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6542,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6542,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6543,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 6547,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7151,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7151,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7151,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7154,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7154,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7273,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7273,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7273,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7276,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7276,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7541,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7541,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7541,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7786,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7786,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7795,
+    "category": "credential terminology",
+    "match": "Token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7795,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7798,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7798,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 7798,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 8403,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 8731,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 8731,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 8731,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 8858,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 10372,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 11559,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 11559,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 11559,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 11571,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 11571,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 11571,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 12201,
+    "category": "URL review",
+    "match": "http://localhost:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 12747,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 12747,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 12747,
+    "category": "URL review",
+    "match": "http://localhost:${PORT",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 12748,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 12748,
+    "category": "credential terminology",
+    "match": "TOKEN",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 12748,
+    "category": "URL review",
+    "match": "http://localhost:${PORT",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 12821,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 12821,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 12836,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/live-browser.js",
+    "line": 12847,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": ".opencode/skills/impeccable/scripts/modern-screenshot.umd.js",
+    "line": 1,
+    "category": "URL review",
+    "match": "http://www.w3.org/2000/svg",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "CHANGELOG.md",
+    "line": 13,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "LAUNCH_BLOCKERS_RESOLVED_v1.2.1-beta.1.md",
+    "line": 33,
+    "category": "machine path",
+    "match": "E:/GitHub/figma-designer-release/Figma-Designer-v1.2.1-beta.1-Windows.zip`",
+    "status": "SAFE",
+    "explanation": "Intentional release-output location without personal identity, or fictional scanner self-check fixture; not an original/private checkout path."
+  },
+  {
+    "file": "README.md",
+    "line": 7,
+    "category": "URL review",
+    "match": "https://github.com/Chammy01/figma-designer-standalone",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "RELEASE_READINESS_v1.2.1-beta.1.md",
+    "line": 40,
+    "category": "machine path",
+    "match": "E:/GitHub/figma-designer-release/Figma-Designer-v1.2.1-beta.1-Windows.zip`.",
+    "status": "SAFE",
+    "explanation": "Intentional release-output location without personal identity, or fictional scanner self-check fixture; not an original/private checkout path."
+  },
+  {
+    "file": "SECURITY.md",
+    "line": 9,
+    "category": "credential terminology",
+    "match": "secrets",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "SUPPORT.md",
+    "line": 3,
+    "category": "URL review",
+    "match": "https://github.com/Chammy01/figma-designer-standalone/issues",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "THIRD_PARTY_LICENSES.md",
+    "line": 7,
+    "category": "URL review",
+    "match": "https://github.com/vkhanhqui/figma-mcp-go",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "THIRD_PARTY_LICENSES.md",
+    "line": 8,
+    "category": "URL review",
+    "match": "https://github.com/rwcod/anti-ai-slop-ui",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "THIRD_PARTY_LICENSES.md",
+    "line": 50,
+    "category": "URL review",
+    "match": "https://github.com/pbakaus/impeccable/blob/main/LICENSE",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "THIRD_PARTY_LICENSES.md",
+    "line": 50,
+    "category": "URL review",
+    "match": "https://github.com/pbakaus/impeccable/blob/main/NOTICE.md",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "docs/ARCHITECTURE.md",
+    "line": 15,
+    "category": "URL review",
+    "match": "https://github.com/vkhanhqui/figma-mcp-go",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "docs/INSTALLATION.md",
+    "line": 8,
+    "category": "URL review",
+    "match": "https://nodejs.org/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "docs/INSTALLATION.md",
+    "line": 9,
+    "category": "URL review",
+    "match": "https://opencode.ai/docs/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "docs/INSTALLATION.md",
+    "line": 38,
+    "category": "URL review",
+    "match": "https://opencode.ai/docs/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "docs/LAUNCH_CHECKLIST.md",
+    "line": 9,
+    "category": "URL review",
+    "match": "https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/configure-vulnerability-reporting/configure-for-a-repository",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "docs/QUICKSTART.md",
+    "line": 7,
+    "category": "URL review",
+    "match": "https://github.com/Chammy01/figma-designer-standalone/releases",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "docs/QUICKSTART.md",
+    "line": 11,
+    "category": "URL review",
+    "match": "https://nodejs.org/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "docs/QUICKSTART.md",
+    "line": 11,
+    "category": "URL review",
+    "match": "https://opencode.ai/docs/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "docs/QUICKSTART.md",
+    "line": 53,
+    "category": "URL review",
+    "match": "https://opencode.ai/docs/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "docs/SKILL_ENGINE_AUDIT.md",
+    "line": 11,
+    "category": "URL review",
+    "match": "https://opencode.ai/v2/docs/skills",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "docs/SOURCE_ALLOWLIST.json",
+    "line": 134,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "docs/SOURCE_CONTENTS.json",
+    "line": 224,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "docs/SOURCE_INVENTORY.json",
+    "line": 1103,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "docs/SOURCE_PROVENANCE.json",
+    "line": 687,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "licenses/go/github.com__pdfcpu__pdfcpu@v0.11.1/LICENSE.txt",
+    "line": 4,
+    "category": "URL review",
+    "match": "http://www.apache.org/licenses/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/go/github.com__pdfcpu__pdfcpu@v0.11.1/LICENSE.txt",
+    "line": 196,
+    "category": "URL review",
+    "match": "http://www.apache.org/licenses/LICENSE-2.0",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/go/github.com__yosida95__uritemplate__v3@v3.0.2/LICENSE",
+    "line": 1,
+    "category": "URL review",
+    "match": "https://yosida95.com/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/go/gopkg.in__yaml.v2@v2.4.0/LICENSE",
+    "line": 3,
+    "category": "URL review",
+    "match": "http://www.apache.org/licenses/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/go/gopkg.in__yaml.v2@v2.4.0/LICENSE",
+    "line": 195,
+    "category": "URL review",
+    "match": "http://www.apache.org/licenses/LICENSE-2.0",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/go/gopkg.in__yaml.v2@v2.4.0/NOTICE",
+    "line": 7,
+    "category": "URL review",
+    "match": "http://www.apache.org/licenses/LICENSE-2.0",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/node/@playwright__test/LICENSE",
+    "line": 3,
+    "category": "URL review",
+    "match": "http://www.apache.org/licenses/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/node/@playwright__test/LICENSE",
+    "line": 196,
+    "category": "URL review",
+    "match": "http://www.apache.org/licenses/LICENSE-2.0",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/node/@playwright__test/NOTICE",
+    "line": 4,
+    "category": "URL review",
+    "match": "https://github.com/puppeteer/puppeteer",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/node/@playwright__test/NOTICE",
+    "line": 5,
+    "category": "URL review",
+    "match": "https://github.com/puppeteer/puppeteer/blob/master/LICENSE",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/node/playwright-core/LICENSE",
+    "line": 3,
+    "category": "URL review",
+    "match": "http://www.apache.org/licenses/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/node/playwright-core/LICENSE",
+    "line": 196,
+    "category": "URL review",
+    "match": "http://www.apache.org/licenses/LICENSE-2.0",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/node/playwright-core/NOTICE",
+    "line": 4,
+    "category": "URL review",
+    "match": "https://github.com/puppeteer/puppeteer",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/node/playwright-core/NOTICE",
+    "line": 5,
+    "category": "URL review",
+    "match": "https://github.com/puppeteer/puppeteer/blob/master/LICENSE",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/node/playwright/LICENSE",
+    "line": 3,
+    "category": "URL review",
+    "match": "http://www.apache.org/licenses/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/node/playwright/LICENSE",
+    "line": 196,
+    "category": "URL review",
+    "match": "http://www.apache.org/licenses/LICENSE-2.0",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/node/playwright/NOTICE",
+    "line": 4,
+    "category": "URL review",
+    "match": "https://github.com/puppeteer/puppeteer",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/node/playwright/NOTICE",
+    "line": 5,
+    "category": "URL review",
+    "match": "https://github.com/puppeteer/puppeteer/blob/master/LICENSE",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "licenses/plugin/svelte/LICENSE.md",
+    "line": 1,
+    "category": "URL review",
+    "match": "https://github.com/sveltejs/svelte/graphs/contributors",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "opencode.example.json",
+    "line": 2,
+    "category": "URL review",
+    "match": "https://opencode.ai/config.json",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "orca.ps1",
+    "line": 3021,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "orca.ps1",
+    "line": 3067,
+    "category": "credential terminology",
+    "match": "TOKENS",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "orca.ps1",
+    "line": 3077,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "orca.ps1",
+    "line": 3085,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "orca.ps1",
+    "line": 3225,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "orca.ps1",
+    "line": 3240,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "orca.ps1",
+    "line": 3241,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "orca.ps1",
+    "line": 3242,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "orca.ps1",
+    "line": 3248,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "orca.ps1",
+    "line": 3262,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "orca.ps1",
+    "line": 3857,
+    "category": "URL review",
+    "match": "http://127.0.0.1:4173/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "orca.ps1",
+    "line": 3967,
+    "category": "URL review",
+    "match": "http://127.0.0.1:$port/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "orca.ps1",
+    "line": 4722,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "orca.ps1",
+    "line": 4746,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "package-lock.json",
+    "line": 19,
+    "category": "URL review",
+    "match": "https://registry.npmjs.org/@playwright/test/-/test-1.64.0.tgz",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "package-lock.json",
+    "line": 35,
+    "category": "URL review",
+    "match": "https://registry.npmjs.org/playwright/-/playwright-1.64.0.tgz",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "package-lock.json",
+    "line": 51,
+    "category": "URL review",
+    "match": "https://registry.npmjs.org/playwright-core/-/playwright-core-1.64.0.tgz",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "rules/figma-standalone-rules.md",
+    "line": 91,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "rules/figma-standalone-rules.md",
+    "line": 108,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "scripts/figma-browser-contract.test.mjs",
+    "line": 12,
+    "category": "credential terminology",
+    "match": "secret",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "scripts/figma-browser-contract.test.mjs",
+    "line": 12,
+    "category": "credential terminology",
+    "match": "secret",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "scripts/figma-browser-contract.test.mjs",
+    "line": 12,
+    "category": "credential terminology",
+    "match": "secret",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "scripts/figma-browser-contract.test.mjs",
+    "line": 19,
+    "category": "credential terminology",
+    "match": "secret",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "scripts/figma-browser-contract.test.mjs",
+    "line": 20,
+    "category": "credential terminology",
+    "match": "secret",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "scripts/figma-browser-integration.test.mjs",
+    "line": 28,
+    "category": "URL review",
+    "match": "https://outside.invalid/escape",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "scripts/figma-browser-integration.test.mjs",
+    "line": 30,
+    "category": "URL review",
+    "match": "https://outside.invalid/worker",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "scripts/figma-browser-test.mjs",
+    "line": 66,
+    "category": "URL review",
+    "match": "http://127.0.0.1:${address.port",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "scripts/figma-live-source.mjs",
+    "line": 39,
+    "category": "URL review",
+    "match": "http://127.0.0.1:1994/rpc",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "scripts/release-check.ps1",
+    "line": 23,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "scripts/release-check.ps1",
+    "line": 24,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "scripts/release-privacy-check.mjs",
+    "line": 18,
+    "category": "URL review",
+    "match": "https://example.com/certificate",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "scripts/release-privacy-check.mjs",
+    "line": 18,
+    "category": "URL review",
+    "match": "http://localhost/",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "scripts/release-privacy-check.mjs",
+    "line": 20,
+    "category": "machine path",
+    "match": "/home/builder/main.go",
+    "status": "SAFE",
+    "explanation": "Intentional release-output location without personal identity, or fictional scanner self-check fixture; not an original/private checkout path."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 6,
+    "category": "URL review",
+    "match": "https://img.shields.io/badge/License-MIT-yellow.svg",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 7,
+    "category": "URL review",
+    "match": "https://github.com/vkhanhqui/figma-mcp-go",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 7,
+    "category": "URL review",
+    "match": "https://img.shields.io/badge/upstream-vkhanhqui%2Ffigma--mcp--go-blue",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 10,
+    "category": "URL review",
+    "match": "https://github.com/vkhanhqui/figma-mcp-go",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 15,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 15,
+    "category": "credential terminology",
+    "match": "secrets",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 41,
+    "category": "credential terminology",
+    "match": "Token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 80,
+    "category": "URL review",
+    "match": "https://github.com/user-attachments/assets/eae41471-fc72-4574-8261-4f42c38b8c99",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 84,
+    "category": "URL review",
+    "match": "https://github.com/user-attachments/assets/17bda971-0e83-4f18-8758-8ac2b8dcba62",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 90,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 90,
+    "category": "URL review",
+    "match": "https://github.com/vkhanhqui/figma-mcp-go",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 92,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 100,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 100,
+    "category": "credential terminology",
+    "match": "secrets",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 106,
+    "category": "URL review",
+    "match": "https://github.com/tharuneswarj/figma-mcp/releases",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 114,
+    "category": "URL review",
+    "match": "https://github.com/tharuneswarj/figma-mcp.git",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 304,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 331,
+    "category": "URL review",
+    "match": "https://github.com/vkhanhqui/figma-mcp-go",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 335,
+    "category": "URL review",
+    "match": "https://github.com/vkhanhqui/figma-mcp-go",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/README.md",
+    "line": 335,
+    "category": "URL review",
+    "match": "https://github.com/vkhanhqui",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/README.md",
+    "line": 19,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/ROADMAP.md",
+    "line": 10,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/ROADMAP.md",
+    "line": 43,
+    "category": "URL review",
+    "match": "ws://127.0.0.1:1994",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/ROADMAP.md",
+    "line": 54,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/ROADMAP.md",
+    "line": 120,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/ROADMAP.md",
+    "line": 248,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/ROADMAP.md",
+    "line": 315,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/ROADMAP.md",
+    "line": 344,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/ROADMAP.md",
+    "line": 356,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/ROADMAP.md",
+    "line": 357,
+    "category": "URL review",
+    "match": "ws://127.0.0.1:1994",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/ROADMAP.md",
+    "line": 357,
+    "category": "URL review",
+    "match": "wss://figma-mcp.your-domain.workers.dev/ws?session=...",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/ROADMAP.md",
+    "line": 379,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/agent-toolkit-v1.3.md",
+    "line": 151,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/bug-fixes-v1.3.md",
+    "line": 16,
+    "category": "credential terminology",
+    "match": "Token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/cowork-mcp-guide.md",
+    "line": 33,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/cowork-mcp-guide.md",
+    "line": 106,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/cowork-mcp-guide.md",
+    "line": 108,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/cowork-mcp-guide.md",
+    "line": 214,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/cowork-mcp-guide.md",
+    "line": 231,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/cowork-mcp-guide.md",
+    "line": 253,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/cowork-mcp-guide.md",
+    "line": 253,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/cowork-mcp-guide.md",
+    "line": 348,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/recipes/design-system-bootstrap.md",
+    "line": 29,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/recipes/design-system-bootstrap.md",
+    "line": 33,
+    "category": "credential terminology",
+    "match": "Tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/recipes/design-system-bootstrap.md",
+    "line": 35,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/recipes/design-system-bootstrap.md",
+    "line": 66,
+    "category": "credential terminology",
+    "match": "Tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/recipes/design-system-bootstrap.md",
+    "line": 75,
+    "category": "credential terminology",
+    "match": "Tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/skill/SKILL.md",
+    "line": 9,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/skill/SKILL.md",
+    "line": 22,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/skill/SKILL.md",
+    "line": 29,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/skill/SKILL.md",
+    "line": 29,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/skill/decision-tree.md",
+    "line": 51,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/skill/decision-tree.md",
+    "line": 51,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/skill/examples/03-design-tokens.md",
+    "line": 1,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/skill/examples/03-design-tokens.md",
+    "line": 40,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/skill/examples/03-design-tokens.md",
+    "line": 48,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/docs/tools-reference.md",
+    "line": 100,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/follower_test.go",
+    "line": 31,
+    "category": "URL review",
+    "match": "http://127.0.0.1:1",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/follower_test.go",
+    "line": 116,
+    "category": "URL review",
+    "match": "http://127.0.0.1:1",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/leader_test.go",
+    "line": 180,
+    "category": "URL review",
+    "match": "http://127.0.0.1:",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/node.go",
+    "line": 33,
+    "category": "URL review",
+    "match": "http://%s:%d",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_strategy.go",
+    "line": 39,
+    "category": "credential terminology",
+    "match": "password",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_strategy.go",
+    "line": 44,
+    "category": "credential terminology",
+    "match": "password",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_strategy.go",
+    "line": 84,
+    "category": "credential terminology",
+    "match": "Password",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_strategy.go",
+    "line": 85,
+    "category": "credential terminology",
+    "match": "Password",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_strategy.go",
+    "line": 86,
+    "category": "credential terminology",
+    "match": "Password",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_strategy.go",
+    "line": 90,
+    "category": "credential terminology",
+    "match": "Password",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_token_generation_strategy.go",
+    "line": 12,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_token_generation_strategy.go",
+    "line": 15,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_token_generation_strategy.go",
+    "line": 19,
+    "category": "credential terminology",
+    "match": "Token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_token_generation_strategy.go",
+    "line": 37,
+    "category": "credential terminology",
+    "match": "Token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_token_generation_strategy.go",
+    "line": 39,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_token_generation_strategy.go",
+    "line": 55,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_token_generation_strategy.go",
+    "line": 59,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_token_generation_strategy.go",
+    "line": 67,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_token_generation_strategy.go",
+    "line": 92,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_token_generation_strategy.go",
+    "line": 93,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/design_token_generation_strategy.go",
+    "line": 104,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/generate_color_palette.go",
+    "line": 53,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/read_design_strategy.go",
+    "line": 23,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/read_design_strategy.go",
+    "line": 24,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/read_design_strategy.go",
+    "line": 25,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/read_design_strategy.go",
+    "line": 26,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/prompts/read_design_strategy.go",
+    "line": 30,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/timeout_model_test.go",
+    "line": 65,
+    "category": "URL review",
+    "match": "http://mock.invalid",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_components_v2.go",
+    "line": 23,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_read_document.go",
+    "line": 12,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_read_document.go",
+    "line": 54,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_read_document.go",
+    "line": 62,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_read_styles.go",
+    "line": 12,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_read_styles.go",
+    "line": 16,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_read_styles.go",
+    "line": 38,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 13,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 17,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 78,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 80,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 86,
+    "category": "credential terminology",
+    "match": "Token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 97,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 97,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 98,
+    "category": "credential terminology",
+    "match": "Tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 99,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 102,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 104,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 106,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 107,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 108,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 110,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+    "line": 110,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_validation.go",
+    "line": 13,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_write_prototype.go",
+    "line": 31,
+    "category": "URL review",
+    "match": "https://example.com",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/internal/tools_write_variables.go",
+    "line": 50,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/npm/package.json",
+    "line": 28,
+    "category": "URL review",
+    "match": "https://github.com/vkhanhqui/figma-mcp-go.git",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/npm/package.json",
+    "line": 30,
+    "category": "URL review",
+    "match": "https://github.com/vkhanhqui/figma-mcp-go#readme",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/npm/package.json",
+    "line": 32,
+    "category": "URL review",
+    "match": "https://github.com/vkhanhqui/figma-mcp-go/issues",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/code.js",
+    "line": 1119,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/code.js",
+    "line": 1137,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/code.js",
+    "line": 1156,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/code.js",
+    "line": 1158,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/code.js",
+    "line": 5397,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/code.js",
+    "line": 5397,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/code.js",
+    "line": 5398,
+    "category": "credential terminology",
+    "match": "Tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/code.js",
+    "line": 5458,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 6,
+    "category": "URL review",
+    "match": "https://svelte.dev/e/lifecycle_outside_component",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 6,
+    "category": "URL review",
+    "match": "https://svelte.dev/e/async_derived_orphan",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 6,
+    "category": "URL review",
+    "match": "https://svelte.dev/e/effect_in_teardown",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 6,
+    "category": "URL review",
+    "match": "https://svelte.dev/e/effect_in_unowned_derived",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 6,
+    "category": "URL review",
+    "match": "https://svelte.dev/e/effect_orphan",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 6,
+    "category": "URL review",
+    "match": "https://svelte.dev/e/effect_update_depth_exceeded",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 6,
+    "category": "URL review",
+    "match": "https://svelte.dev/e/state_descriptors_fixed",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 6,
+    "category": "URL review",
+    "match": "https://svelte.dev/e/state_prototype_fixed",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 6,
+    "category": "URL review",
+    "match": "https://svelte.dev/e/state_unsafe_mutation",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 6,
+    "category": "URL review",
+    "match": "https://svelte.dev/e/svelte_boundary_reset_onerror",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 6,
+    "category": "URL review",
+    "match": "http://www.w3.org/1999/xhtml",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 6,
+    "category": "URL review",
+    "match": "https://svelte.dev/e/svelte_boundary_reset_noop",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 7,
+    "category": "URL review",
+    "match": "https://github.com/tharuneswarj",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 7,
+    "category": "URL review",
+    "match": "https://github.com/vkhanhqui/figma-mcp-go",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/dist/index.html",
+    "line": 7,
+    "category": "URL review",
+    "match": "ws://${_(o",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/manifest.json",
+    "line": 10,
+    "category": "URL review",
+    "match": "ws://127.0.0.1:1994",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 30,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 32,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 33,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 34,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 46,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 49,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 71,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 72,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 73,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 74,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 102,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 102,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 103,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 104,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 167,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 168,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+    "line": 197,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.ts",
+    "line": 228,
+    "category": "credential terminology",
+    "match": "token",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.ts",
+    "line": 229,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.ts",
+    "line": 247,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.ts",
+    "line": 266,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/read-styles.ts",
+    "line": 268,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/style-ecosystem.ts",
+    "line": 123,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/style-ecosystem.ts",
+    "line": 123,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/style-ecosystem.ts",
+    "line": 124,
+    "category": "credential terminology",
+    "match": "Tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/style-ecosystem.ts",
+    "line": 176,
+    "category": "credential terminology",
+    "match": "tokens",
+    "status": "SAFE",
+    "explanation": "Source/schema/test identifier, UI/design token terminology, or documentation; no stored credential value."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/ui/App.svelte",
+    "line": 35,
+    "category": "URL review",
+    "match": "ws://${serverHost",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/ui/App.svelte",
+    "line": 220,
+    "category": "URL review",
+    "match": "https://github.com/tharuneswarj",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  },
+  {
+    "file": "vendor/figma-mcp/plugin/src/ui/App.svelte",
+    "line": 228,
+    "category": "URL review",
+    "match": "https://github.com/vkhanhqui/figma-mcp-go",
+    "status": "SAFE",
+    "explanation": "Reviewed public upstream/docs/package/license endpoint, localhost/runtime template, or synthetic fixture; no private design URL."
+  }
+]

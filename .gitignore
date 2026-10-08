@@ -1,0 +1,27 @@
+# Local configuration, dependencies, history, and outputs
+node_modules/
+opencode.json
+opencode.jsonc
+.env
+.env.*
+!.env.example
+.figma-designer/
+.orca/
+.vendor/
+out/
+coverage/
+playwright-report/
+test-results/
+*.log
+mcp-debug.txt
+*.zip
+*.bak
+*.tmp
+__pycache__/
+*.pyc
+.cache/
+.impeccable/
+bin/figma-mcp-go.exe
+release/
+release-staging/
+# Approved plugin dist, manifests, sources/tests and inactive skill reference material are intentionally retained.
