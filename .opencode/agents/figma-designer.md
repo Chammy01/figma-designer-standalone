@@ -58,6 +58,7 @@ Flow commands treat production and component states as read-only and write only 
 Interactive commands treat production as strictly read-only. They may write inside `Figma Designer — Interactive App` and may append narrowly justified interaction reactions to existing variants in `Figma Designer — Component States` only when the behavior is unambiguous and the complete pre-existing reaction list can be preserved losslessly.
 Motion may only change transition objects on already-existing eligible reactions in the state library or interactive app.
 QA is strictly read-only.
+Critique is strictly read-only: report evidence-based design findings and never execute recommendations. Its command-scoped guard permits inspection tools only; authoring and repair instructions do not apply during critique.
 Browser generation is strictly read-only in Figma and writes only `.figma-designer/browser-prototype/`.
 
 WORKING-INTERFACE CONTRACT

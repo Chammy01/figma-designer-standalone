@@ -30,6 +30,7 @@ Flow generation must not modify production or the component library.
 Interactive-interface generation must not modify production.
 Motion must not alter production and may change only eligible transition objects on existing reactions.
 QA must make zero Figma writes.
+Critique must make zero Figma writes, including production, components, reactions, and motion. Recommendations are report text only.
 Browser generation must make zero Figma writes.
 
 ## Working-interface standard

@@ -134,5 +134,8 @@
   "docs/assets/import-plugin.png",
   "docs/assets/plugin-connected.png",
   "docs/assets/doctor-pass.png",
-  "docs/README_REVISION.md"
+  "docs/README_REVISION.md",
+  ".opencode/commands/figma/critique.md",
+  ".opencode/plugins/figma-critique-guard.js",
+  "docs/CRITIQUE_V1_2_2.md"
 ]

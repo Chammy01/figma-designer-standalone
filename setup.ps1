@@ -32,10 +32,11 @@ Result ([bool]$openCodeVersion) "OpenCode $openCodeVersion" 'Install OpenCode fo
 Write-Host 'OpenCode compatibility reference: 2.0.24. Provider/model availability must be checked in OpenCode.'
 $paths = @('opencode.example.json','package.json','package-lock.json','docs/APPROVED_RUNTIME.json',
     '.opencode/agents/figma-designer.md','.opencode/agents/web-designer.md',
+    '.opencode/plugins/figma-critique-guard.js',
     'rules/figma-standalone-rules.md','rules/figma-design-rules.md',
     'scripts/figma-browser-test.mjs','scripts/figma-browser-status.mjs','scripts/figma-browser-source.mjs',
     'scripts/figma-live-source.mjs','scripts/figma-browser-contract.mjs','scripts/figma-browser-freshness.mjs')
-foreach ($name in @('setup','doctor','design','revise','states','flow','interactive','motion','qa','browser','browser-test','status','version')) {
+foreach ($name in @('setup','doctor','design','revise','critique','states','flow','interactive','motion','qa','browser','browser-test','status','version')) {
     $paths += ".opencode/commands/figma/$name.md"
 }
 $missing = @($paths | Where-Object { -not (Test-Path -LiteralPath (Join-Path $ProjectRoot $_) -PathType Leaf) })

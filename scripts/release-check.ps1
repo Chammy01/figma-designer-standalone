@@ -16,7 +16,7 @@ if (@($allowlist | Where-Object { $_ -like '.opencode/skills/impeccable/*' -and 
 foreach ($relative in @('.opencode/commands/impeccable.md','.opencode/skills/impeccable/SKILL.md','.opencode/skills/impeccable/scripts/impeccable','.opencode/skills/impeccable/scripts/impeccable.cmd','.opencode/skills/impeccable/scripts/bin/windows-x64/impeccable.exe')) {
     if (Test-Path -LiteralPath (Join-Path $root $relative)) { $failures += "Optional engine still discoverable: $relative" }
 }
-foreach ($name in @('design','revise','states','interactive','motion','qa','browser','browser-test','status','doctor')) {
+foreach ($name in @('design','revise','critique','states','interactive','motion','qa','browser','browser-test','status','doctor')) {
     $command = Join-Path $root ".opencode/commands/figma/$name.md"
     if (-not (Test-Path -LiteralPath $command) -or (Get-Content -LiteralPath $command -Raw) -match 'impeccable') { $failures += "Core command engine dependency: $name" }
 }

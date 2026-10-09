@@ -250,6 +250,7 @@ All `/figma/` commands go in **OpenCode chat**.
 | `/figma/doctor` | Check readiness. |
 | `/figma/design` | Create a new interface or extend a requested part. |
 | `/figma/revise` | Change an existing design. |
+| `/figma/critique` | Review the current design and identify prioritized quality issues. |
 | `/figma/states` | Create component states. |
 | `/figma/flow` | Connect screens for a specific journey. |
 | `/figma/interactive` | Add supported interactions. |

@@ -7,7 +7,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "node --test scripts/figma-browser-contract.test.mjs scripts/figma-browser-freshness.test.mjs",
+    "test": "node --test scripts/figma-browser-contract.test.mjs scripts/figma-browser-freshness.test.mjs scripts/figma-critique.test.mjs",
     "test:hardening": "bun test scripts/figma-hardening.test.ts scripts/figma-variants.test.ts",
     "test:source": "bun test scripts/figma-live-source.test.ts",
     "test:browser": "node --test scripts/figma-browser-integration.test.mjs",

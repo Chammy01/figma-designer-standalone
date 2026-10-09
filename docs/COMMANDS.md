@@ -26,6 +26,77 @@ Change a specific part of the current design.
 
 Technical scope: Uses focused existing subtree updates and preserves unaffected layers.
 
+## `/figma/critique`
+
+Review the current design and identify prioritized quality issues. Optionally name
+a root or section after the command. With no target, it reviews current-page
+production roots and keeps system artifacts separate.
+
+This is read-only: recommendations are text, and the OpenCode critique guard allows
+only inspection tools. It blocks Figma mutations, shell execution, scripts and
+delegation during the critique turn, including follow-ups. The sandboxed Code Mode
+wrapper can call reads; nested calls and permissions are guarded. Start a new request after
+the turn finishes to make revisions. Missing enforcement or changing before/after
+evidence blocks completion. No automatic revision is implemented.
+
+The report checks hierarchy, composition, spacing, typography, color/contrast,
+consistency, reuse, affordance, CTA clarity, density, section rhythm, readability,
+alignment, frame risks and visual repetition where evidence allows. Every finding
+includes Problem, Why it matters, Recommendation and actual node/property Evidence.
+Strengths also need evidence; incomplete coverage is reported explicitly.
+
+`QUALITY_GATE: PASS` means there are no HIGH issues, only limited localized MEDIUM
+issues and no major concerns within the inspected scope. `NEEDS_REVISION` means a
+HIGH issue or cumulative significant MEDIUM issues warrant focused revisions.
+`BLOCKED` means evidence, design structure, source stability or enforcement prevents
+a reliable review. `FIGMA_CRITIQUE: PASS` means the review completed without detected
+changes; it can accompany `NEEDS_REVISION`. A blocked review ends with
+`FIGMA_CRITIQUE: FAIL`. This gate is not responsive or full visual certification.
+
+Illustrative output (names, IDs and values below are examples, not live evidence):
+
+```text
+FIGMA CRITIQUE
+Overall:
+Structural review of Landing (10:1): the primary action is clear, but one card's
+padding compresses its copy relative to matching peers. No rendered screenshot.
+
+HIGH PRIORITY
+None observed
+
+MEDIUM PRIORITY
+C01. Card padding inconsistency
+Problem: Card C uses 8px padding; matching Cards A and B use 24px.
+Why it matters: Its equal-length copy has a different reading width and grouping.
+Recommendation: Bring Card C's padding into the established 24px treatment.
+Evidence: Card C (10:8), Card A (10:2), Card B (10:5); four-sided padding 8/24/24px.
+Confidence: HIGH.
+
+LOW PRIORITY
+None observed
+
+STRENGTHS
+- Primary actions (10:12, 10:16) resolve to the same component family (10:20).
+
+COVERAGE / LIMITATIONS
+Hierarchy, spacing, typography, consistency, reuse and alignment evaluated.
+Other dimensions: Not enough evidence to evaluate reliably in this scoped example.
+Before/after: root identity, descendant counts, child order and inspected properties
+match. Only exposed structural properties were compared; responsive behavior untested.
+
+SUMMARY
+- 0 high-priority issues
+- 1 medium-priority issue
+- 0 low-priority issues
+Gate reason: one localized issue; no major usability/structure concern observed.
+QUALITY_GATE: PASS
+FIGMA_CRITIQUE: PASS
+```
+
+Use finding references with `/figma/revise` in a later request. The revision must
+re-read those nodes before changing anything. See [Critique V1.2.2](CRITIQUE_V1_2_2.md)
+for the enforcement, evidence limitations and acceptance results.
+
 ## `/figma/states`
 
 Create supported component appearances such as hover and pressed.
@@ -82,4 +153,4 @@ Technical scope: Public release v1.2.1-beta.1 differs from system 1.2.1, MCP 1.2
 
 ## Suggested order
 
-setup → doctor → design → revise. Once accepted: states → interactive → motion → qa. Use flow for a defined journey. Then browser → browser-test → status. Version is always informational. See [Known limitations](KNOWN_LIMITATIONS.md).
+setup → doctor → design → critique → revise as needed. Once accepted: states → interactive → motion → qa. Use flow for a defined journey. Then browser → browser-test → status. Version is always informational. See [Known limitations](KNOWN_LIMITATIONS.md).
