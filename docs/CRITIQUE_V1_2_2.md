@@ -125,6 +125,8 @@ local MCP executable, localhost bridge at `127.0.0.1:1994`, and the connected Fi
 development plugin. The project model/default agent and runtime policies were preserved.
 
 Local checks: **29/29 npm tests passed**, including eight critique/guard contracts.
+Command contracts also passed with CRLF checkout text; the test reader normalizes
+line endings so Windows checkout formatting does not change semantic assertions.
 All **22 setup fixtures passed**, including missing critique and missing guard.
 Source release checks passed (JSON/PowerShell/JavaScript, approved configuration,
 allowlists, setup regressions and packaging mismatch stop). Syntax checks also covered

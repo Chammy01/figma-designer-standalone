@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import guard, { critiqueMarker, critiqueReadTools, isCritiqueReadTool } from '../.opencode/plugins/figma-critique-guard.js';
 import { critiqueFixtures } from './fixtures/figma-critique.mjs';
 
-const read = path => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
+const read = path => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8').replaceAll('\r\n', '\n');
 const command = read('.opencode/commands/figma/critique.md');
 
 test('critique exists, selects the existing agent, and requires read-only enforcement', () => {
