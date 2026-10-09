@@ -126,5 +126,13 @@
   "vendor/figma-mcp/plugin/dist/index.html",
   "vendor/figma-mcp/plugin/manifest.json",
   "VERSION",
-  "docs/SOURCE_BOOTSTRAP.md"
+  "docs/SOURCE_BOOTSTRAP.md",
+  "docs/assets/hero-before.png",
+  "docs/assets/hero-after.png",
+  "docs/assets/editable-design.png",
+  "docs/assets/setup-pass.png",
+  "docs/assets/import-plugin.png",
+  "docs/assets/plugin-connected.png",
+  "docs/assets/doctor-pass.png",
+  "docs/README_REVISION.md"
 ]
