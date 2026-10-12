@@ -269,5 +269,7 @@
   "scripts/fixtures/figma-critique-mcp.mjs",
   "scripts/figma-design.test.mjs",
   "scripts/fixtures/design-v2.json",
-  "docs/DESIGN_GENERATION_V2.md"
+  "docs/DESIGN_GENERATION_V2.md",
+  "scripts/fixtures/adaptive-briefing.json",
+  "docs/ADAPTIVE_BRIEFING_V1_2_3_1.md"
 ]

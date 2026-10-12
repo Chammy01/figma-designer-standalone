@@ -1,0 +1,27 @@
+{
+  "critiqueGuardSha256Lf": "884fc738f8464cfc4c9a6d3ddfe16579b58662517bfca2f9023d96e28bb2bfaf",
+  "detailedBenchmarkCases": ["A", "B", "C", "D", "E"],
+  "vague": [
+    { "id": "coffee", "prompt": "Make me a coffee shop website.", "topics": ["purpose", "content", "visual character"], "maxQuestions": 4 },
+    { "id": "dashboard", "prompt": "Design a dashboard.", "topics": ["operations", "data/tasks", "platform"], "maxQuestions": 6 },
+    { "id": "portfolio", "prompt": "Create a portfolio.", "topics": ["work/role", "content", "visual character"], "maxQuestions": 6 },
+    { "id": "business", "prompt": "Make a website for my business.", "topics": ["business", "purpose", "content", "visual character"], "maxQuestions": 6 },
+    { "id": "travel", "prompt": "Create a travel app.", "topics": ["trip purpose", "screens", "platform"], "maxQuestions": 6 }
+  ],
+  "partial": {
+    "prompt": "Create a desktop coffee shop website with menu, story and visit sections. The goal is menu discovery and café visits.",
+    "topics": ["visual character"],
+    "maxQuestions": 2
+  },
+  "continuation": {
+    "original": "Make me a coffee shop website.",
+    "answer": "Neighborhood café. Main goals are menu discovery and visits. Warm, quirky and handcrafted. Desktop first. You decide anything else.",
+    "expectedQuestions": 0,
+    "workingBriefMustRetain": ["coffee", "menu", "visits", "warm", "quirky", "desktop"]
+  },
+  "partialAnswer": "Warm and quirky. You can assume the menu and visit details for this fictional demo.",
+  "autonomy": ["Just decide for me.", "Use your judgment.", "Make reasonable assumptions.", "Skip the questions.", "Surprise me."],
+  "autonomyPrompt": "Create a portfolio site. Use your judgment for all design decisions. No dashboard cards.",
+  "sourcePrompt": "Add a short profile section to the existing landing page, matching its current typography, colors, spacing and components. Use clearly labelled sample copy.",
+  "workingBriefFields": ["PRODUCT", "PURPOSE", "PRIMARY ACTION", "CONTENT", "STYLE", "PLATFORM", "BRAND", "CONSTRAINTS", "ASSUMPTIONS"]
+}

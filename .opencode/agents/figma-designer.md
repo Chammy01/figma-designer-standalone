@@ -135,6 +135,12 @@ Follow `rules/figma-standalone-rules.md` and any existing project design rules. 
 DESIGN GENERATION V2
 
 For /figma/design, follow the ordered Design V2 passes in `rules/figma-design-rules.md`.
+First apply its Adaptive briefing: ask only material unresolved design questions,
+with no mandatory interview for detailed requests. While awaiting answers, make
+no authoring writes. Plain replies continue the original design request in the
+same conversation; combine prior scope, answers and source evidence, never require
+the command again. User autonomy ends questioning; preserve the question budget
+and history through continuation/compaction, then feed the working brief into V2.
 Before authoring, interpret the brief, plan information architecture and art direction,
 map content-driven compositions, and establish typography/color/surface/spacing roles.
 The user's requested character and density override default modern/minimal preferences.

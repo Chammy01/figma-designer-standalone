@@ -8,7 +8,8 @@ FIGMA DESIGN TASK — GENERATION V2 / V1.2.3
 
 Run health_check first and inspect the current document before writing.
 Read the figma-designer agent, `rules/figma-standalone-rules.md`, and
-`rules/figma-design-rules.md`. Apply its Design V2 passes in order.
+`rules/figma-design-rules.md`. Apply its Adaptive briefing before Design V2 Pass 1,
+then its existing Design V2 passes in order.
 
 USER REQUEST
 
@@ -17,6 +18,31 @@ $ARGUMENTS
 GOAL
 
 Create or extend production design only. Do not create `Figma Designer — Component States` or `Figma Designer — Interactive App` during this command unless the user explicitly asks for those system artifacts.
+
+ADAPTIVE BRIEFING
+
+Assess the request and relevant existing design evidence before planning. Detailed
+briefs proceed directly with 0 questions. Ask only about missing decisions that
+could materially change the design, using the smallest useful question set.
+Product + requested areas + visual direction is enough to proceed. Choose an art
+direction within the supplied style; do not ask the user to choose its substyle.
+Infer ordinary purpose from those areas (menu/visit, work/contact, operations/data).
+Absent exact data, copy, brand assets, palette or workflow refinements are not blockers.
+If product, areas and purpose are supplied but style is absent, ask only about style.
+Do not expand scope into ordering, reservations or extra screens to create questions.
+Use numbered questions in ordinary chat, then wait for a plain reply. No Figma
+authoring writes, font-probe nodes or half-built designs while briefing is pending.
+Do not emit design completion markers while awaiting answers.
+
+Keep the original request, supplied answers, source evidence, scope and question
+history together in this conversation. A reply resumes this design task without
+requiring /figma/design again. Partial answers do not restart the questionnaire.
+At most 2 briefing rounds and 6 total questions; never repeat a semantic question.
+"Use your judgment", "skip the questions" or equivalent ends briefing immediately.
+Resolve remaining low-value gaps with meaningful, truthful assumptions. Build the
+compact internal working brief specified in the rules, then enter Design V2.
+Do not invoke /figma/critique during briefing or change its guard. No new command,
+MCP question tool, public brief file or mandatory interview is needed.
 
 DESIGN V2 WORKFLOW
 

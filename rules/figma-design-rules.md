@@ -468,6 +468,137 @@ Ensure:
 
 \- unrelated existing work has not been destroyed
 
+## Adaptive briefing — before Design V2 Pass 1
+
+This layer belongs only to `/figma/design`, including its plain-chat continuations.
+It improves the input to V2; it does not duplicate or replace the existing passes.
+Ask only questions whose answers could materially change the design. Missing
+information alone is not a reason to ask. Prefer useful assumptions for low-value
+gaps, including the existing desktop default when form factor is reasonably clear.
+
+### Decide whether to ask
+
+Read the request and relevant live target/design-system evidence first. Existing
+typography, colors, components, spacing and style can answer brand questions; do
+not ask the user to restate them. Do not infer a new brand from unrelated screens
+in the same file. Explicit user direction overrides the existing system.
+Determine whether purpose, required content, visual character or form factor has
+an unresolved choice that would change the structure, hierarchy or art direction.
+This is a materiality judgment, not a keyword score or a mandatory field checklist.
+Enough means the product, requested areas and visual direction give a coherent
+design path. Proceed with 0 questions in that case, inferring ordinary purpose
+from the requested areas: menu/visit means discovery and visits, work/contact means
+showcasing work and contact, operational data means monitoring and task triage.
+Choosing among reasonable palettes, substyles, section arrangements, sample data
+and copy is the designer's job, not a reason to interview. Do not ask for a finer
+flavour of an already supplied style or an exact operational taxonomy before a
+static design. Only an explicit conflicting constraint or genuinely missing major
+decision justifies a question. When product, areas and purpose are supplied but
+style is absent, ask only about visual character (1 question, at most 2 if a separate
+material choice exists). Do not reopen supplied scope by offering ecommerce,
+reservations, extra screens or different content structures the user did not request.
+
+| Brief | Question budget (ceiling, not quota) |
+| --- | --- |
+| Detailed / enough to design | 0 questions; proceed directly. |
+| Mostly complete / one key choice open | 1–2 targeted questions. |
+| Partial / several material choices open | 2–4 targeted questions. |
+| Very vague / subject or job unclear | At most 5–6 targeted questions. |
+
+Never ask more than 6 questions in one round or 6 total questions by default.
+At most 2 briefing rounds. Count distinct decisions, including subquestions;
+do not hide an interview inside one overloaded question. Prefer one strong question
+over several weak ones. After enough information exists, stop interviewing.
+The detailed Velvet Brew, logistics, editorial, geography and inventory benchmark
+briefs proceed directly: absent assets, exact copy, ages or an explicit marketing
+CTA do not by themselves justify questions. A compact inventory tool needs no
+marketing CTA. "Make me a coffee shop website", "Design a dashboard", "Create a
+portfolio", "Make a website for my business" and "Create a travel app" normally
+need context-specific questions when no relevant source answers those choices.
+
+### Ask useful design questions
+
+Use short numbered questions in ordinary chat; users may reply in plain text.
+Ask about purpose/use context, primary action when applicable, required content,
+visual character, useful existing brand inputs, ambiguous platform/form factor,
+or important constraints. Choose only the relevant categories; never ask all by
+default. Bundle a small round, end that turn and wait for answers before V2 planning.
+
+For a café, ask whether the page mainly helps visitors discover the place, check
+the menu or reserve, and which areas it needs. For a dashboard, ask what operations
+it monitors and which data/tasks matter first, not about testimonials or a hero.
+For a portfolio, ask whose work it showcases and which work/contact content matters.
+For an unspecified business, establish the business and page's main job. For travel,
+distinguish planning a trip, booking or managing an itinerary before adding screens.
+Examples are prompts for judgment, not fixed questionnaires or new product features.
+
+Offer at most 3 concrete, neutral examples per question when helpful, plus "Something
+else" or an open reply. For example: "Should the café feel warm/handcrafted,
+playful/colorful, restrained/premium, or something else?" Do not steer toward clean,
+minimal, modern, SaaS, rounded cards or gradients as the default. Do not force assets:
+use source evidence or truthful placeholders when a logo/image/font is unavailable.
+Do not turn a question into a long menu of professions, features or assets. Actual
+copy, address, logo and images are optional inputs, not a default intake question
+when labelled placeholders can serve the requested design.
+Before sending a round, check the budget and wording: one independent decision
+per numbered question, at most three examples, no repeated topic. Drop low-value
+extras; do not combine platform with theme or add a theme question after asking
+visual character. Use the desktop default unless platform ambiguity matters.
+Ask about use context rather than demographic profiling. No invented demographics
+or default age questions; audience questions require a real interface consequence.
+Do not automatically suggest pricing, testimonials, newsletters, FAQs, statistics
+or logos. No unsupported business facts or behavior may be invented to fill gaps.
+
+No React/Vue, Next.js, database, API, hosting, authentication provider, backend stack
+or deployment questions by default; technical discovery requires an explicit
+implementation/development request. Beginner questions must use plain language:
+"What sections or areas does the page need?", not MCP, design tokens, information
+architecture, semantic roles or composition map terminology unless the user uses it.
+
+### Continue without restarting
+
+Retain compact conversation state: original request, all supplied answers, relevant
+source evidence, target page/root and ownership scope, semantic questions already
+asked, round count, total question count and meaningful unresolved decisions.
+Carry this state through compaction. Do not persist a public briefing file.
+Merge later answers with the original request; latest explicit corrections win.
+The user need not invoke `/figma/design` again. Do not treat a short answer as a
+new standalone request or ask the original questions again.
+
+With partial answers, re-evaluate materiality. Proceed if enough is known. If exactly
+one major new unresolved decision remains, ask one focused follow-up only within
+the remaining round/question budget and never repeat the same semantic question.
+An unanswered question is not permission to repeat it; use a documented reasonable
+assumption when possible. After two rounds or the question budget, make meaningful
+assumptions and continue rather than blocking on low-value details.
+
+"Just decide for me", "Use your judgment", "Make reasonable assumptions", "Skip
+the questions", "Surprise me" and equivalent autonomy instructions end briefing
+immediately, including mid-round and with partial answers. Preserve stated content,
+style and constraints; decide remaining design choices from product type, source and
+V2 principles. Mark unknown facts as unknown or use labelled sample placeholders,
+never fabricate real business facts. Do not ask for confirmation of those choices.
+
+### Working brief and authoring boundary
+
+Construct a compact internal working brief with PRODUCT, PURPOSE, PRIMARY ACTION
+(if applicable), CONTENT, STYLE, PLATFORM, BRAND (source/assets when relevant),
+CONSTRAINTS and ASSUMPTIONS (meaningful choices only). Unknown low-impact fields may
+remain unknown. A concise user-visible direction/scope summary is optional; do not
+dump internal reasoning or a long form. The working brief feeds V2 Pass 1, then the
+existing authoritative V2 passes continue unchanged.
+
+If briefing is required, no Figma authoring writes happen until necessary answers
+are supplied, the user chooses assumptions, or the bounded briefing is complete
+and remaining gaps are resolved with meaningful assumptions.
+Plan-only/test mode, labelled sample data, user absence or a small scope do not
+authorize skipping required questions. Do not substitute speculative planning
+followed by "questions for later" for the required question-and-answer boundary.
+Read-only health,
+document, node and design-system inspection is allowed. No font probes, scratch
+nodes or partial design while waiting. Do not invoke `/figma/critique`, weaken its
+guard, add commands/aliases, introduce a question MCP or change runtime policy.
+
 ## Design V2 — ordered product-design passes
 
 These passes govern `/figma/design`. Complete passes 1–6 before authoring writes.
@@ -482,8 +613,8 @@ implied, style, attention priorities and constraints. Distinguish facts from ass
 Do not turn broad audience wording into invented demographics: "children" does not
 establish an age range, reading level, device habits or learning ability. Keep those
 unknown unless supplied; state design choices without presenting them as audience facts.
-Ask only for missing information that prevents useful scoped work; otherwise state a
-reasonable assumption. The user brief overrides default aesthetic preferences.
+Carry the resolved working brief and meaningful assumptions forward; do not restart
+briefing in this or later passes. The user brief overrides default aesthetic preferences.
 Warm/colorful/charming/quirky does not mean minimal beige SaaS; dense admin does not
 mean a marketing page with a giant hero; editorial does not mean icon-card grids.
 

@@ -20,6 +20,9 @@ Create a new editable page or requested production area with Design Generation V
 
 The same command interprets your brief, plans content order, art direction and
 composition, establishes type/color/spacing roles, then builds native sections.
+It may ask a few questions when the request leaves major design decisions open.
+Detailed requests proceed directly. Reply in the same conversation, or say "use
+your judgment" to skip questions; no extra command is needed.
 It inspects the stable draft and may apply **one focused polish pass** when evidence
 supports it. Different briefs should produce different visual strategies; requested
 style and density take precedence over generic modern/minimal defaults.
