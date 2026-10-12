@@ -275,5 +275,8 @@
   "rules/figma-intent-router.mjs",
   "scripts/figma-intent-router.test.mjs",
   "scripts/fixtures/intent-router.json",
-  "docs/INTENT_ROUTER_V1_2_3_2.md"
+  "docs/INTENT_ROUTER_V1_2_3_2.md",
+  "rules/figma-prototype-planner.md",
+  "scripts/figma-prototype-planner.test.mjs",
+  "docs/PROTOTYPE_PLANNER_V1_2_3_3.md"
 ]

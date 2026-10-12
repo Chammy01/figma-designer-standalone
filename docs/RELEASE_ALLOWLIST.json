@@ -138,5 +138,7 @@
   ".opencode/commands/figma/critique.md",
   ".opencode/plugins/figma-critique-guard.js",
   "docs/CRITIQUE_V1_2_2.md",
-  "rules/figma-intent-router.mjs"
+  "rules/figma-intent-router.mjs",
+  "rules/figma-prototype-planner.md",
+  "docs/PROTOTYPE_PLANNER_V1_2_3_3.md"
 ]

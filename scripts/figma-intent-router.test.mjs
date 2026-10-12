@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import guard, { critiqueMarker } from '../.opencode/plugins/figma-critique-guard.js';
-import { loadContracts, routingInstructions } from '../rules/figma-intent-router.mjs';
+import { loadContracts, loadPlannerContract, routingInstructions } from '../rules/figma-intent-router.mjs';
 
 const read = p => readFileSync(new URL('../' + p, import.meta.url), 'utf8').replaceAll('\r\n', '\n');
 const fixtures = JSON.parse(read('scripts/fixtures/intent-router.json'));
@@ -32,6 +32,7 @@ for (const fixture of fixtures) test(`${fixture.id}: selected route reuses canon
   const event = await h.prompt(fixture.prompt);
   assert.equal(event.metadata.figmaIntent, fixture.intent);
   if (fixture.command) assert.equal(event.prompt.text, contracts[fixture.command].replaceAll('$ARGUMENTS', () => fixture.prompt));
+  else if (fixture.intent === 'prototype_planner') assert.equal(event.prompt.text, await loadPlannerContract(contracts) + '\n\nUSER REQUEST\n' + fixture.prompt);
   else if (fixture.intent === 'continue') assert.equal(event.prompt.text, fixture.prompt);
   else { assert.match(event.prompt.text, /No Figma or filesystem writes/); if (fixture.question) { assert.ok(event.prompt.text.includes(fixture.question)); assert.match(event.prompt.text, /ordinary chat[\s\S]*Do not call the question tool[\s\S]*End this turn[\s\S]*plain reply/); } }
   assert.equal(h.storage.has('critique-read-only:test'), fixture.command === 'critique');
@@ -78,6 +79,13 @@ test('other agents are not routed and literal argument replacement cannot alter 
   assert.equal((await h.prompt(text)).prompt.text, contracts.revise.replaceAll('$ARGUMENTS', () => text));
 });
 
+test('an exact JSON fence is accepted without extracting JSON from arbitrary prose', async () => {
+  const h = await harness('```json\n{"intent":"prototype_planner"}\n```');
+  assert.equal((await h.prompt('Make this whole app interactive.')).metadata.figmaIntent, 'prototype_planner');
+  const prose = await harness('Result:\n{"intent":"prototype_planner"}');
+  assert.ok((await prose.prompt('Make this app interactive.')).prompt.text.startsWith(critiqueMarker));
+});
+
 for (const output of [new Error('Provider unavailable'), '', '```json\n{}\n```', '{"intent":"unknown"}', '{"intent":"clarify"}']) test(`invalid routing response fails closed: ${String(output)}`, async () => {
   const h = await harness(output); const event = await h.prompt('Make it better.');
   assert.ok(event.prompt.text.startsWith(critiqueMarker));
@@ -105,7 +113,7 @@ const invariants = [
   ['ambiguity never merges ownership zones', /Ownership always overrides[\s\S]*one sentence does not merge writable zones/],
   ['information explains without authoring', /capability questions explain\nwithout authoring/],
   ['browser test cannot silently generate missing artifacts', /no generation unless separately requested; report missing artifacts/],
-  ['multi-command planning is out of scope', /not Prototype Planner[\s\S]*No vague[\s\S]*orchestration/],
+  ['multi-capability work uses bounded planner', /Select one narrow workflow unless[\s\S]*PROTOTYPE_PLANNER[\s\S]*do not invent product logic/],
 ];
 for (const [name, pattern] of invariants) test(name, () => assert.match(rules, pattern));
 

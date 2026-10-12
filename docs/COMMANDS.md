@@ -26,6 +26,11 @@ your judgment" to skip questions; no extra command is needed.
 After creating a design, you can describe changes in normal language. Figma Designer
 chooses the appropriate workflow when intent is clear; ambiguous requests may need
 one clarification. Specialist commands remain available for manual control.
+For a broad request such as "make this app interactive", the internal Prototype
+Planner inventories supported behavior, orders the necessary states/runtime/flow/
+motion work, and finishes with read-only QA. It preserves production and asks one
+focused question if required behavior is missing. Narrow requests keep their
+specialist workflow; no extra command is needed. See [planner details](PROTOTYPE_PLANNER_V1_2_3_3.md).
 It inspects the stable draft and may apply **one focused polish pass** when evidence
 supports it. Different briefs should produce different visual strategies; requested
 style and density take precedence over generic modern/minimal defaults.

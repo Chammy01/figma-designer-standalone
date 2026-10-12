@@ -144,8 +144,11 @@ Informational follow-ups explain without authoring. Material ambiguity asks one
 focused question in ordinary chat without writes: no blocking question tool/form.
 End that turn; the plain reply re-enters routing before a new workflow executes.
 Revisions do not restart design briefing; genuinely
-new vague designs may. Do not pre-read/execute all workflows or plan a broad automatic
-states/flow/interactive/motion campaign. Critique requires its existing active guard,
+new vague designs may. Explicit broad prototype goals may route to the internal
+PROTOTYPE_PLANNER in `rules/figma-prototype-planner.md`: inventory live behavior,
+order necessary specialist phases, preserve their individual ownership and finish
+with read-only QA. Narrow requests stay in one specialist workflow; discussion and
+vague improvement do not authorize a campaign. Critique requires its existing active guard,
 approved direct read aliases and Code Mode prohibition before any Figma inspection.
 Never write recommendations in that guarded turn; preserve bounded revision intent
 for a separate request after idle without asking for the same authorization again.

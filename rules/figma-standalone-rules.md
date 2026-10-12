@@ -10,7 +10,8 @@ After a Figma task, ordinary conversation uses the existing primary `figma-desig
 agent. Specialist commands remain canonical, independent manual/debug/test entry
 points. No `/figma/route`, `/figma/intent`, `/figma/auto`, `/figma/continue` or aliases.
 The OpenCode prompt hook selects by requested outcome and conversation context,
-not keywords alone, then expands one existing command's full instructions. This is
+not keywords alone, then expands one existing command's full instructions, or the
+internal Prototype Planner with its eligible canonical contracts. This is
 contract reuse, not a claim that a slash command was programmatically executed.
 
 Before acting: determine current task context, inspect live evidence as needed,
@@ -33,6 +34,7 @@ No verbose reasoning dump; a short scope/status line suffices.
 | QA | `/figma/qa` | Correctly built/wired? Strictly read-only; not an aesthetic review. |
 | BROWSER_GENERATION | `/figma/browser` | Figma read-only; only `.figma-designer/browser-prototype/` output, validated source prerequisites. |
 | BROWSER_TEST | `/figma/browser-test` | Existing browser artifacts; no generation unless separately requested; report missing artifacts. |
+| PROTOTYPE_PLANNER | Internal orchestration, no slash command | Explicit broad interactive outcome requiring multiple existing families; `rules/figma-prototype-planner.md` orders only necessary states/runtime/flow/motion phases, then read-only QA. Production remains read-only. |
 
 "Make the button pop more" normally means production emphasis, not animation.
 "Make the button animate when hovered" uses states first if the hover state/reaction
@@ -52,7 +54,8 @@ does not decide. "Make it better" asks visual, interaction or both; no broad wri
 Ask that focused question in ordinary chat and end the turn, without a blocking
 question tool/form. A plain reply starts a new routed request; this is essential
 when the answer selects critique, whose guard must activate before its tools run.
-"Make it work" clarifies missing behavior/destinations rather than inventing semantics.
+"Make it work" may use the planner when context establishes an existing prototype
+and intended behavior; otherwise clarify missing semantics rather than inventing them.
 "What did you change?", "Why this layout/component?" and capability questions explain
 without authoring. "What would you improve visually?" is read-only critique/advice.
 
@@ -60,9 +63,14 @@ Keep adaptive briefing separate: pending answers continue the original design ta
 with all answers/history/budgets preserved. A completed design's local revision does
 not restart briefing. A genuinely new vague screen may enter design and adaptive briefing.
 
-Select one appropriate workflow; this is not Prototype Planner. For several families,
-identify the decomposition and clarify unclear order/prerequisites. No vague "make
-the whole app interactive" states/flow/motion orchestration. Ownership always overrides
+Select one narrow workflow unless a broad prototype outcome clearly needs multiple
+families. "Make this app interactive", "Wire up this onboarding flow" and explicit
+states/navigation/motion requests may use PROTOTYPE_PLANNER; inspect required behavior
+and ask only material clarifications before writing. Known prerequisite order needs
+no interview. No new `/figma/prototype`, `/figma/plan`, `/figma/make-interactive` or
+other aliases. Follow `rules/figma-prototype-planner.md`; do not invent product logic,
+merge specialist write permissions or add browser/future runtime capabilities.
+Ownership always overrides
 routing convenience; one sentence does not merge writable zones.
 
 "Review it and fix the problems" starts read-only critique and presents findings.
