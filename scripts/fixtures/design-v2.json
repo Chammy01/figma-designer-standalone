@@ -1,0 +1,47 @@
+[
+  {
+    "case": "A",
+    "subject": "Velvet Brew",
+    "kind": "hospitality",
+    "prompt": "Create a rich, playful coffee shop website for a brand called Velvet Brew. Include navigation, hero, featured drinks, menu, our story, testimonials, gallery, visit section and footer. Make it warm, colorful, handcrafted and visually rich. Avoid a sleek corporate or overly modern look.",
+    "regions": ["navigation", "hero", "featured drinks", "menu", "our story", "testimonials", "gallery", "visit", "footer"],
+    "strategy": "Expressive display/sans, warm contrast with colorful accents, image-led split, drink feature rail, dense menu, story, quote emphasis and gallery.",
+    "avoid": "Sleek corporate template or a page of equal card grids."
+  },
+  {
+    "case": "B",
+    "subject": "Independent art director",
+    "kind": "editorial",
+    "prompt": "Create a portfolio website for an independent art director. Include intro, selected work, short profile, client list and contact. Make it editorial, typography-led and slightly unconventional. Use strong scale changes and avoid dashboard-style cards.",
+    "regions": ["intro", "selected work", "profile", "client list", "contact"],
+    "strategy": "Oversized typographic intro, asymmetrical selected-work spread, narrow profile, typographic client list, strong contact line and restrained surfaces.",
+    "avoid": "Dashboard cards or fabricated real client endorsements."
+  },
+  {
+    "case": "C",
+    "subject": "Small logistics company",
+    "kind": "dashboard",
+    "prompt": "Create a desktop dashboard for a small logistics company. Include sidebar, shipment status overview, active deliveries, exceptions, recent activity and quick actions. Make it practical, information-dense and easy to scan. Avoid decorative marketing-page styling.",
+    "regions": ["sidebar", "shipment status overview", "active deliveries", "exceptions", "recent activity", "quick actions"],
+    "strategy": "Compact application shell, data-first overview, delivery table, grouped exceptions/activity and clear quick actions; restrained type and operational colors.",
+    "avoid": "Giant marketing hero, decorative metrics or invented live operations."
+  },
+  {
+    "case": "D",
+    "subject": "Geography learning app",
+    "kind": "playful-product",
+    "prompt": "Create a desktop learning app for children practicing geography. Include navigation, current challenge, progress, topic cards and recent achievements. Make it playful and friendly without making the interface chaotic.",
+    "regions": ["navigation", "current challenge", "progress", "topic cards", "recent achievements"],
+    "strategy": "Friendly expressive type, controlled bright roles, one dominant challenge, subordinate progress, topic choices and compact achievement rail.",
+    "avoid": "Chaotic rainbow decoration or invented demographic assumptions."
+  },
+  {
+    "case": "E",
+    "subject": "Internal inventory",
+    "kind": "utilitarian",
+    "prompt": "Create an internal inventory management screen. Include navigation, search, filters, inventory table, stock warnings and bulk actions. Keep it restrained, utilitarian and compact.",
+    "regions": ["navigation", "search", "filters", "inventory table", "stock warnings", "bulk actions"],
+    "strategy": "Compact operational toolbar, search/filter hierarchy, dense readable table, selected-row bulk actions and stock warnings near affected data.",
+    "avoid": "Promotional hero, testimonials or unnecessary decorative sections."
+  }
+]

@@ -16,9 +16,22 @@ Technical scope: Read-only health/document/local checks; follow repair guidance 
 
 ## `/figma/design`
 
-Create a new editable page or requested production area.
+Create a new editable page or requested production area with Design Generation V2.
 
-Technical scope: Builds production only, in sections; inspect before writes.
+The same command interprets your brief, plans content order, art direction and
+composition, establishes type/color/spacing roles, then builds native sections.
+It inspects the stable draft and may apply **one focused polish pass** when evidence
+supports it. Different briefs should produce different visual strategies; requested
+style and density take precedence over generic modern/minimal defaults.
+
+Technical scope: Builds requested production only, section-by-section. Preserves
+existing roots, reconciles indeterminate timeouts and verifies component sources.
+Internal inspection uses critique principles without invoking `/figma/critique`
+mid-generation or changing its guard. Final output reports art direction, sections,
+polish applied/skipped, substitutions/limitations and production root IDs. It retains
+`FIGMA_DESIGN: PASS` and adds `FIGMA_DESIGN_V2: PASS` after verification; this confirms
+safe completion, not deterministic visual perfection. Run `/figma/critique` afterward
+for an independent read-only review, then `/figma/revise` for a requested change.
 
 ## `/figma/revise`
 

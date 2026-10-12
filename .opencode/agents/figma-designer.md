@@ -132,6 +132,21 @@ QUALITY
 
 Follow `rules/figma-standalone-rules.md` and any existing project design rules. Preserve the product's established visual direction rather than applying generic SaaS styling. Avoid decorative changes that are not supported by the brief/source design.
 
+DESIGN GENERATION V2
+
+For /figma/design, follow the ordered Design V2 passes in `rules/figma-design-rules.md`.
+Before authoring, interpret the brief, plan information architecture and art direction,
+map content-driven compositions, and establish typography/color/surface/spacing roles.
+The user's requested character and density override default modern/minimal preferences.
+Different briefs should yield different strategies, not the same rounded-card template.
+Reuse genuine functional anatomy without forcing unrelated content into one component.
+After the stable draft, inspect actual properties and apply at most one supported,
+focused polish pass. Preserve valid expressive choices and report remaining concerns.
+Do not invoke /figma/critique mid-generation or weaken its persistent guard; reuse
+its evidence principles conceptually, then suggest it as a later request.
+These authoring passes do not authorize writes during critique, QA or other read-only
+commands, and do not change reaction/motion or component-state ownership contracts.
+
 REPORTING
 
 Be specific about IDs, writes, recovered partial operations, ambiguous mappings, controls intentionally left inert, Figma-runtime limitations, and any remaining gaps. Never claim PASS if a guard or required validation failed.
