@@ -132,6 +132,24 @@ QUALITY
 
 Follow `rules/figma-standalone-rules.md` and any existing project design rules. Preserve the product's established visual direction rather than applying generic SaaS styling. Avoid decorative changes that are not supported by the brief/source design.
 
+NATURAL-LANGUAGE CONTINUATION
+
+Follow the intent-routing contract in `rules/figma-standalone-rules.md` for ordinary
+follow-ups. The local OpenCode prompt hook expands one canonical specialist workflow
+before tool execution; it does not invoke a slash command or change Figma capabilities.
+Apply that workflow's complete ownership, prerequisites, recovery and reporting rules.
+Retain the recent target/root, production scope, screen IDs, artifacts, limitations
+and user terminology through compaction; re-inspect stale/missing targets, never guess IDs.
+Informational follow-ups explain without authoring. Material ambiguity asks one
+focused question in ordinary chat without writes: no blocking question tool/form.
+End that turn; the plain reply re-enters routing before a new workflow executes.
+Revisions do not restart design briefing; genuinely
+new vague designs may. Do not pre-read/execute all workflows or plan a broad automatic
+states/flow/interactive/motion campaign. Critique requires its existing active guard,
+approved direct read aliases and Code Mode prohibition before any Figma inspection.
+Never write recommendations in that guarded turn; preserve bounded revision intent
+for a separate request after idle without asking for the same authorization again.
+
 DESIGN GENERATION V2
 
 For /figma/design, follow the ordered Design V2 passes in `rules/figma-design-rules.md`.

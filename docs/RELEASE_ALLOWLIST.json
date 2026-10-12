@@ -137,5 +137,6 @@
   "docs/README_REVISION.md",
   ".opencode/commands/figma/critique.md",
   ".opencode/plugins/figma-critique-guard.js",
-  "docs/CRITIQUE_V1_2_2.md"
+  "docs/CRITIQUE_V1_2_2.md",
+  "rules/figma-intent-router.mjs"
 ]

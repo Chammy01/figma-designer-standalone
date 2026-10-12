@@ -1,0 +1,21 @@
+[
+  {"id":"revision","prompt":"Make the hero 20% shorter and reduce the gap before featured drinks.","intent":"production_revision","command":"revise"},
+  {"id":"critique","prompt":"What are the biggest visual problems with this page?","intent":"design_critique","command":"critique"},
+  {"id":"states","prompt":"Give the primary buttons hover, pressed and disabled states.","intent":"component_state_authoring","command":"states"},
+  {"id":"flow","prompt":"Connect each product card to the existing product details screen.","intent":"flow_wiring","command":"flow"},
+  {"id":"interactive","prompt":"Make the tabs and filters actually work in the prototype.","intent":"working_interaction","command":"interactive"},
+  {"id":"motion","prompt":"Use a subtle dissolve between these screens.","intent":"motion","command":"motion"},
+  {"id":"qa","prompt":"Check for dead controls and broken destinations.","intent":"qa","command":"qa"},
+  {"id":"browser","prompt":"Generate the browser prototype.","intent":"browser_generation","command":"browser"},
+  {"id":"browser-test","prompt":"Run the browser tests.","intent":"browser_test","command":"browser-test"},
+  {"id":"information","prompt":"Why did you use this component here?","intent":"informational"},
+  {"id":"ambiguous","prompt":"Check the buttons.","intent":"clarify","question":"Review their visual design, or verify their interactions?"},
+  {"id":"better","prompt":"Make it better.","intent":"clarify","question":"Improve visual design, interactions, or both?"},
+  {"id":"multi","prompt":"Add hover states and make the transitions smoother.","intent":"clarify","question":"Create the missing button states first, or adjust an existing transition?"},
+  {"id":"briefing-answer","prompt":"Warm and quirky. Desktop first. You decide the rest.","intent":"continue"},
+  {"id":"new-design","prompt":"Create a completely new travel booking screen.","intent":"new_design","command":"design"},
+  {"id":"explanation","prompt":"Why did you make the footer dark?","intent":"informational"},
+  {"id":"review-fix","prompt":"Review it and fix the problems.","intent":"design_critique","command":"critique"},
+  {"id":"pop","prompt":"Make the button pop more.","intent":"production_revision","command":"revise"},
+  {"id":"hover-animation","prompt":"Make the button animate when hovered.","intent":"component_state_authoring","command":"states","context":"No hover state or reaction exists."}
+]

@@ -4,6 +4,77 @@
 
 These rules define the project-wide quality, interaction, and safety contract for the standalone Figma Designer system.
 
+## Natural-language intent routing
+
+After a Figma task, ordinary conversation uses the existing primary `figma-designer`
+agent. Specialist commands remain canonical, independent manual/debug/test entry
+points. No `/figma/route`, `/figma/intent`, `/figma/auto`, `/figma/continue` or aliases.
+The OpenCode prompt hook selects by requested outcome and conversation context,
+not keywords alone, then expands one existing command's full instructions. This is
+contract reuse, not a claim that a slash command was programmatically executed.
+
+Before acting: determine current task context, inspect live evidence as needed,
+classify outcome, determine ownership, select the narrowest workflow, verify live
+targets/artifacts, clarify only material ambiguity and apply the full chosen contract.
+An unverified prerequisite alone does not change a clear capability family. A bounded
+request to make tabs/filters work selects interactive; that workflow inspects and
+clarifies missing behavior before authoring rather than inventing it.
+Keep a compact internal INTENT, TARGET, OWNERSHIP, PREREQUISITES and AMBIGUITY record.
+No verbose reasoning dump; a short scope/status line suffices.
+
+| Intent | Canonical workflow | Ownership / prerequisites |
+| --- | --- | --- |
+| PRODUCTION_REVISION | `/figma/revise` | Requested production subtree only; preserve unrelated screens/IDs. |
+| DESIGN_CRITIQUE | `/figma/critique` | Strictly read-only; existing persistent guard active, approved read aliases, no Code Mode; recommendations only. |
+| COMPONENT_STATE_AUTHORING | `/figma/states` | Production read-only; canonical component-state library writes only. |
+| FLOW_WIRING | `/figma/flow` | Identifiable source and existing explicit destination; runtime writes only, production/library read-only. |
+| WORKING_INTERACTION | `/figma/interactive` | Defined working controls beyond one edge; production read-only, runtime and narrowly justified existing state-reaction updates only. |
+| MOTION | `/figma/motion` | Eligible transition objects on existing reactions only; no node/trigger/destination/interaction architecture changes. |
+| QA | `/figma/qa` | Correctly built/wired? Strictly read-only; not an aesthetic review. |
+| BROWSER_GENERATION | `/figma/browser` | Figma read-only; only `.figma-designer/browser-prototype/` output, validated source prerequisites. |
+| BROWSER_TEST | `/figma/browser-test` | Existing browser artifacts; no generation unless separately requested; report missing artifacts. |
+
+"Make the button pop more" normally means production emphasis, not animation.
+"Make the button animate when hovered" uses states first if the hover state/reaction
+is missing; report motion as later work, never silently run a multi-command campaign.
+Motion with no eligible reactions reports the state/interaction prerequisite.
+Flows with missing destinations report them; never invent screens or product logic.
+Working interactions retain WORKING_ACTION / WORKING_STATE / FIGMA_LIMITED /
+INTENTIONALLY_INERT classification, source component/set verification and truthful limits.
+
+Retain current target/root, recent production scope/screens, relevant state/runtime
+artifacts, unresolved limitations and user terminology. "This/it" can use recent
+unambiguous context without asking which document, but re-inspect IDs from the live
+file. Missing/stale targets require reinspection, not guessed replacements.
+"Fix this" may use a recent explicit issue and target. Otherwise clarify what changes.
+"Check the buttons" asks visual quality versus interaction correctness when context
+does not decide. "Make it better" asks visual, interaction or both; no broad writes.
+Ask that focused question in ordinary chat and end the turn, without a blocking
+question tool/form. A plain reply starts a new routed request; this is essential
+when the answer selects critique, whose guard must activate before its tools run.
+"Make it work" clarifies missing behavior/destinations rather than inventing semantics.
+"What did you change?", "Why this layout/component?" and capability questions explain
+without authoring. "What would you improve visually?" is read-only critique/advice.
+
+Keep adaptive briefing separate: pending answers continue the original design task,
+with all answers/history/budgets preserved. A completed design's local revision does
+not restart briefing. A genuinely new vague screen may enter design and adaptive briefing.
+
+Select one appropriate workflow; this is not Prototype Planner. For several families,
+identify the decomposition and clarify unclear order/prerequisites. No vague "make
+the whole app interactive" states/flow/motion orchestration. Ownership always overrides
+routing convenience; one sentence does not merge writable zones.
+
+"Review it and fix the problems" starts read-only critique and presents findings.
+Do not execute recommendations or start authoring while the critique guard is active.
+Carry explicit bounded revision authorization forward for a separate request after
+critique is fully idle; ask only for genuinely missing scope, not repeated permission.
+Steering/queued messages cannot unlock the guarded turn. Never reset/bypass its lifetime.
+Provider schemas, approved read aliases, execution/permission enforcement and persistent
+guard storage stay intact. Provider/route-parse failures stop read-only with BLOCKED,
+not an assumed authoring route. Specialist timeout reconciliation, duplicate protection,
+reaction semantics, source verification and output truthfulness remain authoritative.
+
 ## Architecture
 
 - OpenCode is the orchestration/chat surface.

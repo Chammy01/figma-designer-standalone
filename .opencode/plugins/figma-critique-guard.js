@@ -1,4 +1,5 @@
 // OpenCode 2.0.24 local plugin; no dependency or MCP changes required.
+import { installIntentRouter } from '../../rules/figma-intent-router.mjs';
 export const critiqueMarker = 'FIGMA DESIGN CRITIQUE — READ ONLY V1.2.2';
 export const critiqueReadTools = [
   'health_check', 'get_metadata', 'get_pages', 'get_document', 'get_selection',
@@ -14,6 +15,7 @@ export const isCritiqueReadTool = name => allowed.has(name);
 export default {
   id: 'figma-critique-guard',
   async setup(ctx) {
+    await installIntentRouter(ctx);
     // Direct read aliases retain the original Code Mode tools for ordinary authoring.
     await ctx.tool.transform(editor => {
       for (const tool of editor.list()) {

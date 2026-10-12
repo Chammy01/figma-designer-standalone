@@ -190,6 +190,9 @@ Avoid a sleek corporate or overly modern look.
 
 Watch the layers appear in your open Figma file. Let the command finish before sending another request.
 
+Then describe the next step normally, such as “Make the hero shorter” or “Check for
+broken controls.” Figma Designer chooses the workflow or asks one clarification.
+
 For clearer instructions, include four things:
 
 | Part | What to describe | Example |

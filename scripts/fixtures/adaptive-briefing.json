@@ -1,5 +1,5 @@
 {
-  "critiqueGuardSha256Lf": "884fc738f8464cfc4c9a6d3ddfe16579b58662517bfca2f9023d96e28bb2bfaf",
+  "critiqueGuardSha256Lf": "2bc365e1f41d80cf9adab177847f6f4dd13000766455ac4150399a7690cb23dc",
   "detailedBenchmarkCases": ["A", "B", "C", "D", "E"],
   "vague": [
     { "id": "coffee", "prompt": "Make me a coffee shop website.", "topics": ["purpose", "content", "visual character"], "maxQuestions": 4 },

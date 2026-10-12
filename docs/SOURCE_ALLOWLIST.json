@@ -271,5 +271,9 @@
   "scripts/fixtures/design-v2.json",
   "docs/DESIGN_GENERATION_V2.md",
   "scripts/fixtures/adaptive-briefing.json",
-  "docs/ADAPTIVE_BRIEFING_V1_2_3_1.md"
+  "docs/ADAPTIVE_BRIEFING_V1_2_3_1.md",
+  "rules/figma-intent-router.mjs",
+  "scripts/figma-intent-router.test.mjs",
+  "scripts/fixtures/intent-router.json",
+  "docs/INTENT_ROUTER_V1_2_3_2.md"
 ]

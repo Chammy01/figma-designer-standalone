@@ -23,6 +23,9 @@ composition, establishes type/color/spacing roles, then builds native sections.
 It may ask a few questions when the request leaves major design decisions open.
 Detailed requests proceed directly. Reply in the same conversation, or say "use
 your judgment" to skip questions; no extra command is needed.
+After creating a design, you can describe changes in normal language. Figma Designer
+chooses the appropriate workflow when intent is clear; ambiguous requests may need
+one clarification. Specialist commands remain available for manual control.
 It inspects the stable draft and may apply **one focused polish pass** when evidence
 supports it. Different briefs should produce different visual strategies; requested
 style and density take precedence over generic modern/minimal defaults.

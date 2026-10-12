@@ -127,7 +127,7 @@ test('briefing fixtures cover distinct products, partial/answered/autonomous/sou
   assert.match(briefing.sourcePrompt, /existing.*typography, colors, spacing and components/);
 });
 
-test('critique guard compatibility implementation is byte-equivalent after LF normalization', () => {
+test('critique guard checksum matches the recorded integration version after LF normalization', () => {
   assert.equal(createHash('sha256').update(read('.opencode/plugins/figma-critique-guard.js')).digest('hex'), briefing.critiqueGuardSha256Lf);
 });
 
