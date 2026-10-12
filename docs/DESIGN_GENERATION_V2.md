@@ -407,3 +407,150 @@ The report-update regression rerun passed 37 npm tests, 275 plugin tests,
 
 PROVIDER_ACCESS: BLOCKED
 FIGMA_DESIGN_GENERATION_V2: HOLD
+
+## Critique-guard compatibility continuation — 2026-10-12
+
+The historical HOLD/provider records above remain unchanged. V1.2.2.1 preserves
+OpenCode's provider-visible tool catalog while retaining execution/permission
+denials. Because pinned 2.0.24 Code Mode has an unguarded network extension, critique
+now uses direct inspection aliases and blocks that wrapper. Original authoring tools
+remain available. No provider identity/auth/default, MCP, timeout, source-freshness,
+reaction, motion or approved runtime change was needed.
+
+The pending logistics review completed on existing root `10:783`: **33 approved
+Figma reads, zero writes, QUALITY_GATE: NEEDS_REVISION, 2 HIGH / 6 MEDIUM / 2 LOW,
+FIGMA_CRITIQUE: PASS**. Its page fingerprint remained
+`9a64c2b4af26aa01028f81267305c220ea932afb5857dba35ea2c39c06ee3526`.
+The high findings concern the main-column gutter/alignment and overview-panel
+content exceeding its fixed bounds; the nine-row/“Showing 7” contradiction remains
+reported. The earlier successful compatibility review returned 1 HIGH / 7 MEDIUM /
+3 LOW against this identical design. Both raw reviews are retained; differing
+counts demonstrate evaluator variability, not an intervening design improvement.
+Logistics was never regenerated or polished again.
+
+The current `/figma/design` then generated editorial V2 on page `8:2` at `(2200,0)`:
+`19:43`, “Portfolio — Mireille Okafor (sample)”, **1440 × 4784**. All four protected
+roots (`2:2`, `9:15`, `10:307`, `10:783`) retained their earlier fingerprints. The
+page has one V1 baseline, one new V2 production FRAME, and four COMPONENT masters;
+no new/renamed page or canonical state/runtime artifact was created.
+
+The root census is **186 native nodes: 65 FRAME, 106 TEXT, 15 INSTANCE**. Static
+masters `19:46`, `19:50`, `19:53`, `20:101` sit outside the screen at x=3760;
+instances were checked against actual source IDs and all masters have null
+componentSetId. Masthead links, metadata and plate labels have per-instance copy.
+This demonstrates supported reuse without turning unique work compositions into
+one card component or changing component-state architecture.
+
+Passes 1–6 were recorded before authoring: broadside-poster art direction with warm
+paper/ink, vermillion editorial marks, square surfaces, Archivo Black display,
+Instrument Serif contrast, Inter body and IBM Plex Mono metadata. Content order:
+masthead/sample disclosure, intro, selected work, profile, client list, contact,
+colophon. Five work layouts use plate-left, copy-left, centered narrow, type inside
+color, and dense list compositions. No signup, testimonials, awards or fabricated
+verified business facts were added; names/projects/contact details are marked sample.
+
+Three write timeouts were reconciled in the existing root. Completed sections were
+retained; missing deliverables text was added, then confirmed same-run duplicate
+strays were removed after readback. One focused polish addressed observed hairlines,
+copy-column spacing, incorrect repeated plate labels and a long colophon line.
+Final reads verified structure and actual component sources. This did not authorize
+a second aesthetic pass. Parser limitations remain: italic styling rendered Regular,
+CSS borders required native filled-frame hairlines, and unsupported absolute rules
+were removed. No broader missing MCP capability is proven by those parser limits.
+
+### Cross-brief and V1/V2 observations
+
+| Live V2 brief | Strategy evidenced in the document |
+| --- | --- |
+| Velvet Brew, `10:307` | Warm Fraunces/Karla roastery notice-board identity; colored accents, dominant featured drink with rail, dense menu, story/quote and gallery mosaic; 1440 × 5138. |
+| Logistics, `10:783` | IBM Plex Sans/Mono, dark sidebar/light work canvas, compact operational table/KPIs and exception/activity rail; 1440 × 916, no marketing hero. |
+| Editorial, `19:43` | Bold poster scale, serif contrast, ruled/square surfaces, five different work arrangements, restrained palette, typographic email action; 1440 × 4784. |
+
+These are materially different strategies, with native editable structure in all
+three. D/E remain the previously documented plan-only fixtures, not live generation.
+The coffee comparison above still supports stronger focal dominance and varied
+drink/menu composition, while retaining the candid V1 illustration advantage.
+Manual screenshots of the matched editorial brief show a stronger display/email
+scale in V2 and more compact vertical length. V1 was already typography-led with
+varied native work plates; V2's large flat plates remain truthful placeholders and
+are less developed as artwork. Verified reuse increases from no V1 instances to
+15 V2 instances. This is evidence of workflow/structure and brief fidelity, not
+deterministic proof that V2 is universally prettier or that every issue declined.
+
+### Editorial critique, recovery and final verification
+
+The first independent editorial review completed with **PASS, 0 HIGH / 1 MEDIUM /
+4 LOW**, 27 approved Figma read attempts (26 completed; one get_nodes_info timeout),
+zero writes. Its page fingerprint was unchanged at
+`ddd6a5bb212f8510885ff8b521fb025552a65551ac38a4c93016bd5dc3bbd413`.
+The source contains actual contrast/spacing evidence; its maintenance-only gutter
+normalisation finding has no demonstrated present visual harm and is not counted
+as evidence of visual improvement here. The raw report is retained without editing.
+
+The operator's whole-page check then found two late same-run orphan TEXT nodes at
+page origin: `20:246` Work 02 Body and `20:278` Civic Arts Trust. Their exact copy
+already existed in production at `20:122` and `20:202`. After critique was idle,
+the same design session inspected and removed only those duplicates. This was
+correctness recovery, with **no second aesthetic polish**. Full-page comparison
+proved the only observable change was removal of those two PAGE children: the
+production root, component masters and V1 baseline were identical. The final page
+has exactly two FRAME roots and four COMPONENT siblings, with no orphan text.
+This is a demonstrated limitation of subtree-only final checks after timed-out
+writes; reliable acceptance also needs a page-level child listing.
+
+A final independent `/figma/critique` then verified FIGMA_CRITIQUE_GUARD: ACTIVE
+before its first read and completed **26 approved Figma reads, zero writes, no
+read errors, QUALITY_GATE: PASS, 0 HIGH / 2 MEDIUM / 2 LOW, FIGMA_CRITIQUE: PASS**.
+The two MEDIUMs concern contact hairline `20:282` starting at x=0 against the
+120px content inset, and small tertiary/accent label contrast. The LOWs concern
+plate-label consistency and a conditional title-role observation; rendered checking
+is needed for the latter. No recommendation was executed. Different counts between
+the two reviews are evaluator variability against an unchanged production root.
+
+Final comparable fingerprints (canonical observable JSON, not Figma file bytes):
+
+| Scope | Before/after SHA-256 |
+| --- | --- |
+| Cleaned editorial page `8:2` | `a8acf0c46d576185e02b69cc2775061eaeec72667228c818f42b409ce7b25ab2` |
+| Editorial root `19:43` | `617310d23a260ea711c67c597032d70f69ed7420a9ac96de600f0e5d8c434cc2` |
+
+All prior protected root hashes above still match. The 186-node root and 15 verified
+instances remain native/editable; three pages remain and no duplicate production
+root exists. Final critique made no document, component, interaction, motion,
+selection or viewport writes. Source comparison includes all six page-level nodes.
+
+| Completed live V2 review | Gate | HIGH / MEDIUM / LOW | Figma writes during critique |
+| --- | --- | --- | --- |
+| Velvet Brew | PASS | 0 / 1 / 4 | 0 |
+| Logistics | NEEDS_REVISION | 2 / 6 / 2 | 0 |
+| Editorial, final cleaned page | PASS | 0 / 2 / 2 | 0 |
+
+### Latest milestone assessment
+
+**PASS — required live acceptance is complete.** The existing design command has
+demonstrated three distinct brief-derived strategies, planning before writes,
+native/editable authoring, verified reuse in editorial, supported single-pass polish,
+timeout reconciliation, final page/root checks and independent read-only critiques.
+Coffee and editorial comparisons support improved focal hierarchy and purposeful
+composition; they do not prove universal superiority. The logistics NEEDS_REVISION
+result remains visible and was not altered by further generation or polish.
+
+Regression validation: **39 npm tests** (including 10 critique/guard and 8 design
+contracts), **275 plugin tests**, **67 hardening/variant/live-source tests**, **22 setup
+fixtures**, source/release/privacy checks and unchanged approved artifact hashes.
+All A–E critique fixtures passed their expected gates; six actual forbidden-effect
+probes were rejected, and approved reads executed. Go tests/vet were not rerun
+locally because no Go/MCP code changed; hosted CI still runs that job and its status
+is reported with the pushed commit. No Adaptive Briefing or later milestone began.
+
+Remaining limits: model-guided quality judgment varies and needs triage; screenshots
+were manually reviewed at reduced scale, not deterministic visual/accessibility
+proof. No responsive behavior was tested. Imagery is still truthful placeholder or
+native composition; italic/font/parser limitations and small-label contrast remain.
+Existing coffee/logistics pilot reuse limitations are retained. Logistics HIGH
+findings and editorial MEDIUM findings require a later authorized revision, not
+an extra automatic polish. Raw traces, snapshots, comparison images and integrity
+receipts remain under ignored `.figma-designer/guard-compatibility/`; no authentication
+material is committed.
+
+FIGMA_DESIGN_GENERATION_V2: PASS

@@ -33,6 +33,7 @@ test('every allowed MCP read is registered; every other tool including future to
   for (const name of critiqueReadTools) {
     assert.ok(catalogSource.includes(`"${name}"`), name);
     assert.equal(isCritiqueReadTool(`figma_${name}`), true);
+    assert.equal(isCritiqueReadTool(`figma_critique_${name}`), true);
     assert.ok(command.includes(name), name);
   }
   for (const name of ['figma_write_html', 'figma_patch_html', 'figma_set_fills', 'figma_set_reactions', 'figma_remove_reactions', 'figma_combine_as_variants', 'figma_set_selection', 'figma_set_viewport', 'figma_future_tool', 'other_get_node', 'bash', 'shell', 'task', 'skill', 'write', 'edit', 'apply_patch', 'webfetch', 'custom_script']) assert.equal(isCritiqueReadTool(name), false, name);
@@ -43,7 +44,7 @@ async function harness(storage = new Map(), messages = []) {
   const ctx = {
     storage: { get: async key => storage.get(key), set: async (key, value) => storage.set(key, value), remove: async key => storage.delete(key) },
     session: { hook: async (name, callback) => { hooks[name] = callback; }, context: async () => messages },
-    tool: { hook: async (name, callback) => { hooks[name] = callback; } },
+    tool: { transform: async callback => { hooks.transform = callback; }, hook: async (name, callback) => { hooks[name] = callback; } },
     permission: { hook: async (name, callback) => { hooks[`permission.${name}`] = callback; } },
   };
   await guard.setup(ctx);
@@ -53,20 +54,66 @@ async function harness(storage = new Map(), messages = []) {
 test('guard blocks writes before execution, allows reads, and isolates sessions', async () => {
   const { hooks } = await harness();
   await hooks.prompt({ sessionID: 'review', prompt: { text: critiqueMarker } });
-  const event = { sessionID: 'review', system: [], tools: { figma_get_node: {}, execute: {}, figma_write_html: {}, bash: {}, task: {} } };
+  const tools = Object.freeze(Object.fromEntries(['read', 'glob', 'grep', 'execute', 'figma_health_check', 'figma_get_node', 'figma_critique_get_node', 'figma_write_html', 'bash', 'shell', 'write', 'edit', 'patch', 'task', 'subagent', 'browser_click', 'opencode_worktree_create'].map(name => [name, Object.freeze({ description: name, input: {} })])));
+  const event = { sessionID: 'review', system: [], tools };
   await hooks.context(event);
-  assert.deepEqual(Object.keys(event.tools), ['figma_get_node', 'execute']);
+  assert.equal(event.tools, tools);
+  assert.deepEqual(Object.keys(event.tools), Object.keys(tools));
   assert.match(event.system[0].text, /FIGMA_CRITIQUE_GUARD: ACTIVE/);
   assert.match(event.system[0].text, /same CTA repeated across separate sections/);
   assert.match(event.system[0].text, /outside priorities/);
   await assert.rejects(hooks['execute.before']({ sessionID: 'review', tool: 'figma_write_html' }), /FIGMA_CRITIQUE_READ_ONLY/);
   await assert.rejects(hooks['execute.before']({ sessionID: 'review', tool: 'bash' }), /blocked tool/);
   await hooks['execute.before']({ sessionID: 'review', tool: 'figma_get_node' });
-  await hooks['execute.before']({ sessionID: 'review', tool: 'execute' });
+  await assert.rejects(hooks['execute.before']({ sessionID: 'review', tool: 'execute' }), /blocked tool execute/);
   const permission = { sessionID: 'review', action: 'figma_write_html', effect: 'allow' };
   await hooks['permission.evaluate'](permission);
   assert.equal(permission.effect, 'deny');
   await hooks['execute.before']({ sessionID: 'other', tool: 'figma_write_html' });
+});
+
+test('direct and nested dispatch stop forbidden effects, while approved reads reach the connector', async () => {
+  const { hooks } = await harness();
+  await hooks.prompt({ sessionID: 'review', prompt: { text: critiqueMarker } });
+  const effects = [];
+  // Mirrors OpenCode's common dispatch boundary; live probes verify the real wrapper.
+  async function dispatch(tool, nested = false) {
+    if (nested) await hooks['execute.before']({ sessionID: 'review', tool: 'execute' });
+    await hooks['execute.before']({ sessionID: 'review', tool });
+    effects.push(tool);
+  }
+  for (const tool of ['figma_write_html', 'figma_critique_write_html', 'execute', 'bash', 'shell', 'write', 'edit', 'patch', 'apply_patch', 'task', 'subagent', 'browser_click', 'opencode_worktree_create', 'webfetch', 'figma_future_tool']) {
+    await assert.rejects(dispatch(tool), new RegExp(`blocked tool ${tool}`));
+    await assert.rejects(dispatch(tool, true), /blocked tool execute/);
+    const permission = { sessionID: 'review', action: tool, effect: 'allow' };
+    await hooks['permission.evaluate'](permission);
+    assert.equal(permission.effect, 'deny', tool);
+  }
+  assert.deepEqual(effects, []);
+  for (const tool of ['figma_health_check', 'figma_get_document', 'figma_critique_get_node', 'read', 'glob', 'grep']) {
+    await dispatch(tool);
+    const permission = { sessionID: 'review', action: tool, effect: 'allow' };
+    await hooks['permission.evaluate'](permission);
+    assert.equal(permission.effect, 'allow');
+  }
+  assert.equal(effects.length, 6);
+});
+
+test('direct read aliases preserve every original tool, Code Mode option and executor', async () => {
+  const { hooks } = await harness();
+  const execute = () => {};
+  const original = ['get_document', 'write_html'].map(name => Object.freeze({ id: `figma_${name}`, name, execute, options: Object.freeze({ namespace: 'figma', codemode: true, pinned: true }) }));
+  const added = [];
+  hooks.transform({ list: () => original, add: tool => added.push(tool) });
+  assert.equal(added.length, 1);
+  assert.equal(added[0].name, 'critique_get_document');
+  assert.equal(added[0].execute, execute);
+  assert.deepEqual(added[0].options, { namespace: 'figma', codemode: false });
+  assert.ok(original.every(tool => tool.options.codemode && tool.options.pinned));
+  // A registry reload must not recursively alias the aliases.
+  const again = [];
+  hooks.transform({ list: () => [...original, { ...added[0], id: 'figma_critique_get_document' }], add: tool => again.push(tool) });
+  assert.equal(again.length, 1);
 });
 
 test('guard survives steering, queued work, compaction and reload; only an idle boundary unlocks it', async () => {
@@ -79,6 +126,8 @@ test('guard survives steering, queued work, compaction and reload; only an idle 
   reloaded.messages.push({ type: 'idle' });
   await reloaded.hooks.prompt({ sessionID: 'review', prompt: { text: 'Start a new design task' } });
   await reloaded.hooks['execute.before']({ sessionID: 'review', tool: 'figma_set_fill' });
+  await reloaded.hooks['execute.before']({ sessionID: 'review', tool: 'execute' });
+  await reloaded.hooks['execute.before']({ sessionID: 'review', tool: 'shell' });
 });
 
 test('guard failures stop execution instead of silently granting writes', async () => {

@@ -46,15 +46,15 @@ and unknown dimensions are unrated.
 
 The command explicitly says “Do not modify Figma.” The locally discovered OpenCode
 plugin `.opencode/plugins/figma-critique-guard.js` arms a persistent session guard
-before the critique prompt is admitted. It restricts model-visible tools and rejects
+before the critique prompt is admitted. It preserves model-visible tools and rejects
 non-allowlisted tools before execution, including nested calls. A permission hook
 also denies non-read actions even when ordinary configuration would allow them.
 
 The permitted Figma inspection tools are explicitly enumerated; unknown/future tools
 are denied. Local read/glob/grep are allowed for project instructions and paged tool
-output. OpenCode's sandboxed Code Mode is allowed to orchestrate those reads. It has
-no direct host filesystem, imports or network fetch; nested tools still enforce their
-own guard/permissions. Shell execution, browser tools, custom scripts, delegation,
+output. Approved inspection tools are exposed directly. Code Mode is blocked during
+critique: pinned OpenCode 2.0.24 exposes a network fetch extension outside nested
+tool hooks. Shell execution, browser tools, custom scripts, delegation,
 Figma authoring, component changes, reactions and motion writes are excluded.
 
 The guard persists through tool continuations, queued/steered follow-ups, compaction
@@ -207,7 +207,77 @@ are not visual monotony by themselves. Frame overflow is a risk at the observed 
 not evidence of a tested responsive failure. Optional screenshot absence alone does
 not block a well-supported structural review.
 
+## OpenCode free-tier compatibility — V1.2.2.1
+
+The initial context hook deleted forbidden tool schemas. Official OpenCode requests
+then failed before inspection with HTTP 403, “OpenCode's free tier can only be used
+from within OpenCode.” Upstream reports describe the same failure when standard
+shell/read definitions disappear ([#51241](https://github.com/anomalyco/opencode/issues/51241),
+[#50627](https://github.com/anomalyco/opencode/issues/50627)). Reduced request catalogs
+are the strongest supported diagnosis; the provider's internal validator was not
+inspected. No client identity, headers, credentials or model defaults were changed.
+
+The guard now leaves every incoming context tool definition intact. Execution and
+permission hooks still deny everything outside the explicit read allowlist, including
+unknown tools, shell, file writes, browser actions and delegation. This is a catalog
+compatibility correction, not permission to execute visible forbidden tools. The
+activation marker, session persistence and idle-boundary release remain unchanged.
+
+Pinned 2.0.24 source inspection also corrected an earlier assumption: its Code Mode
+[web extension](https://github.com/anomalyco/opencode/blob/v2.0.24/packages/core/src/codemode/web.ts)
+exposes `fetch` outside nested tool hooks. The guard therefore rejects `execute`
+itself before interpretation. Direct `figma_critique_<read-tool>` aliases reference
+the existing inspection executors; original tools and Code Mode options remain
+available to ordinary authoring sessions. No MCP operation or runtime was added.
+The command's evidence/output contract is unchanged; its implementation guidance
+now describes direct reads and visible-but-forbidden tools truthfully.
+
+Behavior tests exercise a frozen catalog, direct/nested rejection, permission denial,
+safe alias registration without replacing original executors, session isolation,
+steering/reload persistence and ordinary execution after idle. Live isolated probes
+returned actual guard errors for a valid mock Figma write, harmless shell command,
+local file creation and Code Mode write/shell/network attempts. Only health/document
+reads reached the disconnected mock connector; no sentinel file was created. Nested
+probes are rejected at the wrapper boundary, before nested JavaScript runs.
+
+The first successful logistics review on root `10:783` emitted NEEDS_REVISION and
+FIGMA_CRITIQUE: PASS. Its whole-page observable JSON fingerprint matched before/after
+(`9a64c2b4af26aa01028f81267305c220ea932afb5857dba35ea2c39c06ee3526`). A test-location
+reload interrupted a read during that review; it recovered with health/readback.
+The final alias architecture then completed a clean independent logistics review:
+**33 approved Figma reads, zero writes, NEEDS_REVISION (2 HIGH / 6 MEDIUM / 2 LOW),
+FIGMA_CRITIQUE: PASS**. The model verified the guard marker before its first read;
+before/after page SHA-256 remained the value above and all four protected root
+fingerprints matched. No provider 403 occurred. The differing finding counts between
+the two reviews are retained as model variability, not treated as evidence of design
+improvement: the logistics design was never changed or polished during this fix.
+
+The A–E fixture rerun produced A PASS (16 reads), B NEEDS_REVISION (24), C BLOCKED
+(15), D PASS (21), E PASS (18), all with zero writes. C's initial run had no MCP
+tools in its first catalog and correctly refused to invent evidence; the runner
+now waits for fixture connection status before starting the command. This changes
+test readiness only, not production timeout or MCP policy. Raw reports and probes
+remain in ignored `.figma-designer/guard-compatibility/`; temporary API authentication
+is outside the repository. Earlier acceptance history above is retained.
+
 The enforcement boundary is a correctly loaded guard on the supported OpenCode version.
 Deliberately disabling/replacing local plugins or using a different connector/client is
 outside this command's guarantee. Future richer rendered/property evidence could justify
 a dedicated read analysis primitive; no new MCP primitive is needed in this phase.
+
+V1.2.2.1 also completed final editorial acceptance on `19:43`: guard marker confirmed
+before the first read, **26 successful approved reads / zero writes**, no provider
+403, QUALITY_GATE: PASS (0 HIGH / 2 MEDIUM / 2 LOW), FIGMA_CRITIQUE: PASS. The clean
+page before/after SHA-256 is
+`a8acf0c46d576185e02b69cc2775061eaeec72667228c818f42b409ce7b25ab2`;
+root SHA-256 is `617310d23a260ea711c67c597032d70f69ed7420a9ac96de600f0e5d8c434cc2`.
+The prior logistics gate remains NEEDS_REVISION; no design was revised to force a gate.
+Final automated checks passed 39 npm, 275 plugin, 67 hardening/source tests and all
+22 setup fixtures, plus source/release/privacy validation and approved runtime hashes.
+The updated synthetic runner passed all A–E review cases and actual direct/nested
+mutation, shell, file-write and network rejection probes. Extra approved reads during
+a probe are permitted; every forbidden action still returned a real guard error.
+MCP executables, plugin runtime, model defaults and provider authentication remain
+unchanged. V1.2.3 closure evidence is in `DESIGN_GENERATION_V2.md`.
+
+FIGMA_CRITIQUE_GUARD_COMPATIBILITY: PASS
