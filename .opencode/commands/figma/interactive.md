@@ -200,7 +200,7 @@ If a matching button family exists:
 
 If a real destination screen exists:
 - use NODE + NAVIGATE to that runtime screen
-- default transition DISSOLVE 0.15s EASE_OUT
+- default transition NAV_DEFAULT from rules/figma-motion-semantics.mjs; read the shared registry
 
 B. NAVIGATION / TEXT LINKS
 
@@ -302,11 +302,11 @@ For every reaction written:
 
 CHANGE_TO rules:
 - destination must be a compatible variant in the same COMPONENT_SET
-- transition SMART_ANIMATE 0.10s EASE_OUT unless existing explicit semantics require otherwise
+- transition shared STATE_FAST unless existing explicit compatible semantics require otherwise
 
 NAVIGATE rules:
 - destination must be a runtime screen FRAME, never the production frame
-- transition DISSOLVE 0.15s EASE_OUT unless explicit spatial semantics exist
+- transition shared NAV_DEFAULT unless explicit spatial semantics justify NAV_SPATIAL
 
 Do not point runtime navigation back into production.
 

@@ -168,24 +168,16 @@ Do not use `clone_node` on a COMPONENT as an instance workflow: the tested API m
 
 Runtime componentization must preserve accepted production appearance: fills, strokes, font size/weight, padding, radius, label placement, Auto Layout order, and state appearance as well as outer geometry. If a legal per-instance override is unavailable, report the fidelity limitation; do not detach the instance or claim exact fidelity.
 
-## Motion tokens
+## Semantic motion
 
-Component state:
-- SMART_ANIMATE
-- 0.10 seconds
-- EASE_OUT
-
-Ordinary screen navigation:
-- DISSOLVE
-- 0.15 seconds
-- EASE_OUT
-
-Directional screen motion:
-- explicit-only
-- normally 0.20 seconds EASE_OUT
-- direction required
-
-In the tested plugin build, SCROLL_TO reactions require `transition: null`. Preserve this; never normalize SCROLL_TO to the screen-navigation token or silently change trigger semantics.
+Use the authoritative token registry in rules/figma-motion-semantics.mjs and the
+interpretation rules in rules/figma-motion-semantics.md. STATE/FEEDBACK use STATE_FAST;
+ordinary navigation uses NAV_DEFAULT; justified spatial navigation uses NAV_SPATIAL;
+existing overlays use OVERLAY_DEFAULT. Values/tolerances are centralized there.
+SCROLL_NATIVE preserves SCROLL_TO, including its required null transition. Motion
+audit is read-only without explicit change authorization. Limited enter/exit/shared
+element intents never authorize new architecture. Planner passes semantic intent;
+single motion requests stay in motion and retain the transition-only write contract.
 
 ## Authoring constraints
 

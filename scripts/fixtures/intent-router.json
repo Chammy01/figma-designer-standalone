@@ -5,6 +5,7 @@
   {"id":"flow","prompt":"Connect each product card to the existing product details screen.","intent":"flow_wiring","command":"flow"},
   {"id":"interactive","prompt":"Make the tabs and filters actually work in the prototype.","intent":"working_interaction","command":"interactive"},
   {"id":"motion","prompt":"Use a subtle dissolve between these screens.","intent":"motion","command":"motion"},
+  {"id":"semantic-planner","prompt":"Make this existing prototype interactive with verified states and navigation, then a semantic motion finishing phase and final QA. Reuse matching completed work.","intent":"prototype_planner"},
   {"id":"qa","prompt":"Check for dead controls and broken destinations.","intent":"qa","command":"qa"},
   {"id":"browser","prompt":"Generate the browser prototype.","intent":"browser_generation","command":"browser"},
   {"id":"browser-test","prompt":"Run the browser tests.","intent":"browser_test","command":"browser-test"},

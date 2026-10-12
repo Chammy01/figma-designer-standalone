@@ -71,8 +71,15 @@ permission or silently run downstream workflows mentioned in its architecture.
    blindly. Re-read mappings/reactions and reuse completed screens/edges. Flow
    cannot modify the state library. Never navigate to production.
 4. MOTION only when requested or supported by an explicit existing transition
-   inconsistency within the authorized prototype scope. Normal specialist defaults
-   already created by wiring need no separate rewrite. Motion changes transition
+   inconsistency within the authorized prototype scope.
+   Pass semantic intent (for example NAVIGATION / restrained default) and real
+   reaction/journey evidence, not a raw transition preset. Use the shared registry
+   and interpretation rules in rules/figma-motion-semantics.mjs and .md. Resolve
+   STATE/NAVIGATION/SPATIAL_NAVIGATION/OVERLAY or truthful limited intent before
+   implementation; never infer spatial direction from canvas positions. Audit
+   requests stay read-only. Do not rerun matching semantic tokens.
+   Normal specialist defaults already created by wiring need no separate rewrite.
+   Motion changes transition
    objects on existing eligible reactions only; preserve complete non-transition
    semantics/counts. No decorative animation campaign or directional flair.
 5. QA always last, under the complete strictly read-only QA contract. Snapshot at
@@ -102,6 +109,7 @@ checks must remain visible. Do not claim unexecuted specialists ran as slash com
 Include the exact applicable canonical status marker for every executed phase,
 including FIGMA_INTERFACE_QA: PASS/WARN/FAIL, after its checks. A summary such as
 "QA executed" does not replace its result. Skipped phases get no success marker.
+Emit status markers as plain standalone lines, never bold, inline code or prose.
 Use FIGMA_PROTOTYPE_PLANNER: PASS only when all required supported work and phase
 checks succeeded, QA passed and production stayed unchanged; WARN for a structurally
 verified result with genuinely undefined/Figma-limited behavior or QA WARN; BLOCKED

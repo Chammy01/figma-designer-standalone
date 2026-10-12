@@ -278,5 +278,10 @@
   "docs/INTENT_ROUTER_V1_2_3_2.md",
   "rules/figma-prototype-planner.md",
   "scripts/figma-prototype-planner.test.mjs",
-  "docs/PROTOTYPE_PLANNER_V1_2_3_3.md"
+  "docs/PROTOTYPE_PLANNER_V1_2_3_3.md",
+  "rules/figma-motion-semantics.mjs",
+  "rules/figma-motion-semantics.md",
+  "scripts/figma-motion.test.mjs",
+  "scripts/fixtures/semantic-motion.mjs",
+  "docs/SEMANTIC_MOTION_V1_2_4.md"
 ]

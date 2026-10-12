@@ -333,18 +333,14 @@ Default:
 - action type: NODE
 - navigation: CHANGE_TO
 - destination: Hover variant
-- transition: SMART_ANIMATE
-- duration: 0.1 seconds
-- easing: EASE_OUT
+- transition: STATE_FAST from rules/figma-motion-semantics.mjs (read the registry; same unchanged default)
 
 Hover:
 - trigger: ON_PRESS
 - action type: NODE
 - navigation: CHANGE_TO
 - destination: Pressed variant
-- transition: SMART_ANIMATE
-- duration: 0.1 seconds
-- easing: EASE_OUT
+- transition: STATE_FAST from rules/figma-motion-semantics.mjs (read the registry; same unchanged default)
 
 Pressed:
 - add no automatic reverse reaction by default
@@ -355,7 +351,7 @@ Disabled:
 Figma's ON_HOVER CHANGE_TO behavior reverts when the pointer leaves the interactive component, so do not fabricate a mouse-leave reaction.
 
 For TEXT LINK / NAVIGATION LINK families:
-- Default ON_HOVER -> Hover using CHANGE_TO with SMART_ANIMATE 0.1s EASE_OUT is allowed when both variants exist
+- Default ON_HOVER -> Hover using CHANGE_TO with shared STATE_FAST is allowed when both variants exist
 - do not automatically wire Focus or Active unless the user explicitly requests that interaction behavior
 
 For toggles, checkboxes, radios, tabs, dropdowns, inputs, and other families:

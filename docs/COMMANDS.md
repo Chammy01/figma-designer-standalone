@@ -143,6 +143,12 @@ Technical scope: Uses Interactive App and verified source components; reports FI
 
 Validate and apply motion to existing interactions.
 
+Describe intended motion (quick state changes, subtle navigation, quiet modals)
+instead of needing transition names. The semantic layer verifies existing reactions,
+then resolves supported tokens. Transition reviews are read-only unless changes
+are requested. Unsupported element animation is reported honestly. See
+[semantic motion](SEMANTIC_MOTION_V1_2_4.md).
+
 Technical scope: Changes eligible transitions only; preserves trigger/action semantics and null SCROLL_TO transitions.
 
 ## `/figma/qa`

@@ -135,7 +135,7 @@ For screen navigation:
 - action: NODE
 - navigation: NAVIGATE
 - destination: runtime screen FRAME, never production
-- transition: DISSOLVE 0.15s EASE_OUT unless the user explicitly requires a justified spatial transition
+- transition: NAV_DEFAULT from rules/figma-motion-semantics.mjs unless the user explicitly requires justified NAV_SPATIAL; read the shared registry before authoring
 
 CHANGE_TO is reserved for compatible variants inside one COMPONENT_SET.
 

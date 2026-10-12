@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import guard, { critiqueMarker } from '../.opencode/plugins/figma-critique-guard.js';
-import { loadContracts, loadPlannerContract, routingInstructions } from '../rules/figma-intent-router.mjs';
+import { loadContracts, loadPlannerContract, loadMotionContract, routingInstructions } from '../rules/figma-intent-router.mjs';
 
 const read = p => readFileSync(new URL('../' + p, import.meta.url), 'utf8').replaceAll('\r\n', '\n');
 const fixtures = JSON.parse(read('scripts/fixtures/intent-router.json'));
@@ -31,7 +31,7 @@ for (const fixture of fixtures) test(`${fixture.id}: selected route reuses canon
   const h = await harness({ intent: fixture.intent, question: fixture.question ?? '' });
   const event = await h.prompt(fixture.prompt);
   assert.equal(event.metadata.figmaIntent, fixture.intent);
-  if (fixture.command) assert.equal(event.prompt.text, contracts[fixture.command].replaceAll('$ARGUMENTS', () => fixture.prompt));
+  if (fixture.command) assert.equal(event.prompt.text, (fixture.command === 'motion' ? await loadMotionContract(contracts.motion) : contracts[fixture.command]).replaceAll('$ARGUMENTS', () => fixture.prompt));
   else if (fixture.intent === 'prototype_planner') assert.equal(event.prompt.text, await loadPlannerContract(contracts) + '\n\nUSER REQUEST\n' + fixture.prompt);
   else if (fixture.intent === 'continue') assert.equal(event.prompt.text, fixture.prompt);
   else { assert.match(event.prompt.text, /No Figma or filesystem writes/); if (fixture.question) { assert.ok(event.prompt.text.includes(fixture.question)); assert.match(event.prompt.text, /ordinary chat[\s\S]*Do not call the question tool[\s\S]*End this turn[\s\S]*plain reply/); } }

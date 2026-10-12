@@ -93,14 +93,15 @@ INTERACTIVE INSTANCE RULES
 REACTION SEMANTICS
 
 - Component variants use NODE + CHANGE_TO only between compatible variants in the same COMPONENT_SET.
-- Default component motion: SMART_ANIMATE 0.10s EASE_OUT.
+- Default component motion: STATE_FAST from rules/figma-motion-semantics.mjs.
 - Screen navigation uses NODE + NAVIGATE between interactive screen FRAMEs.
-- Default screen motion: DISSOLVE 0.15s EASE_OUT.
+- Default screen motion: NAV_DEFAULT from the shared semantic motion registry.
 - Directional transitions are explicit-only.
 - Disabled variants do not gain reactions automatically.
 - Inspect existing reactions before append/replace. Avoid duplicates.
 - Preserve complete existing reaction arrays when a write API requires replacement.
 - Never silently change trigger semantics during a motion-only task.
+- Interpret motion through rules/figma-motion-semantics.md and its shared registry. Motion audits are read-only; unsupported semantic intent does not permit new architecture.
 
 PARSER / AUTHORING CONSTRAINTS
 

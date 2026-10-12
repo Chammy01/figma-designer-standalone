@@ -14,7 +14,7 @@ $nodeTools = Join-Path $temporary 'node tool'
 New-Item -ItemType Directory -Path $nodeTools -Force | Out-Null
 Copy-Item -LiteralPath (Get-Command node.exe).Source -Destination (Join-Path $nodeTools 'node.exe')
 try {
-    foreach ($mode in @('source','release','missing-critique','missing-critique-guard','missing-intent-router','missing-prototype-planner','dependencies-fail','build-fail','missing-output','missing-bun','wrong-bun','missing-source','hash-mismatch','built-hash-mismatch','missing-hash','missing-go','wrong-go','go-build-fail','go-missing-output','go-hash-mismatch','go-missing-source','go-spoof','exe-mismatch','missing-ui')) {
+    foreach ($mode in @('source','release','missing-critique','missing-critique-guard','missing-intent-router','missing-prototype-planner','missing-motion-module','missing-motion-rules','dependencies-fail','build-fail','missing-output','missing-bun','wrong-bun','missing-source','hash-mismatch','built-hash-mismatch','missing-hash','missing-go','wrong-go','go-build-fail','go-missing-output','go-hash-mismatch','go-missing-source','go-spoof','exe-mismatch','missing-ui')) {
         $fixture = Join-Path $temporary "$mode Folder with spaces"
         $tools = Join-Path $fixture 'tools'
         $plugin = Join-Path $fixture 'vendor/figma-mcp/plugin'
@@ -22,7 +22,8 @@ try {
         $files = @('setup.ps1','opencode.example.json','package.json','package-lock.json','docs/APPROVED_RUNTIME.json',
             '.opencode/agents/figma-designer.md','.opencode/agents/web-designer.md',
             '.opencode/plugins/figma-critique-guard.js',
-            'rules/figma-standalone-rules.md','rules/figma-design-rules.md','rules/figma-intent-router.mjs','rules/figma-prototype-planner.md','vendor/figma-mcp/plugin/manifest.json')
+            'rules/figma-standalone-rules.md','rules/figma-design-rules.md','rules/figma-intent-router.mjs','rules/figma-prototype-planner.md',
+            'rules/figma-motion-semantics.mjs','rules/figma-motion-semantics.md','vendor/figma-mcp/plugin/manifest.json')
         $files += @(Get-ChildItem -LiteralPath (Join-Path $root '.opencode/commands/figma') -File | ForEach-Object { '.opencode/commands/figma/' + $_.Name })
         $files += @('figma-browser-test','figma-browser-status','figma-browser-source','figma-live-source','figma-browser-contract','figma-browser-freshness' | ForEach-Object { "scripts/$_.mjs" })
         foreach ($relative in $files) {
@@ -34,6 +35,8 @@ try {
         if ($mode -eq 'missing-critique-guard') { Remove-Item -LiteralPath (Join-Path $fixture '.opencode/plugins/figma-critique-guard.js') }
         if ($mode -eq 'missing-intent-router') { Remove-Item -LiteralPath (Join-Path $fixture 'rules/figma-intent-router.mjs') }
         if ($mode -eq 'missing-prototype-planner') { Remove-Item -LiteralPath (Join-Path $fixture 'rules/figma-prototype-planner.md') }
+        if ($mode -eq 'missing-motion-module') { Remove-Item -LiteralPath (Join-Path $fixture 'rules/figma-motion-semantics.mjs') }
+        if ($mode -eq 'missing-motion-rules') { Remove-Item -LiteralPath (Join-Path $fixture 'rules/figma-motion-semantics.md') }
         foreach ($relative in @('package.json','bun.lock','vite.config.ts','vite.config.main.ts','src/main.ts','src/ui/index.html')) {
             $target = Join-Path $plugin $relative
             New-Item -ItemType Directory -Path (Split-Path -Parent $target) -Force | Out-Null
@@ -196,6 +199,8 @@ exit /b 0
             Assert ($setupExit -ne 0 -and $output.Contains('[FAIL] Project files') -and $output.Contains('rules/figma-intent-router.mjs')) 'Missing router dependency must fail before startup'
         } elseif ($mode -eq 'missing-prototype-planner') {
             Assert ($setupExit -ne 0 -and $output.Contains('[FAIL] Project files') -and $output.Contains('rules/figma-prototype-planner.md')) 'Missing planner contract must fail before startup'
+        } elseif ($mode -in @('missing-motion-module','missing-motion-rules')) {
+            Assert ($setupExit -ne 0 -and $output.Contains('[FAIL] Project files') -and $output.Contains('rules/figma-motion-semantics.')) 'Missing semantic motion dependency must fail before startup'
         } elseif ($mode -in $goModes -or $mode -eq 'exe-mismatch') {
             Assert ($setupExit -ne 0 -and $output.Contains('[FAIL] Figma MCP runtime')) "$mode must fail MCP verification: $output"
             foreach ($label in @('Problem:','Why it matters:','What to do:','Technical detail:')) { Assert ($output.Contains($label)) "$mode omitted $label" }

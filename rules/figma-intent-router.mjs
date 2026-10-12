@@ -9,12 +9,19 @@ const workflows = {
 };
 const plannerFamilies = ['states', 'interactive', 'flow', 'motion', 'qa'];
 
+export async function loadMotionContract(body) {
+  const { motionPolicy } = await import('./figma-motion-semantics.mjs');
+  const rules = (await readFile(new URL('./figma-motion-semantics.md', import.meta.url), 'utf8')).replaceAll('\r\n', '\n');
+  return body + '\n\n' + rules.trim() + '\n\n' + motionPolicy;
+}
+
 export async function loadPlannerContract(contracts) {
   const instructions = (await readFile(new URL('./figma-prototype-planner.md', import.meta.url), 'utf8')).replaceAll('\r\n', '\n');
-  return instructions.trim() + '\n\nCANONICAL CAPABILITY CONTRACTS\n' + plannerFamilies.map(name => {
+  return instructions.trim() + '\n\nCANONICAL CAPABILITY CONTRACTS\n' + (await Promise.all(plannerFamilies.map(async name => {
     if (!contracts[name]) throw new Error(`Missing planner capability contract: ${name}`);
-    return `\nCAPABILITY: ${name}\n` + contracts[name].replaceAll('$ARGUMENTS', 'Use the planner\'s resolved user request, live targets and CURRENT PHASE scope only.');
-  }).join('\n');
+    const body = name === 'motion' ? await loadMotionContract(contracts[name]) : contracts[name];
+    return `\nCAPABILITY: ${name}\n` + body.replaceAll('$ARGUMENTS', 'Use the planner\'s resolved user request, live targets and CURRENT PHASE scope only.');
+  }))).join('\n');
 }
 
 export async function loadContracts() {
@@ -59,20 +66,22 @@ export async function installIntentRouter(ctx) {
   await ctx.session.hook('prompt', async event => {
     const text = event.prompt.text;
     if (Object.values(contracts).some(body => text.startsWith(body.split('\n')[0]))) return;
-    let route, planner;
+    let route, planner, motion;
     try {
       const session = await ctx.session.get({ sessionID: event.sessionID });
       if (session.agent !== 'figma-designer') return;
       const messages = await ctx.session.context({ sessionID: event.sessionID });
       if (await ctx.storage.get(`critique-read-only:${event.sessionID}`) && messages.at(-1)?.type !== 'idle') return;
       // Session generation retains provider-compatible tools but returns text without executing them.
+      const { motionRoutingInstructions } = await import('./figma-motion-semantics.mjs');
       const response = await ctx.session.generate({ sessionID: event.sessionID,
-        prompt: routingInstructions + '\nLATEST REQUEST\n' + JSON.stringify(text) });
+        prompt: routingInstructions + '\n' + motionRoutingInstructions + '\nLATEST REQUEST\n' + JSON.stringify(text) });
       route = JSON.parse(response.text.trim().replace(/^```(?:json)?\r?\n([\s\S]*?)\r?\n```$/, '$1'));
       if (!Object.hasOwn(workflows, route.intent) && !['prototype_planner', 'continue', 'informational', 'clarify'].includes(route.intent)) throw new Error('Unknown route');
       if (route.intent === 'clarify' && (typeof route.question !== 'string' || !route.question.trim())) throw new Error('Missing clarification');
       // A missing planner dependency must fail closed without preventing guard installation.
       if (route.intent === 'prototype_planner') planner = await loadPlannerContract(contracts);
+      if (route.intent === 'motion') motion = await loadMotionContract(contracts.motion);
     } catch {
       // Fail closed through the existing guard; never guess an authoring route on provider/parse failure.
       event.prompt.text = contracts.critique.replaceAll('$ARGUMENTS', () => text + '\nRouting unavailable. Stop with QUALITY_GATE: BLOCKED and FIGMA_CRITIQUE: FAIL; explain that intent could not be resolved. No critique or authoring was performed.');
@@ -89,6 +98,6 @@ export async function installIntentRouter(ctx) {
         (route.intent === 'clarify' ? `Ask one focused question in ordinary chat: ${route.question}\nDo not call the question tool or open a form. End this turn and wait for a plain reply so its resolved intent re-enters routing.\n` : 'Explain the requested decision/capability using conversation context; read-only inspection only if necessary.\n') + '\nUSER REQUEST\n' + text;
       return;
     }
-    event.prompt.text = contracts[workflows[route.intent]].replaceAll('$ARGUMENTS', () => text);
+    event.prompt.text = (motion ?? contracts[workflows[route.intent]]).replaceAll('$ARGUMENTS', () => text);
   });
 }

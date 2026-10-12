@@ -218,19 +218,20 @@ Validate:
 I. MOTION CONTRACT
 
 Component CHANGE_TO:
-- SMART_ANIMATE
-- 0.10s EASE_OUT
-- float tolerance 0.095–0.105
+- STATE_FAST from rules/figma-motion-semantics.mjs; read the shared registry and unchanged tolerance.
 
 Ordinary screen NAVIGATE:
-- DISSOLVE
-- 0.15s EASE_OUT
-- float tolerance 0.145–0.155
+- shared NAV_DEFAULT unless verified explicit compatible semantics override it.
 
 Directional transitions:
 - explicit-only
 - valid direction required
-- expected default 0.20s EASE_OUT when authored by this system
+- shared NAV_SPATIAL values/tolerance; semantic direction, never canvas position
+
+Existing OVERLAY uses shared OVERLAY_DEFAULT; SCROLL_NATIVE preserves SCROLL_TO.
+Read rules/figma-motion-semantics.md for the support matrix. Verified compatible
+overrides and preserved shared/spatial motion are not default-token defects.
+QA remains read-only: report mismatches without normalization.
 
 Do not claim Figma dynamically follows OS reduced-motion preferences. The Figma-side policy is conservative authoring-time motion.
 

@@ -1,5 +1,5 @@
 ---
-description: Normalize motion on existing Figma reactions without changing interaction semantics
+description: Interpret semantic motion, audit or normalize existing transitions without changing interaction semantics
 agent: figma-designer
 subagent: false
 ---
@@ -32,61 +32,22 @@ production design (strictly read-only)
 -> `Figma Designer — Interactive App` SECTION (reaction transitions may be normalized)
 -> interface QA
 
-MOTION TOKENS
+SEMANTIC MOTION BEFORE TRANSITIONS
 
-Use these Figma Designer defaults unless the user explicitly requested another supported transition for a specific existing edge.
+Read rules/figma-motion-semantics.md and the authoritative registry/pure helpers in
+rules/figma-motion-semantics.mjs before acting. Routed prompts include the same
+generated motionPolicy. Interpret STATE, NAVIGATION, SPATIAL_NAVIGATION, OVERLAY,
+SCROLL, FEEDBACK, ENTER, EXIT or SHARED_ELEMENT first; then verify the existing
+reaction/action/destination and resolve its supported token, not a raw preset.
+Token values and float tolerances live only in the shared registry.
 
-1. COMPONENT STATE / FAST
-Use for NODE + CHANGE_TO between variants in the SAME COMPONENT_SET:
-- transition.type: SMART_ANIMATE
-- duration: 0.10 seconds
-- easing.type: EASE_OUT
-
-This is the canonical interaction-state token.
-
-2. SCREEN / DEFAULT
-Use for ordinary NODE + NAVIGATE between runtime screen FRAMEs when no spatial relationship is explicitly required:
-- transition.type: DISSOLVE
-- duration: 0.15 seconds
-- easing.type: EASE_OUT
-
-This is the canonical screen-navigation token.
-
-3. SPATIAL / EXPLICIT ONLY
-Directional motion is allowed only when the user request or existing journey structure clearly requires a directional spatial relationship.
-
-Allowed directional transition types:
-- PUSH
-- MOVE_IN
-- MOVE_OUT
-- SLIDE_IN
-- SLIDE_OUT
-
-Default directional duration:
-- 0.20 seconds
-- easing.type: EASE_OUT
-
-Directional transitions must include:
-- direction: LEFT, RIGHT, TOP, or BOTTOM
-- matchLayers: false unless the existing reaction already intentionally uses matching-layer behavior and that behavior is verified
-
-Do not introduce PUSH/MOVE/SLIDE merely for visual flair.
-When direction is ambiguous, use SCREEN / DEFAULT instead.
-
-4. OVERLAY / CONSERVATIVE
-For existing NODE + OVERLAY reactions:
-- prefer DISSOLVE
-- duration: 0.15 seconds
-- easing.type: EASE_OUT
-
-Do not convert an overlay to SMART_ANIMATE automatically.
-Do not create overlays during this task.
-
-5. NON-NODE ACTIONS
-For BACK, CLOSE, URL, or other non-NODE actions:
-- preserve the existing action exactly
-- do not invent transition fields that are not already supported by that action
-- do not replace the action type
+Decide authorization first: motion audit/review/consistency questions are strictly
+read-only unless changes were explicitly requested. Plan-only is also zero-write.
+Do not create architecture to satisfy a motion request. Missing reactions/states/
+destinations belong to states, flow, interactive or Prototype Planner, never this
+command. Arbitrary enter/exit or unverified shared-element requests are recognized
+as MOTION_LIMITED and make zero writes; report the exact limitation. More animated
+requires one concise intent clarification before writes, not a decorative campaign.
 
 REDUCED-MOTION-SAFE POLICY
 
@@ -171,30 +132,16 @@ Report it as skipped.
 
 NORMALIZATION RULES
 
-For each existing reaction:
-
-A. NODE + CHANGE_TO
-- verify destination exists
-- verify source/destination are compatible variants of the same COMPONENT_SET
-- normalize to COMPONENT STATE / FAST
-- if CHANGE_TO is being used for screen navigation, do not normalize it; report a structural defect instead
-
-B. NODE + NAVIGATE
-- verify destination exists and is a prototype screen FRAME or otherwise valid intended prototype destination
-- if current transition is DISSOLVE/SMART_ANIMATE and no directional relationship is explicit, normalize to SCREEN / DEFAULT
-- if the current transition is directional and clearly intentional, preserve it unless the user explicitly requested normalization
-- if a directional transition is explicitly requested, apply SPATIAL / EXPLICIT ONLY
-
-C. NODE + OVERLAY
-- preserve destination/action semantics
-- normalize only an existing supported transition to OVERLAY / CONSERVATIVE when lossless
-
-D. NODE + SCROLL_TO or SWAP
-- do not guess a motion token
-- preserve as-is unless the user explicitly requested a supported transition and the semantics are clear
-
-E. BACK / CLOSE / URL
-- preserve as-is
+Apply the shared semantic support matrix, compatible explicit overrides and evidence
+requirements. STATE/FEEDBACK require compatible same-set CHANGE_TO. NAVIGATION uses
+NAV_DEFAULT; justified SPATIAL_NAVIGATION uses NAV_SPATIAL with real semantic direction,
+never canvas positions. OVERLAY uses OVERLAY_DEFAULT with position/behavior unchanged.
+Preserve verified intentional spatial/shared continuity unless compatible normalization
+is explicitly requested. SCROLL uses SCROLL_NATIVE, preserving null SCROLL_TO transitions
+and reporting SEMANTICALLY_RECOGNIZED / NO_TRANSITION_WRITE. Preserve SWAP and all
+non-NODE actions; do not guess tokens. ENTER/EXIT may map only through an existing
+truthful NAVIGATE/OVERLAY; independent element animation remains MOTION_LIMITED.
+Do not automatically enable matchLayers, rename/restructure layers or imitate springs.
 
 Do not add a missing reaction.
 Do not remove a reaction.
@@ -202,20 +149,14 @@ Do not change a destination to make a transition fit.
 
 FLOAT TOLERANCE
 
-Figma may read 0.10 seconds back as approximately 0.10000000149.
-
-Treat small float32 differences as equivalent:
-- 0.10 token: accept 0.095 to 0.105
-- 0.15 token: accept 0.145 to 0.155
-- 0.20 token: accept 0.195 to 0.205
-
-Do not rewrite a reaction solely because its read-back float differs within these tolerances.
+Use the unchanged duration ranges in rules/figma-motion-semantics.mjs; equivalent
+float32 values must not cause a rewrite. Do not put tolerance fields into transitions.
 
 NO-OP BEHAVIOR
 
 If every eligible existing reaction already matches the motion tokens:
 - make zero writes
-- report that the motion system is already normalized
+- report MOTION_ALREADY_NORMALIZED
 - still complete the read-only verification described below
 
 POST-WRITE VERIFICATION
@@ -235,7 +176,10 @@ FINAL REPORT
 Keep the report concise but specific.
 
 Report:
-- motion scope
+- motion scope and change authorization versus read-only audit
+- semantic intent and verified evidence before token/implementation
+- supported, preserved, limited or unknown cases with honest reasons
+- audit rows: reaction, intent, current implementation, expected token, MATCH / MISMATCH / LIMITED / UNKNOWN
 - nodes/reactions inspected
 - nodes/reactions changed
 - skipped reactions and why
