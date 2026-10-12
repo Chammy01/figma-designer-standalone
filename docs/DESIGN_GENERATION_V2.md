@@ -375,3 +375,35 @@ Raw traces, snapshots, screenshot, provider errors and
 allowlist or commit.
 
 FIGMA_DESIGN_GENERATION_V2: HOLD
+
+## Provider-restoration continuation — 2026-10-12
+
+The normal OpenCode 2.0.24 CLI, using the unchanged
+`opencode/space-bunny-free` model, answered a minimal non-writing preflight with
+`PROVIDER_ACCESS: PASS`. That check made no tool calls. It establishes only that
+the small model request succeeded, not that the required tool-using workflow is
+functional.
+
+The actual independent `/figma/critique` request for logistics `10:783` still
+failed before inspection with `provider.auth`, HTTP 403:
+**“OpenCode's free tier can only be used from within OpenCode.”**
+No further model attempt or editorial authoring followed. No provider restriction,
+authentication, model default, guard or rubric was changed to bypass the failure.
+
+The failed critique made **0 read / 0 write calls** and emitted no QUALITY_GATE,
+FIGMA_CRITIQUE status, findings or severity counts. Its before/after page fingerprint
+again matched `9a64c2b4af26aa01028f81267305c220ea932afb5857dba35ea2c39c06ee3526`.
+All four protected root fingerprints match the preceding HOLD record, including
+the completed logistics root `4f60758879cfb33293abfd333b60b505fed31a4c1a9b4230adecf3ee7ba60526`.
+No design was regenerated or polished. The legend/footer observations remain
+unreviewed by critique; editorial V2 remains not started.
+
+Evidence is retained locally in `.figma-designer/design-v2/restored/` and
+`provider-restoration-check.jsonl`. Temporary local API authentication was stored
+outside the repository; no provider credentials were added. This continuation
+changes the report only; the existing V2 implementation and runtime stay unchanged.
+The report-update regression rerun passed 37 npm tests, 275 plugin tests,
+67 hardening/variant/source tests, all 22 setup fixtures, and source/release/privacy/hash checks.
+
+PROVIDER_ACCESS: BLOCKED
+FIGMA_DESIGN_GENERATION_V2: HOLD
