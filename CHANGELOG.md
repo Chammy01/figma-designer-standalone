@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.1-beta.3 — public prerelease checkpoint
+
+Packages current design/briefing/routing/planner workflows, supported centered overlays, Interaction QA V2, the native motion audit, explicit smooth scrolling and browser motion parity. Approved runtime hashes, system 1.2.1 and MCP 1.2.0-standalone-hardening remain unchanged. V1.2.5 variables/conditionals remain HOLD. See [release notes](RELEASE_NOTES_v1.2.1-beta.3.md).
+
 ## v1.2.1-beta.1 — release candidate
 
 Beginner-first README and Windows onboarding, safe setup, portable config template, community files/issue forms, offline CI, explicit source/release allowlists, approved runtime hash gates, ZIP/checksum tooling, and privacy review. No Figma write behavior, reaction/motion semantics, model/default agent, timeout, upstream revision, source fingerprint, or schema changes.

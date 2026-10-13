@@ -312,5 +312,6 @@
   "scripts/figma-browser-motion.integration.test.mjs",
   "scripts/figma-browser-motion.test.mjs",
   "scripts/fixtures/browser-motion.mjs",
-  "scripts/fixtures/browser-motion-live.json"
+  "scripts/fixtures/browser-motion-live.json",
+  "RELEASE_NOTES_v1.2.1-beta.3.md"
 ]

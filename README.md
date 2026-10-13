@@ -92,9 +92,9 @@ Use native Windows PowerShell for this beta. You do not need Go, Bun, or Git for
 
 ### 2. Download Figma Designer
 
-Open [GitHub Releases](https://github.com/Chammy01/figma-designer-standalone/releases). Under the release's **Assets**, download:
+Open [Figma Designer Beta 3](https://github.com/Chammy01/figma-designer-standalone/releases/tag/v1.2.1-beta.3). Under **Assets**, download:
 
-**Figma-Designer-v1.2.1-beta.2-Windows.zip**
+**Figma-Designer-v1.2.1-beta.3-Windows.zip**
 
 **Do NOT choose “Source code (zip)” or “Source code (tar.gz)” if you only want to use Figma Designer.** Those are source packages for developers and require build tools.
 
@@ -110,7 +110,7 @@ C:\Users\YourName\Documents\Figma-Designer\
 
 Open the extracted folder containing `setup.ps1`, `README.md`, and `vendor`. There may be an extra folder inside the extraction location.
 
-**Do not run setup from inside the compressed ZIP viewer.** Keep the extracted files together.
+**Do not run setup from inside the compressed ZIP viewer.** Keep the extracted files together. When updating from Beta 2, extract into a new folder and follow [Updating](docs/UPDATING.md).
 
 ### 4. Open PowerShell in the folder and run setup
 

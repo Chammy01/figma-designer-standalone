@@ -142,7 +142,7 @@ test('Interaction QA remains read-only and uses existing semantic interpretation
 });
 test('approved Beta 2 runtime hashes remain exact; source archive may omit binaries',()=>{
   const approved=JSON.parse(read('docs/APPROVED_RUNTIME.json'));
-  assert.equal(approved.releaseVersion,'v1.2.1-beta.2');
+  assert.equal(approved.releaseVersion,read('VERSION').trim());
   for(const [path,expected] of Object.entries(approved.sha256)) {
     const url=new URL('../'+path,import.meta.url);
     if(existsSync(url)) assert.equal(createHash('sha256').update(readFileSync(url)).digest('hex'),expected);

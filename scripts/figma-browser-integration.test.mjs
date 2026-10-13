@@ -5,9 +5,10 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
+import { fileURLToPath } from 'node:url';
 import { artifactHashes, classifyFreshness } from './figma-browser-freshness.mjs';
 const execute = promisify(execFile);
-const runner = new URL('./figma-browser-test.mjs', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
+const runner = fileURLToPath(new URL('./figma-browser-test.mjs', import.meta.url));
 
 async function fixture(kind) {
   const dir = await mkdtemp(join(tmpdir(), 'figma-hardening-'));

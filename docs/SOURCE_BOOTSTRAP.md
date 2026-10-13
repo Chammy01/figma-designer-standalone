@@ -10,7 +10,7 @@ Setup selects behavior from actual files, with no source/release flag. An existi
 
 Plugin bootstrap retains Bun 1.4.2, the frozen lockfile, and `bun run build`. Missing dispatcher or UI triggers preparation; an existing mismatched dispatcher is rejected before any rebuild. All three runtime hashes must pass. Configuration uses the current installation's executable, including paths with spaces, and existing configuration is preserved.
 
-The official `Figma-Designer-v1.2.1-beta.2-Windows.zip` includes approved runtimes and needs neither Go nor Bun. An arbitrary source marker or local receipt cannot exempt any file from verification. Doctor checks missing/unapproved runtime separately from unavailable MCP tools and a disconnected Figma plugin; it never builds.
+The official `Figma-Designer-v1.2.1-beta.3-Windows.zip` includes approved runtimes and needs neither Go nor Bun. An arbitrary source marker or local receipt cannot exempt any file from verification. Doctor checks missing/unapproved runtime separately from unavailable MCP tools and a disconnected Figma plugin; it never builds.
 
 ## Toolchains and canonical command
 

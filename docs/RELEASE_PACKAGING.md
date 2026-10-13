@@ -8,7 +8,7 @@ Optional Impeccable engine/launchers/command are removed. Its active skill is ar
 
 ## User release ZIP
 
-`RELEASE_ALLOWLIST.json` contains exact files: core agents/commands, anti-ai-slop-ui, rules, six browser/source runtime modules, compatibility wrapper, setup/config template, pinned Node manifests, beginner docs, LICENSE/third-party notices, VERSION, plugin manifest and exact approved core/UI, and the new sanitized `bin/figma-mcp-go.exe`. Impeccable contributes only LICENSE/NOTICE. No optional engine, downloader, archived instructions, test suite, build source, dependency installation, private evidence, or Git metadata ships.
+`RELEASE_ALLOWLIST.json` contains exact files: core agents/commands, anti-ai-slop-ui, rules, browser/source runtime modules including the motion translator/runtime and motion checks, compatibility wrapper, setup/config template, pinned Node manifests, beginner docs, LICENSE/third-party notices, VERSION, plugin manifest and exact approved core/UI, and the new sanitized `bin/figma-mcp-go.exe`. Impeccable contributes only LICENSE/NOTICE. No optional engine, downloader, archived instructions, test suite, build source, dependency installation, private evidence, or Git metadata ships.
 
 Normal users need no Go/Bun build. Node/npm installs pinned Playwright/Chromium separately; OpenCode/provider setup is separate.
 
@@ -33,3 +33,16 @@ The script takes all three approved artifacts (MCP executable, plugin dispatcher
 Use `scripts/release-check.ps1 -Mode Source` for a source checkout, even before build. Use `-Mode Release -RuntimeRoot <approved-runtime-folder>` to additionally require every approved runtime hash and executable privacy. A source build passing regressions does not automatically approve replacement release assets.
 
 Original working files are never build/cleanup targets. Publication and the post-public GitHub security toggle remain separate [launch actions](LAUNCH_CHECKLIST.md).
+
+## Per-release evidence
+
+Beta 3 is a separate prerelease; Beta 1 and Beta 2 assets remain untouched. Build
+from the exact committed source in a clean disposable checkout and verify the
+unchanged approved runtime before packaging. After exact-commit CI is green, attach
+RELEASE_INVENTORY.json, RELEASE_VALIDATION.json, RUNTIME_SHA256SUMS.txt and
+SHA256SUMS.txt alongside the Windows ZIP. The validation asset records the exact
+source commit, package digest, tests, extraction/setup, privacy, browser parity and
+V1.2.5 HOLD. These records are outside the ZIP to avoid self-referential digests.
+Historical docs/RELEASE_INVENTORY.json and docs/RELEASE_VALIDATION.json remain the
+original Beta 1 snapshots; use the records attached to each tagged release for
+that release. Download and verify the published assets and tag after upload.

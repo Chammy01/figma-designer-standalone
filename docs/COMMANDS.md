@@ -207,7 +207,7 @@ Technical scope: Acceptance is separate from CURRENT, STALE, and UNVERIFIED; rea
 
 Show the system and runtime version information.
 
-Technical scope: Public release v1.2.1-beta.2 differs from system 1.2.1, MCP 1.2.0-standalone-hardening, and schema 2.
+Technical scope: Public release v1.2.1-beta.3 differs from system 1.2.1, MCP 1.2.0-standalone-hardening, and schema 2.
 
 ## Suggested order
 
