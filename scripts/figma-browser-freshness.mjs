@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { isWithinRoot } from './figma-browser-contract.mjs';
 
 export const fingerprintAlgorithm = 'canonical-json-sha256-v1';
-export const runnerVersion = '1.2.1';
+export const runnerVersion = '1.3.1';
 export const sourceProjectionVersion = 'figma-browser-source-v1';
 export const sha256 = value => createHash('sha256').update(value).digest('hex');
 

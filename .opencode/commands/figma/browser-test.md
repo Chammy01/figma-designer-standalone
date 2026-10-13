@@ -17,7 +17,12 @@ The runner must validate the generated `.figma-designer/browser-prototype/` inte
 
 Default mode requires manifest schema 2, the canonical Interactive App runtime, and a controls array. Regenerate V1 exports through `/figma/interactive` then `/figma/browser`. Only when the user explicitly requests historical V1 testing, run `node scripts/figma-browser-test.mjs --legacy`; successful legacy tests return WARN with navigation-only coverage, never V1.1 PASS.
 
-PASS proves the exercised ON_CLICK NAVIGATE pointer/Enter/history behavior, screen routing, unique control hooks inside their declared screen, computed CSS reduced-motion durations of at most 1ms, and context-level local-only requests/WebSockets during the run. Other triggers/actions, state behavior beyond hooks, and JavaScript animation timing remain untested and are listed in the report. Service workers are blocked.
+PASS proves the exercised ON_CLICK NAVIGATE pointer/Enter/history behavior, screen routing, unique control hooks inside their declared screen, computed CSS reduced-motion durations of at most 1ms, and context-level local-only requests/WebSockets during the run. For motion contract 1.3.1 exports, the runner also tests actual state style changes,
+intermediate/final fade and directional movement, modal close/base/focus behavior,
+immediate native scroll and deterministic smooth scroll, in normal and reduced motion.
+Timing is bounded; this does not prove native renderer, easing or frame identity.
+Other actions/triggers and experimental animation remain explicitly untested.
+Per-token parity totals are reported; unimplemented source motion produces WARN. Service workers are blocked.
 
 The runner automatically collects the live dependency-closed Figma projection before and after testing through read-only local bridge calls. It compares the final stable live fingerprint with the manifest using the same projection/algorithm versions. Reports bind all local files/assets (including the source snapshot), exportRunId, projection version, source fingerprint, manifest hash, runner version, and system release.
 

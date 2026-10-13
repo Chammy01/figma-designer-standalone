@@ -1,0 +1,453 @@
+{
+  "milestone": "1.3.1",
+  "baselineCommit": "d52d78bb58c6421163c184ffcdb9e7bee25b6256",
+  "evidenceMode": "FRESH_LIVE_READ_ONLY_SOURCE_PLUS_CHROMIUM_PLAYBACK",
+  "pageId": "9:306",
+  "runtimeSectionId": "36:719",
+  "screens": [
+    {
+      "id": "36:720",
+      "name": "App / Café / 01 — Hero"
+    },
+    {
+      "id": "36:739",
+      "name": "App / Café / 02 — Menu"
+    },
+    {
+      "id": "47:32",
+      "name": "V1.2.6 Overlay Acceptance"
+    },
+    {
+      "id": "47:38",
+      "name": "Overlay / Acceptance Details"
+    },
+    {
+      "id": "47:43",
+      "name": "Overlay / Acceptance Status Menu"
+    }
+  ],
+  "controls": 5,
+  "interactions": 7,
+  "sourceExportState": "STABLE",
+  "sourceFingerprint": {
+    "algorithm": "canonical-json-sha256-v1",
+    "sha256": "305132db06a84df82351b91fbc02f99f028e5d9a4cc29289d4e5cfb78afdd204"
+  },
+  "sourceProjectionVersion": "figma-browser-source-v1",
+  "browserAcceptance": "PASS",
+  "sourceFreshness": "CURRENT",
+  "localFreshness": "CURRENT",
+  "parityTotals": {
+    "STATE_FAST: BEHAVIORAL_PARITY": 4,
+    "NAV_DEFAULT: BEHAVIORAL_PARITY": 1,
+    "OVERLAY_DEFAULT: BEHAVIORAL_PARITY": 1,
+    "STATE_FAST: REDUCED_MOTION_OVERRIDE": 4,
+    "NAV_DEFAULT: REDUCED_MOTION_OVERRIDE": 1,
+    "OVERLAY_DEFAULT: REDUCED_MOTION_OVERRIDE": 1
+  },
+  "motionResults": [
+    {
+      "sourceId": "36:815",
+      "token": "STATE_FAST",
+      "parity": "BEHAVIORAL_PARITY",
+      "mode": "no-preference",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "duration": "0.1s, 0.1s, 0.1s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(180, 74, 33)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "after": {
+          "duration": "0.1s, 0.1s, 0.1s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(164, 64, 27)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "trigger": {
+          "type": "ON_HOVER"
+        }
+      }
+    },
+    {
+      "sourceId": "36:815",
+      "token": "NAV_DEFAULT",
+      "parity": "BEHAVIORAL_PARITY",
+      "mode": "no-preference",
+      "passed": true,
+      "evidence": {
+        "outgoing": {
+          "hidden": false,
+          "opacity": 0.660143,
+          "transform": "none"
+        },
+        "incoming": {
+          "hidden": false,
+          "opacity": 0.339857,
+          "transform": "none"
+        },
+        "state": "running",
+        "duration": 150,
+        "route": "#/screen/36:739"
+      }
+    },
+    {
+      "sourceId": "36:815",
+      "token": "STATE_FAST",
+      "parity": "BEHAVIORAL_PARITY",
+      "mode": "no-preference",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "duration": "0.1s, 0.1s, 0.1s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(164, 64, 27)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "after": {
+          "duration": "0.1s, 0.1s, 0.1s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(138, 52, 21)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "trigger": {
+          "type": "ON_PRESS"
+        }
+      }
+    },
+    {
+      "sourceId": "47:34",
+      "token": "STATE_FAST",
+      "parity": "BEHAVIORAL_PARITY",
+      "mode": "no-preference",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "duration": "0.1s, 0.1s, 0.1s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(180, 74, 33)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "after": {
+          "duration": "0.1s, 0.1s, 0.1s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(164, 64, 27)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "trigger": {
+          "type": "ON_HOVER"
+        }
+      }
+    },
+    {
+      "sourceId": "47:34",
+      "token": "OVERLAY_DEFAULT",
+      "parity": "BEHAVIORAL_PARITY",
+      "mode": "no-preference",
+      "passed": true,
+      "evidence": {
+        "middle": {
+          "opacity": 0.339372,
+          "focus": true
+        },
+        "open": true,
+        "closed": true,
+        "restored": true,
+        "hash": "#/screen/47:32"
+      }
+    },
+    {
+      "sourceId": "47:34",
+      "token": "STATE_FAST",
+      "parity": "BEHAVIORAL_PARITY",
+      "mode": "no-preference",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "duration": "0.1s, 0.1s, 0.1s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(164, 64, 27)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "after": {
+          "duration": "0.1s, 0.1s, 0.1s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(138, 52, 21)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "trigger": {
+          "type": "ON_PRESS"
+        }
+      }
+    },
+    {
+      "sourceId": "36:815",
+      "token": "STATE_FAST",
+      "parity": "REDUCED_MOTION_OVERRIDE",
+      "mode": "reduce",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "duration": "0s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(180, 74, 33)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "after": {
+          "duration": "0s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(164, 64, 27)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "trigger": {
+          "type": "ON_HOVER"
+        }
+      }
+    },
+    {
+      "sourceId": "36:815",
+      "token": "NAV_DEFAULT",
+      "parity": "REDUCED_MOTION_OVERRIDE",
+      "mode": "reduce",
+      "passed": true,
+      "evidence": {
+        "outgoing": {
+          "hidden": true,
+          "opacity": 1,
+          "transform": "none"
+        },
+        "incoming": {
+          "hidden": false,
+          "opacity": 1,
+          "transform": "none"
+        },
+        "state": "settled",
+        "duration": 0,
+        "route": "#/screen/36:739"
+      }
+    },
+    {
+      "sourceId": "36:815",
+      "token": "STATE_FAST",
+      "parity": "REDUCED_MOTION_OVERRIDE",
+      "mode": "reduce",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "duration": "0s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(164, 64, 27)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "after": {
+          "duration": "0s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(138, 52, 21)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "trigger": {
+          "type": "ON_PRESS"
+        }
+      }
+    },
+    {
+      "sourceId": "47:34",
+      "token": "STATE_FAST",
+      "parity": "REDUCED_MOTION_OVERRIDE",
+      "mode": "reduce",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "duration": "0s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(180, 74, 33)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "after": {
+          "duration": "0s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(164, 64, 27)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "trigger": {
+          "type": "ON_HOVER"
+        }
+      }
+    },
+    {
+      "sourceId": "47:34",
+      "token": "OVERLAY_DEFAULT",
+      "parity": "REDUCED_MOTION_OVERRIDE",
+      "mode": "reduce",
+      "passed": true,
+      "evidence": {
+        "middle": {
+          "opacity": 1,
+          "focus": true
+        },
+        "open": true,
+        "closed": true,
+        "restored": true,
+        "hash": "#/screen/47:32"
+      }
+    },
+    {
+      "sourceId": "47:34",
+      "token": "STATE_FAST",
+      "parity": "REDUCED_MOTION_OVERRIDE",
+      "mode": "reduce",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "duration": "0s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(164, 64, 27)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "after": {
+          "duration": "0s",
+          "easing": "ease-out, ease-out, ease-out",
+          "values": [
+            "rgb(138, 52, 21)",
+            "rgb(0, 0, 0)",
+            "1",
+            "4px",
+            "none"
+          ]
+        },
+        "trigger": {
+          "type": "ON_PRESS"
+        }
+      }
+    }
+  ],
+  "integrity": {
+    "pageId": "9:306",
+    "nodeCountBefore": 1290,
+    "nodeCountAfter": 1290,
+    "before": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "a8c1c5af049e0788b2e8794ca422fd6dbfb9a9b6f71c14e1ae5343bd45e0819e"
+    },
+    "after": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "a8c1c5af049e0788b2e8794ca422fd6dbfb9a9b6f71c14e1ae5343bd45e0819e"
+    },
+    "unchanged": true,
+    "health": {
+      "fileName": "Untitled",
+      "fontFamilyCount": 2025,
+      "ok": true,
+      "pageName": "Acceptance v2-coffee",
+      "recentErrorCount": 0,
+      "styleCount": 0,
+      "variableCount": 0,
+      "version": "1.3.0"
+    },
+    "figmaWrites": 0
+  },
+  "readCounts": {
+    "health": 3,
+    "document": 4,
+    "beginSource": 8,
+    "nativeQA": 6,
+    "finishSource": 12,
+    "browserTestSource": 32,
+    "browserStatusSource": 16,
+    "acceptanceTotal": 81,
+    "figmaWrites": 0,
+    "scope": "Counted live acceptance campaign only; fixture runner source reads and setup doctor reads are separate"
+  },
+  "fixtureAcceptance": {
+    "evidenceMode": "DETERMINISTIC_NATIVE_SHAPED_NOT_FRESH_LIVE_SOURCE",
+    "motionObservations": 50,
+    "spatialCombinations": 20,
+    "retainedNativeScroll": "scripts/fixtures/native-scroll-live.json",
+    "nativeSpatialReference": "scripts/fixtures/figma-motion-capabilities.json",
+    "nativeReferenceLimits": "PUSH four vectors / other directional LEFT playback verified; other combinations NATIVE_REFERENCE_UNVERIFIED; SLIDE variants PARTIAL"
+  },
+  "policy": {
+    "newCommands": 0,
+    "runtimeChanges": 0,
+    "stateful": "HOLD",
+    "externalRequests": 0,
+    "WebSockets": 0,
+    "serviceWorkers": "blocked"
+  }
+}

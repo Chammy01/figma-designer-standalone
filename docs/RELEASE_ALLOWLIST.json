@@ -154,5 +154,10 @@
   "scripts/figma-interaction-qa.mjs",
   "docs/INTERACTION_QA_V2_V1_2_7.md",
   "docs/FIGMA_MOTION_CAPABILITY_AUDIT_V1_2_8.md",
-  "docs/NATIVE_SCROLL_MOTION_V1_3.md"
+  "docs/NATIVE_SCROLL_MOTION_V1_3.md",
+  "docs/BROWSER_MOTION_PARITY_V1_3_1.md",
+  "rules/figma-browser-motion.md",
+  "rules/figma-browser-motion.mjs",
+  "scripts/figma-browser-motion-check.mjs",
+  "scripts/figma-browser-motion-runtime.mjs"
 ]

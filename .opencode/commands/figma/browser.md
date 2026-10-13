@@ -126,11 +126,26 @@ For component instances:
 - map Default/Hover/Pressed/Focus/Selected/etc. to appropriate CSS/DOM states
 - do not trust instance names alone
 
-Default component transition:
-- ~100ms ease-out
+Motion values come from rules/figma-motion-semantics.mjs through
+rules/figma-browser-motion.mjs; never maintain another duration registry.
 
-Default screen dissolve:
-- ~150ms ease-out
+BROWSER MOTION FOUNDATION
+
+Follow rules/figma-browser-motion.md. Translate only captured nativeAction objects
+and verified same-family, destination, overlay-position and scroll-context evidence
+using browserMotion. Include each descriptor and browserMotionManifest in schema 2.
+Retain complete native transition fields; never invent missing fields. Unimplemented
+required motion yields WARN/FAIL, never a silent parity claim.
+Embed browserMotionSource from scripts/figma-browser-motion-runtime.mjs in app.js;
+no remote imports or extra output directories. Preserve semantic anchors, hash
+routing/history, original content and source states. Export inspected variant styles
+with a small CSS transition on those properties and --figma-state-duration; reduced
+media-query duration <=1ms. Use data-figma-state for the actual variant ID and
+sourceVariantId for each verified state edge. Do not invent visual states.
+Use real native-backed scroll containers with target hooks and relative geometry.
+Native/null SCROLL_TO is immediate; SCROLL_SMOOTH uses cancellable deterministic rAF,
+not uncontrolled browser smooth scrolling. No experimental Smart Animate, matching
+layers, springs, custom easing, timelines, SWAP or stateful conditionals.
 
 Do not invent visual states not present in the Figma component system.
 
@@ -277,10 +292,9 @@ Before PASS verify:
 
 FINAL REPORT
 
-When source reactions contain SCROLL_ANIMATE, report
-BROWSER_SCROLL_MOTION_PARITY: NOT_IMPLEMENTED. Native smooth-scroll playback does
-not prove browser motion parity; do not implement or claim native duration/easing
-equivalence as part of this export.
+Report per-token browser parity, including PARTIAL, NOT_IMPLEMENTED and
+NATIVE_REFERENCE_UNVERIFIED cases. Native playback does not prove browser rendering
+or exact frame/easing equivalence. See `rules/figma-browser-motion.md`.
 
 Report:
 - output directory/files

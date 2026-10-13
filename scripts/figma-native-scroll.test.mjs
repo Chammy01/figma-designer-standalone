@@ -120,8 +120,8 @@ test('QA missing evidence reports UNKNOWN without repair',()=>{
   const f=scrollFixture();delete f.find('3:1').props.overflowDirection;const r=analyzeInteractions(f.model);assert.equal(r.graph.edges[0].motion.status,'UNKNOWN');assert.equal(r.integrity.writeCalls,0);
 });
 test('browser parity and experimental capabilities remain truthfully limited',()=>{
-  assert.match(read('rules/figma-motion-semantics.md'),/Browser[\s\S]*NOT_IMPLEMENTED/);assert.match(read('rules/figma-motion-semantics.md'),/No custom scroll durations/);assert.equal(resolveMotion({intent:'SHARED_ELEMENT'}).support,'LIMITED');assert.equal(resolveMotion({intent:'ENTER'}).support,'LIMITED');
-  assert.match(read('.opencode/commands/figma/browser.md'),/BROWSER_SCROLL_MOTION_PARITY: NOT_IMPLEMENTED/);
+  assert.match(read('rules/figma-motion-semantics.md'),/Browser[\s\S]*browser motion foundation/);assert.match(read('rules/figma-motion-semantics.md'),/No custom scroll durations/);assert.equal(resolveMotion({intent:'SHARED_ELEMENT'}).support,'LIMITED');assert.equal(resolveMotion({intent:'ENTER'}).support,'LIMITED');
+  assert.match(read('.opencode/commands/figma/browser.md'),/Report per-token browser parity/);
 });
 test('V1.2.5 remains HOLD, with no new slash command or runtime dependency',()=>{
   assert.match(read('docs/STATEFUL_VARIABLES_V1_2_5.md'),/FIGMA_STATEFUL_VARIABLES: HOLD/);assert.equal(readdirSync(new URL('../.opencode/commands/figma/',import.meta.url)).filter(n=>n.endsWith('.md')).length,14);assert.doesNotMatch(read('rules/figma-motion-semantics.mjs'),/fetch\(|set_reactions|writeFile|execFile/);

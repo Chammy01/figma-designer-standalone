@@ -303,5 +303,14 @@
   "docs/NATIVE_SCROLL_MOTION_V1_3.md",
   "scripts/figma-native-scroll.test.mjs",
   "scripts/fixtures/native-scroll.mjs",
-  "scripts/fixtures/native-scroll-live.json"
+  "scripts/fixtures/native-scroll-live.json",
+  "docs/BROWSER_MOTION_PARITY_V1_3_1.md",
+  "rules/figma-browser-motion.md",
+  "rules/figma-browser-motion.mjs",
+  "scripts/figma-browser-motion-check.mjs",
+  "scripts/figma-browser-motion-runtime.mjs",
+  "scripts/figma-browser-motion.integration.test.mjs",
+  "scripts/figma-browser-motion.test.mjs",
+  "scripts/fixtures/browser-motion.mjs",
+  "scripts/fixtures/browser-motion-live.json"
 ]

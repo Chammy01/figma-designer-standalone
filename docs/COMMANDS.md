@@ -189,11 +189,11 @@ Technical scope: Zero Figma writes; reports unsupported or incomplete behavior.
 
 Export the accepted runtime as a local browser interface.
 
-Technical scope: Zero Figma writes; begin/finish source collection binds the export to live evidence.
+Technical scope: Zero Figma writes; begin/finish source collection binds the export to live evidence. Shipped semantic motion maps to bounded local state, navigation, modal and scroll behavior; experimental motion stays limited. See [Browser motion parity](BROWSER_MOTION_PARITY_V1_3_1.md).
 
 ## `/figma/browser-test`
 
-Test browser navigation and export constraints.
+Test browser navigation, supported motion in normal/reduced mode, and export constraints.
 
 Technical scope: Needs local Playwright/Chromium and an export; PASS is not complete business/state/visual validation.
 

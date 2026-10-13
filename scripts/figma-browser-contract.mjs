@@ -1,4 +1,5 @@
 import { isAbsolute, join, relative, resolve, sep } from 'node:path';
+import { validateBrowserMotion } from '../rules/figma-browser-motion.mjs';
 
 export function isWithinRoot(root, file) {
   const rel = relative(root, file);
@@ -60,5 +61,6 @@ export function validateManifest(manifest, legacy = false) {
     navEdges.add(edge);
     if (!old) require(manifest.controls.some(c => c.nodeId === interaction.sourceId && c.screenId === interaction.sourceScreenId && c.classification === 'WORKING_ACTION'), 'Every V1.1 NAVIGATE must match a WORKING_ACTION control.');
   }
+  validateBrowserMotion(manifest);
   return old;
 }

@@ -50,7 +50,8 @@ On a scoped but unidentified "make scrolling smoother", ask one target clarifica
 No write before the existing edge is resolved. Ordinary "scroll to Features" can
 use flow/interactive to wire a known supported edge; it does not request animation.
 Parallax and scroll-position-driven animation remain MOTION_LIMITED. Browser
-SCROLL_ANIMATE parity is NOT_IMPLEMENTED; native playback is not browser proof.
+SCROLL_ANIMATE uses the separately tested V1.3.1 browser motion foundation; native
+playback is not browser proof. See figma-browser-motion.md.
 
 "Subtle" and "less motion" favor conservative semantic defaults, without removing
 behavior. "Snappy state change" maps to STATE_FAST. "Quiet modal" maps to

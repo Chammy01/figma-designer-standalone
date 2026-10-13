@@ -6,6 +6,7 @@ import { extname, join, resolve } from 'node:path';
 import { isWithinRoot, safePath, validateManifest } from './figma-browser-contract.mjs';
 import { artifactHashes, classifyFreshness, runnerVersion } from './figma-browser-freshness.mjs';
 import { collectLiveSource } from './figma-live-source.mjs';
+import { verifyBrowserMotion } from './figma-browser-motion-check.mjs';
 
 const systemVersion = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8')).version;
 
@@ -97,6 +98,7 @@ let manifestValid = false;
 let liveSourceBefore;
 const unsupported = [];
 const motionFailures = new Set();
+let motionResults = [];
 
 async function checkReducedMotion(page) {
   const failures = await page.evaluate(() => {
@@ -130,10 +132,10 @@ try {
   const start = screens.find(s => String(s.id) === startId) ?? screens[0];
   const navInteractions = interactions.filter(x => {
     const click = (typeof x.trigger === 'object' ? x.trigger?.type : x.trigger) === 'ON_CLICK' || (legacy && x.trigger === undefined);
-    if (x.navigation !== 'NAVIGATE' || !click) { unsupported.push({ sourceId: x.sourceId, navigation: x.navigation, trigger: x.trigger, reason: 'Only ON_CLICK NAVIGATE is exercised by pointer and Enter.' }); return false; }
+    if (x.navigation !== 'NAVIGATE' || !click) { if (!x.motion?.token && x.action !== 'CLOSE') unsupported.push({ sourceId: x.sourceId, navigation: x.navigation, trigger: x.trigger, reason: 'Only ON_CLICK NAVIGATE is exercised by pointer and Enter; supported motion has separate tests.' }); return false; }
     return true;
   });
-  for (const control of controls.filter(c => c.classification === 'WORKING_STATE' || c.classification === 'FIGMA_LIMITED')) unsupported.push({ sourceId: control.nodeId, reason: `${control.classification}: ownership hook only; state behavior not exercised.` });
+  for (const control of controls.filter(c => (c.classification === 'WORKING_STATE' || c.classification === 'FIGMA_LIMITED') && !interactions.some(i => i.sourceId === c.nodeId && i.motion?.token))) unsupported.push({ sourceId: control.nodeId, reason: `${control.classification}: ownership hook only; state behavior not exercised.` });
 
   const started = await startServer();
   server = started.server;
@@ -154,10 +156,7 @@ try {
   });
   await context.route('**/*', route => external(route.request().url()) ? route.abort('blockedbyclient') : route.continue());
   await context.routeWebSocket('**/*', socket => {
-    const url = new URL(socket.url());
-    const origin = url.origin.replace(/^ws/, 'http');
-    if (origin !== localOrigin) { externalRequests.push(socket.url()); socket.close(); }
-    else socket.connectToServer();
+    externalRequests.push(socket.url()); socket.close();
   });
   const page = await context.newPage();
 
@@ -305,6 +304,12 @@ try {
   await page.goto(baseUrl + '#/screen/__missing__', { waitUntil: 'networkidle' });
   record('Unknown screen route safely falls back to start', await page.locator(screenSelector(start.id)).isVisible().catch(() => false));
 
+  if (manifest.motion?.contractVersion) {
+    motionResults = await verifyBrowserMotion(page, manifest, baseUrl);
+    for (const row of motionResults) record(`${row.token} ${row.mode} ${row.sourceId}`, row.passed, JSON.stringify(row.evidence));
+    for (const i of interactions.filter(i => i.motion?.parity === 'NOT_IMPLEMENTED')) unsupported.push({sourceId:i.sourceId,reason:i.motion.reason,motionRequired:true});
+  }
+
   record('Runtime resources stay local', externalRequests.length === 0, externalRequests.join(', '));
   currentHashes = await artifactHashes(root);
   record('Generated artifacts remained unchanged during testing', JSON.stringify(artifactSha256) === JSON.stringify(currentHashes));
@@ -317,7 +322,7 @@ try {
 }
 
 const failures = results.filter(r => !r.passed && !r.skipped);
-const acceptance = failures.length ? 'FAIL' : legacy ? 'WARN' : 'PASS';
+const acceptance = failures.length ? 'FAIL' : legacy || unsupported.some(i => i.motionRequired) ? 'WARN' : 'PASS';
 const liveSource = await collectLiveSource();
 const sourceSummary = live => live ? { status: live.status, reason: live.reason ?? null, sourceFingerprint: live.sourceFingerprint ?? null, sourceProjectionVersion: live.sourceProjectionVersion, sourceRuntimeId: live.sourceRuntimeId ?? null, metrics: live.metrics } : null;
 const freshness = manifestValid ? classifyFreshness(manifest, { artifactSha256, manifestSha256: artifactSha256['figma-browser.json'], runnerVersion, systemVersion, sourceFingerprint: manifest.sourceFingerprint ?? null, sourceProjectionVersion: manifest.sourceProjectionVersion ?? null, exportRunId: manifest.exportRunId ?? null, result: acceptance }, currentHashes ?? artifactSha256, liveSource, systemVersion) : { local: 'UNVERIFIED', source: 'UNVERIFIED', overall: 'UNVERIFIED' };
@@ -326,7 +331,8 @@ const report = {
   systemVersion,
   result: acceptance,
   browserAcceptance: acceptance,
-  coverage: legacy ? 'legacy-navigation-only' : 'navigation-and-control-hooks',
+  coverage: legacy ? 'legacy-navigation-only' : manifest?.motion?.contractVersion ? 'navigation-control-hooks-and-motion' : 'navigation-and-control-hooks',
+  motion: { contractVersion:manifest?.motion?.contractVersion ?? null, results:motionResults, totals:motionResults.reduce((totals,r) => { const key=`${r.token}: ${r.parity}`; totals[key]=(totals[key] ?? 0)+1; return totals; },{}) },
   sourceFreshness: freshness.source,
   localFreshness: freshness.local,
   overallFreshness: freshness.overall,
@@ -341,9 +347,9 @@ const report = {
   generatedAt: new Date().toISOString(),
   runner: 'playwright',
   runnerVersion,
-  tested: ['ON_CLICK NAVIGATE: pointer, native Enter, Back/Forward', 'screen deep links and invalid-route fallback', 'declared control ownership and uniqueness', 'computed CSS reduced motion on screens and navigation hover/focus', 'context HTTP requests and WebSockets; service workers blocked'],
+  tested: ['ON_CLICK NAVIGATE: pointer, native Enter, Back/Forward', 'screen deep links and invalid-route fallback', 'declared control ownership and uniqueness', 'computed CSS reduced motion on screens and navigation hover/focus', 'context HTTP requests and WebSockets; service workers blocked', ...(motionResults.length ? ['Supported semantic motion: computed/intermediate/final DOM behavior in normal and reduced motion'] : [])],
   unsupported,
-  limitations: ['Working state behavior beyond hook ownership is untested.', 'JavaScript/Web Animations timing and delayed/dynamic states are untested.', 'Network checks cover exercised Chromium contexts, not all future behavior.'],
+  limitations: [manifest?.motion?.contractVersion ? 'Behavioral/timing-bounded motion only; no native pixel, renderer or exact frame timing equivalence.' : 'Working state behavior beyond hook ownership and JavaScript animation timing are untested.', 'Experimental/shared-element/custom easing/timed sequences remain unimplemented.', 'Network checks cover exercised Chromium contexts, not all future behavior.'],
   nativeOrcaRequired: false,
   passed: failures.length === 0,
   fatal,
@@ -353,6 +359,7 @@ const report = {
 await writeFile(reportPath, JSON.stringify(report, null, 2) + '\n', 'utf8');
 console.log(`\nTest report: ${reportPath}\n`);
 console.log(`SOURCE_FRESHNESS: ${report.sourceFreshness}\nLOCAL_FRESHNESS: ${report.localFreshness}\nOVERALL_FRESHNESS: ${report.overallFreshness}`);
+for (const [token,count] of Object.entries(report.motion.totals)) console.log(`${token}: ${count}`);
 
 if (report.passed) {
   console.log(`FIGMA_BROWSER_TEST: ${report.result}`);
