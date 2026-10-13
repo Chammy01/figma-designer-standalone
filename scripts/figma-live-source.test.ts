@@ -13,6 +13,7 @@ import statefulActions from './fixtures/stateful-actions.json';
 import { handleWritePrototypeRequest } from '../vendor/figma-mcp/plugin/src/write-prototype';
 import overlayCapability from './fixtures/overlay-capability.json';
 import { motionTokens, transitionMatches } from '../rules/figma-motion-semantics.mjs';
+import motionAudit from './fixtures/figma-motion-capabilities.json';
 
 function fixture() {
   const nodes = new Map<string, any>();
@@ -414,4 +415,75 @@ test('missing browser artifacts still report live source, without writes', async
 test('collector transport refuses write requests and ordinary node requests', async () => {
   await expect(readSourceRPC('set_reactions', ['4:425'], {})).rejects.toThrow();
   await expect(readSourceRPC('get_node', ['4:425'], {})).rejects.toThrow();
+});
+
+// Native readbacks are capture fixtures, not a simulated playback certification.
+function motionCaptureFixture(reactions: any[]) {
+  const f = fixture(); f.screen.reactions = structuredClone(reactions);
+  for (const reaction of reactions) for (const action of reaction.actions ?? []) {
+    if (action.destinationId && !f.nodes.has(action.destinationId)) {
+      f.node(action.destinationId, action.navigation === 'CHANGE_TO' ? 'COMPONENT' : 'FRAME',
+        action.navigation === 'CHANGE_TO' ? f.set : f.runtime);
+    }
+  }
+  f.api.commitUndo = () => { throw new Error('SOURCE WRITE'); };
+  for (const node of f.nodes.values()) node.setReactionsAsync = () => { throw new Error('SOURCE WRITE'); };
+  return f;
+}
+
+test('motion inventory exactly matches installed pinned Plugin API transition/easing types', async () => {
+  const types = await readFile(new URL('../vendor/figma-mcp/plugin/node_modules/@figma/plugin-typings/plugin-api.d.ts', import.meta.url), 'utf8');
+  const pkg = JSON.parse(await readFile(new URL('../vendor/figma-mcp/plugin/node_modules/@figma/plugin-typings/package.json', import.meta.url), 'utf8'));
+  expect(pkg.version).toBe(motionAudit.api.version);
+  const block = (name: string) => types.match(new RegExp('interface '+name+' \\{([\\s\\S]*?)\\n\\}'))![1];
+  const quoted = (s: string) => [...s.matchAll(/'([^']+)'/g)].map(m => m[1]);
+  expect(quoted(block('SimpleTransition'))).toEqual(motionAudit.api.declarations.simple);
+  const directional = quoted(block('DirectionalTransition'));
+  expect(directional.slice(0,5)).toEqual(motionAudit.api.declarations.directional);
+  expect(directional.slice(5)).toEqual(motionAudit.api.declarations.directions);
+  expect(quoted(block('Easing'))).toEqual(motionAudit.api.declarations.easing);
+  expect(block('EasingFunctionSpring')).toContain('initialVelocity: number');
+});
+
+test('source V1 losslessly captures every eligible retained native motion readback, without writes', async () => {
+  const arrays = motionAudit.nativeProbes.filter(r => r.readback && !r.invalidDestinationContext)
+    .map(r => ({ id: r.id, reactions: r.readback! }))
+    .concat(motionAudit.playback.map(r => ({ id: r.id, reactions: r.readback })))
+    .concat(motionAudit.canonicalTokenReadbacks.map(r => ({ id: r.id, reactions: r.readback })));
+  for (const { id, reactions } of arrays) {
+    const f = motionCaptureFixture(reactions), before = structuredClone(f.screen.reactions);
+    const raw = await projection(f);
+    expect(raw.runtime.children[0].reactions, id).toEqual(before);
+    expect(f.screen.reactions, id).toEqual(before);
+    expect(raw.sourceProjectionVersion, id).toBe(motionAudit.policy.projectionVersion);
+    expect(evidenceForProjection(raw).sourceFingerprint.sha256.length, id).toBe(64);
+  }
+});
+
+for (const [id, field, replacement] of [
+  ['direction/PUSH/LEFT', ['direction'], 'RIGHT'],
+  ['matchLayers/PUSH/true', ['matchLayers'], false],
+  ['transition/SMART_ANIMATE', ['type'], 'DISSOLVE'],
+  ['duration/0.5', ['duration'], 0.2],
+  ['easing/EASE_OUT', ['easing','type'], 'LINEAR'],
+  ['easing/CUSTOM_CUBIC_BEZIER', ['easing','easingFunctionCubicBezier','x1'], 0.3],
+  ['easing/CUSTOM_CUBIC_BEZIER', ['easing','easingFunctionCubicBezier','y1'], 0.2],
+  ['easing/CUSTOM_CUBIC_BEZIER', ['easing','easingFunctionCubicBezier','x2'], 0.3],
+  ['easing/CUSTOM_CUBIC_BEZIER', ['easing','easingFunctionCubicBezier','y2'], 0.9],
+] as const) test(`motion source fingerprint responds to ${id} ${field.join('.')}`, async () => {
+  const reactions = motionAudit.nativeProbes.find(r => r.id === id)!.readback!;
+  const f = motionCaptureFixture(reactions), before = await fingerprint(f);
+  let value = f.screen.reactions[0].actions[0].transition;
+  for (const key of field.slice(0,-1)) value = value[key];
+  value[field.at(-1)!] = replacement;
+  f.screen.reactions[0].action = structuredClone(f.screen.reactions[0].actions[0]);
+  expect(await fingerprint(f)).not.toEqual(before);
+});
+
+for (const field of ['mass','stiffness','damping']) test(`native custom spring ${field} survives source closure`, async () => {
+  const reactions = motionAudit.playback.find(r => r.id === 'curve/CUSTOM_SPRING')!.readback;
+  const f = motionCaptureFixture(reactions), before = await fingerprint(f);
+  f.screen.reactions[0].actions[0].transition.easing.easingFunctionSpring[field] += 1;
+  f.screen.reactions[0].action = structuredClone(f.screen.reactions[0].actions[0]);
+  expect(await fingerprint(f)).not.toEqual(before);
 });

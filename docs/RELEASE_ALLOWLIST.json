@@ -152,5 +152,6 @@
   "rules/figma-interaction-qa.mjs",
   "rules/figma-interaction-qa.md",
   "scripts/figma-interaction-qa.mjs",
-  "docs/INTERACTION_QA_V2_V1_2_7.md"
+  "docs/INTERACTION_QA_V2_V1_2_7.md",
+  "docs/FIGMA_MOTION_CAPABILITY_AUDIT_V1_2_8.md"
 ]

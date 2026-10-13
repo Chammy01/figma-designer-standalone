@@ -162,6 +162,10 @@ are requested. Unsupported element animation is reported honestly. See
 
 Technical scope: Changes eligible transitions only; preserves trigger/action semantics and null SCROLL_TO transitions.
 
+The [native motion capability audit](FIGMA_MOTION_CAPABILITY_AUDIT_V1_2_8.md)
+separates declared, read-back and playback evidence. Its V1.3 recommendations do
+not expand the current motion command.
+
 ## `/figma/qa`
 
 Interaction QA V2 inventories meaningful controls, including reactionless ones,

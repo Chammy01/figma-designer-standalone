@@ -296,5 +296,8 @@
   "scripts/figma-interaction-qa.mjs",
   "scripts/figma-interaction-qa.test.mjs",
   "scripts/fixtures/interaction-qa.mjs",
-  "docs/INTERACTION_QA_V2_V1_2_7.md"
+  "docs/INTERACTION_QA_V2_V1_2_7.md",
+  "docs/FIGMA_MOTION_CAPABILITY_AUDIT_V1_2_8.md",
+  "scripts/fixtures/figma-motion-capabilities.json",
+  "scripts/figma-motion-capability.test.mjs"
 ]
