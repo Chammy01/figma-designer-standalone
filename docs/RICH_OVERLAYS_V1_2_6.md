@@ -253,6 +253,7 @@ simulation is explicitly separate from observed playback evidence.
 | Regression | Result |
 | --- | --- |
 | npm contracts (design/briefing/router/planner/motion/critique and existing capability contracts) | 196 passed |
+| Overlay contracts in a clean source archive without generated artifacts | 25 passed |
 | Plugin tests | 275 passed |
 | Source/hardening/variants | 97 passed, including 56 source tests and 11 new audit tests |
 | Same source/hardening/variants against approved dist/code.js | 97 passed again |
@@ -271,6 +272,10 @@ Approved artifact SHA-256 values remain:
 
 All three approved Beta 2 runtime artifacts and release/projection versions are
 unchanged. No runtime build, new MCP capability, plan bypass or stateful enablement.
+Source-only contracts pin approved digest metadata and verify artifact bytes when
+present; the build/release jobs enforce generated-runtime integrity. The initial
+hosted node run exposed an incorrect dependency on omitted generated files, fixed
+and reproduced with clean-source coverage before the final CI run.
 Local supported-scope acceptance, idempotence and regressions passed. Hosted CI is
 reported separately for the exact pushed revision, not borrowed from the baseline.
 No release package or hash rotation is needed for this command/rule-only milestone.
