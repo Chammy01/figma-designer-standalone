@@ -139,6 +139,11 @@ Audit and build supported working behavior across the interface.
 
 Technical scope: Uses Interactive App and verified source components; reports FIGMA_LIMITED and undefined behavior truthfully.
 
+Prototype state/conditional enablement is currently on HOLD: the connected Figma
+plan rejects SET_VARIABLE and CONDITIONAL reaction actions. Creating variables
+alone does not prove working stateful behavior. See the
+[V1.2.5 capability audit](STATEFUL_VARIABLES_V1_2_5.md).
+
 ## `/figma/motion`
 
 Validate and apply motion to existing interactions.
@@ -179,7 +184,7 @@ Technical scope: Acceptance is separate from CURRENT, STALE, and UNVERIFIED; rea
 
 Show the system and runtime version information.
 
-Technical scope: Public release v1.2.1-beta.1 differs from system 1.2.1, MCP 1.2.0-standalone-hardening, and schema 2.
+Technical scope: Public release v1.2.1-beta.2 differs from system 1.2.1, MCP 1.2.0-standalone-hardening, and schema 2.
 
 ## Suggested order
 

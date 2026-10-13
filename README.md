@@ -94,7 +94,7 @@ Use native Windows PowerShell for this beta. You do not need Go, Bun, or Git for
 
 Open [GitHub Releases](https://github.com/Chammy01/figma-designer-standalone/releases). Under the release's **Assets**, download:
 
-**Figma-Designer-v1.2.1-beta.1-Windows.zip**
+**Figma-Designer-v1.2.1-beta.2-Windows.zip**
 
 **Do NOT choose “Source code (zip)” or “Source code (tar.gz)” if you only want to use Figma Designer.** Those are source packages for developers and require build tools.
 

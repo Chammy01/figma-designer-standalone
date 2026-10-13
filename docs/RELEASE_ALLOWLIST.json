@@ -107,6 +107,7 @@
   "package.json",
   "README.md",
   "RELEASE_NOTES_v1.2.1-beta.1.md",
+  "RELEASE_NOTES_v1.2.1-beta.2.md",
   "ROADMAP.md",
   "rules/figma-design-rules.md",
   "rules/figma-standalone-rules.md",
@@ -143,5 +144,7 @@
   "docs/PROTOTYPE_PLANNER_V1_2_3_3.md",
   "rules/figma-motion-semantics.mjs",
   "rules/figma-motion-semantics.md",
-  "docs/SEMANTIC_MOTION_V1_2_4.md"
+  "docs/SEMANTIC_MOTION_V1_2_4.md",
+  "docs/STATEFUL_VARIABLES_V1_2_5.md",
+  "docs/CONDITIONAL_FRESHNESS_BETA_2.md"
 ]

@@ -2,7 +2,7 @@
 
 User prompt → OpenCode (`figma-designer` for slash commands) → local Figma MCP executable → localhost WebSocket bridge → Figma development plugin → editable native layers in the current design document. Native Orca is not required. The Figma REST API is not a replacement for this integration.
 
-The approved executable is `bin/figma-mcp-go.exe`, supplied in the Windows release. Its startup version is `1.2.0-standalone-hardening`; upstream health diagnostics may still expose `1.3.0`. Plugin identity is established by the approved core hash, not that diagnostics constant. Public beta `v1.2.1-beta.1` is packaging/onboarding metadata; system version remains `1.2.1-standalone-source-freshness`. Manifest/report schemas remain 2; source projection is `figma-browser-source-v1`; fingerprint is `canonical-json-sha256-v1`.
+The approved executable is `bin/figma-mcp-go.exe`, supplied in the Windows release. Its startup version is `1.2.0-standalone-hardening`; upstream health diagnostics may still expose `1.3.0`. Plugin identity is established by the approved core hash, not that diagnostics constant. Public beta `v1.2.1-beta.2` is packaging/onboarding metadata; system version remains `1.2.1-standalone-source-freshness`. Manifest/report schemas remain 2; source projection is `figma-browser-source-v1`; fingerprint is `canonical-json-sha256-v1`.
 
 The bridge defaults to `127.0.0.1:1994`. OpenCode's legacy numeric timeout remains 10000. Internal bridge/follower budgets are unchanged. The compatible ordinary-chat default remains `web-designer` and the configured model remains `opencode/space-bunny-free`. Legacy `orca.ps1` and both agents are retained; normal standalone instructions never invoke native Orca.
 

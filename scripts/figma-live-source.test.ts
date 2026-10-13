@@ -9,6 +9,8 @@ import { artifactHashes } from './figma-browser-freshness.mjs';
 import { mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import statefulActions from './fixtures/stateful-actions.json';
+import { handleWritePrototypeRequest } from '../vendor/figma-mcp/plugin/src/write-prototype';
 
 function fixture() {
   const nodes = new Map<string, any>();
@@ -110,6 +112,138 @@ test('variable values and alias closure affect source, unused variables do not',
   variable.valuesByMode.m = { type: 'VARIABLE_ALIAS', id: unused.id };
   const aliased = await fingerprint(f); unused.valuesByMode.m = 21;
   expect(await fingerprint(f)).not.toEqual(aliased);
+});
+
+// Native authoring is plan-blocked; this fixture tests capture, not Figma playback.
+function statefulFixture() {
+  const f = fixture(), variable = structuredClone(statefulActions.variable);
+  for (const action of statefulActions.conditional.conditionalBlocks.flatMap(b => b.actions)) f.node(action.destinationId, 'FRAME', f.page);
+  f.screen.reactions = [{ trigger: { type: 'ON_CLICK' }, actions: [structuredClone(statefulActions.setVariable), structuredClone(statefulActions.conditional)] }];
+  f.api.variables.getVariableByIdAsync = async (id: string) => id === variable.id ? variable : null;
+  f.api.variables.getVariableCollectionByIdAsync = async () => ({ id: variable.variableCollectionId, defaultModeId: '42:0', modes: [{ modeId: '42:0', name: 'Mode 1' }] });
+  return { ...f, variable };
+}
+
+test('stateful plugin pass-through propagates native plan rejection without committing', async () => {
+  for (const [action, error] of [[statefulActions.setVariable, statefulActions.setVariableError], [statefulActions.conditional, statefulActions.conditionalError]] as const) {
+    let attempted: any;
+    const nativeNode = { id: '42:836', name: 'Disposable probe', reactions: [], setReactionsAsync: async (reactions: any) => { attempted = reactions; throw new Error(error); } };
+    (globalThis as any).figma = { getNodeByIdAsync: async () => nativeNode, commitUndo: () => { throw new Error('WRITE'); } };
+    const reactions = [{ trigger: { type: 'ON_CLICK' }, actions: [action] }];
+    await expect(handleWritePrototypeRequest({ type: 'set_reactions', nodeIds: [nativeNode.id], params: { mode: 'replace', reactions } })).rejects.toThrow(error);
+    expect(attempted).toEqual(reactions);
+    expect(nativeNode.reactions).toEqual([]);
+  }
+});
+
+test('SET_VARIABLE capture preserves action/value and variable closure without writes', async () => {
+  const f = statefulFixture(); f.screen.reactions[0].actions.pop();
+  const reactions = structuredClone(f.screen.reactions);
+  f.api.commitUndo = () => { throw new Error('WRITE'); };
+  const raw = await projection(f);
+  expect(raw.runtime.children[0].reactions).toEqual(reactions);
+  expect(raw.variables).toEqual([f.variable]);
+  expect(raw.collections).toEqual([{ id: f.variable.variableCollectionId, defaultModeId: '42:0', modes: [{ modeId: '42:0', name: 'Mode 1' }] }]);
+  expect(f.screen.reactions).toEqual(reactions);
+});
+
+test('SET_VARIABLE value/default changes invalidate source', async () => {
+  for (const change of [
+    (f: any) => { f.variable.valuesByMode['42:0'] = true; },
+    (f: any) => { f.screen.reactions[0].actions[0].variableValue.value = false; },
+  ]) {
+    const f = statefulFixture(); f.screen.reactions[0].actions.pop();
+    const before = await fingerprint(f); change(f);
+    expect(await fingerprint(f)).not.toEqual(before);
+  }
+});
+
+test('exact conditional operand wrapper captures its concrete alias and stays verified', async () => {
+  const f = statefulFixture(); f.screen.reactions[0].actions.shift();
+  const seen: any[] = [];
+  f.api.variables.getVariableByIdAsync = async (id: string) => { seen.push(id); return id === f.variable.id ? f.variable : null; };
+  f.api.commitUndo = () => { throw new Error('WRITE'); };
+  const original = structuredClone(f.screen.reactions);
+  (globalThis as any).figma = f.api;
+  const response = await pluginDispatch({ type: 'get_node', nodeIds: [f.page.id], params: { browserSource: true } }, async () => ({ data: await collectBrowserSource(f.api, f.runtime) }));
+  const raw = response.data.projection;
+  expect(seen).toEqual([f.variable.id]);
+  expect(raw.variables).toEqual([f.variable]);
+  expect(raw.runtime.children[0].reactions).toEqual(original);
+  expect(raw.dependencies.map((n: any) => n.id)).toContain('42:850');
+  expect(raw.dependencies.map((n: any) => n.id)).toContain('42:854');
+  const read: any = async (tool: string) => tool === 'get_metadata' ? { currentPageId: f.page.id } : await collectBrowserSource(f.api, f.runtime);
+  expect((await collectLiveSource(read)).status).toBe('AVAILABLE');
+  expect(f.screen.reactions).toEqual(original);
+  const g = statefulFixture(); g.nodes.delete('42:850');
+  await expect(projection(g)).rejects.toThrow('Missing reaction destination');
+});
+
+test('literal conditional operands do not invent variable references', async () => {
+  const f = statefulFixture(); f.screen.reactions[0].actions.shift();
+  f.screen.reactions[0].actions[0].conditionalBlocks[0].condition.value.expressionArguments[0] = { type: 'BOOLEAN', resolvedType: 'BOOLEAN', value: false };
+  f.api.variables.getVariableByIdAsync = async () => { throw new Error('Unexpected variable lookup'); };
+  expect((await projection(f)).variables).toEqual([]);
+});
+
+test('nested conditional actions and alias-to-alias mode values retain complete closure', async () => {
+  const f = statefulFixture();
+  const target = { ...f.variable, id: 'VariableID:42:900', valuesByMode: { '42:0': true } };
+  const unused = { ...structuredClone(target), id: 'VariableID:42:901' };
+  (f.variable.valuesByMode as any)['42:0'] = { type: 'VARIABLE_ALIAS', id: target.id };
+  f.api.variables.getVariableByIdAsync = async (id: string) => id === f.variable.id ? f.variable : id === target.id ? target : id === unused.id ? unused : null;
+  const inner = structuredClone(f.screen.reactions[0].actions[1]);
+  f.screen.reactions = [{ trigger: { type: 'ON_CLICK' }, actions: [{ type: 'CONDITIONAL', conditionalBlocks: [{ actions: [inner] }] }] }];
+  const raw = await projection(f), before = await fingerprint(f);
+  expect(raw.runtime.children[0].reactions).toEqual(f.screen.reactions);
+  expect(raw.variables.map((v: any) => v.id)).toEqual([f.variable.id, target.id]);
+  unused.valuesByMode['42:0'] = false;
+  expect(await fingerprint(f)).toEqual(before);
+  target.valuesByMode['42:0'] = false;
+  expect(await fingerprint(f)).not.toEqual(before);
+});
+
+test('conditional operands and referenced values affect fingerprints, unrelated variables do not', async () => {
+  const f = statefulFixture(); f.screen.reactions[0].actions.shift();
+  const before = await fingerprint(f);
+  f.variable.valuesByMode['42:0'] = true;
+  expect(await fingerprint(f)).not.toEqual(before);
+  f.variable.valuesByMode['42:0'] = false;
+  f.screen.reactions[0].actions[0].conditionalBlocks[0].condition.value.expressionArguments[1].value = false;
+  expect(await fingerprint(f)).not.toEqual(before);
+});
+
+test('SET_VARIABLE_MODE discovers collection metadata without a variable alias', async () => {
+  const f = statefulFixture();
+  f.screen.reactions = [{ trigger: { type: 'ON_CLICK' }, actions: [{ type: 'SET_VARIABLE_MODE', variableCollectionId: f.variable.variableCollectionId, variableModeId: '42:0' }] }];
+  f.api.variables.getVariableByIdAsync = async () => { throw new Error('Unexpected variable lookup'); };
+  const raw = await projection(f);
+  expect(raw.variables).toEqual([]);
+  expect(raw.collections).toEqual([{ id: f.variable.variableCollectionId, defaultModeId: '42:0', modes: [{ modeId: '42:0', name: 'Mode 1' }] }]);
+});
+
+for (const alias of [
+  { type: 'VARIABLE_ALIAS' }, { type: 'VARIABLE_ALIAS', id: null },
+  { type: 'VARIABLE_ALIAS', id: 42 }, { type: 'VARIABLE_ALIAS', id: '' },
+  { type: 'VARIABLE_ALIAS', id: ' ' }, { type: 'VARIABLE_ALIAS', value: null },
+  { type: 'VARIABLE_ALIAS', value: { type: 'BOOLEAN', value: true } },
+  { type: 'VARIABLE_ALIAS', value: { type: 'VARIABLE_ALIAS' } },
+  { type: 'VARIABLE_ALIAS', value: { type: 'VARIABLE_ALIAS', id: null } },
+]) test(`malformed alias fails safely: ${JSON.stringify(alias)}`, async () => {
+  const f = fixture(); f.text.boundVariables = { visible: alias };
+  f.api.variables.getVariableByIdAsync = async () => { throw new Error('Malformed ID must not reach lookup'); };
+  await expect(projection(f)).rejects.toThrow('Malformed variable alias');
+});
+
+test('unresolved concrete alias fails safely', async () => {
+  const f = fixture(); f.text.boundVariables = { visible: { type: 'VARIABLE_ALIAS', id: 'VariableID:42:999' } };
+  await expect(projection(f)).rejects.toThrow('Unresolved variable: VariableID:42:999');
+});
+
+test('plain bound-property alias collects its concrete variable ID', async () => {
+  const f = statefulFixture(); f.screen.reactions = [];
+  f.text.boundVariables = { visible: { type: 'VARIABLE_ALIAS', id: f.variable.id } };
+  expect((await projection(f)).variables).toEqual([f.variable]);
 });
 test('incomplete references and unsupported content fail safely', async () => {
   const f = fixture(); f.instance.getMainComponentAsync = async () => null;

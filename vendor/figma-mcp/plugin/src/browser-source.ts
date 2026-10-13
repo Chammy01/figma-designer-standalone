@@ -54,7 +54,15 @@ export async function collectBrowserSource(api: any, runtime?: any) {
   markRuntime(runtime);
   async function references(value: any): Promise<void> {
     if (!value || typeof value !== "object") return;
-    if (value.type === "VARIABLE_ALIAS") variableIds.add(value.id);
+    if (value.type === "VARIABLE_ALIAS") {
+      if (Object.prototype.hasOwnProperty.call(value, "id")) {
+        if (typeof value.id !== "string" || !value.id.trim()) throw new Error("Malformed variable alias ID");
+        variableIds.add(value.id);
+      } else if (!value.value || value.value.type !== "VARIABLE_ALIAS" || !Object.prototype.hasOwnProperty.call(value.value, "id")) {
+        throw new Error("Malformed variable alias reference");
+      }
+      // VariableData operands wrap a concrete alias in value; recurse below.
+    }
     if (typeof value.variableId === "string") variableIds.add(value.variableId);
     if (typeof value.variableCollectionId === "string") collectionIds.add(value.variableCollectionId);
     if (value.type === "NODE" && typeof value.value === "string") await references({ destinationId: value.value });

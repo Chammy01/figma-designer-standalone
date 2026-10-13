@@ -16,7 +16,8 @@ if (-not (Test-Path -LiteralPath (Join-Path $ProjectRoot 'LICENSE'))) {
     Write-Warning 'PRIVATE REVIEW ONLY: owner root license decision is still required before public launch.'
 }
 $version = (Get-Content -LiteralPath (Join-Path $ProjectRoot 'VERSION') -Raw).Trim()
-if ($version -ne 'v1.2.1-beta.1') { throw 'Unexpected release version.' }
+$approved = Get-Content -LiteralPath (Join-Path $ProjectRoot 'docs/APPROVED_RUNTIME.json') -Raw | ConvertFrom-Json
+if ($version -ne $approved.releaseVersion) { throw 'VERSION differs from approved release version.' }
 $releaseName = 'Figma-Designer-' + $version + '-Windows'
 $stage = Join-Path $OutputRoot $releaseName
 $zip = Join-Path $OutputRoot ($releaseName + '.zip')
@@ -39,7 +40,6 @@ function AllowedFile([string]$Root,[string]$Relative) {
     }
     return $full
 }
-$approved = Get-Content -LiteralPath (Join-Path $ProjectRoot 'docs/APPROVED_RUNTIME.json') -Raw | ConvertFrom-Json
 foreach ($entry in $approved.sha256.PSObject.Properties) {
     $file = AllowedFile $RuntimeRoot $entry.Name
     if ((Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash.ToLowerInvariant() -ne $entry.Value) { throw "STOP: Runtime differs from authoritative V1.2.1 hash: $($entry.Name)" }

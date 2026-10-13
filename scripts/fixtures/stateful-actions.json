@@ -1,0 +1,38 @@
+{
+  "status": "HOLD",
+  "setVariableError": "You cannot use Set Variable actions in Reactions with your current plan.",
+  "conditionalError": "You cannot use Conditional actions in Reactions with your current plan.",
+  "variable": {
+    "id": "VariableID:42:833",
+    "variableCollectionId": "VariableCollectionId:42:832",
+    "resolvedType": "BOOLEAN",
+    "valuesByMode": { "42:0": false }
+  },
+  "setVariable": {
+    "type": "SET_VARIABLE",
+    "variableId": "VariableID:42:833",
+    "variableValue": { "type": "BOOLEAN", "resolvedType": "BOOLEAN", "value": true }
+  },
+  "conditional": {
+    "type": "CONDITIONAL",
+    "conditionalBlocks": [
+      {
+        "condition": {
+          "type": "EXPRESSION",
+          "resolvedType": "BOOLEAN",
+          "value": {
+            "expressionFunction": "EQUALS",
+            "expressionArguments": [
+              { "type": "VARIABLE_ALIAS", "resolvedType": "BOOLEAN", "value": { "type": "VARIABLE_ALIAS", "id": "VariableID:42:833" } },
+              { "type": "BOOLEAN", "resolvedType": "BOOLEAN", "value": true }
+            ]
+          }
+        },
+        "actions": [{ "type": "NODE", "navigation": "NAVIGATE", "destinationId": "42:850", "transition": { "type": "DISSOLVE", "duration": 0.15, "easing": { "type": "EASE_OUT" } }, "preserveScrollPosition": false }]
+      },
+      {
+        "actions": [{ "type": "NODE", "navigation": "NAVIGATE", "destinationId": "42:854", "transition": { "type": "DISSOLVE", "duration": 0.15, "easing": { "type": "EASE_OUT" } }, "preserveScrollPosition": false }]
+      }
+    ]
+  }
+}

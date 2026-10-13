@@ -12,4 +12,4 @@ Architecture: OpenCode + Figma MCP/plugin + Playwright. Native Orca is not requi
 
 System release: 1.2.1. Manifest/report schemas: 2. Projection: figma-browser-source-v1. Fingerprint: canonical-json-sha256-v1. MCP executable release remains 1.2.0-standalone-hardening; plugin core adds only a read-only source collector.
 
-Public package/repository release: v1.2.1-beta.1. System/MCP/schema/projection/fingerprint versions above remain unchanged.
+Public package/repository release: v1.2.1-beta.2. System/MCP/schema/projection/fingerprint versions above remain unchanged.

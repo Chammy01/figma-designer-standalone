@@ -45,7 +45,7 @@ $repeat = Get-Content -LiteralPath (Join-Path $OutputRoot 'source-repeat.txt') -
 Assert ($repeat -notmatch '\[PASS\] (Figma MCP build|Go toolchain|Figma plugin build|Figma plugin dependencies)') 'Repeated setup rebuilt approved runtime'
 $package = Join-Path $OutputRoot 'Package'
 & (Join-Path $PSScriptRoot 'package-release.ps1') -OutputRoot $package -RuntimeRoot $source
-$releaseName = 'Figma-Designer-v1.2.1-beta.1-Windows'
+$releaseName = 'Figma-Designer-' + (Get-Content -LiteralPath (Join-Path $root 'VERSION') -Raw).Trim() + '-Windows'
 $extract = Join-Path $OutputRoot 'Release extraction with spaces'
 Expand-Archive -LiteralPath (Join-Path $package "$releaseName.zip") -DestinationPath $extract
 $release = Join-Path $extract $releaseName

@@ -2,7 +2,7 @@
 
 ## GitHub source candidate
 
-`SOURCE_ALLOWLIST.json` records the baseline files retained in the public candidate. Source/tests, pinned lockfiles, agents/core commands, rules, the MIT root LICENSE, and full third-party notices remain. Generated plugin assets are omitted from Git; source CI builds them with the committed Bun lockfile before dispatcher regressions. Approved release assets are supplied separately. Vendor upstream is pinned to `5806e71b8fd4bad97671038a0b010f04df1aaa41`; its custom variants, hardening, collector, and timeouts retain their bytes.
+`SOURCE_ALLOWLIST.json` records the baseline files retained in the public candidate. Source/tests, pinned lockfiles, agents/core commands, rules, the MIT root LICENSE, and full third-party notices remain. Generated plugin assets are omitted from Git; source CI builds them with the committed Bun lockfile before dispatcher regressions. Approved release assets are supplied separately. Vendor upstream is pinned to `5806e71b8fd4bad97671038a0b010f04df1aaa41`; Beta 2 carries the approved local conditional source-freshness collector patch. Go runtime, custom variants, write behavior and timeouts retain their bytes. See [Beta 2 provenance](CONDITIONAL_FRESHNESS_BETA_2.md).
 
 Optional Impeccable engine/launchers/command are removed. Its active skill is archived as reference-only material; original license/notice texts remain. See [the engine audit](SKILL_ENGINE_AUDIT.md). Dependencies, staging/evidence, configuration, logs, generated history, private design data, caches, and arbitrary archives are excluded from source inventories.
 

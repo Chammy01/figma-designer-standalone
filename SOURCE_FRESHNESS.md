@@ -18,6 +18,13 @@ Traverse full reactions, including nested actions/conditionals, and text node hy
 
 Collect variable aliases found in included node properties, paints/effects, styled text runs, and action structures. Include referenced variable ID/type/collection and all mode values; recursively include alias targets. Include referenced collections' mode IDs/names/default mode and SET_VARIABLE_MODE collections. Explicit/resolved node modes are filtered to this used-collection closure. Unused variable values and unused collections do not enter the fingerprint. If an imported/remote reference cannot be resolved, do not claim complete evidence.
 
+A concrete `VariableAlias` has `type: VARIABLE_ALIAS` and a nonblank string `id`.
+A conditional `VariableData` operand can share that type discriminator and wrap
+the concrete alias in `value`. Recurse through that wrapper and collect the nested
+ID, never an undefined wrapper ID. Malformed concrete aliases and unresolved IDs
+fail closed. This restores documented V1 closure; projection and canonicalization
+versions remain unchanged.
+
 The projection envelope contains document fileKey (explicit null if the API does not expose it), page ID, runtime ID/type/name/visibility and ordered children, sorted family/dependency/variable records, and collection mode metadata. File names and editor names outside this closure are not source identity. With unavailable fileKey, evidence is content/page/runtime-bound, not a globally authenticated file identifier.
 
 ## Included fields

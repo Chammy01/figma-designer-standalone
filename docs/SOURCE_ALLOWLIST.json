@@ -283,5 +283,8 @@
   "rules/figma-motion-semantics.md",
   "scripts/figma-motion.test.mjs",
   "scripts/fixtures/semantic-motion.mjs",
-  "docs/SEMANTIC_MOTION_V1_2_4.md"
+  "scripts/fixtures/stateful-actions.json",
+  "docs/SEMANTIC_MOTION_V1_2_4.md",
+  "docs/STATEFUL_VARIABLES_V1_2_5.md",
+  "docs/CONDITIONAL_FRESHNESS_BETA_2.md"
 ]

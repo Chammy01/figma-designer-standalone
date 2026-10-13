@@ -4,7 +4,7 @@ You do not need to know MCP, programming, or AI agents to use the basic workflow
 
 ## 1. Download and extract
 
-When published, open [Releases](https://github.com/Chammy01/figma-designer-standalone/releases) and download `Figma-Designer-v1.2.1-beta.1-Windows.zip` under Assets. The candidate is currently private/unpublished. Do not choose Source code ZIP. Right-click → Extract All. Keep the entire extracted folder together, preferably in a writable location such as Documents. Open the folder containing `setup.ps1`, `README.md`, and `vendor`.
+Open [Releases](https://github.com/Chammy01/figma-designer-standalone/releases) and download `Figma-Designer-v1.2.1-beta.2-Windows.zip` under Assets. Do not choose Source code ZIP. Right-click → Extract All. Keep the entire extracted folder together, preferably in a writable location such as Documents. Open the folder containing `setup.ps1`, `README.md`, and `vendor`.
 
 ## 2. Install prerequisites and run setup
 
