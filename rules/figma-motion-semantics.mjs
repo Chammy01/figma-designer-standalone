@@ -84,6 +84,7 @@ export function resolveMotion({ intent, action, evidence = {}, override }) {
     const { tolerance, ...transition } = motionTokens.SCROLL_SMOOTH;
     if (override && !transitionMatches(override, transition)) return result(intent, 'SCROLL_SMOOTH', 'LIMITED', 'EXPERIMENTAL / not enabled: scroll uses the canonical token only');
     if (action.transition != null && action.transition.type !== 'SCROLL_ANIMATE') return result(intent, 'SCROLL_SMOOTH', 'LIMITED', 'Unverified existing scroll transition; preserve without normalization');
+    if (evidence.sourceHasInstances === true && evidence.instanceProjectionSafe !== true && !transitionMatches(action.transition, transition)) return result(intent, 'SCROLL_SMOOTH', 'UNKNOWN', 'SKIP THE WRITE: dependent instance reaction projection is uncertain');
     return result(intent, 'SCROLL_SMOOTH', 'SUPPORTED', 'Explicit smooth scrolling in verified native context', structuredClone(transition));
   }
   if (!eligible(action)) return result(intent, null, ['ENTER', 'EXIT', 'SHARED_ELEMENT'].includes(intent) || override ? 'LIMITED' : 'UNKNOWN', 'MOTION_LIMITED or prerequisite: no compatible existing NODE transition; preserve action');

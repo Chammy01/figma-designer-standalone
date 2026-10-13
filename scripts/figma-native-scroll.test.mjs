@@ -79,6 +79,12 @@ test('equivalent float32 values and repeated smooth requests are no-ops',()=>{
   const f=scrollFixture({transition:{...token,duration:Math.fround(.2)}});assert.ok(transitionMatches(f.control.reactions[0].action.transition,token));assert.equal(plan(f).write,false);
   const fresh=scrollFixture();fresh.control.reactions=plan(fresh).reactions;assert.equal(plan(fresh).write,false);
 });
+test('uncertain dependent-instance projection blocks smooth-scroll writes but permits an existing no-op',()=>{
+  const f=scrollFixture(),r=f.request()[0];r.evidence.sourceHasInstances=true;
+  assert.equal(planMotion(f.control.reactions,[r],{authorized:true,ownership:'runtime'}).write,false);
+  assert.equal(resolveMotion({...r,action:f.control.reactions[0].action}).support,'UNKNOWN');
+  const normalized=scrollFixture({transition:token}),n=normalized.request()[0];n.evidence.sourceHasInstances=true;assert.equal(planMotion(normalized.control.reactions,[n],{authorized:true,ownership:'runtime'}).write,false);assert.equal(resolveMotion({...n,action:normalized.control.reactions[0].action}).support,'SUPPORTED');
+});
 test('audit, unauthorized and production/state-library proposals make zero writes',()=>{
   const f=scrollFixture();for(const options of [{},{authorized:false,ownership:'runtime'},{authorized:true,ownership:'production'},{authorized:true,ownership:'states'}])assert.equal(planMotion(f.control.reactions,f.request(),options).write,false);
 });

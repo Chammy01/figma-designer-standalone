@@ -61,7 +61,9 @@ Lossless complete reaction arrays remain mandatory. The proposal changes only
 the exact eligible transition and keeps the deprecated singular `action` mirror
 equivalent to `actions[0]`. Counts, triggers/fields, action types, navigation,
 destinations, scroll/video flags, overlay fields and unrelated actions remain
-identical. Conflicting same-trigger location actions or uncertain reconstruction
+identical. The existing dependent-instance projection check also applies to scroll:
+uncertain inherited reaction effects prevent a new transition write; already matching
+tokens remain no-ops. Conflicting same-trigger location actions or uncertain reconstruction
 prevent writes. Read back immediately and compare every non-transition field.
 Timeout means indeterminate: stabilize/read/reconcile before retrying missing work.
 
@@ -166,7 +168,7 @@ were restored. Two subsequent source captures were stable, zero writes; health
 returned ok/recentErrorCount 0. Production, canonical states/runtime and approved
 Beta 2 runtime hashes remain unchanged. No acceptance nodes/reactions remain.
 
-Local regressions: **322 npm contracts** (39 dedicated V1.3 tests), **275 plugin**,
+Local regressions: **323 npm contracts** (40 dedicated V1.3 tests), **275 plugin**,
 **112 approved-dispatcher hardening/variants/source** (71 source), **6 browser** and
 **1 installed OpenCode** test passed. **30 setup fixtures**, clean source archive
 build, package extraction/setup, source/release/privacy checks and approved runtime
