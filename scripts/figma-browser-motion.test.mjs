@@ -9,7 +9,7 @@ import { sourceProjectionVersion } from './figma-browser-freshness.mjs';
 import { sourceFingerprint } from './figma-browser-freshness.mjs';
 import { normalizeSource } from './figma-live-source.mjs';
 import { validateManifest } from './figma-browser-contract.mjs';
-const read = p => readFileSync(new URL('../'+p,import.meta.url),'utf8');
+const read = p => readFileSync(new URL('../'+p,import.meta.url),'utf8').replaceAll('\r\n','\n');
 const byName = name => browserFixture(browserMotionCases.find(c => c.name === name));
 
 test('six browser tokens consume canonical semantic registry without duration drift', () => {
