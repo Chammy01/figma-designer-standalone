@@ -42,6 +42,7 @@ design_critique: design quality, hierarchy, balance, visual weaknesses or advice
 component_state_authoring: hover/pressed/disabled/selected/on-off variants in the state library, production read-only.
 flow_wiring: one explicit source-to-existing-destination journey, not invented destinations.
 working_interaction: a bounded control upgrade within interactive alone; no invented product logic.
+Open supplied details as a modal, make Close dismiss a modal, or position an existing avatar menu uses working_interaction. It inspects CENTERED_MODAL versus PRECONFIGURED_OVERLAY; unavailable contextual configuration is FIGMA_LIMITED, not a new route or permission to center a menu. Softer modal transitions stay motion; checking modal wiring stays qa.
 When a bounded control request clearly asks for working tabs/filters/dropdowns, select working_interaction even if behavior prerequisites are unverified. The canonical workflow must inspect and clarify/report missing semantics before authoring, not invent them. An unverified prerequisite alone does not change a clear capability family.
 motion: transitions/easing on existing reactions only; report missing prerequisites. Hover animation without existing state/reaction goes to states first, report motion as later work.
 qa: correctness, broken/dead controls, wiring or structure, not design quality; read-only.

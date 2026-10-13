@@ -11,6 +11,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import statefulActions from './fixtures/stateful-actions.json';
 import { handleWritePrototypeRequest } from '../vendor/figma-mcp/plugin/src/write-prototype';
+import overlayCapability from './fixtures/overlay-capability.json';
+import { motionTokens, transitionMatches } from '../rules/figma-motion-semantics.mjs';
 
 function fixture() {
   const nodes = new Map<string, any>();
@@ -40,6 +42,82 @@ function fixture() {
 }
 const projection = async (f: any) => (await collectBrowserSource(f.api, f.runtime)).projection;
 const fingerprint = async (f: any) => evidenceForProjection(await projection(f)).sourceFingerprint;
+
+// Phase-0 evidence only: no rich-overlay workflow is enabled by these fixtures.
+function overlayFixture() {
+  const f = fixture();
+  const overlay = f.node('47:11', 'FRAME', f.page, structuredClone(overlayCapability.defaultFrameSettings));
+  const text = f.node('47:13', 'TEXT', overlay, { characters: 'Supplied details', getStyledTextSegments: () => [] });
+  const close = f.node('47:14', 'FRAME', overlay, { reactions: [structuredClone(overlayCapability.close)] });
+  f.screen.reactions = [structuredClone(overlayCapability.open)];
+  return { ...f, overlay, overlayText: text, close };
+}
+
+test('overlay audit records native placement rejection separately from observed modal playback', () => {
+  expect(overlayCapability.status).toBe('PASS');
+  expect(overlayCapability.relativePositionRequest.actions[0].overlayRelativePosition).toEqual({ x: 24, y: 170 });
+  expect(overlayCapability.relativePositionError).toContain('MANUAL');
+  expect(overlayCapability.playback.contextualPopover).toBe('BLOCKED');
+  expect(overlayCapability.playback.tooltip).toBe('NOT_VERIFIED');
+  expect(overlayCapability.playback.outsideClickDismisses).toBe(false);
+  expect(transitionMatches(overlayCapability.open.actions[0].transition, motionTokens.OVERLAY_DEFAULT)).toBe(true);
+});
+
+test('existing prototype writer passes exact OVERLAY and CLOSE shapes without changing semantics', async () => {
+  for (const reaction of [overlayCapability.open, overlayCapability.close]) {
+    let undo = 0;
+    const n: any = { id: '47:5', name: 'Audit trigger', reactions: [], setReactionsAsync: async (r: any) => { n.reactions = r; } };
+    (globalThis as any).figma = { getNodeByIdAsync: async () => n, commitUndo: () => { undo++; } };
+    const before = structuredClone(reaction);
+    await handleWritePrototypeRequest({ type: 'set_reactions', nodeIds: [n.id], params: { reactions: [reaction] } });
+    expect(n.reactions).toEqual([before]); expect(reaction).toEqual(before); expect(undo).toBe(1);
+  }
+});
+
+test('native MANUAL-placement rejection propagates without committing or changing an existing edge', async () => {
+  let attempted: any;
+  const original = [structuredClone(overlayCapability.close)];
+  const n = { id: '47:7', name: 'Audit Status', reactions: original, setReactionsAsync: async (r: any) => { attempted = r; throw new Error(overlayCapability.relativePositionError); } };
+  (globalThis as any).figma = { getNodeByIdAsync: async () => n, commitUndo: () => { throw new Error('Unexpected commit'); } };
+  await expect(handleWritePrototypeRequest({ type: 'set_reactions', nodeIds: [n.id], params: { reactions: [overlayCapability.relativePositionRequest] } })).rejects.toThrow(overlayCapability.relativePositionError);
+  expect(attempted).toEqual([overlayCapability.relativePositionRequest]); expect(n.reactions).toEqual(original);
+});
+
+test('source closure captures native overlay settings, complete open/close arrays and content without writes', async () => {
+  const f = overlayFixture(); const before = structuredClone(f.screen.reactions);
+  f.api.commitUndo = () => { throw new Error('WRITE'); };
+  const raw = await projection(f);
+  const overlay = raw.dependencies.find((n: any) => n.id === f.overlay.id);
+  expect(overlay.props.overlayPositionType).toBe('CENTER');
+  expect(overlay.props.overlayBackground).toEqual({ type: 'NONE' });
+  expect(overlay.props.overlayBackgroundInteraction).toBe('NONE');
+  expect(overlay.children.find((n: any) => n.id === f.close.id).reactions).toEqual([overlayCapability.close]);
+  expect(overlay.children.find((n: any) => n.id === f.overlayText.id).props.characters).toBe('Supplied details');
+  expect(raw.runtime.children[0].reactions).toEqual(before); expect(f.screen.reactions).toEqual(before);
+});
+
+for (const [name, change] of [
+  ['overlay position mode', (f: any) => { f.overlay.overlayPositionType = 'MANUAL'; }],
+  ['overlay dimming', (f: any) => { f.overlay.overlayBackground = { type: 'SOLID_COLOR', color: { r: 0, g: 0, b: 0, a: 0.3 } }; }],
+  ['outside-click behavior', (f: any) => { f.overlay.overlayBackgroundInteraction = 'CLOSE_ON_CLICK_OUTSIDE'; }],
+  ['overlay content', (f: any) => { f.overlayText.characters = 'Different supplied content'; }],
+  ['relative placement', (f: any) => { f.screen.reactions[0].actions[0].overlayRelativePosition = { x: 24, y: 170 }; }],
+  ['close semantics', (f: any) => { f.close.reactions[0].actions[0].type = 'BACK'; }],
+] as const) test(`${name} changes source fingerprint (capture only, not authoring support)`, async () => {
+  const f = overlayFixture(), before = await fingerprint(f); change(f);
+  expect(await fingerprint(f)).not.toEqual(before);
+});
+
+test('unrelated production content is excluded while runtime-owned overlay FRAMEs are captured', async () => {
+  const f = overlayFixture(); const unrelated = f.node('47:99', 'TEXT', f.page, { characters: 'Unrelated' });
+  f.page.children = f.page.children.filter((n: any) => n !== f.overlay);
+  f.runtime.children.push(f.overlay); f.overlay.parent = f.runtime;
+  const before = await fingerprint(f); unrelated.characters = 'Changed';
+  expect(await fingerprint(f)).toEqual(before);
+  const raw = await projection(f);
+  expect(raw.runtime.children.some((n: any) => n.id === f.overlay.id && n.parentId === f.runtime.id)).toBe(true);
+  expect(raw.dependencies.some((n: any) => n.id === f.overlay.id)).toBe(false);
+});
 
 test('canonical numbers have a fixed normalized hash vector', () => {
   expect(normalizeSource({ b: 0.15000000596, a: 123.9999999 })).toEqual({ a: 124, b: 0.15 });

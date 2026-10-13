@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "milestone": "SUPPORTED_SUBSET_PASS",
+  "support": {
+    "CENTERED_MODAL": "SUPPORTED",
+    "PRECONFIGURED_OVERLAY": "CONDITIONALLY_SUPPORTED",
+    "CONTEXTUAL_OVERLAY_REQUIRED": "FIGMA_LIMITED"
+  },
+  "baseline": "b10bd1487aeab3a68fd4992df2ef7a7183d87a3e",
+  "defaultFrameSettings": {
+    "overlayPositionType": "CENTER",
+    "overlayBackground": { "type": "NONE" },
+    "overlayBackgroundInteraction": "NONE"
+  },
+  "open": {
+    "trigger": { "type": "ON_CLICK" },
+    "actions": [{
+      "type": "NODE",
+      "navigation": "OVERLAY",
+      "destinationId": "47:11",
+      "resetVideoPosition": false,
+      "transition": { "type": "DISSOLVE", "duration": 0.15000000596046448, "easing": { "type": "EASE_OUT" } }
+    }]
+  },
+  "close": { "trigger": { "type": "ON_CLICK" }, "actions": [{ "type": "CLOSE" }] },
+  "relativePositionRequest": {
+    "trigger": { "type": "ON_CLICK" },
+    "actions": [{
+      "type": "NODE",
+      "navigation": "OVERLAY",
+      "destinationId": "47:16",
+      "overlayRelativePosition": { "x": 24, "y": 170 },
+      "transition": { "type": "DISSOLVE", "duration": 0.15, "easing": { "type": "EASE_OUT" } }
+    }]
+  },
+  "relativePositionError": "Actions only support overlayRelativePosition when navigation is \"OVERLAY\" and the destination is a frame with overlayPosition equal to \"MANUAL\"",
+  "playback": {
+    "centeredOpen": "OBSERVED",
+    "closeReturnsToBase": "OBSERVED",
+    "outsideClickDismisses": false,
+    "contextualPopover": "BLOCKED",
+    "tooltip": "NOT_VERIFIED",
+    "nestedOverlay": "NOT_VERIFIED",
+    "back": "NOT_VERIFIED",
+    "swap": "NOT_VERIFIED"
+  }
+}

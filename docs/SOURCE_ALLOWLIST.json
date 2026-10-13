@@ -286,5 +286,9 @@
   "scripts/fixtures/stateful-actions.json",
   "docs/SEMANTIC_MOTION_V1_2_4.md",
   "docs/STATEFUL_VARIABLES_V1_2_5.md",
-  "docs/CONDITIONAL_FRESHNESS_BETA_2.md"
+  "docs/CONDITIONAL_FRESHNESS_BETA_2.md",
+  "scripts/fixtures/overlay-capability.json",
+  "docs/RICH_OVERLAYS_V1_2_6.md",
+  "rules/figma-overlay-rules.md",
+  "scripts/figma-overlay.test.mjs"
 ]

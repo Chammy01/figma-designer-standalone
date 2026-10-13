@@ -257,6 +257,14 @@ Examples:
 
 K. OVERLAYS / VARIABLES / STATEFUL BEHAVIOR
 
+Apply `rules/figma-overlay-rules.md` overlay checks strictly read-only. Inspect actual
+readonly destination settings through the source collector. Verify runtime-owned
+FRAME destinations, real content, equivalent OPEN/CLOSE duplicates, required CLOSE
+inside overlay context, orphan/reachability, shared motion and production fingerprints.
+Flag contextual intent silently represented by CENTER; relative position requires
+verified MANUAL. Report missing required outside-click/background configuration as
+FIGMA_LIMITED; never repair it. V1.2.5 remains HOLD; no new stateful QA certification.
+
 When overlays or variables are present:
 - verify destinations/collections/values exist
 - verify open/close/selection behavior is coherent

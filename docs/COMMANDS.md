@@ -144,6 +144,12 @@ plan rejects SET_VARIABLE and CONDITIONAL reaction actions. Creating variables
 alone does not prove working stateful behavior. See the
 [V1.2.5 capability audit](STATEFUL_VARIABLES_V1_2_5.md).
 
+Supported centered modals can open above the current screen and close explicitly.
+Existing preconfigured overlay destinations may be reused. Automatic contextual
+menu/popover/tooltip positioning, dimming and outside-click configuration are
+FIGMA_LIMITED when the destination is not already suitably configured. See the
+[V1.2.6 overlay support and audit](RICH_OVERLAYS_V1_2_6.md).
+
 ## `/figma/motion`
 
 Validate and apply motion to existing interactions.

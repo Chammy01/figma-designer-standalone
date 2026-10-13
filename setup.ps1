@@ -35,6 +35,7 @@ $paths = @('opencode.example.json','package.json','package-lock.json','docs/APPR
     '.opencode/plugins/figma-critique-guard.js',
     'rules/figma-standalone-rules.md','rules/figma-design-rules.md','rules/figma-intent-router.mjs','rules/figma-prototype-planner.md',
     'rules/figma-motion-semantics.mjs','rules/figma-motion-semantics.md',
+    'rules/figma-overlay-rules.md',
     'scripts/figma-browser-test.mjs','scripts/figma-browser-status.mjs','scripts/figma-browser-source.mjs',
     'scripts/figma-live-source.mjs','scripts/figma-browser-contract.mjs','scripts/figma-browser-freshness.mjs')
 foreach ($name in @('setup','doctor','design','revise','critique','states','flow','interactive','motion','qa','browser','browser-test','status','version')) {

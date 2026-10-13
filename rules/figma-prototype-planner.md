@@ -66,6 +66,13 @@ permission or silently run downstream workflows mentioned in its architecture.
    Production stays unchanged; only the narrow existing library-reaction exception
    in the interactive contract applies. Verify INSTANCE source COMPONENT and its
    componentSetId, geometry and true Auto Layout order before replacing clones.
+   OVERLAY assembly is an INTERACTIVE subphase: follow rules/figma-overlay-rules.md.
+   Classify CENTERED_MODAL, PRECONFIGURED_OVERLAY or FIGMA_LIMITED_CONTEXTUAL.
+   Reuse supported modal FRAMEs and OPEN/CLOSE; preserve readonly destination settings.
+   A non-preconfigured contextual menu remains FIGMA_LIMITED without a centered
+   substitute or placement write. Continue unrelated supported work; no variable
+   phase (V1.2.5 HOLD). Existing matching edges/motion are no-ops. Motion follows
+   reactions and terminal QA reports the distinction without repairing.
 3. FLOW only for explicit journey edges still missing after runtime work, or as the
    sole runtime builder when focused journeys suffice. Do not run both builders
    blindly. Re-read mappings/reactions and reuse completed screens/edges. Flow
@@ -121,7 +128,10 @@ implementable behavior or failed checks. Planning alone is not execution success
 Only states, interactive, flow, motion and read-only QA are eligible. No new commands
 or aliases, MCP protocols, variable architecture, conditional logic, richer overlay
 framework, timeline/keyframe engine or browser parity. Existing overlay behavior may
-be used only under the current interactive contract with real supported content.
+be used under the interactive contract and rules/figma-overlay-rules.md with real
+supported content: centered modal authoring or reuse of preconfigured destinations,
+not autonomous contextual configuration. Optional native limitations may yield WARN;
+BLOCKED when the required core outcome depends on unavailable configuration.
 Do not invoke /figma/critique, reset its storage, alter tool schemas or bypass its
 persistent guard. A queued/steering request during guarded critique remains read-only;
 only the existing fresh-idle request lifecycle can select a new authoring workflow.

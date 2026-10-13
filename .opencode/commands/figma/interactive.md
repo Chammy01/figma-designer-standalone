@@ -260,9 +260,16 @@ Do not fabricate missing tab panels.
 
 G. OVERLAYS / MODALS / MENUS
 
-Use Figma overlay actions only when the overlay content is real and semantically supported.
-Place runtime-only overlay content inside the canonical Interactive App ownership zone or another unambiguous system-owned runtime scope supported by Figma.
-Do not invent modal/menu content just to exercise an overlay action.
+Read and apply `rules/figma-overlay-rules.md` before overlay writes.
+Classify CENTERED_MODAL, PRECONFIGURED_OVERLAY or FIGMA_LIMITED contextual behavior.
+Author supplied centered modal content and OPEN/CLOSE only inside the canonical
+Interactive App SECTION. Reuse verified equivalent FRAMEs/edges; repeat requests
+make zero redundant writes. Do not substitute CENTER for contextual intent or try
+to write readonly destination placement/background/dismissal settings.
+Use the existing read-only source collector to verify those settings, shared
+OVERLAY_DEFAULT for supported OPEN, then readback and read-only QA. Preserve the
+base screen and all unrelated reactions; do not invent modal/menu content.
+V1.2.5 remains HOLD: no SET_VARIABLE or CONDITIONAL workflow enablement.
 
 H. BACK / CLOSE
 
@@ -395,6 +402,7 @@ The FIRST non-empty line must be exactly one of:
 
 FIGMA_INTERACTIVE: PASS
 FIGMA_INTERACTIVE: WARN
+FIGMA_INTERACTIVE: BLOCKED
 FIGMA_INTERACTIVE: FAIL
 
 Use PASS only when:
@@ -407,6 +415,10 @@ Use PASS only when:
 - any remaining limitations are intrinsic Figma/runtime limitations or intentionally undefined behavior, not missing implementation work
 
 Use WARN when the working interface is structurally valid but meaningful behavior remains Figma-limited or source behavior is materially undefined.
+
+Use BLOCKED when the required requested core outcome depends on unavailable
+capability, such as contextual destination configuration, and cannot be faithfully
+completed. Optional limitations alongside completed supported core work remain WARN.
 
 Use FAIL for production mutation, invalid/ambiguous runtime architecture, wrong component mappings, broken destinations, duplicate artifacts, or required interactions that were implementable but left broken.
 
