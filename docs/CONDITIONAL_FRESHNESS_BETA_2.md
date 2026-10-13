@@ -62,11 +62,30 @@ Local release-grade validation passed before committing:
 Clean source and extracted-package setup verified all three approved artifact hashes,
 local executable paths, and idempotent repeat setup. The full exact conditional
 fixture passed against the approved compiled dispatcher. No Figma mutation test was
-performed for this repair. Activation is pending dismissal of a Windows Security
-dialog covering Figma; it must not be inferred from changing code.js on disk.
-Doctor, actual loaded-bundle proof and post-activation live capture remain pending.
-No repaired-runtime PASS or public release is claimed before those checks and exact
-commit CI succeed. Private snapshots and build paths are excluded.
+performed for this repair. The old plugin was deliberately closed and the bridge
+confirmed `plugin not connected`. The user then imported the canonical repository
+manifest and confirmed reconnection. Its main/UI paths resolve to the exact approved
+files above; health and normal document reads passed after reconnection. This is
+intentional manifest activation, not an inference from rebuilding a file. The
+current toolset has no remote in-memory bundle checksum; identity is established
+by the confirmed manifest import, verified artifact paths/hashes and reconnect.
+
+Post-activation `/figma/doctor`: PASS, 2 Figma reads and zero writes. Fresh live
+source regression: 24 read calls and zero writes, two independent double captures
+with identical fingerprints. Runtime source hash:
+`3104da00c58fac6c4e556fc3c9dbacf5497411305383da48390d619c48b65a53`.
+Full-page before/after hash:
+`42e8efb7cb579d7320c9b148c259459a3fa4c28285c4773dffe500d09ab0c23c`;
+five scoped reaction arrays also match. Source is AVAILABLE/STABLE; browser-export
+freshness remains UNVERIFIED because there is no export. No browser was regenerated.
+
+Source commit `6b5f7ee51beb24f72c88d9931c0fd349261f743a` was committed and pushed;
+[all three hosted CI jobs passed](https://github.com/Chammy01/figma-designer-standalone/actions/runs/38339430001).
+Clean archive/bootstrap and release-package extraction/setup were repeated against
+that exact commit and passed. The approved bundle's post-activation fixture suite
+also passed all 86 hardening/variants/source tests; MCP catalog stayed at 106 tools.
+Final validation metadata is committed separately and its exact CI/committed-source
+package are checked before publishing Beta 2. Private snapshots/build paths are excluded.
 Native stateful playback is not part of this release: the connected plan still
 rejects SET_VARIABLE and CONDITIONAL authoring. No live stateful write was retried.
 

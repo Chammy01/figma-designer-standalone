@@ -284,7 +284,8 @@ See [Beta 2 validation](CONDITIONAL_FRESHNESS_BETA_2.md) for activation and rele
 
 Resume with a connected non-sensitive Figma context whose plan permits both actions,
 then prove structural readback and actual FALSE/TRUE playback before enabling product
-behavior. Deploy the tested source repair under approved runtime-change scope.
+behavior. The source repair has independent approved Beta 2 activation and validation;
+it does not establish native stateful playback support.
 No plan upgrade is performed here. Browser parity, arbitrary design-token binding,
 themes, external persistence, localStorage, keyframes and richer overlay behavior
 remain outside this milestone. Semantic interpretation and usefulness remain
