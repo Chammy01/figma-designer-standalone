@@ -79,6 +79,15 @@ substitute is BROKEN; real required CLOSE must exist in overlay context. Readonl
 settings never change; required unconfigured outside/background behavior is limited.
 Use shared Semantic Motion tokens/tolerances; audit MATCH/MISMATCH/LIMITED/UNKNOWN
 without rewriting. No invented motion, component states or business consequences.
+For SCROLL_TO, absent an explicit animated-scroll expectation, keep SCROLL_NATIVE
+and preserve null/current transition. An explicit motion:{intent:"SCROLL_SMOOTH"}
+expectation uses current source-projection overflowDirection, ancestry and content
+geometry via inspectScrollContext; supplied motion.evidence cannot override native
+context facts. MATCH means the canonical SCROLL_ANIMATE and context are verified.
+Prepared context with null/wrong canonical transition is MISMATCH/BROKEN. An
+unprepared context is LIMITED/FIGMA_LIMITED, not an invented implementable defect;
+missing native evidence is UNKNOWN. QA makes zero writes and never prepares a
+scroll container or repairs the transition. Structural MATCH is not playback proof.
 
 PASS: no broken controls, invalid graph/ownership, required failed journey or mutation.
 WARN: supported core valid, optional limitations/undefined expectations or low-impact

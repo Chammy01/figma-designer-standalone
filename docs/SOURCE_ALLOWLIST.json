@@ -299,5 +299,9 @@
   "docs/INTERACTION_QA_V2_V1_2_7.md",
   "docs/FIGMA_MOTION_CAPABILITY_AUDIT_V1_2_8.md",
   "scripts/fixtures/figma-motion-capabilities.json",
-  "scripts/figma-motion-capability.test.mjs"
+  "scripts/figma-motion-capability.test.mjs",
+  "docs/NATIVE_SCROLL_MOTION_V1_3.md",
+  "scripts/figma-native-scroll.test.mjs",
+  "scripts/fixtures/native-scroll.mjs",
+  "scripts/fixtures/native-scroll-live.json"
 ]

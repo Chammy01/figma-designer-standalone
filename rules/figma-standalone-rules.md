@@ -174,7 +174,10 @@ Use the authoritative token registry in rules/figma-motion-semantics.mjs and the
 interpretation rules in rules/figma-motion-semantics.md. STATE/FEEDBACK use STATE_FAST;
 ordinary navigation uses NAV_DEFAULT; justified spatial navigation uses NAV_SPATIAL;
 existing overlays use OVERLAY_DEFAULT. Values/tolerances are centralized there.
-SCROLL_NATIVE preserves SCROLL_TO, including its required null transition. Motion
+SCROLL_NATIVE preserves existing SCROLL_TO, including null/current transition.
+Only explicitly requested animated scrolling selects SCROLL_SMOOTH, after verifying
+an existing owned child target and prepared native scroll context. Missing context
+is FIGMA_LIMITED: SCROLL_CONTEXT_PREPARATION; no preparation/write workaround. Motion
 audit is read-only without explicit change authorization. Limited enter/exit/shared
 element intents never authorize new architecture. Planner passes semantic intent;
 single motion requests stay in motion and retain the transition-only write contract.

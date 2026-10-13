@@ -86,6 +86,12 @@ permission or silently run downstream workflows mentioned in its architecture.
    implementation; never infer spatial direction from canvas positions. Audit
    requests stay read-only. Do not rerun matching semantic tokens.
    Normal specialist defaults already created by wiring need no separate rewrite.
+   Explicit smooth scrolling passes SCROLL_SMOOTH only after a supported SCROLL_TO
+   edge exists and the intended child/native overflow context is verified. Reuse
+   valid runtime work; do not rebuild screens or prepare scrolling through UI,
+   private fields or a new setter. Unprepared scrolling is FIGMA_LIMITED:
+   SCROLL_CONTEXT_PREPARATION; continue unrelated supported work. Ordinary scroll
+   wiring keeps SCROLL_NATIVE. No stateful variable phase (V1.2.5 HOLD).
    Motion changes transition
    objects on existing eligible reactions only; preserve complete non-transition
    semantics/counts. No decorative animation campaign or directional flair.

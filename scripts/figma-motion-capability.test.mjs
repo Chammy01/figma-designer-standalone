@@ -118,8 +118,8 @@ test('all five existing semantic tokens retain valid bounded native evidence',()
   assert.ok(transitionMatches(overlay,motionTokens.OVERLAY_DEFAULT));
   assert.equal(capability('SCROLL_NATIVE').status,'PLAYBACK_VERIFIED');
 });
-test('audit adds no new motion tokens or authoring behaviors',()=>{
-  assert.deepEqual(Object.keys(motionTokens),['STATE_FAST','NAV_DEFAULT','NAV_SPATIAL','OVERLAY_DEFAULT']);
+test('historical audit enabled no tokens; current registry retains its four baseline tokens',()=>{
+  assert.deepEqual(Object.keys(motionTokens).filter(name=>name!=='SCROLL_SMOOTH'),['STATE_FAST','NAV_DEFAULT','NAV_SPATIAL','OVERLAY_DEFAULT']);
   assert.equal(audit.policy.auditOnly,true); assert.equal(audit.policy.runtimeChanges,0);
 });
 test('audit introduces no user-facing command or alias',()=>{

@@ -260,6 +260,13 @@ Directional transitions:
 - shared NAV_SPATIAL values/tolerance; semantic direction, never canvas position
 
 Existing OVERLAY uses shared OVERLAY_DEFAULT; SCROLL_NATIVE preserves SCROLL_TO.
+Explicit smooth-scroll expectations use SCROLL_SMOOTH: verify the existing child
+target, native overflowDirection, common owned scroll container, content overflow
+and canonical SCROLL_ANIMATE via the shared read-only helpers. Do not accept supplied
+evidence flags in place of current native context. Prepared null/wrong token is
+MISMATCH/BROKEN; unprepared is LIMITED/FIGMA_LIMITED, unavailable evidence UNKNOWN.
+Without an explicit smooth requirement, preserve ordinary null/current SCROLL_TO.
+No QA writes, preparation or automatic repair; browser parity is NOT_IMPLEMENTED.
 Read rules/figma-motion-semantics.md for the support matrix. Verified compatible
 overrides and preserved shared/spatial motion are not default-token defects.
 QA remains read-only: report mismatches without normalization.

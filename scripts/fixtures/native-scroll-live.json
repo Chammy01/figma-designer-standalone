@@ -1,0 +1,1456 @@
+{
+  "milestone": "V1.3",
+  "baselineCommit": "7d9602416c24cfed98d94db5912e8ce10fb4ec3d",
+  "candidate": {
+    "request": [
+      {
+        "action": {
+          "destinationId": "70:835",
+          "navigation": "SCROLL_TO",
+          "resetVideoPosition": false,
+          "transition": {
+            "type": "SCROLL_ANIMATE",
+            "duration": 0.2,
+            "easing": {
+              "type": "EASE_OUT"
+            }
+          },
+          "type": "NODE"
+        },
+        "actions": [
+          {
+            "destinationId": "70:835",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": {
+              "type": "SCROLL_ANIMATE",
+              "duration": 0.2,
+              "easing": {
+                "type": "EASE_OUT"
+              }
+            },
+            "type": "NODE"
+          }
+        ],
+        "trigger": {
+          "type": "ON_CLICK"
+        }
+      }
+    ],
+    "readback": [
+      {
+        "action": {
+          "destinationId": "70:835",
+          "navigation": "SCROLL_TO",
+          "resetVideoPosition": false,
+          "transition": {
+            "duration": 0.20000000298023224,
+            "easing": {
+              "type": "EASE_OUT"
+            },
+            "type": "SCROLL_ANIMATE"
+          },
+          "type": "NODE"
+        },
+        "actions": [
+          {
+            "destinationId": "70:835",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": {
+              "duration": 0.20000000298023224,
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "type": "SCROLL_ANIMATE"
+            },
+            "type": "NODE"
+          }
+        ],
+        "trigger": {
+          "type": "ON_CLICK"
+        }
+      }
+    ],
+    "nonTransitionSemanticsUnchanged": true,
+    "playback": "PLAYBACK_VERIFIED"
+  },
+  "nativeContextNodes": [
+    {
+      "id": "36:719",
+      "name": "Figma Designer — Interactive App",
+      "type": "SECTION",
+      "parentId": "9:306",
+      "children": [
+        "36:720",
+        "36:739",
+        "47:32",
+        "47:38",
+        "47:43",
+        "70:825",
+        "70:840"
+      ]
+    },
+    {
+      "id": "70:825",
+      "name": "V1.3 Scroll Acceptance — Prepare Vertical",
+      "type": "FRAME",
+      "parentId": "36:719",
+      "geometry": {
+        "height": 500,
+        "width": 800,
+        "x": 0,
+        "y": 0
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "overflowDirection": "VERTICAL"
+      },
+      "children": [
+        "70:826",
+        "70:827",
+        "70:829",
+        "70:831",
+        "70:833",
+        "70:835"
+      ]
+    },
+    {
+      "id": "70:826",
+      "name": "Title",
+      "type": "TEXT",
+      "parentId": "70:825",
+      "geometry": {
+        "height": 27,
+        "width": 720,
+        "x": 24,
+        "y": 20
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            24
+          ],
+          [
+            0,
+            1,
+            20
+          ]
+        ]
+      },
+      "children": []
+    },
+    {
+      "id": "70:827",
+      "name": "Smooth Scroll",
+      "type": "FRAME",
+      "parentId": "70:825",
+      "geometry": {
+        "height": 50,
+        "width": 220,
+        "x": 24,
+        "y": 70
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            24
+          ],
+          [
+            0,
+            1,
+            70
+          ]
+        ],
+        "overflowDirection": "NONE"
+      },
+      "children": [
+        "70:828"
+      ]
+    },
+    {
+      "id": "70:828",
+      "name": "Smooth to Details",
+      "type": "TEXT",
+      "parentId": "70:827",
+      "geometry": {
+        "height": 19,
+        "width": 135,
+        "x": 12,
+        "y": 12
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            12
+          ],
+          [
+            0,
+            1,
+            12
+          ]
+        ]
+      },
+      "children": []
+    },
+    {
+      "id": "70:829",
+      "name": "Native Scroll",
+      "type": "FRAME",
+      "parentId": "70:825",
+      "geometry": {
+        "height": 50,
+        "width": 220,
+        "x": 264,
+        "y": 70
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            264
+          ],
+          [
+            0,
+            1,
+            70
+          ]
+        ],
+        "overflowDirection": "NONE"
+      },
+      "children": [
+        "70:830"
+      ]
+    },
+    {
+      "id": "70:830",
+      "name": "Jump to Details",
+      "type": "TEXT",
+      "parentId": "70:829",
+      "geometry": {
+        "height": 19,
+        "width": 118,
+        "x": 12,
+        "y": 12
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            12
+          ],
+          [
+            0,
+            1,
+            12
+          ]
+        ]
+      },
+      "children": []
+    },
+    {
+      "id": "70:831",
+      "name": "Planner Scroll",
+      "type": "FRAME",
+      "parentId": "70:825",
+      "geometry": {
+        "height": 50,
+        "width": 220,
+        "x": 504,
+        "y": 70
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            504
+          ],
+          [
+            0,
+            1,
+            70
+          ]
+        ],
+        "overflowDirection": "NONE"
+      },
+      "children": [
+        "70:832"
+      ]
+    },
+    {
+      "id": "70:832",
+      "name": "Planner to Details",
+      "type": "TEXT",
+      "parentId": "70:831",
+      "geometry": {
+        "height": 19,
+        "width": 133,
+        "x": 12,
+        "y": 12
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            12
+          ],
+          [
+            0,
+            1,
+            12
+          ]
+        ]
+      },
+      "children": []
+    },
+    {
+      "id": "70:833",
+      "name": "Middle",
+      "type": "FRAME",
+      "parentId": "70:825",
+      "geometry": {
+        "height": 140,
+        "width": 752,
+        "x": 24,
+        "y": 420
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            24
+          ],
+          [
+            0,
+            1,
+            420
+          ]
+        ],
+        "overflowDirection": "NONE"
+      },
+      "children": [
+        "70:834"
+      ]
+    },
+    {
+      "id": "70:834",
+      "name": "Middle landmark",
+      "type": "TEXT",
+      "parentId": "70:833",
+      "geometry": {
+        "height": 34,
+        "width": 220,
+        "x": 0,
+        "y": 0
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ]
+      },
+      "children": []
+    },
+    {
+      "id": "70:835",
+      "name": "Details",
+      "type": "FRAME",
+      "parentId": "70:825",
+      "geometry": {
+        "height": 220,
+        "width": 752,
+        "x": 24,
+        "y": 1000
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            24
+          ],
+          [
+            0,
+            1,
+            1000
+          ]
+        ],
+        "overflowDirection": "NONE"
+      },
+      "children": [
+        "70:836"
+      ]
+    },
+    {
+      "id": "70:836",
+      "name": "Details — target reached",
+      "type": "TEXT",
+      "parentId": "70:835",
+      "geometry": {
+        "height": 39,
+        "width": 377,
+        "x": 0,
+        "y": 0
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ]
+      },
+      "children": []
+    },
+    {
+      "id": "70:840",
+      "name": "V1.3 Scroll Acceptance — Unprepared",
+      "type": "FRAME",
+      "parentId": "36:719",
+      "geometry": {
+        "height": 300,
+        "width": 800,
+        "x": 0,
+        "y": 0
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "overflowDirection": "NONE"
+      },
+      "children": [
+        "70:841",
+        "70:842",
+        "70:844",
+        "70:846",
+        "70:848",
+        "70:850"
+      ]
+    },
+    {
+      "id": "70:841",
+      "name": "Title",
+      "type": "TEXT",
+      "parentId": "70:840",
+      "geometry": {
+        "height": 27,
+        "width": 720,
+        "x": 24,
+        "y": 20
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            24
+          ],
+          [
+            0,
+            1,
+            20
+          ]
+        ]
+      },
+      "children": []
+    },
+    {
+      "id": "70:842",
+      "name": "Smooth Scroll",
+      "type": "FRAME",
+      "parentId": "70:840",
+      "geometry": {
+        "height": 50,
+        "width": 220,
+        "x": 24,
+        "y": 70
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            24
+          ],
+          [
+            0,
+            1,
+            70
+          ]
+        ],
+        "overflowDirection": "NONE"
+      },
+      "children": [
+        "70:843"
+      ]
+    },
+    {
+      "id": "70:843",
+      "name": "Smooth to Details",
+      "type": "TEXT",
+      "parentId": "70:842",
+      "geometry": {
+        "height": 19,
+        "width": 135,
+        "x": 12,
+        "y": 12
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            12
+          ],
+          [
+            0,
+            1,
+            12
+          ]
+        ]
+      },
+      "children": []
+    },
+    {
+      "id": "70:844",
+      "name": "Native Scroll",
+      "type": "FRAME",
+      "parentId": "70:840",
+      "geometry": {
+        "height": 50,
+        "width": 220,
+        "x": 264,
+        "y": 70
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            264
+          ],
+          [
+            0,
+            1,
+            70
+          ]
+        ],
+        "overflowDirection": "NONE"
+      },
+      "children": [
+        "70:845"
+      ]
+    },
+    {
+      "id": "70:845",
+      "name": "Jump to Details",
+      "type": "TEXT",
+      "parentId": "70:844",
+      "geometry": {
+        "height": 19,
+        "width": 118,
+        "x": 12,
+        "y": 12
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            12
+          ],
+          [
+            0,
+            1,
+            12
+          ]
+        ]
+      },
+      "children": []
+    },
+    {
+      "id": "70:846",
+      "name": "Planner Scroll",
+      "type": "FRAME",
+      "parentId": "70:840",
+      "geometry": {
+        "height": 50,
+        "width": 220,
+        "x": 504,
+        "y": 70
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            504
+          ],
+          [
+            0,
+            1,
+            70
+          ]
+        ],
+        "overflowDirection": "NONE"
+      },
+      "children": [
+        "70:847"
+      ]
+    },
+    {
+      "id": "70:847",
+      "name": "Planner to Details",
+      "type": "TEXT",
+      "parentId": "70:846",
+      "geometry": {
+        "height": 19,
+        "width": 133,
+        "x": 12,
+        "y": 12
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            12
+          ],
+          [
+            0,
+            1,
+            12
+          ]
+        ]
+      },
+      "children": []
+    },
+    {
+      "id": "70:848",
+      "name": "Middle",
+      "type": "FRAME",
+      "parentId": "70:840",
+      "geometry": {
+        "height": 140,
+        "width": 752,
+        "x": 24,
+        "y": 420
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            24
+          ],
+          [
+            0,
+            1,
+            420
+          ]
+        ],
+        "overflowDirection": "NONE"
+      },
+      "children": [
+        "70:849"
+      ]
+    },
+    {
+      "id": "70:849",
+      "name": "Middle landmark",
+      "type": "TEXT",
+      "parentId": "70:848",
+      "geometry": {
+        "height": 34,
+        "width": 220,
+        "x": 0,
+        "y": 0
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ]
+      },
+      "children": []
+    },
+    {
+      "id": "70:850",
+      "name": "Details",
+      "type": "FRAME",
+      "parentId": "70:840",
+      "geometry": {
+        "height": 220,
+        "width": 752,
+        "x": 24,
+        "y": 1000
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            24
+          ],
+          [
+            0,
+            1,
+            1000
+          ]
+        ],
+        "overflowDirection": "NONE"
+      },
+      "children": [
+        "70:851"
+      ]
+    },
+    {
+      "id": "70:851",
+      "name": "Details — target reached",
+      "type": "TEXT",
+      "parentId": "70:850",
+      "geometry": {
+        "height": 39,
+        "width": 377,
+        "x": 0,
+        "y": 0
+      },
+      "props": {
+        "visible": true,
+        "rotation": 0,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ]
+      },
+      "children": []
+    }
+  ],
+  "preparedContext": {
+    "status": "PREPARED",
+    "reason": "Native overflowDirection, child ancestry and content overflow verified",
+    "sourceId": "70:827",
+    "destinationId": "70:835",
+    "containerId": "70:825",
+    "nativeOverflow": "VERTICAL",
+    "overflowAxes": [
+      "VERTICAL"
+    ]
+  },
+  "playback": {
+    "status": "PLAYBACK_VERIFIED",
+    "method": "Bounded native Desktop observations in a newly opened presentation after natural-language authoring",
+    "intermediate": "Orange Middle landmark moved from viewport y=420 to about y=167 before the final scroll position",
+    "settled": "Green Details target visible at y=280 at content-end scroll limit",
+    "canonicalDuration": 0.2,
+    "easing": "EASE_OUT",
+    "exactTimingMeasured": false,
+    "documentWrites": 0
+  },
+  "cases": {
+    "A": {
+      "route": "motion",
+      "directMCPReads": 9,
+      "directMCPWrites": 1,
+      "nonTransitionSemanticsUnchanged": true,
+      "documentUnchanged": true,
+      "nodeId": "70:827",
+      "before": [
+        {
+          "action": {
+            "destinationId": "70:835",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": null,
+            "type": "NODE"
+          },
+          "actions": [
+            {
+              "destinationId": "70:835",
+              "navigation": "SCROLL_TO",
+              "resetVideoPosition": false,
+              "transition": null,
+              "type": "NODE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ],
+      "after": [
+        {
+          "action": {
+            "destinationId": "70:835",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": {
+              "duration": 0.20000000298023224,
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "type": "SCROLL_ANIMATE"
+            },
+            "type": "NODE"
+          },
+          "actions": [
+            {
+              "destinationId": "70:835",
+              "navigation": "SCROLL_TO",
+              "resetVideoPosition": false,
+              "transition": {
+                "duration": 0.20000000298023224,
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "type": "SCROLL_ANIMATE"
+              },
+              "type": "NODE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    },
+    "B": {
+      "route": "motion",
+      "directMCPReads": 5,
+      "directMCPWrites": 0,
+      "nonTransitionSemanticsUnchanged": true,
+      "documentUnchanged": true,
+      "nodeId": "70:827",
+      "before": [
+        {
+          "action": {
+            "destinationId": "70:835",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": {
+              "duration": 0.20000000298023224,
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "type": "SCROLL_ANIMATE"
+            },
+            "type": "NODE"
+          },
+          "actions": [
+            {
+              "destinationId": "70:835",
+              "navigation": "SCROLL_TO",
+              "resetVideoPosition": false,
+              "transition": {
+                "duration": 0.20000000298023224,
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "type": "SCROLL_ANIMATE"
+              },
+              "type": "NODE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ],
+      "after": [
+        {
+          "action": {
+            "destinationId": "70:835",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": {
+              "duration": 0.20000000298023224,
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "type": "SCROLL_ANIMATE"
+            },
+            "type": "NODE"
+          },
+          "actions": [
+            {
+              "destinationId": "70:835",
+              "navigation": "SCROLL_TO",
+              "resetVideoPosition": false,
+              "transition": {
+                "duration": 0.20000000298023224,
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "type": "SCROLL_ANIMATE"
+              },
+              "type": "NODE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    },
+    "C": {
+      "route": "motion",
+      "directMCPReads": 5,
+      "directMCPWrites": 0,
+      "nonTransitionSemanticsUnchanged": true,
+      "documentUnchanged": true,
+      "nodeId": "70:829",
+      "before": [
+        {
+          "action": {
+            "destinationId": "70:835",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": null,
+            "type": "NODE"
+          },
+          "actions": [
+            {
+              "destinationId": "70:835",
+              "navigation": "SCROLL_TO",
+              "resetVideoPosition": false,
+              "transition": null,
+              "type": "NODE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ],
+      "after": [
+        {
+          "action": {
+            "destinationId": "70:835",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": null,
+            "type": "NODE"
+          },
+          "actions": [
+            {
+              "destinationId": "70:835",
+              "navigation": "SCROLL_TO",
+              "resetVideoPosition": false,
+              "transition": null,
+              "type": "NODE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    },
+    "D": {
+      "route": "motion",
+      "directMCPReads": 5,
+      "directMCPWrites": 0,
+      "nonTransitionSemanticsUnchanged": true,
+      "documentUnchanged": true,
+      "nodeId": "70:842",
+      "before": [
+        {
+          "action": {
+            "destinationId": "70:850",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": null,
+            "type": "NODE"
+          },
+          "actions": [
+            {
+              "destinationId": "70:850",
+              "navigation": "SCROLL_TO",
+              "resetVideoPosition": false,
+              "transition": null,
+              "type": "NODE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ],
+      "after": [
+        {
+          "action": {
+            "destinationId": "70:850",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": null,
+            "type": "NODE"
+          },
+          "actions": [
+            {
+              "destinationId": "70:850",
+              "navigation": "SCROLL_TO",
+              "resetVideoPosition": false,
+              "transition": null,
+              "type": "NODE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    },
+    "E": {
+      "route": "prototype_planner",
+      "directMCPReads": 6,
+      "directMCPWrites": 0,
+      "nonTransitionSemanticsUnchanged": true,
+      "documentUnchanged": true,
+      "nodeId": "70:831",
+      "before": [
+        {
+          "action": {
+            "destinationId": "70:835",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": {
+              "duration": 0.20000000298023224,
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "type": "SCROLL_ANIMATE"
+            },
+            "type": "NODE"
+          },
+          "actions": [
+            {
+              "destinationId": "70:835",
+              "navigation": "SCROLL_TO",
+              "resetVideoPosition": false,
+              "transition": {
+                "duration": 0.20000000298023224,
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "type": "SCROLL_ANIMATE"
+              },
+              "type": "NODE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ],
+      "after": [
+        {
+          "action": {
+            "destinationId": "70:835",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": {
+              "duration": 0.20000000298023224,
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "type": "SCROLL_ANIMATE"
+            },
+            "type": "NODE"
+          },
+          "actions": [
+            {
+              "destinationId": "70:835",
+              "navigation": "SCROLL_TO",
+              "resetVideoPosition": false,
+              "transition": {
+                "duration": 0.20000000298023224,
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "type": "SCROLL_ANIMATE"
+              },
+              "type": "NODE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    },
+    "F": {
+      "route": "qa",
+      "directMCPReads": 1,
+      "directMCPWrites": 0,
+      "nonTransitionSemanticsUnchanged": true,
+      "documentUnchanged": true,
+      "nodeId": "70:827",
+      "before": [
+        {
+          "action": {
+            "destinationId": "70:835",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": {
+              "duration": 0.20000000298023224,
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "type": "SCROLL_ANIMATE"
+            },
+            "type": "NODE"
+          },
+          "actions": [
+            {
+              "destinationId": "70:835",
+              "navigation": "SCROLL_TO",
+              "resetVideoPosition": false,
+              "transition": {
+                "duration": 0.20000000298023224,
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "type": "SCROLL_ANIMATE"
+              },
+              "type": "NODE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ],
+      "after": [
+        {
+          "action": {
+            "destinationId": "70:835",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": {
+              "duration": 0.20000000298023224,
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "type": "SCROLL_ANIMATE"
+            },
+            "type": "NODE"
+          },
+          "actions": [
+            {
+              "destinationId": "70:835",
+              "navigation": "SCROLL_TO",
+              "resetVideoPosition": false,
+              "transition": {
+                "duration": 0.20000000298023224,
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "type": "SCROLL_ANIMATE"
+              },
+              "type": "NODE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    }
+  },
+  "initialPlannerAttempt": {
+    "status": "FAIL",
+    "qaFinding": "SCREEN_OUTSIDE_RUNTIME",
+    "motionWrites": 1,
+    "before": [
+      {
+        "action": {
+          "destinationId": "70:835",
+          "navigation": "SCROLL_TO",
+          "resetVideoPosition": false,
+          "transition": null,
+          "type": "NODE"
+        },
+        "actions": [
+          {
+            "destinationId": "70:835",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": null,
+            "type": "NODE"
+          }
+        ],
+        "trigger": {
+          "type": "ON_CLICK"
+        }
+      }
+    ],
+    "after": [
+      {
+        "action": {
+          "destinationId": "70:835",
+          "navigation": "SCROLL_TO",
+          "resetVideoPosition": false,
+          "transition": {
+            "duration": 0.20000000298023224,
+            "easing": {
+              "type": "EASE_OUT"
+            },
+            "type": "SCROLL_ANIMATE"
+          },
+          "type": "NODE"
+        },
+        "actions": [
+          {
+            "destinationId": "70:835",
+            "navigation": "SCROLL_TO",
+            "resetVideoPosition": false,
+            "transition": {
+              "duration": 0.20000000298023224,
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "type": "SCROLL_ANIMATE"
+            },
+            "type": "NODE"
+          }
+        ],
+        "trigger": {
+          "type": "ON_CLICK"
+        }
+      }
+    ],
+    "recovery": "Separate same-run fixture-only layout correction; no repair inside QA, no canonical resizing, completed valid motion preserved; final planner rerun made zero writes."
+  },
+  "qa": {
+    "status": "PASS",
+    "summary": {
+      "QA_STATUS": "PASS",
+      "BLOCKER_COUNT": 0,
+      "HIGH_COUNT": 0,
+      "MEDIUM_COUNT": 0,
+      "LOW_COUNT": 0,
+      "LIMITATION_COUNT": 0,
+      "BROKEN_CONTROL_COUNT": 0,
+      "UNREACHABLE_COUNT": 0,
+      "BROKEN_EDGE_COUNT": 0
+    },
+    "readCalls": 6,
+    "writeCalls": 0,
+    "unchanged": true,
+    "motion": [
+      {
+        "sourceId": "70:827",
+        "intent": "SCROLL_SMOOTH",
+        "token": "SCROLL_SMOOTH",
+        "status": "MATCH",
+        "context": {
+          "status": "PREPARED",
+          "reason": "Native overflowDirection, child ancestry and content overflow verified",
+          "sourceId": "70:827",
+          "destinationId": "70:835",
+          "containerId": "70:825",
+          "nativeOverflow": "VERTICAL",
+          "overflowAxes": [
+            "VERTICAL"
+          ]
+        }
+      },
+      {
+        "sourceId": "70:829",
+        "intent": "SCROLL",
+        "token": "SCROLL_NATIVE",
+        "status": "MATCH",
+        "context": {
+          "status": "PREPARED",
+          "reason": "Native overflowDirection, child ancestry and content overflow verified",
+          "sourceId": "70:829",
+          "destinationId": "70:835",
+          "containerId": "70:825",
+          "nativeOverflow": "VERTICAL",
+          "overflowAxes": [
+            "VERTICAL"
+          ]
+        }
+      },
+      {
+        "sourceId": "70:831",
+        "intent": "SCROLL_SMOOTH",
+        "token": "SCROLL_SMOOTH",
+        "status": "MATCH",
+        "context": {
+          "status": "PREPARED",
+          "reason": "Native overflowDirection, child ancestry and content overflow verified",
+          "sourceId": "70:831",
+          "destinationId": "70:835",
+          "containerId": "70:825",
+          "nativeOverflow": "VERTICAL",
+          "overflowAxes": [
+            "VERTICAL"
+          ]
+        }
+      }
+    ]
+  },
+  "cleanup": {
+    "restored": true,
+    "removedNodes": 24,
+    "remainingFixtureNodes": 0,
+    "count": 1290,
+    "documentFingerprint": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "a8c1c5af049e0788b2e8794ca422fd6dbfb9a9b6f71c14e1ae5343bd45e0819e"
+    },
+    "sourceFingerprint": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "305132db06a84df82351b91fbc02f99f028e5d9a4cc29289d4e5cfb78afdd204"
+    },
+    "stableReadCaptures": 2,
+    "health": {
+      "fileName": "Untitled",
+      "fontFamilyCount": 2025,
+      "ok": true,
+      "pageName": "Acceptance v2-coffee",
+      "recentErrorCount": 0,
+      "styleCount": 0,
+      "variableCount": 0,
+      "version": "1.3.0"
+    },
+    "sourceCaptureWrites": 0
+  },
+  "counts": {
+    "harnessRecordedWrites": 15,
+    "harnessRecordedReads": 148,
+    "modelRecordedWrites": 3,
+    "modelRecordedReads": 48,
+    "scope": "Recorded harness calls plus direct MCP calls, including preliminary agent selection attempt and initial planner attempt. Additional read-only source/shell/QA calls are not all in direct MCP metadata; counts are lower bounds. Dedicated final QA independently recorded six reads and zero writes.",
+    "timeouts": 0
+  },
+  "policy": {
+    "newCommands": 0,
+    "runtimeChanges": 0,
+    "projectionVersion": "figma-browser-source-v1",
+    "statefulStatus": "HOLD",
+    "browserScrollMotionParity": "NOT_IMPLEMENTED",
+    "scrollPreparationWrites": 0,
+    "protectedWriteTargets": 0
+  },
+  "baseline": {
+    "documentFingerprint": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "a8c1c5af049e0788b2e8794ca422fd6dbfb9a9b6f71c14e1ae5343bd45e0819e"
+    },
+    "sourceFingerprint": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "305132db06a84df82351b91fbc02f99f028e5d9a4cc29289d4e5cfb78afdd204"
+    },
+    "count": 1290
+  }
+}

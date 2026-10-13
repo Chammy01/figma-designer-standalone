@@ -277,6 +277,11 @@ Before PASS verify:
 
 FINAL REPORT
 
+When source reactions contain SCROLL_ANIMATE, report
+BROWSER_SCROLL_MOTION_PARITY: NOT_IMPLEMENTED. Native smooth-scroll playback does
+not prove browser motion parity; do not implement or claim native duration/easing
+equivalence as part of this export.
+
 Report:
 - output directory/files
 - runtime SECTION source

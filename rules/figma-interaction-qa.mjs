@@ -1,7 +1,7 @@
 import {isDeepStrictEqual} from 'node:util';
 import {normalizeSource} from '../scripts/figma-live-source.mjs';
 import {sourceFingerprint} from '../scripts/figma-browser-freshness.mjs';
-import {resolveMotion,transitionMatches} from './figma-motion-semantics.mjs';
+import {resolveMotion,transitionMatches,inspectScrollContext,conflictingScrollActions} from './figma-motion-semantics.mjs';
 
 export const qaReadTools=Object.freeze(['health_check','get_metadata','get_document','get_node','get_reactions','get_local_components','get_design_context']);
 export const coverageClasses=Object.freeze(['WORKING_ACTION','WORKING_STATE','FIGMA_LIMITED','INTENTIONALLY_INERT','UNKNOWN_EXPECTATION','BROKEN']);
@@ -93,9 +93,17 @@ export function analyzeInteractions(model){
       if(action.overlayRelativePosition&&(type!=='OPEN_OVERLAY'||target?.props?.overlayPositionType!=='MANUAL'))fail('INVALID_MANUAL_POSITION','Relative overlay position requires a verified MANUAL destination',{severity:'HIGH'});
       if(edge.valid&&action.type==='NODE'){
         const hint=annotations.get(n.id)?.motion??{},intent=hint.intent??({CHANGE_TO:'STATE',NAVIGATE:'NAVIGATION',OPEN_OVERLAY:'OVERLAY',SCROLL_TO:'SCROLL'}[type]);
-        if(intent){const decision=resolveMotion({intent,action,evidence:{destinationExists:!!target,runtimeDestination:owner(target)==='INTERACTIVE_RUNTIME',sourceSetId,destinationSetId,...hint.evidence},override:hint.override});
+        if(intent){const scrollContext=type==='SCROLL_TO'?inspectScrollContext({nodes:model.nodes,sourceId:n.id,destinationId,runtimeId}):null;
+          const decision=intent==='SCROLL_SMOOTH'&&conflictingScrollActions(n.reactions,reactionIndex)?{support:'UNKNOWN',token:'SCROLL_SMOOTH',reason:'Conflicting reaction semantics'}:resolveMotion({intent,action,evidence:{...hint.evidence,destinationExists:!!target,runtimeDestination:owner(target)==='INTERACTIVE_RUNTIME',sourceSetId,destinationSetId,...(scrollContext?{scrollContext,sourceId:n.id,intendedDestinationId:destinationId}:{})},override:hint.override});
           edge.motion={intent,token:decision.token,status:decision.support==='UNKNOWN'?'UNKNOWN':decision.support==='LIMITED'?'LIMITED':decision.transition&&!transitionMatches(action.transition,decision.transition)?'MISMATCH':'MATCH'};
-          if(edge.motion.status==='MISMATCH'&&(inScope(n)||owner(n)==='COMPONENT_STATE_LIBRARY'))add('MOTION_MISMATCH',[n.id,destinationId],'Existing transition differs from its supported semantic token',{severity:'LOW',classification:'WORKING_ACTION',workflow:'MOTION',expected:decision.token,actual:key(action.transition),why:'The transition does not follow the verified interaction meaning.'});
+          if(type==='SCROLL_TO')edge.motion.context=scrollContext;
+          if(intent==='SCROLL_SMOOTH'&&scrollContext?.status==='PREPARED'&&action.transition!=null&&action.transition.type!=='SCROLL_ANIMATE')edge.motion.status='MISMATCH';
+          if(intent==='SCROLL_SMOOTH'&&inScope(n)&&edge.motion.status==='LIMITED')add('SCROLL_CONTEXT_LIMITED',[n.id,destinationId],decision.reason,{severity:'LIMITATION',classification:'FIGMA_LIMITED',grade:'LIMITED',workflow:'MOTION'});
+          else if(intent==='SCROLL_SMOOTH'&&inScope(n)&&edge.motion.status==='UNKNOWN')add('SCROLL_CONTEXT_UNKNOWN',[n.id,destinationId],decision.reason,{severity:'LIMITATION',classification:'UNKNOWN_EXPECTATION',grade:'LIMITED',workflow:'MOTION'});
+          if(edge.motion.status==='MISMATCH'&&(inScope(n)||owner(n)==='COMPONENT_STATE_LIBRARY')){
+            if(intent==='SCROLL_SMOOTH')add('SMOOTH_SCROLL_MISMATCH',[n.id,destinationId],'Explicit smooth-scroll requirement is not implemented in the prepared context',{severity:'MEDIUM',workflow:'MOTION',expected:decision.token,actual:key(action.transition)});
+            else add('MOTION_MISMATCH',[n.id,destinationId],'Existing transition differs from its supported semantic token',{severity:'LOW',classification:'WORKING_ACTION',workflow:'MOTION',expected:decision.token,actual:key(action.transition),why:'The transition does not follow the verified interaction meaning.'});
+          }
         }
       }
       if(type==='NAVIGATE'&&trigger?.type==='AFTER_TIMEOUT'&&destinationId===sourceScreenId&&inScope(n))fail('AUTO_SELF_LOOP','Automatic navigation repeats the same screen without progress',{severity:'HIGH',workflow:'FLOW'});

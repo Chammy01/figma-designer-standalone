@@ -14,6 +14,7 @@ import { handleWritePrototypeRequest } from '../vendor/figma-mcp/plugin/src/writ
 import overlayCapability from './fixtures/overlay-capability.json';
 import { motionTokens, transitionMatches } from '../rules/figma-motion-semantics.mjs';
 import motionAudit from './fixtures/figma-motion-capabilities.json';
+import smoothScrollLive from './fixtures/native-scroll-live.json';
 
 function fixture() {
   const nodes = new Map<string, any>();
@@ -486,4 +487,14 @@ for (const field of ['mass','stiffness','damping']) test(`native custom spring $
   f.screen.reactions[0].actions[0].transition.easing.easingFunctionSpring[field] += 1;
   f.screen.reactions[0].action = structuredClone(f.screen.reactions[0].actions[0]);
   expect(await fingerprint(f)).not.toEqual(before);
+});
+
+test('V1.3 actual canonical smooth-scroll readbacks survive source V1 with no writes', async () => {
+  for (const reactions of [smoothScrollLive.cases.A.after, smoothScrollLive.initialPlannerAttempt.after]) {
+    const f = motionCaptureFixture(reactions), before = structuredClone(reactions), raw = await projection(f);
+    expect(raw.runtime.children[0].reactions).toEqual(before);
+    expect(f.screen.reactions).toEqual(before);
+    expect(raw.sourceProjectionVersion).toBe('figma-browser-source-v1');
+    expect(transitionMatches(raw.runtime.children[0].reactions[0].actions[0].transition, motionTokens.SCROLL_SMOOTH)).toBe(true);
+  }
 });

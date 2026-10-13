@@ -26,5 +26,5 @@ export const motionLanguage = [
   { name: 'slide', text: 'Make everything slide.', intent: 'SPATIAL_NAVIGATION', limited: true, clarificationAllowed: true },
   { name: 'animated', text: 'Make it more animated.', clarify: true },
   { name: 'shared', text: 'Use shared-element continuity between these screens.', intent: 'SHARED_ELEMENT' },
-  { name: 'scroll', text: 'Scroll smoothly to the existing section.', intent: 'SCROLL' },
+  { name: 'scroll', text: 'Scroll smoothly to the existing section.', intent: 'SCROLL_SMOOTH' },
 ];

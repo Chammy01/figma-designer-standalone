@@ -10,9 +10,9 @@ const rules = read('rules/figma-motion-semantics.md'), command = read('.opencode
 const reaction = action => [{ trigger: { type: 'ON_KEY_DOWN', device: 'KEYBOARD', keyCodes: [13] }, actions: [structuredClone(action), { type: 'URL', url: 'https://example.test', extra: { preserve: true } }], extra: 'retain' }];
 const request = c => [{ reactionIndex: 0, actionIndex: 0, intent: c.intent, evidence: c.evidence }];
 
-test('nine semantic intents and four immutable canonical tokens are centralized', () => {
-  assert.deepEqual(Object.keys(motionSupport), ['STATE','NAVIGATION','SPATIAL_NAVIGATION','OVERLAY','SCROLL','FEEDBACK','ENTER','EXIT','SHARED_ELEMENT']);
-  assert.deepEqual(Object.keys(motionTokens), ['STATE_FAST','NAV_DEFAULT','NAV_SPATIAL','OVERLAY_DEFAULT']);
+test('semantic intents and immutable canonical tokens include only the narrow V1.3 extension', () => {
+  assert.deepEqual(Object.keys(motionSupport), ['STATE','NAVIGATION','SPATIAL_NAVIGATION','OVERLAY','SCROLL','SCROLL_SMOOTH','FEEDBACK','ENTER','EXIT','SHARED_ELEMENT']);
+  assert.deepEqual(Object.keys(motionTokens), ['STATE_FAST','NAV_DEFAULT','NAV_SPATIAL','OVERLAY_DEFAULT','SCROLL_SMOOTH']);
   assert.ok(Object.values(motionTokens).every(t=>Object.isFrozen(t)&&Object.isFrozen(t.easing)&&Object.isFrozen(t.tolerance)));
   assert.ok(motionPolicy.includes(JSON.stringify(motionTokens,null,2)));
 });

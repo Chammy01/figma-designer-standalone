@@ -37,7 +37,7 @@ SEMANTIC MOTION BEFORE TRANSITIONS
 Read rules/figma-motion-semantics.md and the authoritative registry/pure helpers in
 rules/figma-motion-semantics.mjs before acting. Routed prompts include the same
 generated motionPolicy. Interpret STATE, NAVIGATION, SPATIAL_NAVIGATION, OVERLAY,
-SCROLL, FEEDBACK, ENTER, EXIT or SHARED_ELEMENT first; then verify the existing
+SCROLL, SCROLL_SMOOTH, FEEDBACK, ENTER, EXIT or SHARED_ELEMENT first; then verify the existing
 reaction/action/destination and resolve its supported token, not a raw preset.
 Token values and float tolerances live only in the shared registry.
 
@@ -137,8 +137,17 @@ requirements. STATE/FEEDBACK require compatible same-set CHANGE_TO. NAVIGATION u
 NAV_DEFAULT; justified SPATIAL_NAVIGATION uses NAV_SPATIAL with real semantic direction,
 never canvas positions. OVERLAY uses OVERLAY_DEFAULT with position/behavior unchanged.
 Preserve verified intentional spatial/shared continuity unless compatible normalization
-is explicitly requested. SCROLL uses SCROLL_NATIVE, preserving null SCROLL_TO transitions
-and reporting SEMANTICALLY_RECOGNIZED / NO_TRANSITION_WRITE. Preserve SWAP and all
+is explicitly requested. Ordinary SCROLL uses SCROLL_NATIVE, preserving existing
+null/current SCROLL_TO transitions and reporting SEMANTICALLY_RECOGNIZED /
+NO_TRANSITION_WRITE. Explicit animated scrolling alone selects SCROLL_SMOOTH from
+the shared registry. Verify the actual child destination, owned source/target,
+prepared native overflowDirection, common scroll context, real content overflow
+and complete nonconflicting arrays using current read-only source evidence.
+Unprepared context: FIGMA_LIMITED: SCROLL_CONTEXT_PREPARATION, zero writes.
+Missing evidence: UNKNOWN, zero writes. No UI automation, private fields, setter,
+resizing or screen rebuild to prepare scrolling. SCROLL_ANIMATE applies only to
+the exact existing SCROLL_TO transition; no custom easing/duration expansion.
+Preserve SWAP and all
 non-NODE actions; do not guess tokens. ENTER/EXIT may map only through an existing
 truthful NAVIGATE/OVERLAY; independent element animation remains MOTION_LIMITED.
 Do not automatically enable matchLayers, rename/restructure layers or imitate springs.

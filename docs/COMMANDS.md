@@ -160,11 +160,16 @@ then resolves supported tokens. Transition reviews are read-only unless changes
 are requested. Unsupported element animation is reported honestly. See
 [semantic motion](SEMANTIC_MOTION_V1_2_4.md).
 
-Technical scope: Changes eligible transitions only; preserves trigger/action semantics and null SCROLL_TO transitions.
+"Scroll smoothly to Features" can animate an existing SCROLL_TO in an already
+prepared native scroll container. Ordinary scrolling keeps its current behavior.
+Missing native preparation is reported as limited; the command cannot prepare it.
+See [native smooth scrolling](NATIVE_SCROLL_MOTION_V1_3.md).
+
+Technical scope: Changes eligible transitions only; preserves trigger/action semantics.
 
 The [native motion capability audit](FIGMA_MOTION_CAPABILITY_AUDIT_V1_2_8.md)
 separates declared, read-back and playback evidence. Its V1.3 recommendations do
-not expand the current motion command.
+do not independently expand authoring; V1.3 enables only the documented smooth-scroll subset.
 
 ## `/figma/qa`
 

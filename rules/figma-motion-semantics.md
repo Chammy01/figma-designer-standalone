@@ -19,9 +19,38 @@ Before transition selection, record semantic intent, actual node/reaction/action
 supported representation, destination/source identity, evidence, token and scope.
 STATE/FEEDBACK require existing compatible same-set CHANGE_TO. NAVIGATION requires
 existing runtime NAVIGATE. OVERLAY requires existing OVERLAY content/destination;
-preserve overlay position/behavior. SCROLL uses SCROLL_NATIVE: preserve SCROLL_TO,
-including null transition; SEMANTICALLY_RECOGNIZED / NO_TRANSITION_WRITE. Never turn
-scroll into navigation or add smooth-scroll animation merely because it was requested.
+preserve overlay position/behavior. Ordinary SCROLL uses SCROLL_NATIVE: preserve
+existing SCROLL_TO, including null/current transition; SEMANTICALLY_RECOGNIZED /
+NO_TRANSITION_WRITE. Explicit "scroll smoothly", "animate this existing scroll" or
+"make this jump to Features smoother" selects SCROLL_SMOOTH. Generic subtle/less
+motion does not enable it. Never turn scroll into navigation.
+
+SCROLL_SMOOTH requires an existing NODE + SCROLL_TO, actual intended existing child
+destination, owned runtime source/target, complete reaction arrays and no competing
+location-changing actions on the same trigger. Read native overflowDirection through
+the existing read-only source projection (get_node with browserSource:true); verify
+parent-child ancestry, the same native scroll container and actual content overflow
+in matching parent-relative coordinates. Use inspectScrollContext with current
+native records, not guessed evidence flags. Native NONE means FIGMA_LIMITED:
+SCROLL_CONTEXT_PREPARATION; unavailable properties/hierarchy mean UNKNOWN. Both make
+zero motion writes. Names, frame height, canvas placement, clipsContent or HTML
+overflow:hidden alone never prove preparedness. Ambiguous fixed/sticky content,
+rotated geometry or competing nested contexts need verified native evidence; skip
+uncertain cases rather than manufacturing scrollability.
+
+Apply only the shared SCROLL_SMOOTH token to the exact eligible transition. Preserve
+all other fields and the deprecated action mirror. Non-approved existing scroll
+transitions are limited, not normalized. SCROLL_ANIMATE is incompatible with
+NAVIGATE, CHANGE_TO, OVERLAY, SWAP and non-NODE actions. No scroll preparation,
+resizing/rebuilding, private property writes, UI automation, MCP setter or production
+mutation. A user-prepared valid container may be reused. No custom scroll durations,
+springs, Bézier curves or new presets; audit experiments remain disabled.
+
+On a scoped but unidentified "make scrolling smoother", ask one target clarification.
+No write before the existing edge is resolved. Ordinary "scroll to Features" can
+use flow/interactive to wire a known supported edge; it does not request animation.
+Parallax and scroll-position-driven animation remain MOTION_LIMITED. Browser
+SCROLL_ANIMATE parity is NOT_IMPLEMENTED; native playback is not browser proof.
 
 "Subtle" and "less motion" favor conservative semantic defaults, without removing
 behavior. "Snappy state change" maps to STATE_FAST. "Quiet modal" maps to

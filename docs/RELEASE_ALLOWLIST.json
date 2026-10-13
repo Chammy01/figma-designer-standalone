@@ -153,5 +153,6 @@
   "rules/figma-interaction-qa.md",
   "scripts/figma-interaction-qa.mjs",
   "docs/INTERACTION_QA_V2_V1_2_7.md",
-  "docs/FIGMA_MOTION_CAPABILITY_AUDIT_V1_2_8.md"
+  "docs/FIGMA_MOTION_CAPABILITY_AUDIT_V1_2_8.md",
+  "docs/NATIVE_SCROLL_MOTION_V1_3.md"
 ]

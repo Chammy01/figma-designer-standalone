@@ -1,5 +1,9 @@
 # Semantic motion — V1.2.4
 
+V1.3 adds explicit SCROLL_SMOOTH on verified prepared native contexts. Ordinary
+SCROLL_NATIVE and all other V1.2.4 defaults remain unchanged. The audit/results below
+record the original milestone; see [V1.3 behavior](NATIVE_SCROLL_MOTION_V1_3.md).
+
 Motion describes a relationship before selecting a transition. Users keep
 `/figma/motion` or ordinary follow-ups such as "make this state change snappy",
 "keep navigation subtle" and "use less motion". No command or alias was added.
