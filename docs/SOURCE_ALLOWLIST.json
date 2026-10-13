@@ -290,5 +290,11 @@
   "scripts/fixtures/overlay-capability.json",
   "docs/RICH_OVERLAYS_V1_2_6.md",
   "rules/figma-overlay-rules.md",
-  "scripts/figma-overlay.test.mjs"
+  "scripts/figma-overlay.test.mjs",
+  "rules/figma-interaction-qa.mjs",
+  "rules/figma-interaction-qa.md",
+  "scripts/figma-interaction-qa.mjs",
+  "scripts/figma-interaction-qa.test.mjs",
+  "scripts/fixtures/interaction-qa.mjs",
+  "docs/INTERACTION_QA_V2_V1_2_7.md"
 ]

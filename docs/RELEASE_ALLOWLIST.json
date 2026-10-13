@@ -148,5 +148,9 @@
   "docs/STATEFUL_VARIABLES_V1_2_5.md",
   "docs/CONDITIONAL_FRESHNESS_BETA_2.md",
   "docs/RICH_OVERLAYS_V1_2_6.md",
-  "rules/figma-overlay-rules.md"
+  "rules/figma-overlay-rules.md",
+  "rules/figma-interaction-qa.mjs",
+  "rules/figma-interaction-qa.md",
+  "scripts/figma-interaction-qa.mjs",
+  "docs/INTERACTION_QA_V2_V1_2_7.md"
 ]

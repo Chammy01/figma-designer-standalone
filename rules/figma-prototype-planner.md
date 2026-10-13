@@ -92,6 +92,10 @@ permission or silently run downstream workflows mentioned in its architecture.
 5. QA always last, under the complete strictly read-only QA contract. Snapshot at
    its boundary and compare afterward. No repairs during QA. If QA finds a defect,
    report it and stop; no automatic loop back through authoring phases.
+   Use rules/figma-interaction-qa.md and its deterministic model. Consume the summary
+   QA_STATUS, BLOCKER_COUNT, HIGH_COUNT, MEDIUM_COUNT, LOW_COUNT, LIMITATION_COUNT,
+   BROKEN_CONTROL_COUNT, UNREACHABLE_COUNT, BROKEN_EDGE_COUNT. Preserve findings and
+   limitations; QA FAIL cannot become planner success. No automatic repair chain.
 
 A timeout is indeterminate, not failure: re-read, wait for stable counts/state,
 reconcile actual progress, preserve valid work, retry only confirmed missing work.

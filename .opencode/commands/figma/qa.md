@@ -4,7 +4,7 @@ agent: figma-designer
 subagent: false
 ---
 
-FIGMA WORKING INTERFACE QA — STANDALONE V1.2
+FIGMA WORKING INTERFACE QA — V2
 
 This is a STRICTLY READ-ONLY validation pass.
 
@@ -24,6 +24,33 @@ Treat the user input above as the requested QA scope. Resolve all nodes from the
 GOAL
 
 Determine whether the current Figma runtime behaves as a coherent WORKING INTERFACE within Figma's actual capabilities, not merely whether one navigation path is clickable.
+
+V2 EXECUTION — authoritative inventory and report
+
+Read `rules/figma-interaction-qa.md`. Its shared deterministic model is
+`rules/figma-interaction-qa.mjs`; the closed read-only collector is
+`scripts/figma-interaction-qa.mjs`. Use that collector for inventory, typed graph,
+journeys, coverage, findings and complete before/after integrity checks, with
+evidence annotations only where real user/source intent establishes expectations.
+Without a bounded target, inspect the complete current runtime. Resolve meaningful
+reactionless controls too; do not limit inventory to nodes with reactions.
+Do not guess business behavior or silently omit a broken control from scope.
+Unknown expectation is distinct from intentionally inert and broken behavior.
+
+Run `node scripts/figma-interaction-qa.mjs --json` (or supply a local evidence JSON
+with `--scope` as defined in the rule). This is read-only through the existing
+approved bridge, not a new command/MCP capability. Local evidence/report files are
+allowed; no Figma write tool may be called. Do not repair findings, even when the
+request says "fix whatever QA finds": finish QA first and recommend a separate
+bounded authoring workflow. Any mutation call or changed fingerprint forces FAIL.
+
+Use deterministic sorted Q01… findings, severity/evidence grades, coverage classes
+and planner summary from the model. Keep the canonical first-line result. Explain
+scope, actual IDs, expectations, actual behavior, paths, limitations and zero-write
+integrity. Native structural evidence does not prove manual playback. Missing
+browser exports do not fail native QA; browser testing is separate.
+The checklist below supplies inspection context, not permission to replace the
+evidence model with a generic checklist or to claim unverified behavior works.
 
 Canonical architecture:
 
@@ -47,6 +74,10 @@ The FIRST non-empty line must be exactly one of:
 FIGMA_INTERFACE_QA: PASS
 FIGMA_INTERFACE_QA: WARN
 FIGMA_INTERFACE_QA: FAIL
+
+Copy that deterministic status line verbatim as the first line of the final answer.
+No heading marker, bold, code fence or prefatory "QA complete" sentence. Then give
+the concise scope, coverage, journeys, Q findings, limitations and integrity trace.
 
 PASS: no blocking structural, interaction, coverage, destination, geometry, duplicate, or production-integrity defect.
 WARN: runtime is structurally valid, but one or more meaningful behaviors are genuinely Figma-limited or materially undefined by the source/user request.

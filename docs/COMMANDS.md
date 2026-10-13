@@ -164,6 +164,14 @@ Technical scope: Changes eligible transitions only; preserves trigger/action sem
 
 ## `/figma/qa`
 
+Interaction QA V2 inventories meaningful controls, including reactionless ones,
+compares evidenced expectations with actual native reactions, and checks typed
+graphs, journeys, component sources, overlays and semantic motion. It reports
+prioritized Q01… findings, coverage and PASS/WARN/FAIL with before/after integrity
+and zero writes. Unknown behavior and native limitations are distinct from broken
+controls. Suggested repairs are never executed during QA; browser QA is separate.
+See [Interaction QA V2](INTERACTION_QA_V2_V1_2_7.md).
+
 Review the design and interface quality.
 
 Technical scope: Zero Figma writes; reports unsupported or incomplete behavior.

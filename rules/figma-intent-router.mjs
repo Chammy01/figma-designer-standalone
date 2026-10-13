@@ -45,7 +45,7 @@ working_interaction: a bounded control upgrade within interactive alone; no inve
 Open supplied details as a modal, make Close dismiss a modal, or position an existing avatar menu uses working_interaction. It inspects CENTERED_MODAL versus PRECONFIGURED_OVERLAY; unavailable contextual configuration is FIGMA_LIMITED, not a new route or permission to center a menu. Softer modal transitions stay motion; checking modal wiring stays qa.
 When a bounded control request clearly asks for working tabs/filters/dropdowns, select working_interaction even if behavior prerequisites are unverified. The canonical workflow must inspect and clarify/report missing semantics before authoring, not invent them. An unverified prerequisite alone does not change a clear capability family.
 motion: transitions/easing on existing reactions only; report missing prerequisites. Hover animation without existing state/reaction goes to states first, report motion as later work.
-qa: correctness, broken/dead controls, wiring or structure, not design quality; read-only.
+qa: correctness, broken/dead controls (including reactionless buttons), wiring or structure, not design quality; read-only. Is this fully wired? Check the checkout flow. Find dead buttons. "Fix whatever QA finds" or "fix anything broken" routes to read-only QA first, never an automatic repair chain. Later explicitly scoped repair is a separate authoring request. "Does this look good?" stays design_critique; "why did you choose this?" stays informational.
 browser_generation: generate/export browser prototype, Figma read-only.
 browser_test: test existing browser artifacts, no automatic generation.
 new_design: a genuinely new screen/design, allowing adaptive briefing if vague.
