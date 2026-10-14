@@ -313,5 +313,20 @@
   "scripts/figma-browser-motion.test.mjs",
   "scripts/fixtures/browser-motion.mjs",
   "scripts/fixtures/browser-motion-live.json",
-  "RELEASE_NOTES_v1.2.1-beta.3.md"
+  "RELEASE_NOTES_v1.2.1-beta.3.md",
+  "rules/figma-browser-fidelity.mjs",
+  "rules/figma-browser-fidelity.md",
+  "scripts/figma-browser-fidelity.mjs",
+  "docs/VISUAL_REGRESSION_FIDELITY_V1_3_2.md",
+  "scripts/figma-browser-fidelity.test.mjs",
+  "scripts/figma-browser-fidelity.spec.mjs",
+  "scripts/figma-browser-fidelity.config.mjs",
+  "scripts/fixtures/browser-fidelity.mjs",
+  "scripts/fixtures/browser-fidelity-goldens/win32/layout.png",
+  "scripts/fixtures/browser-fidelity-goldens/win32/state.png",
+  "scripts/fixtures/browser-fidelity-goldens/win32/destination.png",
+  "scripts/fixtures/browser-fidelity-goldens/win32/modal.png",
+  "scripts/fixtures/browser-fidelity-goldens/win32/scroll.png",
+  "scripts/fixtures/browser-fidelity-goldens/win32/cards.png",
+  "scripts/fixtures/browser-fidelity-live.json"
 ]

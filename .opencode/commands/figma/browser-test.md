@@ -30,6 +30,17 @@ Return separate browser acceptance, localFreshness, sourceFreshness, and overall
 
 If dependencies are missing, stop and tell the user to run `/figma/setup`; do not silently change package versions.
 
+With a fingerprint-bound figma-source.json, the runner also reports source-to-DOM
+geometry, text, simple surfaces, actual local font use and centered modal placement.
+Follow rules/figma-browser-fidelity.md. Report SOURCE_FIDELITY,
+BROWSER_VISUAL_REGRESSION and NATIVE_RENDER_PARITY separately, plus coverage counts.
+Missing evidence is UNVERIFIED. Live exports have no automatic screenshot baseline;
+the separate offline fixture suite establishes browser regression only. No auto-repair,
+golden updates or font downloads. Validation must not edit generated browser artifacts.
+For explicitly requested native comparison, approved get_screenshot exports a requested
+FRAME as PNG at scale 1; bind it to stable source, verify dimensions/crop/background,
+and keep captures local/ephemeral. A screenshot or fixture PASS is not Figma pixel parity.
+
 Return the runner output and end with its exact final marker:
 FIGMA_BROWSER_TEST: PASS
 or

@@ -160,5 +160,9 @@
   "rules/figma-browser-motion.mjs",
   "scripts/figma-browser-motion-check.mjs",
   "scripts/figma-browser-motion-runtime.mjs",
-  "RELEASE_NOTES_v1.2.1-beta.3.md"
+  "RELEASE_NOTES_v1.2.1-beta.3.md",
+  "rules/figma-browser-fidelity.mjs",
+  "rules/figma-browser-fidelity.md",
+  "scripts/figma-browser-fidelity.mjs",
+  "docs/VISUAL_REGRESSION_FIDELITY_V1_3_2.md"
 ]

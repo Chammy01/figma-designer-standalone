@@ -1,0 +1,2 @@
+import {defineConfig} from '@playwright/test';
+export default defineConfig({testDir:'.',testMatch:'figma-browser-fidelity.spec.mjs',workers:1,fullyParallel:false,updateSnapshots:'none',snapshotPathTemplate:'{testDir}/fixtures/browser-fidelity-goldens/{platform}/{arg}{ext}',use:{browserName:'chromium',viewport:{width:800,height:600},deviceScaleFactor:1,reducedMotion:'reduce',locale:'en-US',timezoneId:'UTC',colorScheme:'light',serviceWorkers:'block'},expect:{toHaveScreenshot:{animations:'disabled',caret:'hide',threshold:.05,maxDiffPixels:0}},reporter:'list'});

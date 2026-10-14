@@ -4,9 +4,10 @@ import { readFile, realpath, stat, writeFile } from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
 import { extname, join, resolve } from 'node:path';
 import { isWithinRoot, safePath, validateManifest } from './figma-browser-contract.mjs';
-import { artifactHashes, classifyFreshness, runnerVersion } from './figma-browser-freshness.mjs';
+import { artifactHashes, classifyFreshness, runnerVersion, sourceFingerprint } from './figma-browser-freshness.mjs';
 import { collectLiveSource } from './figma-live-source.mjs';
 import { verifyBrowserMotion } from './figma-browser-motion-check.mjs';
+import { verifyBrowserFidelity } from './figma-browser-fidelity.mjs';
 
 const systemVersion = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8')).version;
 
@@ -99,6 +100,7 @@ let liveSourceBefore;
 const unsupported = [];
 const motionFailures = new Set();
 let motionResults = [];
+let fidelity = {SOURCE_FIDELITY:'UNVERIFIED',BROWSER_VISUAL_REGRESSION:'UNVERIFIED',PIXEL_REGRESSION:'UNVERIFIED',NATIVE_RENDER_PARITY:'UNVERIFIED',FIGMA_PIXEL_PARITY:'UNVERIFIED'};
 
 async function checkReducedMotion(page) {
   const failures = await page.evaluate(() => {
@@ -310,6 +312,14 @@ try {
     for (const i of interactions.filter(i => i.motion?.parity === 'NOT_IMPLEMENTED')) unsupported.push({sourceId:i.sourceId,reason:i.motion.reason,motionRequired:true});
   }
 
+  let snapshot;
+  try { snapshot=JSON.parse(await readFile(join(root,'figma-source.json'),'utf8')); }
+  catch(error) { if(error.code!=='ENOENT')throw error; }
+  if(snapshot?.projection && sourceFingerprint(snapshot.projection).sha256 === manifest.sourceFingerprint?.sha256) {
+    fidelity=await verifyBrowserFidelity(page,manifest,snapshot.projection,baseUrl);
+    record('Source-to-DOM fidelity',fidelity.SOURCE_FIDELITY!=='FAIL',JSON.stringify(fidelity.coverage));
+  } else {fidelity.reason='Missing or unbound source projection';record('Source-to-DOM fidelity evidence',true,fidelity.reason,true);}
+
   record('Runtime resources stay local', externalRequests.length === 0, externalRequests.join(', '));
   currentHashes = await artifactHashes(root);
   record('Generated artifacts remained unchanged during testing', JSON.stringify(artifactSha256) === JSON.stringify(currentHashes));
@@ -333,6 +343,7 @@ const report = {
   browserAcceptance: acceptance,
   coverage: legacy ? 'legacy-navigation-only' : manifest?.motion?.contractVersion ? 'navigation-control-hooks-and-motion' : 'navigation-and-control-hooks',
   motion: { contractVersion:manifest?.motion?.contractVersion ?? null, results:motionResults, totals:motionResults.reduce((totals,r) => { const key=`${r.token}: ${r.parity}`; totals[key]=(totals[key] ?? 0)+1; return totals; },{}) },
+  fidelity,
   sourceFreshness: freshness.source,
   localFreshness: freshness.local,
   overallFreshness: freshness.overall,
@@ -359,6 +370,7 @@ const report = {
 await writeFile(reportPath, JSON.stringify(report, null, 2) + '\n', 'utf8');
 console.log(`\nTest report: ${reportPath}\n`);
 console.log(`SOURCE_FRESHNESS: ${report.sourceFreshness}\nLOCAL_FRESHNESS: ${report.localFreshness}\nOVERALL_FRESHNESS: ${report.overallFreshness}`);
+for(const key of ['SOURCE_FIDELITY','BROWSER_VISUAL_REGRESSION','PIXEL_REGRESSION','NATIVE_RENDER_PARITY','FIGMA_PIXEL_PARITY']) console.log(`${key}: ${fidelity[key]}`);
 for (const [token,count] of Object.entries(report.motion.totals)) console.log(`${token}: ${count}`);
 
 if (report.passed) {

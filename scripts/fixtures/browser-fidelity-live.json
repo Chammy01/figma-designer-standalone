@@ -1,0 +1,256 @@
+{
+  "contractVersion": "1.3.2",
+  "evidence": "Historical non-sensitive acceptance; never substitute for a live freshness read",
+  "date": "2026-10-14",
+  "sourceFidelity": "WARN",
+  "browserVisualRegression": "UNVERIFIED: no accepted live golden",
+  "fixturePixelRegression": "PASS: six synthetic Windows goldens and five rejected regressions",
+  "nativeRenderReference": "SUPPORTED",
+  "nativeRenderParity": "WARN",
+  "figmaPixelParity": "UNVERIFIED",
+  "coverage": {
+    "SCREENS_VALIDATED": 5,
+    "NODES_COMPARED": 109,
+    "TEXT_NODES_COMPARED": 65,
+    "CONTROLS_COMPARED": 5,
+    "UNSUPPORTED_PROPERTIES": 0,
+    "FONT_LIMITATIONS": 65
+  },
+  "findingsByCode": {
+    "GEOMETRY_MINOR_DRIFT": 5,
+    "FONT_FIDELITY_LIMITATION": 65
+  },
+  "fontFamilies": [
+    "Fraunces",
+    "IBM Plex Mono",
+    "Inter",
+    "Karla"
+  ],
+  "browserFonts": [
+    "Arial"
+  ],
+  "native": [
+    {
+      "id": "36:720",
+      "pixelsAbove20ChannelDelta": 39165,
+      "totalPixels": 802080,
+      "background": "both composited over white",
+      "sameCrop": true,
+      "reference": {
+        "nodeId": "36:720",
+        "width": 1440,
+        "height": 557,
+        "pngWidth": 1440,
+        "pngHeight": 557,
+        "scale": 1,
+        "format": "PNG",
+        "sha256": "bbc0e7f5097d5a9ae0b39f86dd371721a24952970f4d0730371fd9266fb4686f",
+        "sourceFingerprint": {
+          "algorithm": "canonical-json-sha256-v1",
+          "sha256": "305132db06a84df82351b91fbc02f99f028e5d9a4cc29289d4e5cfb78afdd204"
+        },
+        "background": "native frame export; alpha retained",
+        "crop": "native export bounds"
+      },
+      "status": "WARN"
+    },
+    {
+      "id": "36:739",
+      "pixelsAbove20ChannelDelta": 51799,
+      "totalPixels": 1097280,
+      "background": "both composited over white",
+      "sameCrop": true,
+      "reference": {
+        "nodeId": "36:739",
+        "width": 1440,
+        "height": 762,
+        "pngWidth": 1440,
+        "pngHeight": 762,
+        "scale": 1,
+        "format": "PNG",
+        "sha256": "dfd846e2a6563eb9ac9c77c1e7ab0b8d6754c7199e66be87764e1332f61f7d1a",
+        "sourceFingerprint": {
+          "algorithm": "canonical-json-sha256-v1",
+          "sha256": "305132db06a84df82351b91fbc02f99f028e5d9a4cc29289d4e5cfb78afdd204"
+        },
+        "background": "native frame export; alpha retained",
+        "crop": "native export bounds"
+      },
+      "status": "WARN"
+    },
+    {
+      "id": "47:32",
+      "pixelsAbove20ChannelDelta": 3871,
+      "totalPixels": 480000,
+      "background": "both composited over white",
+      "sameCrop": true,
+      "reference": {
+        "nodeId": "47:32",
+        "width": 800,
+        "height": 600,
+        "pngWidth": 800,
+        "pngHeight": 600,
+        "scale": 1,
+        "format": "PNG",
+        "sha256": "3caae9c580a5d500cbcdf6ad2fec2e9ebc354e20d2781755e84151f895d81d02",
+        "sourceFingerprint": {
+          "algorithm": "canonical-json-sha256-v1",
+          "sha256": "305132db06a84df82351b91fbc02f99f028e5d9a4cc29289d4e5cfb78afdd204"
+        },
+        "background": "native frame export; alpha retained",
+        "crop": "native export bounds"
+      },
+      "status": "WARN"
+    },
+    {
+      "id": "47:38",
+      "pixelsAbove20ChannelDelta": 7396,
+      "totalPixels": 104000,
+      "background": "both composited over white",
+      "sameCrop": true,
+      "reference": {
+        "nodeId": "47:38",
+        "width": 400,
+        "height": 260,
+        "pngWidth": 400,
+        "pngHeight": 260,
+        "scale": 1,
+        "format": "PNG",
+        "sha256": "65acee88aa5865d38e54c81285cc6f1430a8a1d7e4b172956943d049f3c333e0",
+        "sourceFingerprint": {
+          "algorithm": "canonical-json-sha256-v1",
+          "sha256": "305132db06a84df82351b91fbc02f99f028e5d9a4cc29289d4e5cfb78afdd204"
+        },
+        "background": "native frame export; alpha retained",
+        "crop": "native export bounds"
+      },
+      "status": "WARN"
+    },
+    {
+      "id": "47:43",
+      "pixelsAbove20ChannelDelta": 3792,
+      "totalPixels": 72800,
+      "background": "both composited over white",
+      "sameCrop": true,
+      "reference": {
+        "nodeId": "47:43",
+        "width": 280,
+        "height": 260,
+        "pngWidth": 280,
+        "pngHeight": 260,
+        "scale": 1,
+        "format": "PNG",
+        "sha256": "d0caf41949fd3ac80931f5c5ace5f0e8c3864321adce61b647f2d20339fabb4d",
+        "sourceFingerprint": {
+          "algorithm": "canonical-json-sha256-v1",
+          "sha256": "305132db06a84df82351b91fbc02f99f028e5d9a4cc29289d4e5cfb78afdd204"
+        },
+        "background": "native frame export; alpha retained",
+        "crop": "native export bounds"
+      },
+      "status": "WARN"
+    }
+  ],
+  "overlays": [
+    {
+      "id": "47:38",
+      "bounds": {
+        "x": 600,
+        "y": 470,
+        "width": 400,
+        "height": 260
+      },
+      "viewport": {
+        "width": 1600,
+        "height": 1200
+      },
+      "centered": true
+    }
+  ],
+  "repeatStable": true,
+  "artifactsUnchanged": true,
+  "externalRequests": 0,
+  "staleCheck": "STALE",
+  "integrity": {
+    "before": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "a8c1c5af049e0788b2e8794ca422fd6dbfb9a9b6f71c14e1ae5343bd45e0819e"
+    },
+    "after": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "a8c1c5af049e0788b2e8794ca422fd6dbfb9a9b6f71c14e1ae5343bd45e0819e"
+    },
+    "nodeCountBefore": 1290,
+    "nodeCountAfter": 1290,
+    "health": {
+      "fileName": "Untitled",
+      "fontFamilyCount": 2025,
+      "ok": true,
+      "pageName": "Acceptance v2-coffee",
+      "recentErrorCount": 0,
+      "styleCount": 0,
+      "variableCount": 0,
+      "version": "1.3.0"
+    },
+    "sourceFingerprint": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "305132db06a84df82351b91fbc02f99f028e5d9a4cc29289d4e5cfb78afdd204"
+    },
+    "nativeRepeatStable": true,
+    "figmaWrites": 0,
+    "calls": [
+      "get_document",
+      "health_check",
+      "get_screenshot",
+      "get_screenshot"
+    ]
+  },
+  "finalAcceptance": {
+    "scope": "Final audited acceptance only; excludes earlier exploration and independent regression harness reads",
+    "directReads": 16,
+    "runnerReads": 8,
+    "totalReads": 24,
+    "figmaWrites": 0,
+    "calls": [
+      "get_document",
+      "health_check",
+      "get_metadata",
+      "get_node",
+      "get_metadata",
+      "get_node",
+      "get_screenshot",
+      "get_screenshot",
+      "get_screenshot",
+      "get_screenshot",
+      "get_screenshot",
+      "get_metadata",
+      "get_node",
+      "get_metadata",
+      "get_node",
+      "get_document"
+    ],
+    "sourceFreshness": "CURRENT",
+    "localFreshness": "CURRENT",
+    "overallFreshness": "CURRENT",
+    "browserAcceptance": "PASS",
+    "sourceFidelity": "WARN",
+    "documentFingerprint": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "a8c1c5af049e0788b2e8794ca422fd6dbfb9a9b6f71c14e1ae5343bd45e0819e"
+    },
+    "sourceFingerprint": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "305132db06a84df82351b91fbc02f99f028e5d9a4cc29289d4e5cfb78afdd204"
+    },
+    "health": {
+      "fileName": "Untitled",
+      "fontFamilyCount": 2025,
+      "ok": true,
+      "pageName": "Acceptance v2-coffee",
+      "recentErrorCount": 0,
+      "styleCount": 0,
+      "variableCount": 0,
+      "version": "1.3.0"
+    }
+  }
+}

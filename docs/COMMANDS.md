@@ -194,6 +194,8 @@ Technical scope: Zero Figma writes; begin/finish source collection binds the exp
 ## `/figma/browser-test`
 
 Test browser navigation, supported motion in normal/reduced mode, and export constraints.
+When captured source is available, report DOM geometry, text, surfaces and font limitations.
+Detailed fidelity and browser screenshot policies are in [Visual validation](VISUAL_REGRESSION_FIDELITY_V1_3_2.md).
 
 Technical scope: Needs local Playwright/Chromium and an export; PASS is not complete business/state/visual validation.
 

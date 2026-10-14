@@ -4,6 +4,10 @@ agent: figma-designer
 subagent: false
 ---
 
+Preserve unique data-figma-screen/data-figma-node hooks for meaningful exported nodes
+and the bound figma-source.json. Browser-test uses rules/figma-browser-fidelity.md
+to measure source fidelity; no precomputed/fabricated measurements are required.
+
 FIGMA DESIGNER FUNCTIONAL BROWSER INTERFACE — STANDALONE V1.2.1
 
 Run health_check first.
