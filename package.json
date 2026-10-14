@@ -7,15 +7,18 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "node --test scripts/figma-browser-contract.test.mjs scripts/figma-browser-freshness.test.mjs scripts/figma-critique.test.mjs scripts/figma-design.test.mjs scripts/figma-intent-router.test.mjs scripts/figma-prototype-planner.test.mjs scripts/figma-motion.test.mjs scripts/figma-overlay.test.mjs scripts/figma-interaction-qa.test.mjs scripts/figma-motion-capability.test.mjs scripts/figma-native-scroll.test.mjs scripts/figma-browser-motion.test.mjs scripts/figma-browser-fidelity.test.mjs",
+    "test": "node --test scripts/figma-browser-contract.test.mjs scripts/figma-browser-freshness.test.mjs scripts/figma-critique.test.mjs scripts/figma-design.test.mjs scripts/figma-intent-router.test.mjs scripts/figma-prototype-planner.test.mjs scripts/figma-motion.test.mjs scripts/figma-overlay.test.mjs scripts/figma-interaction-qa.test.mjs scripts/figma-motion-capability.test.mjs scripts/figma-native-scroll.test.mjs scripts/figma-browser-motion.test.mjs scripts/figma-browser-fidelity.test.mjs scripts/figma-app.test.mjs",
     "test:hardening": "bun test scripts/figma-hardening.test.ts scripts/figma-variants.test.ts",
     "test:source": "bun test scripts/figma-live-source.test.ts",
-    "test:browser": "node --test scripts/figma-browser-integration.test.mjs scripts/figma-browser-motion.integration.test.mjs && playwright test -c scripts/figma-browser-fidelity.config.mjs",
+    "test:browser": "node --test scripts/figma-browser-integration.test.mjs scripts/figma-browser-motion.integration.test.mjs && playwright test -c scripts/figma-browser-fidelity.config.mjs && node --test scripts/figma-app-ui.test.mjs",
     "test:opencode": "node --test scripts/figma-opencode-timeouts.test.mjs",
     "figma:browser-test": "node scripts/figma-browser-test.mjs",
     "figma:browser-status": "node scripts/figma-browser-status.mjs",
     "figma:browser-source": "node scripts/figma-browser-source.mjs",
-    "figma:install-browser": "playwright install chromium"
+    "figma:install-browser": "playwright install chromium",
+    "app": "node app/server/index.mjs",
+    "test:app": "node --test scripts/figma-app.test.mjs",
+    "test:app-ui": "node --test scripts/figma-app-ui.test.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.64.0"

@@ -1,5 +1,11 @@
 # Architecture and preserved runtime
 
+The V1.4 source application adds a localhost Node service and plain web UI over
+authenticated OpenCode sessions. The service selects `figma-designer` and forwards
+natural prompts or existing specialist commands. It does not duplicate routing,
+authoring, QA, motion or browser logic. Credentials stay server-side; generated
+previews use a separate local origin. See [Application foundation](FIGMA_DESIGNER_APP_V1_4_0.md).
+
 User prompt → OpenCode (`figma-designer` for slash commands) → local Figma MCP executable → localhost WebSocket bridge → Figma development plugin → editable native layers in the current design document. Native Orca is not required. The Figma REST API is not a replacement for this integration.
 
 The approved executable is `bin/figma-mcp-go.exe`, supplied in the Windows release. Its startup version is `1.2.0-standalone-hardening`; upstream health diagnostics may still expose `1.3.0`. Plugin identity is established by the approved core hash, not that diagnostics constant. Public beta `v1.2.1-beta.3` is packaging/onboarding metadata; system version remains `1.2.1`. Manifest/report schemas remain 2; source projection is `figma-browser-source-v1`; fingerprint is `canonical-json-sha256-v1`.

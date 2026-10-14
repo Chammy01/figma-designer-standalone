@@ -22,7 +22,7 @@ try {
         $files = @('setup.ps1','opencode.example.json','package.json','package-lock.json','docs/APPROVED_RUNTIME.json',
             '.opencode/agents/figma-designer.md','.opencode/agents/web-designer.md',
             '.opencode/plugins/figma-critique-guard.js',
-            'rules/figma-standalone-rules.md','rules/figma-design-rules.md','rules/figma-intent-router.mjs','rules/figma-prototype-planner.md',
+            'app/server/index.mjs','app/server/opencode-client.mjs','app/server/runs.mjs','app/server/status.mjs','app/web/index.html','app/web/styles.css','app/web/app.js','rules/figma-standalone-rules.md','rules/figma-design-rules.md','rules/figma-intent-router.mjs','rules/figma-prototype-planner.md',
             'rules/figma-motion-semantics.mjs','rules/figma-motion-semantics.md','rules/figma-browser-motion.mjs','rules/figma-browser-motion.md','rules/figma-browser-fidelity.mjs','rules/figma-browser-fidelity.md','vendor/figma-mcp/plugin/manifest.json')
         $files += @(Get-ChildItem -LiteralPath (Join-Path $root '.opencode/commands/figma') -File | ForEach-Object { '.opencode/commands/figma/' + $_.Name })
         $files += @('rules/figma-overlay-rules.md','rules/figma-interaction-qa.mjs','rules/figma-interaction-qa.md','scripts/figma-interaction-qa.mjs')

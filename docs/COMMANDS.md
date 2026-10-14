@@ -1,5 +1,10 @@
 # Commands
 
+The optional V1.4 source application forwards natural-language instructions to the
+same agent/session. Its QA, Browser, Browser Test and System Check buttons invoke
+the existing canonical commands. All fourteen commands remain available in OpenCode;
+no application-specific Figma command is added. See [Application guide](FIGMA_DESIGNER_APP_V1_4_0.md).
+
 Enter these in OpenCode chat while opened in the extracted project folder. Each `/figma/*` command selects `figma-designer`; ordinary chat retains `web-designer` compatibility.
 
 ## `/figma/setup`

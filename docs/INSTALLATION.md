@@ -1,5 +1,9 @@
 # Installation — Windows x64
 
+V1.4 source preview only: after successful source setup, `npm run app` starts the
+optional local application and prints its browser address. Keep that process running.
+This does not change the published Beta 3 installation. See [Application guide](FIGMA_DESIGNER_APP_V1_4_0.md).
+
 Use the prebuilt Release ZIP for normal use. Go, Bun, Git, and native Orca are not required. Use a writable folder, keep its files together, and avoid synchronizing or moving it during a session.
 
 ## Prerequisites
