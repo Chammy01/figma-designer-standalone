@@ -4,7 +4,7 @@ The V1.4 source application adds a localhost Node service and plain web UI over
 authenticated OpenCode sessions. The service selects `figma-designer` and forwards
 natural prompts or existing specialist commands. It does not duplicate routing,
 authoring, QA, motion or browser logic. Credentials stay server-side; generated
-previews use a separate local origin. See [Application foundation](FIGMA_DESIGNER_APP_V1_4_0.md).
+previews use a separate local origin. See [Application foundation](FIGMA_DESIGNER_APP_V1_4_0.md) and [provider/model recovery](FIGMA_DESIGNER_APP_V1_4_1.md). The fixed local AI API sanitizes native catalogs, delegates connection credentials to OpenCode, and switches models only while the conversation is idle and reconciled. Only model IDs persist; interrupted work is inspected without automatic resend.
 
 User prompt → OpenCode (`figma-designer` for slash commands) → local Figma MCP executable → localhost WebSocket bridge → Figma development plugin → editable native layers in the current design document. Native Orca is not required. The Figma REST API is not a replacement for this integration.
 

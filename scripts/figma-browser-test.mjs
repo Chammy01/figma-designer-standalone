@@ -373,10 +373,6 @@ console.log(`SOURCE_FRESHNESS: ${report.sourceFreshness}\nLOCAL_FRESHNESS: ${rep
 for(const key of ['SOURCE_FIDELITY','BROWSER_VISUAL_REGRESSION','PIXEL_REGRESSION','NATIVE_RENDER_PARITY','FIGMA_PIXEL_PARITY']) console.log(`${key}: ${fidelity[key]}`);
 for (const [token,count] of Object.entries(report.motion.totals)) console.log(`${token}: ${count}`);
 
-if (report.passed) {
-  console.log(`FIGMA_BROWSER_TEST: ${report.result}`);
-  process.exit(0);
-}
-
-console.log('FIGMA_BROWSER_TEST: FAIL');
-process.exit(1);
+console.log(`FIGMA_BROWSER_TEST: ${report.passed ? report.result : 'FAIL'}`);
+// Let live-source HTTP handles close before Windows tears down the event loop.
+process.exitCode = report.passed ? 0 : 1;

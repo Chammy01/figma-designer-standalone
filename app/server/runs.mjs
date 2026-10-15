@@ -1,10 +1,17 @@
 import {randomUUID} from 'node:crypto';
+import {isCritiqueReadTool} from '../../.opencode/plugins/figma-critique-guard.js';
+import {qaReportTool} from '../../rules/figma-qa-guard.mjs';
 
 export const modes=['AUTO','DESIGN','QA','BROWSER','BROWSER_TEST','STATUS'];
 export function safeError(error) {
   const tag=String(error?.code??error?.message??'');
-  const code=/provider|auth|credential/i.test(tag)?'PROVIDER_UNAVAILABLE':/model/i.test(tag)?'MODEL_UNAVAILABLE':/runtime/i.test(tag)?'RUNTIME_HASH_MISMATCH':/OPENCODE|ENGINE/i.test(tag)?'OPENCODE_START_FAILED':'SESSION_FAILED';
-  return {code,title:code==='PROVIDER_UNAVAILABLE'?'Provider unavailable':'Engine request needs attention',message:'The engine could not complete this request. Check your local OpenCode configuration. Do not repeat a possibly running write without checking its result.',recoverable:true,recommendedAction:'Check System, then review the run before retrying.'};
+  if(tag==='MODEL_SWITCH_UNVERIFIED')return {code:tag,title:'Model change not confirmed',message:'Choose and apply a model before starting another task. The last change could not be verified.',recoverable:true};
+  if(tag==='PROVIDER_CONNECT_INVALID')return {code:tag,title:'Check your provider details',message:'Enter an API key or choose a supported sign-in method.',recoverable:true};
+  if(['PLUGIN_NOT_CONNECTED','MCP_UNAVAILABLE','FIGMA_DISCONNECTED'].includes(tag))return {code:tag,title:'Figma disconnected',message:'Open your Figma file and run the Figma Designer development plugin, then choose Check Again.',recoverable:true};
+  const code=['PROVIDER_REQUIRED','MODEL_REQUIRED','PROVIDER_AUTH_REQUIRED','MODEL_CHANGE_LOCKED','MODEL_UNAVAILABLE','READ_ONLY_VERIFICATION_FAILED'].includes(tag)?tag:/auth|credential/i.test(tag)?'PROVIDER_AUTH_REQUIRED':error?.providerStatus===429?'PROVIDER_RATE_LIMITED':/model/i.test(tag)?'MODEL_UNAVAILABLE':/provider/i.test(tag)?'PROVIDER_UNAVAILABLE':/runtime/i.test(tag)?'RUNTIME_HASH_MISMATCH':/OPENCODE|ENGINE/i.test(tag)?'OPENCODE_START_FAILED':'SESSION_FAILED';
+  const copy={PROVIDER_REQUIRED:['AI provider needed','Connect an AI provider before starting a design.'],MODEL_REQUIRED:['Choose an AI model','Choose an available model to continue.'],PROVIDER_AUTH_REQUIRED:['Reconnect your AI provider','Your provider needs authentication before it can continue.'],MODEL_UNAVAILABLE:['Selected model unavailable','Choose another available model to continue.'],MODEL_CHANGE_LOCKED:['Finish the current task first','Models stay locked while a task is running or its result needs checking.'],PROVIDER_UNAVAILABLE:['AI provider unavailable','Your provider could not complete the request.'],PROVIDER_RATE_LIMITED:['Your provider needs a moment','The provider reported a request limit. Wait before trying again.'],RUNTIME_HASH_MISMATCH:['Runtime verification needs attention','Restore the approved runtime before starting design work.'],OPENCODE_START_FAILED:['Design engine unavailable','Check the application setup and choose Check Again.'],SESSION_FAILED:['This task needs attention','The design engine could not finish this task.']};
+  copy.READ_ONLY_VERIFICATION_FAILED=['Read-only verification failed','The current Figma page changed during this check. Its read-only result was not accepted. Review the changes before continuing.'];
+  const [title,message]=copy[code];return {code,title,message,recoverable:true};
 }
 export function redact(text) {
   let value=String(text);
@@ -12,46 +19,80 @@ export function redact(text) {
   return value.replace(/\b(?:sk-[\w-]{12,}|gh[pousr]_[\w]{15,}|github_pat_[\w]{15,})\b/g,'[redacted]').replace(/\b(?:Bearer|Basic)\s+[A-Za-z0-9+/=._-]{8,}/gi,'[redacted]');
 }
 export class Runs {
-  constructor(engine,log=()=>{}){this.engine=engine;this.log=log;this.runs=[];this.session=null;this.active=null;this.closed=false;}
-  async sessionForWorkspace(){if(!this.session){this.sessionPending??=this.engine.createSession();try{this.session=await this.sessionPending;}finally{this.sessionPending=null;}}return this.session;}
+  constructor(engine,log=()=>{},fingerprint=async()=>null){this.engine=engine;this.log=log;this.fingerprint=fingerprint;this.runs=[];this.session=null;this.workspaceId=randomUUID();this.active=null;this.closed=false;}
+  async sessionForWorkspace(){if(!this.session){this.sessionPending??=this.engine.createSession(this.ai?.selected);try{this.session=await this.sessionPending;}finally{this.sessionPending=null;}}return this.session;}
+  async newWorkspace(){this.sessionPending??=this.engine.createSession(this.ai?.selected);try{const session=await this.sessionPending;this.session=session;this.workspaceId=randomUUID();return session;}finally{this.sessionPending=null;}}
+  async verifyReadOnly(run){
+    if(!['QA','BROWSER','BROWSER_TEST'].includes(run.mode))return;
+    const after=await this.fingerprint().catch(()=>null);
+    run.integrity={scope:'current-page',state:!run.beforeFingerprint||!after?'UNVERIFIED':run.beforeFingerprint===after?'UNCHANGED':'CHANGED'};
+    if(run.integrity.state==='CHANGED')throw Object.assign(Error('READ_ONLY_VERIFICATION_FAILED'),{code:'READ_ONLY_VERIFICATION_FAILED'});
+  }
   async submit({input='',mode='AUTO',requestId}) {
     if(!modes.includes(mode)||typeof input!=='string'||input.length>32000||(!input.trim()&&mode==='AUTO')||!requestId||!/^[\w-]{8,80}$/.test(requestId))throw Object.assign(Error('Invalid request'),{status:400});
     const existing=this.runs.find(r=>r.requestId===requestId);if(existing)return existing;
-    if(this.active||this.uncertain)throw Object.assign(Error('A run is active or awaiting engine reconciliation'),{status:409});
-    const run={id:randomUUID(),requestId,input:redact(input),mode,state:'RUNNING',startedAt:new Date().toISOString(),result:'',activity:'Working…'};
+    if(this.active||this.uncertain||this.ai?.busy||this.sessionPending)throw Object.assign(Error('A task is running or its result needs checking'),{status:409});
+    this.ai?.assertReady();
+    const run={id:randomUUID(),workspaceId:this.workspaceId,requestId,input:redact(input),mode,state:'RUNNING',startedAt:new Date().toISOString(),result:'',activity:'Working…'};
     this.active=run;this.runs.push(run);if(this.runs.length>50)this.runs.shift();
     this.work(run,input);return run;
   }
   async work(run,input){
     try{
+      run.beforeFingerprint=await this.fingerprint().catch(()=>null);
       const session=await this.sessionForWorkspace();run.sessionId=session.id;
       const before=await this.engine.context(session.id);run.offset=before.length;
-      try{await this.engine.submit(session.id,run.mode,input);}catch(error){
+      try{run.submissionStarted=true;await this.engine.submit(session.id,run.mode,input);}catch(error){
         if(error.status && error.status<500 || /provider|model/i.test(error.code??''))throw error;
         // A lost submission response can hide completed writes; inspect, never resend.
         this.uncertain=true;this.uncertainOffset=run.offset;
         const observed=await this.engine.context(session.id);
         if(observed.length<=run.offset)throw error;
+        run.responseLost=true;
         this.uncertain=false;
       }
       while(!this.closed){
         const context=(await this.engine.context(session.id)).slice(run.offset);
         const messages=context.filter(m=>m.type==='assistant');
-        run.result=redact(this.engine.sanitize?.(messages.flatMap(m=>(m.content??[]).filter(c=>c.type==='text').map(c=>c.text)).join('\n\n'))??messages.flatMap(m=>(m.content??[]).filter(c=>c.type==='text').map(c=>c.text)).join('\n\n')).slice(-100000);
+        const finalText=(messages.at(-1)?.content??[]).filter(c=>c.type==='text').map(c=>c.text).join('\n\n');
         const error=context.find(m=>m.type==='error'||m.error);
         const idle=context.at(-1);
         if(idle?.type==='idle'){
+          run.result=redact(this.engine.sanitize?.(finalText)??finalText).slice(-100000);
           if(idle.outcome==='interrupted'){run.state='CANCELLED';break;}
-          if(error)throw Error(error.error?.type??error.error?.message??error.type);
+          if(error)throw Object.assign(Error(error.error?.type??error.type),{providerStatus:error.error?.status});
           if(idle.outcome==='failed')throw Error('SESSION_FAILED');
+          await this.verifyReadOnly(run);
           this.engine.providerRequired=false;
-          run.state=/FIGMA_[A-Z0-9_]+:\s*(?:PASS|WARN|FAIL|HOLD|BLOCKED)/.test(run.result)?'COMPLETED':'WAITING_FOR_USER';break;
+          run.state=/FIGMA_[A-Z0-9_]+:\s*(?:PASS|WARN|FAIL|HOLD|BLOCKED)/.test(run.result)?'COMPLETED':'WAITING_FOR_USER';if(run.responseLost&&run.state==='COMPLETED')run.recovery='RECOVERED_COMPLETED';break;
         }
         await new Promise(r=>setTimeout(r,700));
       }
-    }catch(error){if(['TypeError','TimeoutError','AbortError'].includes(error.name)){this.uncertain=true;this.uncertainOffset=run.offset??0;}run.state='FAILED';run.error=safeError(error);if(run.error.code==='PROVIDER_UNAVAILABLE')this.engine.providerRequired=true;}
+    }catch(error){run.state='FAILED';run.error=safeError(error);run.recovery='RECONCILIATION_REQUIRED';this.uncertain=true;this.uncertainOffset=run.offset??0;await this.reconcileRun(run);}
     finally{run.finishedAt=new Date().toISOString();run.activity='';this.active=null;this.log({event:'run',id:run.id,state:run.state,code:run.error?.code});}
   }
-  async reconcile(){if(this.uncertain&&this.session){try{const context=await this.engine.context(this.session.id);if(context.length>this.uncertainOffset&&context.at(-1)?.type==='idle')this.uncertain=false;}catch{}}}
+  async reconcileRun(run){
+    if(run.checking)return;
+    run.checking=true;
+    try{
+      if(!run.submissionStarted){run.recovery='RETRY_SAFE';this.uncertain=false;return;}
+      const context=(await this.engine.context(run.sessionId)).slice(run.offset??0),idle=context.at(-1);
+      if(idle?.type!=='idle')return;
+      const text=(context.filter(m=>m.type==='assistant').at(-1)?.content??[]).filter(c=>c.type==='text').map(c=>c.text).join('\n\n');
+      if(run.integrity?.state!=='CHANGED'&&idle.outcome==='succeeded'&&!context.some(m=>m.type==='error'||m.error)&&/FIGMA_[A-Z0-9_]+:\s*(?:PASS|WARN|FAIL|HOLD|BLOCKED)/.test(text)){
+        await this.verifyReadOnly(run).catch(error=>run.error=safeError(error));
+        if(run.integrity?.state!=='CHANGED'){run.result=redact(this.engine.sanitize?.(text)??text).slice(-100000);run.state='COMPLETED';run.recovery='RECOVERED_COMPLETED';delete run.error;this.uncertain=false;return;}
+      }
+      // Unknown events/tools can have side effects. An idle event alone never proves a safe retry.
+      const onlyReads=context.every(m=>['user','assistant','idle','error'].includes(m.type)&&(!m.content||m.content.every(c=>['text','reasoning'].includes(c.type)||c.type==='tool'&&(isCritiqueReadTool(c.name)||c.name===qaReportTool))));
+      if(onlyReads&&run.integrity?.state!=='CHANGED'){run.recovery='RETRY_SAFE';this.uncertain=false;return;}
+      const after=await this.fingerprint().catch(()=>null);
+      if(after&&run.beforeFingerprint&&after!==run.beforeFingerprint){
+        await new Promise(r=>setTimeout(r,500));
+        if(await this.fingerprint().catch(()=>null)===after&&(await this.engine.context(run.sessionId)).at(-1)?.type==='idle'){run.recovery='CONTINUE_FROM_CURRENT_STATE';this.uncertain=false;}
+      }
+    }catch{}finally{run.checking=false;if(run.error){run.error.impact=run.recovery==='RETRY_SAFE'?'Your Figma file was not changed by this request.':run.recovery==='CONTINUE_FROM_CURRENT_STATE'?'Changes were found in the current Figma page. Preserve them and continue from the current design.':'Some changes may already exist in Figma. Check the current result before repeating this request.';if(run.error.code==='PROVIDER_UNAVAILABLE')run.error.code=run.recovery==='RETRY_SAFE'?'PROVIDER_UNAVAILABLE_SAFE':'PROVIDER_UNAVAILABLE_UNCERTAIN';}}
+  }
+  async reconcile(){if(this.uncertain&&!this.active){const run=this.runs.at(-1);if(run&&!run.checking)await this.reconcileRun(run);}}
   async cancel(id){const run=this.runs.find(r=>r.id===id);if(!run)throw Object.assign(Error('Run not found'),{status:404});if(run!==this.active)return run; if(!run.sessionId)throw Object.assign(Error('Run is starting; check again'),{status:409});const value=await this.engine.interrupt(run.sessionId);run.cancelRequested=value.interrupted===true;return {interrupted:run.cancelRequested,message:run.cancelRequested?'Interrupt requested. Any completed Figma writes remain; verify before retrying.':'No active engine operation was interrupted.'};}
 }

@@ -3,7 +3,7 @@
 Create editable Figma interfaces by describing what you want.
 
 Source preview: V1.4 adds an optional local application. After source setup, run
-`npm run app` and open the printed localhost address. See the [application guide](docs/FIGMA_DESIGNER_APP_V1_4_0.md).
+`npm run app` and open the printed localhost address. Choose a model in Settings; interrupted tasks offer safe recovery actions. See the [application guide](docs/FIGMA_DESIGNER_APP_V1_4_1.md).
 This preview is not included in the published Beta 3 release; the terminal workflow remains available.
 
 Write your instructions in **OpenCode** and watch the design appear in **Figma Desktop** through the connected plugin. Figma Designer creates real, editable frames, text, components, and layers. It is not an image generator.

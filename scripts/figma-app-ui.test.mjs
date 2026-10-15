@@ -1,14 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {chromium} from '@playwright/test';
-import {mkdtemp,rm} from 'node:fs/promises';
+import {mkdtemp,rm,mkdir} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {createApplication,projectRoot} from '../app/server/index.mjs';
 import {OpenCodeClient} from '../app/server/opencode-client.mjs';
 import {mockOpenCode} from './fixtures/app-opencode.mjs';
-async function workspace(t){
-  const mock=mockOpenCode({delay:400});await new Promise(r=>mock.server.listen(0,'127.0.0.1',r));const engine=new OpenCodeClient({root:projectRoot,url:`http://127.0.0.1:${mock.server.address().port}`,password:'fixture-private-password'});
+async function workspace(t,{delay=400}={}){
+  const mock=mockOpenCode({delay});await new Promise(r=>mock.server.listen(0,'127.0.0.1',r));const engine=new OpenCodeClient({root:projectRoot,url:`http://127.0.0.1:${mock.server.address().port}`,password:'fixture-private-password'});
   const root=await mkdtemp(join(tmpdir(),'figma-app-ui-'));let health={figma:'CONNECTED',runtime:'VERIFIED'};
   const app=await createApplication({root,engine,status:async()=>health,browser:async()=>({state:'NOT_BUILT',fidelity:{SOURCE_FIDELITY:'NOT_RUN'}})});await app.ready;
   const browser=await chromium.launch(),context=await browser.newContext({viewport:{width:1100,height:800},reducedMotion:'reduce'}),page=await context.newPage();
@@ -22,12 +22,12 @@ test('application protocol UI: conversation, briefing, revision, specialist acti
   const w=await workspace(t),{page}=w;
   await page.getByRole('button',{name:'Send',exact:true}).waitFor({state:'visible'});
   await page.waitForFunction(()=>!document.getElementById('send').disabled);
-  assert.match(await page.locator('#statuses').textContent(),/Figma · Connected.*Engine · Ready.*Runtime · Verified/);
+  assert.match(await page.locator('#statuses').textContent(),/Figma · Connected.*Engine · Ready.*Model · First model/);
   await page.evaluate(()=>{window.statusMutations=0;const observer=new MutationObserver(records=>window.statusMutations+=records.length);for(const id of ['statuses','connection-title','connection-copy','run-state'])observer.observe(document.getElementById(id),{childList:true,subtree:true,characterData:true});});await page.waitForTimeout(1700);assert.equal(await page.evaluate(()=>window.statusMutations),0);
   await w.send('Create a neumorphic task management dashboard.');assert.match(await page.locator('#conversation').textContent(),/FIGMA_DESIGN_V2: PASS/);
   await w.send('Make the cards softer.');
   await w.send('vague design');assert.match(await page.locator('#conversation').textContent(),/What should users do first/);await w.send('Create a new task.');
-  for(const name of ['Run QA','Build Browser','Test Browser']){await page.locator('#workspace').getByRole('button',{name,exact:true}).click();await page.waitForTimeout(1600);await w.settled();}
+  for(const name of ['Run QA','Build Browser','Test Browser']){await page.locator('.workflow-actions').getByRole('button',{name,exact:true}).click();await page.waitForTimeout(1600);await w.settled();}
   assert.equal(w.mock.calls.filter(c=>c.path==='/api/session').length,1);assert.deepEqual(w.mock.calls.filter(c=>c.path.endsWith('/command')).map(c=>c.body.name),['figma/qa','figma/browser','figma/browser-test']);
   await page.reload();await page.waitForFunction(()=>document.getElementById('conversation').textContent.includes('Make the cards softer.'));
   await page.getByRole('link',{name:'Settings',exact:true}).click();await page.getByText('Developer diagnostics',{exact:true}).click();assert.doesNotMatch(await page.locator('#diagnostic-output').textContent(),/fixture-private-password|Authorization|HIDDEN_REASONING/);
@@ -39,7 +39,7 @@ test('application protocol UI: conversation, briefing, revision, specialist acti
 test('disconnected recovery, failure, keyboard focus, minimum desktop and reduced motion',async t=>{
   const w=await workspace(t),{page}=w;w.setHealth({figma:'PLUGIN_NOT_CONNECTED',runtime:'VERIFIED'});await page.getByRole('button',{name:'Check Again'}).click();await page.getByRole('heading',{name:'Figma plugin not connected',exact:true}).waitFor();assert.equal(await page.locator('#send').isDisabled(),true);assert.doesNotMatch(await page.locator('main').textContent(),/ECONNREFUSED|WebSocket|stack trace/);
   w.setHealth({figma:'CONNECTED',runtime:'VERIFIED'});await page.getByRole('button',{name:'Check Again'}).click();await page.waitForFunction(()=>!document.getElementById('send').disabled);
-  await w.send('provider-failure');assert.match(await page.locator('#conversation').textContent(),/Provider unavailable/);
+  await w.send('provider-failure');assert.match(await page.locator('#conversation').textContent(),/Reconnect your AI provider/);
   await page.getByLabel('Your instruction').focus();await page.keyboard.press('Tab');assert.ok(['send','cancel'].includes(await page.evaluate(()=>document.activeElement.id)));
   assert.equal(await page.locator('#send').evaluate(el=>getComputedStyle(el).outlineStyle),'solid');
   await page.setViewportSize({width:760,height:800});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
@@ -47,3 +47,35 @@ test('disconnected recovery, failure, keyboard focus, minimum desktop and reduce
   assert.doesNotMatch(await page.content(),/fixture-private-password|HIDDEN_REASONING_SENTINEL/);
   await page.route('**/api/app/status',r=>r.abort());await page.locator('#error').waitFor({state:'visible'});await page.unroute('**/api/app/status');await page.locator('#error').waitFor({state:'hidden'});
 });
+
+test('AI settings: model selection, native checking, secret-free connect, recent run detail',async t=>{
+  const w=await workspace(t),{page}=w;await page.waitForFunction(()=>!document.getElementById('send').disabled);
+  await page.getByRole('link',{name:'Settings',exact:true}).click();assert.equal(await page.locator('#diagnostics').getAttribute('open'),null);
+  assert.match(await page.locator('#ai-status').textContent(),/First model/);await page.selectOption('#model',JSON.stringify({id:'second',providerID:'fixture'}));await page.click('#apply-model');await page.waitForFunction(()=>document.getElementById('ai-notice').textContent.includes('Model changed'));
+  await page.click('#test-model');await page.waitForFunction(()=>document.getElementById('ai-notice').textContent.includes('model responded'));
+  await page.click('#connect-provider');await page.selectOption('#provider','fixture');assert.equal(await page.isVisible('#use-connection'),true);await page.click('#use-connection');assert.equal(await page.evaluate(()=>document.activeElement.id),'model');assert.match(await page.textContent('#ai-notice'),/Existing connection retained/);
+  await page.click('#connect-provider');await page.selectOption('#provider','fixture');await page.fill('#provider-key','ui-transient-key-1234');await page.click('#auth-submit');await page.waitForFunction(()=>document.getElementById('provider-notice').textContent.includes('Connection saved'));assert.equal(await page.inputValue('#provider-key'),'');assert.doesNotMatch(await page.content(),/ui-transient-key|fixture-private-password/);await page.click('#close-provider');
+  await page.getByRole('link',{name:'Design',exact:true}).click();await w.send('Create a compact design.');await page.getByRole('link',{name:'Recent Runs',exact:true}).click();await page.locator('#recent-runs>button').first().click();assert.match(await page.locator('#run-detail').textContent(),/Create a compact design.*Design complete/s);
+});
+test('first-run provider needed and missing model recovery preserve Figma/runtime status',async t=>{
+  const w=await workspace(t),{page}=w;w.mock.models.length=0;w.mock.providers.length=0;w.app.ai.selected=null;await page.locator('#check').click();await page.getByRole('heading',{name:'AI provider needed',exact:true}).waitFor();assert.equal(await page.locator('#send').isDisabled(),true);assert.match(await page.locator('#statuses').textContent(),/Figma · Connected/);await page.locator('#connect-shortcut').click();await page.locator('#provider-dialog').waitFor({state:'visible'});await page.click('#close-provider');
+  w.mock.providers.push({id:'fixture'});w.mock.models.push({id:'new',providerID:'fixture',enabled:true,name:'New model'});w.app.ai.selected={id:'missing',providerID:'fixture'};await page.locator('#check').click();await page.getByRole('heading',{name:'Selected model unavailable',exact:true}).waitFor();await page.locator('#choose-shortcut').click();assert.match(await page.locator('#model').textContent(),/missing.*unavailable/);assert.equal(w.mock.calls.filter(c=>c.path.endsWith('/prompt')).length,0);
+});
+test('safe failure offers explicit Try Again, uncertain failure locks writes and model switching',async t=>{
+  const w=await workspace(t),{page}=w;await page.waitForFunction(()=>!document.getElementById('send').disabled);await w.send('provider-failure');assert.match(await page.locator('#conversation').textContent(),/not changed by this request/);await page.locator('#conversation').getByRole('button',{name:'Try Again',exact:true}).waitFor();
+  await w.send('uncertain-failure');const latest=page.locator('#conversation .message').last();assert.match(await latest.textContent(),/Some changes may already exist/);assert.equal(await latest.getByRole('button',{name:'Try Again',exact:true}).count(),0);await page.waitForFunction(()=>document.getElementById('send').disabled);await latest.getByRole('button',{name:'Check Current Result',exact:true}).click();assert.equal(w.mock.calls.filter(c=>c.path.endsWith('/prompt')).length,2);await page.getByRole('link',{name:'Settings',exact:true}).click();assert.equal(await page.locator('#model').isDisabled(),true);assert.match(await page.locator('#model-help').textContent(),/Finish or stop/);
+});
+test('positive reconciliation offers current-design continuation and recovered result is visible',async t=>{
+  const w=await workspace(t),{page}=w;await page.waitForFunction(()=>!document.getElementById('send').disabled);let reads=0;w.app.runs.fingerprint=async()=>++reads===1?'before':'after';await w.send('uncertain-failure');const latest=page.locator('#conversation .message').last();await latest.getByRole('button',{name:'Continue From Current Design',exact:true}).click();assert.match(await page.inputValue('#prompt'),/preserve completed work/);assert.equal(w.mock.calls.filter(c=>c.path.endsWith('/prompt')).length,1);
+  const run=w.app.runs.runs.at(-1);run.recovery='RECOVERED_COMPLETED';run.state='COMPLETED';run.result='Native result recovered.\nFIGMA_DESIGN_V2: PASS';delete run.error;await page.waitForFunction(()=>document.getElementById('conversation').textContent.includes('Native result recovered'));assert.match(await latest.textContent(),/Work was preserved/);
+});
+test('active tasks disable model changes; QA and browser evidence stay distinct on narrower desktop',async t=>{
+  const w=await workspace(t,{delay:2200}),{page}=w;await page.waitForFunction(()=>!document.getElementById('send').disabled);await page.fill('#prompt','Create a design.');await page.click('#send');await page.getByRole('link',{name:'Settings',exact:true}).click();await page.waitForFunction(()=>document.getElementById('model').disabled);await page.getByRole('link',{name:'Design',exact:true}).click();await w.settled();await page.locator('.workflow-actions').getByRole('button',{name:'Run QA',exact:true}).click();await page.waitForTimeout(1600);await w.settled();assert.match(await page.locator('#conversation').textContent(),/Interface QA · PASS/);await page.getByRole('link',{name:'Browser',exact:true}).click();await page.waitForFunction(()=>document.getElementById('browser-status').textContent.includes('NOT_BUILT'));assert.match(await page.locator('#fidelity').textContent(),/NOT_RUN/);await page.setViewportSize({width:560,height:800});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);await page.getByRole('link',{name:'Settings',exact:true}).click();await page.locator('#model').waitFor({state:'visible'});assert.equal(await page.locator('#model').isVisible(),true);
+});
+
+test('New Design clears a failure that happened before native session creation',async t=>{const w=await workspace(t),{page}=w;await page.waitForFunction(()=>!document.getElementById('send').disabled);const create=w.app.runs.engine.createSession.bind(w.app.runs.engine);w.app.runs.engine.createSession=async()=>{throw Error('ProviderError');};await w.send('Create a design.');assert.match(await page.locator('#conversation').textContent(),/not changed by this request/);w.app.runs.engine.createSession=create;await page.click('#new-design');await page.waitForFunction(()=>!document.getElementById('conversation').children.length);assert.equal(await page.locator('#recent-runs>button').count(),1);});
+
+test('lost app submission response is found in history without replaying or retaining the original prompt',async t=>{const w=await workspace(t),{page}=w;await page.waitForFunction(()=>!document.getElementById('send').disabled);await page.route('**/api/run',async r=>{await r.fetch();await r.abort();});await page.fill('#prompt','Create a compact native dashboard.');await page.click('#send');await page.waitForFunction(()=>document.getElementById('send').disabled);await page.waitForFunction(()=>document.getElementById('conversation').textContent.includes('FIGMA_DESIGN_V2: PASS'));assert.equal(w.mock.calls.filter(c=>c.path.endsWith('/prompt')).length,1);assert.equal(await page.inputValue('#prompt'),'');await page.waitForFunction(()=>!document.getElementById('send').disabled);});
+test('unresolved delivery loss disables authoring and model changes without inventing a safe retry',async t=>{const w=await workspace(t),{page}=w;await page.waitForFunction(()=>!document.getElementById('send').disabled);await page.route('**/api/run',r=>r.abort());await page.fill('#prompt','Create a design.');await page.click('#send');await page.waitForFunction(()=>document.getElementById('connection-title').textContent.includes('Checking the last request'));assert.equal(await page.locator('#send').isDisabled(),true);assert.equal(await page.locator('#new-design').isDisabled(),true);assert.equal(w.mock.calls.filter(c=>c.path.endsWith('/prompt')).length,0);await page.getByRole('link',{name:'Settings',exact:true}).click();assert.equal(await page.locator('#model').isDisabled(),true);assert.equal(await page.getByRole('button',{name:'Try Again',exact:true}).count(),0);});
+
+test('QA that changes Figma is flagged instead of displaying a trusted read-only success',async t=>{const w=await workspace(t),{page}=w;await page.waitForFunction(()=>!document.getElementById('send').disabled);let reads=0;w.app.runs.fingerprint=async()=>++reads===1?'before':'changed';await page.locator('.workflow-actions [data-mode="QA"]').click();await page.getByRole('heading',{name:'Read-only verification failed',exact:true}).waitFor();assert.match(await page.locator('#conversation').textContent(),/read-only result was not accepted/);assert.equal(await page.getByRole('button',{name:'Try Again',exact:true}).count(),0);assert.match(await page.locator('#conversation').textContent(),/Current-page integrity · CHANGED/);assert.equal(await page.locator('#conversation .result-card').last().getAttribute('data-outcome'),'FAIL');});

@@ -5,6 +5,9 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import {OpenCodeClient} from './opencode-client.mjs';
 import {Runs,safeError} from './runs.mjs';
 import {systemStatus,previewStatus} from './status.mjs';
+import {AI} from './ai.mjs';
+import {readQATool} from '../../scripts/figma-interaction-qa.mjs';
+import {documentFingerprint} from '../../rules/figma-interaction-qa.mjs';
 import {safePath,isWithinRoot} from '../../scripts/figma-browser-contract.mjs';
 
 export const projectRoot=resolve(fileURLToPath(new URL('../../',import.meta.url)));
@@ -14,10 +17,10 @@ async function listen(server,port=0){await new Promise((r,reject)=>{server.once(
 async function body(req){if(req.headers.origin!==`http://${req.headers.host}` || req.headers['content-type']?.split(';')[0]!=='application/json')throw Object.assign(Error('Same-origin JSON required'),{status:403});const chunks=[];let size=0;for await(const chunk of req){size+=chunk.length;if(size>40000)throw Object.assign(Error('Request too large'),{status:413});chunks.push(chunk);}try{return JSON.parse(Buffer.concat(chunks).toString('utf8'));}catch{throw Object.assign(Error('Invalid JSON'),{status:400});}}
 function json(res,value,status=200){res.writeHead(status,{'Content-Type':'application/json'});res.end(JSON.stringify(value));}
 
-export async function createApplication({root=projectRoot,engine=new OpenCodeClient({root,executable:process.env.OPENCODE_EXECUTABLE,url:process.env.FIGMA_APP_OPENCODE_URL,password:process.env.FIGMA_APP_OPENCODE_PASSWORD}),status=()=>systemStatus(root),browser=()=>previewStatus(root),port=0}={}) {
+export async function createApplication({root=projectRoot,engine=new OpenCodeClient({root,executable:process.env.OPENCODE_EXECUTABLE,url:process.env.FIGMA_APP_OPENCODE_URL,password:process.env.FIGMA_APP_OPENCODE_PASSWORD}),status=()=>systemStatus(root),browser=()=>previewStatus(root),fingerprint=async()=>root===projectRoot?documentFingerprint(await readQATool('get_document')).sha256:null,port=0}={}) {
   const events=[];let logChain=Promise.resolve(),closed=false;
   const log=event=>{events.push({...event,time:new Date().toISOString()});if(events.length>100)events.shift();logChain=logChain.then(async()=>{await mkdir(join(root,'.figma-designer/app'),{recursive:true});await writeFile(join(root,'.figma-designer/app/events.json'),JSON.stringify(events));}).catch(()=>{});};
-  const runs=new Runs(engine,log);let cachedStatus,lastCheck=0,statusPending,preview;
+  const runs=new Runs(engine,log,fingerprint),ai=new AI(engine,runs,root);runs.ai=ai;let cachedStatus,lastCheck=0,statusPending,preview;
   async function check(force=false){if(force || !cachedStatus || Date.now()-lastCheck>3000){statusPending??=status().then(s=>{cachedStatus=s;lastCheck=Date.now();return s;}).finally(()=>statusPending=undefined);await statusPending;}return cachedStatus;}
   async function previewUrl(){
     const state=await browser();if(state.state==='NOT_BUILT')throw Object.assign(Error('Browser preview has not been built'),{status:404});
@@ -35,10 +38,11 @@ export async function createApplication({root=projectRoot,engine=new OpenCodeCli
     try{
       const path=new URL(req.url,'http://127.0.0.1').pathname;
       if(req.method==='GET'){
-        if(path==='/api/app/status'){await runs.reconcile();json(res,{...(await check(new URL(req.url,'http://127.0.0.1').searchParams.has('refresh'))),engine:{...engine.status(),availability:engine.providerRequired?'PROVIDER_REQUIRED':'UNKNOWN'},activeRun:runs.active?.id??null,sessionId:runs.session?.id??null,reconciliationRequired:!!runs.uncertain,features:{statefulVariables:'HOLD'},errors:events.filter(e=>e.code).slice(-5)});return;}
+        if(path==='/api/app/status'){await runs.reconcile();const force=new URL(req.url,'http://127.0.0.1').searchParams.has('refresh');if(['READY','EXTERNAL'].includes(engine.status().state))await ai.refresh(force).catch(()=>{});json(res,{...(await check(force)),engine:{...engine.status(),availability:ai.status().state},ai:ai.status(),activeRun:runs.active?.id??null,sessionId:runs.session?.id??null,workspaceId:runs.workspaceId,reconciliationRequired:!!runs.uncertain,features:{statefulVariables:'HOLD'},errors:events.filter(e=>e.code).slice(-5)});return;}
+        if(path==='/api/ai/status'||path==='/api/ai/models'||path==='/api/ai/providers'){const value=await ai.refresh();json(res,path.endsWith('/models')?value.models:path.endsWith('/providers')?value.integrations:value);return;}
         if(path==='/api/figma/status'){json(res,await check());return;}
         if(path==='/api/opencode/status'){json(res,engine.status());return;}
-        if(path==='/api/project'){json(res,{name:basename(root),version:'1.4.0-source'});return;}
+        if(path==='/api/project'){json(res,{name:basename(root),version:'1.4.1-source'});return;}
         if(path==='/api/runs'){json(res,runs.runs);return;}
         if(path==='/api/browser/status'){json(res,await browser());return;}
         if(path==='/api/browser/preview'){json(res,{url:await previewUrl()});return;}
@@ -48,21 +52,25 @@ export async function createApplication({root=projectRoot,engine=new OpenCodeCli
       }
       if(req.method==='POST'){
         const value=await body(req);
-        if(path==='/api/session'){if(runs.active||runs.uncertain)throw Object.assign(Error('Wait for the active run or reconciliation'),{status:409});if(!['READY','EXTERNAL'].includes(engine.status().state))throw Object.assign(Error('Engine is not ready'),{status:503});runs.session=null;json(res,{id:(await runs.sessionForWorkspace()).id});return;}
+        if(path==='/api/ai/model'){json(res,await ai.choose(value.model));return;}
+        if(path==='/api/ai/check'){json(res,await ai.check());return;}
+        if(path==='/api/ai/connect'){json(res,await ai.connect(value));return;}
+        if(path==='/api/session'){if(runs.active||runs.uncertain||ai.busy)throw Object.assign(Error('Wait for the active task or result check'),{status:409});if(!['READY','EXTERNAL'].includes(engine.status().state))throw Object.assign(Error('Engine is not ready'),{status:503});ai.assertReady();json(res,{id:(await runs.newWorkspace()).id});return;}
         if(path==='/api/run'){
           if(!['READY','EXTERNAL'].includes(engine.status().state))throw Object.assign(Error('Engine is not ready'),{status:503});
           if(['AUTO','DESIGN','QA','BROWSER','BROWSER_TEST'].includes(value.mode??'AUTO')){const health=await check();if(health.runtime!=='VERIFIED')throw Object.assign(Error('Runtime must be verified before a workflow'),{status:409,code:'RUNTIME_HASH_MISMATCH'});if(health.figma!=='CONNECTED')throw Object.assign(Error('Connect the Figma plugin first'),{status:409,code:health.figma});}
           json(res,await runs.submit({...value,mode:value.mode??'AUTO'}),202);return;
         }
         if(/^\/api\/run\/[\w-]+\/cancel$/.test(path)){json(res,await runs.cancel(path.split('/')[3]));return;}
+        if(/^\/api\/run\/[\w-]+\/reconcile$/.test(path)){const run=runs.runs.find(r=>r.id===path.split('/')[3]);if(!run)throw Object.assign(Error('Run not found'),{status:404});if(runs.active||run!==runs.runs.at(-1))throw Object.assign(Error('Only the latest finished task can be checked'),{status:409});await runs.reconcileRun(run);json(res,run);return;}
       }
       json(res,{error:{title:'Not available',message:'This application endpoint does not exist.'}},404);
-    }catch(error){const status=error.status??500;json(res,{error:status<500?{code:error.code??'REQUEST_INVALID',title:'Request needs attention',message:error.message,recoverable:true,recommendedAction:'Check System and review the request.'}:safeError(error)},status);}
+    }catch(error){const status=error.status??500;json(res,{error:error.code?safeError(error):status<500?{code:'REQUEST_INVALID',title:'Request needs attention',message:error.message,recoverable:true}:safeError(error)},status);}
   });
   const url=await listen(server,port);
-  const ready=engine.start().then(()=>log({event:'engine',state:engine.status().state})).catch(error=>log({event:'engine',state:'FAILED',code:safeError(error).code}));
+  const ready=engine.start().then(async()=>{await ai.initialize().catch(()=>{});log({event:'engine',state:engine.status().state});}).catch(error=>log({event:'engine',state:'FAILED',code:safeError(error).code}));
   async function close(){if(closed)return;closed=true;runs.closed=true;await ready;await engine.stop();for(const s of [server,preview?.server].filter(Boolean)){s.closeAllConnections();await new Promise(r=>s.close(r));}await logChain;}
-  return {url,server,runs,ready,close};
+  return {url,server,runs,ai,ready,close};
 }
 
 if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){

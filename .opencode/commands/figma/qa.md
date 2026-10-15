@@ -37,10 +37,14 @@ reactionless controls too; do not limit inventory to nodes with reactions.
 Do not guess business behavior or silently omit a broken control from scope.
 Unknown expectation is distinct from intentionally inert and broken behavior.
 
-Run `node scripts/figma-interaction-qa.mjs --json` (or supply a local evidence JSON
-with `--scope` as defined in the rule). This is read-only through the existing
-approved bridge, not a new command/MCP capability. Local evidence/report files are
-allowed; no Figma write tool may be called. Do not repair findings, even when the
+Require `FIGMA_QA_GUARD: ACTIVE`. Call the direct `figma_qa_report` inspection tool;
+it invokes the same collector through the existing approved bridge. Optional
+`scopeJSON` carries verified evidence annotations as defined in the rule. If the
+guard/tool is unavailable, stop with FAIL; never fall back to shell or Code Mode.
+This adds no Figma command or MCP capability. Advanced manual CLI use outside a
+protected OpenCode turn remains `node scripts/figma-interaction-qa.mjs --json`
+(with `--scope` for a local evidence file). In a protected turn, shell, file-write,
+Code Mode and authoring tools are blocked. Do not repair findings, even when the
 request says "fix whatever QA finds": finish QA first and recommend a separate
 bounded authoring workflow. Any mutation call or changed fingerprint forces FAIL.
 

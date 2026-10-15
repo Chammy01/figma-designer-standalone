@@ -17,7 +17,7 @@ export class OpenCodeClient {
   async api(path,body,{method=body===undefined?'GET':'POST',timeout=30000}={}) {
     const r=await fetch(this.#url+path,{method,headers:{Authorization:'Basic '+Buffer.from('opencode:'+this.#password).toString('base64'),'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body),signal:AbortSignal.timeout(timeout),redirect:'error'});
     const data=r.status===204?undefined:await r.json();
-    if(!r.ok)throw Object.assign(new Error(data?._tag??'ENGINE_REQUEST_FAILED'),{code:data?._tag,status:r.status});
+    if(!r.ok)throw Object.assign(new Error(data?._tag??'ENGINE_REQUEST_FAILED'),{code:data?._tag,status:r.status,providerStatus:data?.error?.status});
     return data?.data ?? data;
   }
   async start() {
@@ -47,7 +47,14 @@ export class OpenCodeClient {
     } catch(error) {await this.stop();this.state='FAILED';throw error;}
   }
   status(){let port=null;try{if(this.#url)port=Number(new URL(this.#url).port);}catch{}return {state:this.state,version:this.version??null,owned:this.owned,port};}
-  async createSession(){return this.api('/api/session',{title:'Figma Designer workspace',agent:'figma-designer',location:{directory:this.root}});}
+  location(path){return path+'?location[directory]='+encodeURIComponent(this.root);}
+  catalog(path){return this.api(this.location('/api/'+path));}
+  reload(){return this.api('/api/location/reload',{});}
+  async createSession(model){return this.api('/api/session',{title:'Figma Designer workspace',agent:'figma-designer',location:{directory:this.root},...(model?{model}:{})});}
+  session(id){return this.api('/api/session/'+encodeURIComponent(id));}
+  switchModel(id,model){return this.api('/api/session/'+encodeURIComponent(id)+'/model',{model});}
+  testModel(model){return this.api('/api/experimental/generate',{model,prompt:'Reply OK. This is a connection check.'});}
+  connect(id,kind,body,attempt,complete=false){return this.api(this.location('/api/integration/'+encodeURIComponent(id)+'/connect/'+kind+(attempt?'/'+encodeURIComponent(attempt):'')+(complete?'/complete':'')),body);}
   context(id){return this.api(`/api/session/${encodeURIComponent(id)}/context`);}
   submit(id,mode,text){return this.api(`/api/session/${encodeURIComponent(id)}/${mode==='AUTO'?'prompt':'command'}`,mode==='AUTO'?{text}:{name:{DESIGN:'figma/design',QA:'figma/qa',BROWSER:'figma/browser',BROWSER_TEST:'figma/browser-test',STATUS:'figma/doctor'}[mode],text});}
   interrupt(id){return this.api(`/api/session/${encodeURIComponent(id)}/interrupt?resume=false`,{});}

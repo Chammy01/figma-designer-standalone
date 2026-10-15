@@ -1,5 +1,7 @@
 # Figma Designer application foundation — V1.4.0 source preview
 
+V1.4.1 adds [provider recovery, model controls and workspace UX](FIGMA_DESIGNER_APP_V1_4_1.md). This document records the original foundation acceptance.
+
 The optional application is a product layer over the validated engine, not a new
 design engine. Published Beta 3 remains unchanged. No Electron/Tauri shell, new
 Figma command, provider management UI or native runtime capability is introduced.

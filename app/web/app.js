@@ -1,54 +1,90 @@
 const $=id=>document.getElementById(id);
-let active=null,history=[],status={},polling=false,rendered='';
-async function api(path,body){const r=await fetch(path,{method:body===undefined?'GET':'POST',headers:body===undefined?{}:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});const value=await r.json();if(!r.ok)throw Error(value.error?.message??'The local application is unavailable. Check the connection and try again.');return value;}
-function showError(error){$('error').textContent=error.message;$('error').dataset.kind=error.network?'network':'request';$('error').hidden=false;}
-function route(){const name=location.hash.slice(1)||'workspace';for(const el of document.querySelectorAll('.view'))el.hidden=el.id!==name;for(const a of document.querySelectorAll('nav a,.settings')){if(a.hash==='#'+name)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');}if(name==='browser')refreshBrowser().catch(showError);}
+let active=null,history=[],status={},polling=false,rendered='',aiRendered='',selectedRun=null,pendingSubmission=null;
+async function api(path,body){const r=await fetch(path,{method:body===undefined?'GET':'POST',headers:body===undefined?{}:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});const value=await r.json();if(!r.ok)throw Object.assign(Error(value.error?.message??'The local application is unavailable.'),{info:value.error});return value;}
 function text(tag,content){const el=document.createElement(tag);el.textContent=content;return el;}
 function update(id,content){if($(id).textContent!==content)$(id).textContent=content;}
+function button(label,action){const b=text('button',label);b.type='button';b.addEventListener('click',()=>Promise.resolve(action()).catch(showError));return b;}
+function showError(error){$('error').replaceChildren(text('h3',error.info?.title??'Connection needs attention'),text('p',error.message),button('Check Again',async()=>{await refreshRuns();await refreshStatus(true);}));$('error').dataset.kind=error.network?'network':'request';$('error').hidden=false;}
+function route(){const name=location.hash.slice(1)||'workspace';for(const el of document.querySelectorAll('.view'))el.hidden=el.id!==name;for(const a of document.querySelectorAll('nav a,.settings')){if(a.hash==='#'+name)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');}update('view-label',name==='workspace'?'DESIGN WORKSPACE':name.toUpperCase());if(name==='browser')refreshBrowser().catch(showError);}
+function compose(input=''){location.hash='workspace';$('prompt').value=input;$('prompt').focus();}
+function summary(run){const marker=run.result?.match(/FIGMA_([A-Z0-9_]+):\s*(PASS|WARN|FAIL|HOLD|BLOCKED)/);return run.state==='RUNNING'?'Working…':run.state==='WAITING_FOR_USER'?'Ready for your reply':run.state==='CANCELLED'?'Task stopped':run.state==='FAILED'?'Task needs attention':run.mode==='QA'?'Interface QA · '+(marker?.[2]??'Completed'):run.mode.startsWith('BROWSER')?'Browser result · '+(marker?.[2]??'Completed'):run.mode==='STATUS'?'System check complete':/FIGMA_(DESIGN|REVIS)/.test(run.result)?'Design complete':'Task complete';}
+function recovery(run){
+  const card=document.createElement('section');card.className='recovery';
+  const recovered=run.recovery==='RECOVERED_COMPLETED',partial=run.recovery==='CONTINUE_FROM_CURRENT_STATE',safe=run.recovery==='RETRY_SAFE';
+  card.append(text('h3',run.integrity?.state==='CHANGED'?'Read-only verification failed':recovered||partial?'Work was preserved':safe?(run.error?.title??'Task could not start'):'Connection interrupted'),text('p',recovered?'The native session completed. The result below was recovered without repeating your request.':run.error?.message??'The engine response was interrupted.'));
+  if(run.error?.impact)card.append(text('p',run.error.impact));
+  const actions=document.createElement('div');actions.className='actions';
+  if(safe)actions.append(button('Try Again',()=>submit(run.mode,run.input)));
+  if(partial&&run.integrity?.state!=='CHANGED')actions.append(button('Continue From Current Design',()=>compose('Inspect the current design and preserve completed work. Continue only the unfinished parts of this request: '+run.input)));
+  if(!safe&&!recovered)actions.append(button('Check Current Result',async()=>{await api('/api/run/'+run.id+'/reconcile',{});await poll();}));
+  if(!recovered&&run.error?.code!=='READ_ONLY_VERIFICATION_FAILED')actions.append(button('Change Model',()=>{location.hash='settings';$('model').focus();}),button('Reconnect Provider',openProvider));
+  card.append(actions);const details=document.createElement('details');details.append(text('summary','Details'),text('pre',[run.error?.code,run.recovery,run.checking?'Checking native session…':'',run.sessionId?'Session '+run.sessionId:''].filter(Boolean).join('\n')));card.append(details);return card;
+}
+function runContent(run){const message=document.createElement('article');message.className='message';message.dataset.runId=run.id;message.dataset.state=run.state;message.append(text('h3','YOU'),text('pre',run.input||run.mode.replaceAll('_',' ')));if(run.error||run.recovery)message.append(recovery(run));if(run.result){const result=document.createElement('div');result.className='result-card';const label=summary(run);result.dataset.outcome=run.state==='FAILED'||label.includes('FAIL')?'FAIL':/WARN|HOLD|BLOCKED/.test(label)?'WARN':'DEFAULT';result.append(text('h3',label));if(run.integrity)result.append(text('p','Current-page integrity · '+run.integrity.state));if(run.state==='COMPLETED'&&run.id===history.at(-1)?.id){const actions=document.createElement('div');actions.className='actions';if(run.mode==='QA')actions.append(button('View Findings',()=>{update('qa-result',run.result);location.hash='qa';}));else if(run.mode.startsWith('BROWSER'))actions.append(button('View Browser Status',()=>{location.hash='browser';}));else if(run.mode!=='STATUS')actions.append(button('Revise',()=>compose()),button('Make Interactive',()=>compose('Make the existing design interactive. ')),button('Run QA',()=>submit('QA')));result.append(actions);}message.append(result,text('h3','FIGMA DESIGNER'),text('pre',run.result));}return message;}
 function renderRuns(){
-  const signature=JSON.stringify([status.sessionId,history]);
-  if(signature!==rendered){
-  rendered=signature;
-  const conversation=$('conversation'),previousTop=conversation.scrollTop,atEnd=conversation.scrollHeight-previousTop-conversation.clientHeight<40;
-  $('conversation').replaceChildren();$('recent-runs').replaceChildren();
-  for(const run of history){const message=document.createElement('article');message.className='message';message.dataset.runId=run.id;message.dataset.state=run.state;message.append(text('h3','You'),text('pre',run.input||run.mode));if(run.result)message.append(text('h3','Figma Designer'),text('pre',run.result));if(run.error)message.append(text('p',run.error.title+': '+run.error.message));if(!status.sessionId||!run.sessionId||run.sessionId===status.sessionId)$('conversation').append(message);const card=document.createElement('article');card.append(text('strong',run.mode+' · '+run.state.replaceAll('_',' ')),text('p',run.input.slice(0,160)||'System workflow'));$('recent-runs').append(card);if(run.mode==='QA'&&run.result)$('qa-result').textContent=run.result;}
-  active=history.find(r=>r.state==='RUNNING')??null;
-  conversation.scrollTop=atEnd?conversation.scrollHeight:previousTop;
-  document.querySelector('.intro').hidden=!!conversation.children.length;
+  const signature=JSON.stringify([status.workspaceId,status.sessionId,history]);
+  if(signature!==rendered){rendered=signature;const conversation=$('conversation'),top=conversation.scrollTop,atEnd=conversation.scrollHeight-top-conversation.clientHeight<40;conversation.replaceChildren();$('recent-runs').replaceChildren();
+    for(const run of history){if(status.workspaceId?run.workspaceId===status.workspaceId:!status.sessionId||!run.sessionId||run.sessionId===status.sessionId)conversation.append(runContent(run));const title=(run.input||run.mode.replaceAll('_',' ')).slice(0,85);const item=button(title,()=>{selectedRun=run.id;renderDetail();});item.append(text('small',summary(run)+' · '+new Date(run.startedAt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})));$('recent-runs').append(item);if(run.mode==='QA'&&run.result)update('qa-result',run.result);}
+    if(!history.length)$('recent-runs').append(text('p','Your completed and recent tasks will appear here.'));conversation.scrollTop=atEnd?conversation.scrollHeight:top;document.querySelector('.intro').hidden=!!conversation.children.length;renderDetail();
   }
-  update('run-state',active?'Working…':history.filter(r=>r.sessionId===status.sessionId).at(-1)?.state==='WAITING_FOR_USER'?'Ready for your reply.':'');
-  $('send').disabled=!!active||!['READY','EXTERNAL'].includes(status.engine?.state)||status.figma!=='CONNECTED'||status.runtime!=='VERIFIED'||status.reconciliationRequired;
-  $('cancel').hidden=!active;for(const b of document.querySelectorAll('[data-mode],#new-design'))b.disabled=!!active;
+  active=history.find(r=>r.state==='RUNNING')??null;
+  update('run-state',active?'Working…':status.reconciliationRequired?'Checking the current result before another task can start.':history.filter(r=>r.sessionId===status.sessionId).at(-1)?.state==='WAITING_FOR_USER'?'Ready for your reply.':'');
+  $('send').disabled=!!pendingSubmission||!!status.activeRun||!!active||!['READY','EXTERNAL'].includes(status.engine?.state)||status.figma!=='CONNECTED'||status.runtime!=='VERIFIED'||status.reconciliationRequired||status.ai?.state!=='READY'||status.ai?.busy;
+  $('cancel').hidden=!active;for(const b of document.querySelectorAll('[data-mode],#new-design'))b.disabled=!!pendingSubmission||!!status.activeRun||!!active||!!status.reconciliationRequired||!!status.ai?.busy;
+  for(const b of document.querySelectorAll('.recovery button'))if(['Try Again','Continue From Current Design'].includes(b.textContent))b.disabled=!!active||!!status.reconciliationRequired;
+  renderAI();
+}
+function renderDetail(){const run=history.find(r=>r.id===selectedRun);$('run-detail').hidden=!run;if(run)$('run-detail').replaceChildren(text('h2',summary(run)),text('p',new Date(run.startedAt).toLocaleString()),runContent(run));}
+function renderAI(){
+  const ai=status.ai??{},signature=JSON.stringify([ai.models,ai.integrations,ai.selected]);
+  if(signature!==aiRendered){aiRendered=signature;const current=$('model').value;$('model').replaceChildren();for(const providerID of [...new Set((ai.models??[]).map(m=>m.providerID))]){const group=document.createElement('optgroup');group.label=ai.providers.find(p=>p.id===providerID)?.name??providerID;for(const model of ai.models.filter(m=>m.providerID===providerID)){const option=text('option',model.name+(model.available?'':' · unavailable'));option.value=JSON.stringify({id:model.id,providerID:model.providerID});option.disabled=!model.available;group.append(option);}$('model').append(group);}const wanted=JSON.stringify(ai.selected?{id:ai.selected.id,providerID:ai.selected.providerID}:null);if(ai.selected&&!ai.models.some(m=>m.id===ai.selected.id&&m.providerID===ai.selected.providerID)){const option=text('option',ai.selected.name+' · unavailable');option.value=wanted;option.disabled=true;$('model').prepend(option);}$('model').value=wanted;if(!$('model').value&&current)$('model').value=current;
+    $('provider').replaceChildren(...(ai.integrations??[]).filter(p=>p.methods.length).map(p=>{const option=text('option',p.name+(p.connected?' · connected':''));option.value=p.id;return option;}));renderAuth();
+  }
+  const locked=!!(pendingSubmission||active||status.reconciliationRequired||ai.locked||ai.busy);for(const id of ['model','apply-model','test-model'])$(id).disabled=locked;
+  $('connect-provider').disabled=!!(active||ai.busy);
+  update('model-help',ai.busy?'Updating the AI connection…':locked?'Finish or stop the current task and check its result before changing models.':ai.selectionUnverified?'The last model change was not confirmed. Choose and apply a model to continue.':'Model changes keep this conversation. Only the model ID is saved for next time.');
+  update('ai-status',ai.state==='READY'?`${ai.selected?.providerID} · ${ai.selected?.name} · ${ai.verified?'Connection checked':'Available in engine catalog'}`:ai.state==='MODEL_UNAVAILABLE'?'Selected model unavailable. Choose another model.':ai.state==='PROVIDER_AUTH_REQUIRED'?'Reconnect your AI provider.':ai.state==='PROVIDER_REQUIRED'?'AI provider needed.':ai.state==='MODEL_REQUIRED'?'Choose an AI model.':'Checking AI availability…');
 }
 async function refreshStatus(force=false){
-  status=await api('/api/app/status'+(force?'?refresh=1':''));
-  const engineReady=['READY','EXTERNAL'].includes(status.engine.state);
-  const labels=[['Figma',status.figma==='CONNECTED'?'Connected':'Not connected'],['Engine',status.engine.availability==='PROVIDER_REQUIRED'?'Provider needed':engineReady?'Ready':status.engine.state],['Runtime',status.runtime==='VERIFIED'?'Verified':status.runtime]];
-  if($('statuses').textContent!==labels.map(([name,value])=>name+' · '+value).join(''))$('statuses').replaceChildren(...labels.map(([name,value])=>{const el=text('span',name+' · '+value);el.className='status';return el;}));
+  status=await api('/api/app/status'+(force?'?refresh=1':''));const engineReady=['READY','EXTERNAL'].includes(status.engine.state),ai=status.ai??{};
+  const labels=[['Figma',status.figma==='CONNECTED'?'Connected':'Not connected'],['Engine',engineReady?'Ready':status.engine.state],['Model',ai.selected?.name??'Not selected']];const label=labels.map(([n,v])=>n+' · '+v).join('');if($('statuses').textContent!==label)$('statuses').replaceChildren(...labels.map(([n,v])=>{const el=text('span',n+' · '+v);el.className='status';if(n==='Figma')el.dataset.connected=String(status.figma==='CONNECTED');return el;}));
   let title='Your workspace is connected',copy='Describe your next design or continue the conversation below.';
-  if(status.runtime!=='VERIFIED'){title='Runtime verification needs attention';copy='Run source setup or restore the approved runtime before starting design work.';}
-  else if(!engineReady){title=status.engine.state==='STARTING'?'Starting your design engine':'The design engine needs attention';copy='Check your local OpenCode installation. Developer diagnostics has the safe status.';}
+  if(status.runtime!=='VERIFIED'){title='Runtime verification needs attention';copy='Restore the approved runtime before starting design work.';}
+  else if(!engineReady){title=status.engine.state==='STARTING'?'Starting your design engine':'The design engine needs attention';copy='Check the application setup. Safe details are available in Settings.';}
   else if(status.figma!=='CONNECTED'){title=status.figma==='PLUGIN_NOT_CONNECTED'?'Figma plugin not connected':'Figma connection needs attention';copy='Open your design file in Figma Desktop and run the imported Figma Designer development plugin. Then choose Check Again.';}
-  else if(status.reconciliationRequired){title='Checking the previous operation';copy='The engine response was interrupted. Check Again to reconcile before starting another run.';}
-  update('connection-title',title);update('connection-copy',copy);
-  if(force||$('error').dataset.kind==='network')$('error').hidden=true;
-  $('diagnostic-output').textContent=JSON.stringify({applicationVersion:'1.4.0-source',...status},null,2);renderRuns();
+  else if(pendingSubmission){title='Checking the last request';copy='Some changes may already exist in Figma. Check the current result before sending again.';}
+  else if(status.reconciliationRequired){title='Checking the previous operation';copy='Some changes may already exist in Figma. Check the current result before repeating the request.';}
+  else if(ai.state!=='READY'){const missing={PROVIDER_REQUIRED:['AI provider needed','Runtime verified and Figma connected. Connect an AI provider before starting a design.'],PROVIDER_AUTH_REQUIRED:['Reconnect your AI provider','Your provider needs authentication before you can continue.'],MODEL_REQUIRED:['Choose an AI model','Choose an available model to start designing.'],MODEL_UNAVAILABLE:['Selected model unavailable','Choose another available model to continue.']};[title,copy]=missing[ai.state]??['Checking AI availability','The engine is loading its provider and model catalog.'];}
+  update('connection-title',title);update('connection-copy',copy);$('connect-shortcut').hidden=!['PROVIDER_REQUIRED','PROVIDER_AUTH_REQUIRED'].includes(ai.state);$('choose-shortcut').hidden=!['MODEL_REQUIRED','MODEL_UNAVAILABLE'].includes(ai.state);if(force||$('error').dataset.kind==='network')$('error').hidden=true;
+  update('figma-settings',`Plugin: ${status.figma==='CONNECTED'?'Connected':'Not connected'} · Runtime: ${status.runtime==='VERIFIED'?'Verified':status.runtime}`);
+  update('diagnostic-output',JSON.stringify({applicationVersion:'1.4.1-source',engine:status.engine,runtime:status.runtime,figma:status.figma,sessionId:status.sessionId,statefulVariables:'HOLD'},null,2));renderRuns();
 }
-async function refreshRuns(){history=await api('/api/runs');renderRuns();}
-async function refreshBrowser(){const value=await api('/api/browser/status');$('browser-status').textContent='Browser preview · '+value.state+' · Test '+(value.acceptance??'NOT_RUN');$('open-preview').disabled=value.state==='NOT_BUILT';const f=value.fidelity;$('fidelity').textContent=f.SOURCE_FIDELITY+(f.coverage?` · ${f.coverage.SCREENS_VALIDATED??0} screens · ${f.coverage.FONT_LIMITATIONS??0} font limitations`:'');}
+async function refreshRuns(){history=await api('/api/runs');const received=history.find(r=>r.requestId===pendingSubmission);if(received){pendingSubmission=null;if($('prompt').value.trim()===received.input.trim())$('prompt').value='';$('error').hidden=true;}renderRuns();}
+async function refreshBrowser(){const value=await api('/api/browser/status');update('browser-status','Browser preview · '+value.state+' · Test '+(value.acceptance??'NOT_RUN'));$('open-preview').disabled=value.state==='NOT_BUILT';$('browser-status').closest('.result-card').dataset.outcome=value.acceptance??'DEFAULT';const f=value.fidelity;update('fidelity',f.SOURCE_FIDELITY+(f.coverage?` · ${f.coverage.SCREENS_VALIDATED??0} screens · ${f.coverage.FONT_LIMITATIONS??0} font limitations`:''));}
 async function submit(mode,input=''){
-  $('error').hidden=true;
-  try{const run=await api('/api/run',{mode,input,requestId:crypto.randomUUID()});history.push(run);location.hash='workspace';renderRuns();$('prompt').value='';}
-  catch(error){showError(error);}
+  if(pendingSubmission)return;
+  $('error').hidden=true;const requestId=crypto.randomUUID();pendingSubmission=requestId;renderRuns();
+  try{const run=await api('/api/run',{mode,input,requestId});pendingSubmission=null;if(!history.some(r=>r.id===run.id))history.push(run);location.hash='workspace';renderRuns();$('prompt').value='';}
+  catch(error){if(error.info||history.some(r=>r.requestId===requestId))pendingSubmission=null;else error=Object.assign(Error('The connection was interrupted. Check the current result before sending this request again.'),{network:true});showError(error);renderRuns();}
 }
-$('composer').addEventListener('submit',event=>{event.preventDefault();submit('AUTO',$('prompt').value);});
-for(const b of document.querySelectorAll('[data-mode]'))b.addEventListener('click',()=>submit(b.dataset.mode));
-$('check').addEventListener('click',()=>refreshStatus(true).catch(showError));
-$('cancel').addEventListener('click',async()=>{try{const value=await api(`/api/run/${active.id}/cancel`,{});$('run-state').textContent=value.message;}catch(error){showError(error);}});
-$('new-design').addEventListener('click',async()=>{try{await api('/api/session',{});location.hash='workspace';$('prompt').focus();}catch(error){showError(error);}});
-$('prototype-compose').addEventListener('click',()=>{location.hash='workspace';$('prompt').focus();});
-$('refresh-browser').addEventListener('click',()=>refreshBrowser().catch(showError));
+function renderAuth(){const integration=status.ai?.integrations.find(p=>p.id===$('provider').value);$('use-connection').hidden=!integration?.connected||integration?.needsAuth;$('auth-method').replaceChildren(...(integration?.methods??[]).map((m,i)=>{const option=text('option',m.label+(m.supported?'':' · additional setup needed'));option.value=String(i);return option;}));renderAuthMethod();}
+function renderAuthMethod(){const integration=status.ai?.integrations.find(p=>p.id===$('provider').value),method=integration?.methods[Number($('auth-method').value)];$('provider-key').value='';$('key-field').hidden=method?.type!=='key'||!method?.supported;$('auth-submit').disabled=!method?.supported;update('auth-help',!method?.supported?'This provider requires additional account details. Connect it in your provider’s supported OpenCode setup, then choose Check Again.':method?.type==='oauth'?'Continue in your provider’s secure sign-in page.':'Your key is forwarded once to OpenCode and cleared here.');$('oauth-step').hidden=true;}
+function openProvider(){location.hash='settings';$('provider-notice').textContent='';$('provider-key').value='';$('oauth-code').value='';$('provider-dialog').showModal();}
+$('composer').addEventListener('submit',event=>{event.preventDefault();submit('AUTO',$('prompt').value);});for(const b of document.querySelectorAll('[data-mode]'))b.addEventListener('click',()=>submit(b.dataset.mode));
+for(const id of ['check','settings-check'])$(id).addEventListener('click',()=>refreshStatus(true).catch(showError));
+for(const id of ['connect-provider','connect-shortcut'])$(id).addEventListener('click',openProvider);
+$('choose-shortcut').addEventListener('click',()=>{location.hash='settings';$('model').focus();});
+$('cancel').addEventListener('click',async()=>{try{const value=await api(`/api/run/${active.id}/cancel`,{});update('run-state',value.message);}catch(error){showError(error);}});
+$('new-design').addEventListener('click',async()=>{try{await api('/api/session',{});await refreshStatus();compose();}catch(error){showError(error);}});
+$('prototype-compose').addEventListener('click',()=>compose());$('refresh-browser').addEventListener('click',()=>refreshBrowser().catch(showError));
 $('open-preview').addEventListener('click',async()=>{const tab=window.open('about:blank','_blank');if(tab)tab.opener=null;try{const value=await api('/api/browser/preview');if(tab)tab.location=value.url;else throw Error('Allow the local preview window to open.');}catch(error){tab?.close();showError(error);}});
+$('apply-model').addEventListener('click',async()=>{try{const model=JSON.parse($('model').value);$('apply-model').disabled=true;await api('/api/ai/model',{model});update('ai-notice','Model changed. Your conversation is preserved.');await refreshStatus();}catch(error){showError(error);await refreshStatus();}});
+$('test-model').addEventListener('click',async()=>{try{$('test-model').disabled=true;await api('/api/ai/check',{});update('ai-notice','Connection checked. The model responded.');}catch(error){update('ai-notice',(error.info?.code==='PROVIDER_AUTH_REQUIRED'?error.info.title:'Connection could not be verified')+'. No design was started. Choose another model or reconnect.');}finally{await refreshStatus();}});
+$('provider').addEventListener('change',renderAuth);$('auth-method').addEventListener('change',renderAuthMethod);
+$('use-connection').addEventListener('click',()=>{$('provider-dialog').close();$('model').focus();update('ai-notice','Existing connection retained. Choose an available model; changing it requires Change Model.');});
+$('close-provider').addEventListener('click',()=>$('provider-dialog').close());$('provider-dialog').addEventListener('close',()=>{$('provider-key').value='';$('oauth-code').value='';});
+$('provider-form').addEventListener('submit',async event=>{event.preventDefault();const integrationID=$('provider').value,method=status.ai.integrations.find(p=>p.id===integrationID)?.methods[Number($('auth-method').value)],key=$('provider-key').value;$('provider-key').value='';$('auth-submit').disabled=true;try{const result=await api('/api/ai/connect',{integrationID,type:method.type,methodID:method.id,...(method.type==='key'?{key}:{})});if(result.url){$('oauth-link').href=result.url;$('oauth-step').hidden=false;update('provider-notice','Complete sign-in, then check the connection here.');}else{update('provider-notice','Connection saved by OpenCode. Choose a model, then check its connection.');await refreshStatus(true);}}catch(error){update('provider-notice',error.info?.title??'Connection could not be completed.');}finally{$('auth-submit').disabled=false;}});
+$('oauth-complete').addEventListener('click',async()=>{const code=$('oauth-code').value;$('oauth-code').value='';try{const result=await api('/api/ai/connect',{integrationID:$('provider').value,type:'complete',code});update('provider-notice',result.awaitingAuthentication?'Sign-in is still pending.':'Provider connected. Choose a model to continue.');await refreshStatus(true);}catch(error){update('provider-notice',error.info?.title??'Sign-in could not be verified.');}});
 window.addEventListener('hashchange',route);route();
-async function poll(){if(polling)return;polling=true;try{await refreshRuns();await refreshStatus();}catch(error){showError(Object.assign(Error('The local service is unavailable. Refresh after it reconnects.'),{network:true}));}finally{polling=false;}}
+async function poll(){if(polling)return;polling=true;try{await refreshRuns();await refreshStatus();}catch{showError(Object.assign(Error('The local service is unavailable. Check again after it reconnects.'),{network:true}));}finally{polling=false;}}
 await poll();setInterval(poll,1500);
