@@ -1,5 +1,6 @@
 import {collectInteractionQA} from '../scripts/figma-interaction-qa.mjs';
 import {formatQAReport} from './figma-interaction-qa.mjs';
+import {qaEvidence} from '../app/shared/result-contract.mjs';
 
 export const qaMarker='FIGMA WORKING INTERFACE QA — V2';
 export const qaReportTool='figma_qa_report';
@@ -11,7 +12,7 @@ export async function qaReport(input={},collect=collectInteractionQA){
   if(!scope||typeof scope!=='object'||Array.isArray(scope))throw Error('QA_SCOPE_INVALID');
   const result=await collect({scope});
   if(result.collection?.writeCalls!==0||result.integrity?.writeCalls!==0)throw Error('QA_READ_ONLY_INTEGRITY_FAILED');
-  return {content:formatQAReport(result),metadata:{figmaReadOnly:true,status:result.status,readCalls:result.collection.readCalls,writeCalls:result.collection.writeCalls}};
+  return {content:formatQAReport(result),metadata:{figmaReadOnly:true,status:result.status,readCalls:result.collection.readCalls,writeCalls:result.collection.writeCalls,qaResult:qaEvidence(result)}};
 }
 
 export async function installQAGuard(ctx,isRead){

@@ -344,5 +344,12 @@
   "scripts/figma-qa-guard.test.mjs",
   "scripts/figma-app.test.mjs",
   "scripts/figma-app-ui.test.mjs",
-  "scripts/fixtures/app-opencode.mjs"
+  "scripts/fixtures/app-opencode.mjs",
+  "app/shared/result-contract.mjs",
+  "app/server/validation.mjs",
+  "app/web/validation.js",
+  "docs/FIGMA_DESIGNER_APP_V1_4_2.md",
+  "scripts/figma-app-validation.test.mjs",
+  "scripts/figma-app-validation-ui.test.mjs",
+  "scripts/fixtures/app-validation.mjs"
 ]

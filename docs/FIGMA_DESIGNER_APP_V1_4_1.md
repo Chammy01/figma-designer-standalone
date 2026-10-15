@@ -1,5 +1,7 @@
 # Figma Designer application V1.4.1
 
+V1.4.2 adds [structured QA, Browser and fidelity dashboards](FIGMA_DESIGNER_APP_V1_4_2.md). This guide records the provider/workspace milestone.
+
 This source-preview milestone adds native provider/model controls, conservative recovery and a quieter design workspace. Start with `npm run app` after source setup. Published Beta 3 assets and all fourteen command names are unchanged. QA retains its existing read-only collector and gains execution-level enforcement after a live regression.
 
 ## Provider/model audit

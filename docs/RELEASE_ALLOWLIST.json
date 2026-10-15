@@ -176,5 +176,9 @@
   "app/web/index.html",
   "app/web/styles.css",
   "app/web/app.js",
-  "docs/FIGMA_DESIGNER_APP_V1_4_0.md"
+  "docs/FIGMA_DESIGNER_APP_V1_4_0.md",
+  "app/shared/result-contract.mjs",
+  "app/server/validation.mjs",
+  "app/web/validation.js",
+  "docs/FIGMA_DESIGNER_APP_V1_4_2.md"
 ]

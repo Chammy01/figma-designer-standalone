@@ -12,10 +12,10 @@ export async function systemStatus(root,read=readSourceRPC) {
   let figma='UNKNOWN';
   try{const m=await read('get_metadata');figma=m?.currentPageId?'CONNECTED':'DOCUMENT_UNAVAILABLE';}
   catch(error){figma=/plugin not connected/i.test(error.message)?'PLUGIN_NOT_CONNECTED':'BRIDGE_UNAVAILABLE';}
-  return {runtime,figma};
+  return {runtime,figma,connection:{bridge:['CONNECTED','DOCUMENT_UNAVAILABLE','PLUGIN_NOT_CONNECTED'].includes(figma)?'HEALTHY':figma==='BRIDGE_UNAVAILABLE'?'UNAVAILABLE':'UNKNOWN',plugin:figma==='CONNECTED'||figma==='DOCUMENT_UNAVAILABLE'?'CONNECTED':figma==='PLUGIN_NOT_CONNECTED'?'NOT_CONNECTED':'UNKNOWN',document:figma==='CONNECTED'?'READABLE':'UNAVAILABLE'}};
 }
-export async function previewStatus(root){
-  const value=await browserStatus(join(root,'.figma-designer/browser-prototype'));
+export async function previewStatus(root,read){
+  const value=await browserStatus(join(root,'.figma-designer/browser-prototype'),read);
   let fidelity={SOURCE_FIDELITY:'NOT_RUN'};
   try{const report=JSON.parse(await readFile(join(root,'.figma-designer/browser-prototype/figma-browser-test.json'),'utf8'));if(value.localFreshness==='CURRENT')fidelity={SOURCE_FIDELITY:report.fidelity?.SOURCE_FIDELITY??'UNVERIFIED',coverage:report.fidelity?.coverage??{}};}catch{}
   return {state:!value.manifestPresent?'NOT_BUILT':value.overallFreshness,acceptance:value.browserAcceptance,fidelity};

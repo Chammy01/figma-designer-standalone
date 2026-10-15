@@ -14,7 +14,7 @@ $nodeTools = Join-Path $temporary 'node tool'
 New-Item -ItemType Directory -Path $nodeTools -Force | Out-Null
 Copy-Item -LiteralPath (Get-Command node.exe).Source -Destination (Join-Path $nodeTools 'node.exe')
 try {
-    foreach ($mode in @('source','release','missing-critique','missing-critique-guard','missing-intent-router','missing-prototype-planner','missing-motion-module','missing-motion-rules','missing-overlay-rules','missing-qa-module','missing-qa-rules','missing-qa-collector','missing-qa-guard','missing-qa-guard-module','dependencies-fail','build-fail','missing-output','missing-bun','wrong-bun','missing-source','hash-mismatch','built-hash-mismatch','missing-hash','missing-go','wrong-go','go-build-fail','go-missing-output','go-hash-mismatch','go-missing-source','go-spoof','exe-mismatch','missing-ui')) {
+    foreach ($mode in @('source','release','missing-critique','missing-critique-guard','missing-intent-router','missing-prototype-planner','missing-motion-module','missing-motion-rules','missing-overlay-rules','missing-qa-module','missing-qa-rules','missing-qa-collector','missing-qa-guard','missing-qa-guard-module','missing-validation-contract','dependencies-fail','build-fail','missing-output','missing-bun','wrong-bun','missing-source','hash-mismatch','built-hash-mismatch','missing-hash','missing-go','wrong-go','go-build-fail','go-missing-output','go-hash-mismatch','go-missing-source','go-spoof','exe-mismatch','missing-ui')) {
         $fixture = Join-Path $temporary "$mode Folder with spaces"
         $tools = Join-Path $fixture 'tools'
         $plugin = Join-Path $fixture 'vendor/figma-mcp/plugin'
@@ -23,7 +23,7 @@ try {
             '.opencode/agents/figma-designer.md','.opencode/agents/web-designer.md',
             '.opencode/plugins/figma-critique-guard.js',
             '.opencode/plugins/figma-qa-guard.js',
-            'app/server/ai.mjs','app/server/index.mjs','app/server/opencode-client.mjs','app/server/runs.mjs','app/server/status.mjs','app/web/index.html','app/web/styles.css','app/web/app.js','rules/figma-qa-guard.mjs','rules/figma-standalone-rules.md','rules/figma-design-rules.md','rules/figma-intent-router.mjs','rules/figma-prototype-planner.md',
+            'app/shared/result-contract.mjs','app/server/validation.mjs','app/web/validation.js','app/server/ai.mjs','app/server/index.mjs','app/server/opencode-client.mjs','app/server/runs.mjs','app/server/status.mjs','app/web/index.html','app/web/styles.css','app/web/app.js','rules/figma-qa-guard.mjs','rules/figma-standalone-rules.md','rules/figma-design-rules.md','rules/figma-intent-router.mjs','rules/figma-prototype-planner.md',
             'rules/figma-motion-semantics.mjs','rules/figma-motion-semantics.md','rules/figma-browser-motion.mjs','rules/figma-browser-motion.md','rules/figma-browser-fidelity.mjs','rules/figma-browser-fidelity.md','vendor/figma-mcp/plugin/manifest.json')
         $files += @(Get-ChildItem -LiteralPath (Join-Path $root '.opencode/commands/figma') -File | ForEach-Object { '.opencode/commands/figma/' + $_.Name })
         $files += @('rules/figma-overlay-rules.md','rules/figma-interaction-qa.mjs','rules/figma-interaction-qa.md','scripts/figma-interaction-qa.mjs')
@@ -37,6 +37,7 @@ try {
         if ($mode -eq 'missing-critique-guard') { Remove-Item -LiteralPath (Join-Path $fixture '.opencode/plugins/figma-critique-guard.js') }
         if ($mode -eq 'missing-qa-guard') { Remove-Item -LiteralPath (Join-Path $fixture '.opencode/plugins/figma-qa-guard.js') }
         if ($mode -eq 'missing-qa-guard-module') { Remove-Item -LiteralPath (Join-Path $fixture 'rules/figma-qa-guard.mjs') }
+        if ($mode -eq 'missing-validation-contract') { Remove-Item -LiteralPath (Join-Path $fixture 'app/shared/result-contract.mjs') }
         if ($mode -eq 'missing-intent-router') { Remove-Item -LiteralPath (Join-Path $fixture 'rules/figma-intent-router.mjs') }
         if ($mode -eq 'missing-prototype-planner') { Remove-Item -LiteralPath (Join-Path $fixture 'rules/figma-prototype-planner.md') }
         if ($mode -eq 'missing-motion-module') { Remove-Item -LiteralPath (Join-Path $fixture 'rules/figma-motion-semantics.mjs') }
@@ -203,6 +204,8 @@ exit /b 0
         } elseif ($mode -in @('missing-critique','missing-critique-guard')) {
             Assert ($setupExit -ne 0 -and $output.Contains('[FAIL] Project files')) "$mode must fail project validation: $output"
             Assert ($output.Contains('.opencode/commands/figma/critique.md') -or $output.Contains('.opencode/plugins/figma-critique-guard.js')) "$mode omitted the missing critique file"
+        } elseif ($mode -eq 'missing-validation-contract') {
+            Assert ($setupExit -ne 0 -and $output.Contains('[FAIL] Project files') -and $output.Contains('app/shared/result-contract.mjs')) 'Missing validation contract must fail before startup'
         } elseif ($mode -eq 'missing-intent-router') {
             Assert ($setupExit -ne 0 -and $output.Contains('[FAIL] Project files') -and $output.Contains('rules/figma-intent-router.mjs')) 'Missing router dependency must fail before startup'
         } elseif ($mode -eq 'missing-prototype-planner') {

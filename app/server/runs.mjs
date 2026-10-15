@@ -1,6 +1,8 @@
 import {randomUUID} from 'node:crypto';
 import {isCritiqueReadTool} from '../../.opencode/plugins/figma-critique-guard.js';
 import {qaReportTool} from '../../rules/figma-qa-guard.mjs';
+import {redact} from '../shared/result-contract.mjs';
+export {redact} from '../shared/result-contract.mjs';
 
 export const modes=['AUTO','DESIGN','QA','BROWSER','BROWSER_TEST','STATUS'];
 export function safeError(error) {
@@ -13,19 +15,14 @@ export function safeError(error) {
   copy.READ_ONLY_VERIFICATION_FAILED=['Read-only verification failed','The current Figma page changed during this check. Its read-only result was not accepted. Review the changes before continuing.'];
   const [title,message]=copy[code];return {code,title,message,recoverable:true};
 }
-export function redact(text) {
-  let value=String(text);
-  for(const [key,secret]of Object.entries(process.env))if(/TOKEN|SECRET|PASSWORD|API_KEY/i.test(key)&&secret?.length>=8)value=value.replaceAll(secret,'[redacted]');
-  return value.replace(/\b(?:sk-[\w-]{12,}|gh[pousr]_[\w]{15,}|github_pat_[\w]{15,})\b/g,'[redacted]').replace(/\b(?:Bearer|Basic)\s+[A-Za-z0-9+/=._-]{8,}/gi,'[redacted]');
-}
 export class Runs {
-  constructor(engine,log=()=>{},fingerprint=async()=>null){this.engine=engine;this.log=log;this.fingerprint=fingerprint;this.runs=[];this.session=null;this.workspaceId=randomUUID();this.active=null;this.closed=false;}
+  constructor(engine,log=()=>{},fingerprint=async()=>null,result=async()=>{}){this.engine=engine;this.log=log;this.fingerprint=fingerprint;this.result=result;this.runs=[];this.session=null;this.workspaceId=randomUUID();this.active=null;this.closed=false;}
   async sessionForWorkspace(){if(!this.session){this.sessionPending??=this.engine.createSession(this.ai?.selected);try{this.session=await this.sessionPending;}finally{this.sessionPending=null;}}return this.session;}
   async newWorkspace(){this.sessionPending??=this.engine.createSession(this.ai?.selected);try{const session=await this.sessionPending;this.session=session;this.workspaceId=randomUUID();return session;}finally{this.sessionPending=null;}}
   async verifyReadOnly(run){
     if(!['QA','BROWSER','BROWSER_TEST'].includes(run.mode))return;
     const after=await this.fingerprint().catch(()=>null);
-    run.integrity={scope:'current-page',state:!run.beforeFingerprint||!after?'UNVERIFIED':run.beforeFingerprint===after?'UNCHANGED':'CHANGED'};
+    run.integrity={scope:'current-page',state:!run.beforeFingerprint||!after?'UNVERIFIED':run.beforeFingerprint===after?'UNCHANGED':'CHANGED',beforeFingerprint:run.beforeFingerprint??null,afterFingerprint:after};
     if(run.integrity.state==='CHANGED')throw Object.assign(Error('READ_ONLY_VERIFICATION_FAILED'),{code:'READ_ONLY_VERIFICATION_FAILED'});
   }
   async submit({input='',mode='AUTO',requestId}) {
@@ -38,6 +35,7 @@ export class Runs {
     this.work(run,input);return run;
   }
   async work(run,input){
+    let resultContext;
     try{
       run.beforeFingerprint=await this.fingerprint().catch(()=>null);
       const session=await this.sessionForWorkspace();run.sessionId=session.id;
@@ -58,6 +56,7 @@ export class Runs {
         const error=context.find(m=>m.type==='error'||m.error);
         const idle=context.at(-1);
         if(idle?.type==='idle'){
+          resultContext=context;
           run.result=redact(this.engine.sanitize?.(finalText)??finalText).slice(-100000);
           if(idle.outcome==='interrupted'){run.state='CANCELLED';break;}
           if(error)throw Object.assign(Error(error.error?.type??error.type),{providerStatus:error.error?.status});
@@ -69,7 +68,7 @@ export class Runs {
         await new Promise(r=>setTimeout(r,700));
       }
     }catch(error){run.state='FAILED';run.error=safeError(error);run.recovery='RECONCILIATION_REQUIRED';this.uncertain=true;this.uncertainOffset=run.offset??0;await this.reconcileRun(run);}
-    finally{run.finishedAt=new Date().toISOString();run.activity='';this.active=null;this.log({event:'run',id:run.id,state:run.state,code:run.error?.code});}
+    finally{await this.result(run,resultContext).catch(()=>{run.validationUnavailable=true;});run.finishedAt=new Date().toISOString();run.activity='';this.active=null;this.log({event:'run',id:run.id,state:run.state,code:run.error?.code});}
   }
   async reconcileRun(run){
     if(run.checking)return;
@@ -81,7 +80,8 @@ export class Runs {
       const text=(context.filter(m=>m.type==='assistant').at(-1)?.content??[]).filter(c=>c.type==='text').map(c=>c.text).join('\n\n');
       if(run.integrity?.state!=='CHANGED'&&idle.outcome==='succeeded'&&!context.some(m=>m.type==='error'||m.error)&&/FIGMA_[A-Z0-9_]+:\s*(?:PASS|WARN|FAIL|HOLD|BLOCKED)/.test(text)){
         await this.verifyReadOnly(run).catch(error=>run.error=safeError(error));
-        if(run.integrity?.state!=='CHANGED'){run.result=redact(this.engine.sanitize?.(text)??text).slice(-100000);run.state='COMPLETED';run.recovery='RECOVERED_COMPLETED';delete run.error;this.uncertain=false;return;}
+        if(run.integrity?.state==='CHANGED')await this.result(run,context).catch(()=>{run.validationUnavailable=true;});
+        if(run.integrity?.state!=='CHANGED'){run.result=redact(this.engine.sanitize?.(text)??text).slice(-100000);run.state='COMPLETED';run.recovery='RECOVERED_COMPLETED';delete run.error;this.uncertain=false;await this.result(run,context).catch(()=>{run.validationUnavailable=true;});return;}
       }
       // Unknown events/tools can have side effects. An idle event alone never proves a safe retry.
       const onlyReads=context.every(m=>['user','assistant','idle','error'].includes(m.type)&&(!m.content||m.content.every(c=>['text','reasoning'].includes(c.type)||c.type==='tool'&&(isCritiqueReadTool(c.name)||c.name===qaReportTool))));

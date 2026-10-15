@@ -13,6 +13,7 @@ import {OpenCodeClient} from '../app/server/opencode-client.mjs';
 import {Runs,redact,safeError} from '../app/server/runs.mjs';
 import {mockOpenCode} from './fixtures/app-opencode.mjs';
 import {systemStatus} from '../app/server/status.mjs';
+import {validationFixture} from './fixtures/app-validation.mjs';
 async function fixture(t){
   const mock=mockOpenCode();await new Promise(r=>mock.server.listen(0,'127.0.0.1',r));const url=`http://127.0.0.1:${mock.server.address().port}`;
   const root=await mkdtemp(join(tmpdir(),'figma-app-'));
@@ -94,7 +95,7 @@ test('runtime integrity and Figma disconnection use fixed read-only evidence',as
   const root=await mkdtemp(join(tmpdir(),'figma-app-runtime-'));t.after(async()=>{assert.ok(root.startsWith(join(tmpdir(),'figma-app-runtime-')));await rm(root,{recursive:true,force:true});});
   const paths=['bin/figma-mcp-go.exe','vendor/figma-mcp/plugin/dist/code.js','vendor/figma-mcp/plugin/dist/index.html'];const sha256={};
   for(const file of paths){await mkdir(join(root,file,'..'),{recursive:true});await writeFile(join(root,file),'synthetic-runtime');sha256[file]=createHash('sha256').update('synthetic-runtime').digest('hex');}await mkdir(join(root,'docs'));await writeFile(join(root,'docs/APPROVED_RUNTIME.json'),JSON.stringify({sha256}));
-  let calls=0;const read=async tool=>{calls++;assert.equal(tool,'get_metadata');return {currentPageId:'fixture'};};assert.deepEqual(await systemStatus(root,read),{runtime:'VERIFIED',figma:'CONNECTED'});
+  let calls=0;const read=async tool=>{calls++;assert.equal(tool,'get_metadata');return {currentPageId:'fixture'};};assert.deepEqual(await systemStatus(root,read),{runtime:'VERIFIED',figma:'CONNECTED',connection:{bridge:'HEALTHY',plugin:'CONNECTED',document:'READABLE'}});
   await writeFile(join(root,paths[0]),'changed');assert.equal((await systemStatus(root,read)).runtime,'HASH_MISMATCH');
   assert.equal((await systemStatus(root,async()=>{throw Error('plugin not connected');})).figma,'PLUGIN_NOT_CONNECTED');assert.equal(calls,2);
 });
@@ -175,3 +176,6 @@ test('recovered native QA completion still checks document integrity after conte
 
 test('lost native model-switch response is accepted only after matching readback without duplicate switch',async t=>{const f=await fixture(t);await f.api('/api/session',{});const e=f.app.runs.engine,switchModel=e.switchModel.bind(e);e.switchModel=async(...args)=>{await switchModel(...args);throw TypeError('lost switch response');};const response=await f.api('/api/ai/model',{model:{id:'second',providerID:'fixture'}});assert.equal(response.status,200);assert.equal(response.value.selected.id,'second');assert.equal(f.mock.calls.filter(c=>c.path.endsWith('/model')&&c.method==='POST').length,1);});
 test('unverified native model switch blocks authoring and does not claim an active model',async t=>{const f=await fixture(t);await f.api('/api/session',{});f.app.runs.engine.session=async()=>{throw TypeError('readback unavailable');};const response=await f.api('/api/ai/model',{model:{id:'second',providerID:'fixture'}});assert.equal(response.value.error.code,'MODEL_SWITCH_UNVERIFIED');assert.equal(f.app.ai.status().state,'MODEL_REQUIRED');assert.equal(f.app.ai.status().selected,null);assert.equal((await f.api('/api/run',{input:'create',requestId:randomUUID()})).status,409);assert.ok(!f.mock.calls.some(c=>c.path.endsWith('/prompt')));});
+
+test('fixed validation API exposes normalized evidence, never documents, arbitrary files or native context',async t=>{const f=await fixture(t),v=validationFixture('FAIL');await f.app.validation.capture({mode:'QA',integrity:{state:'UNCHANGED'}},[{content:[{type:'tool',name:'figma_qa_report',state:{status:'completed',metadata:{qaResult:v.qa,privateContext:'PRIVATE_SENTINEL'}}}]}]);const result=await f.api('/api/validation');assert.equal(result.status,200);assert.equal(result.value.contractVersion,'1.4.2');assert.equal(result.value.qa.counts.brokenControls,v.result.coverage.BROKEN);assert.equal(result.value.qa.freshness,'UNVERIFIED');assert.doesNotMatch(JSON.stringify(result.value),/PRIVATE_SENTINEL|Authorization|node_modules|private-password/);assert.equal((await f.api('/api/validation/file')).status,404);});
+test('assistant prose cannot create structured QA evidence or metrics',async t=>{const f=await fixture(t);await f.app.validation.capture({mode:'QA'},[{type:'assistant',content:[{type:'text',text:'QA PASS, 99 working controls, 0 defects'}]}]);const r=await f.api('/api/validation');assert.equal(r.value.qa.status,'NOT_RUN');assert.deepEqual(r.value.qa.counts,{});});
