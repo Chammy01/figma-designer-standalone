@@ -14,7 +14,13 @@ jobs:
           node-version: '24.15.0'
           cache: npm
       - run: npm ci
-      - run: npm test
+      - name: Run npm contracts with child-process failure details
+        shell: pwsh
+        run: |
+          $testScript = (Get-Content package.json -Raw | ConvertFrom-Json).scripts.test
+          $testFiles = $testScript -replace '^node --test ', ''
+          & node --test --test-reporter=tap @($testFiles -split ' ')
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Install local Chromium for browser regressions
         run: npx playwright install chromium
       - name: Browser routing and semantic motion regressions
