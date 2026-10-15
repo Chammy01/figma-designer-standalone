@@ -19,7 +19,7 @@ $ErrorActionPreference = 'Stop'
 Assert ($setupExit -eq 0) 'Source archive failed'
 $source = Join-Path $OutputRoot 'Clean source with spaces'
 Expand-Archive -LiteralPath $archive -DestinationPath $source
-$runtimeFiles = @('bin/figma-mcp-go.exe','vendor/figma-mcp/plugin/dist/code.js','vendor/figma-mcp/plugin/dist/index.html')
+$runtimeFiles = @('bin/figma-designer-mcp.exe','vendor/figma-mcp/plugin/dist/code.js','vendor/figma-mcp/plugin/dist/index.html')
 foreach ($relative in $runtimeFiles) { Assert (-not (Test-Path -LiteralPath (Join-Path $source $relative))) "Source archive included generated runtime: $relative" }
 $setup = Join-Path $source 'setup.ps1'
 $ErrorActionPreference = 'Continue' # Windows PowerShell 5.1 represents native stderr as error records.
@@ -32,7 +32,7 @@ foreach ($relative in $runtimeFiles) {
     Write-Host "[PASS] source runtime exists: $relative"
 }
 $config = Get-Content -LiteralPath (Join-Path $source 'opencode.json') -Raw | ConvertFrom-Json
-Assert ($config.mcp.figma.command[0] -eq (Join-Path $source 'bin/figma-mcp-go.exe').Replace('\','/')) 'Source config points outside disposable checkout'
+Assert ($config.mcp.figma.command[0] -eq (Join-Path $source 'bin/figma-designer-mcp.exe').Replace('\','/')) 'Source config points outside disposable checkout'
 $before = @{}
 foreach ($relative in $runtimeFiles + 'opencode.json') { $before[$relative] = (Get-FileHash -LiteralPath (Join-Path $source $relative)).Hash }
 $ErrorActionPreference = 'Continue' # Windows PowerShell 5.1 represents native stderr as error records.
@@ -80,6 +80,6 @@ try {
 $approved = Get-Content -LiteralPath (Join-Path $root 'docs/APPROVED_RUNTIME.json') -Raw | ConvertFrom-Json
 foreach ($entry in $approved.sha256.PSObject.Properties) { Assert ((Get-FileHash -LiteralPath (Join-Path $release $entry.Name)).Hash.ToLowerInvariant() -eq $entry.Value) "Release runtime changed: $($entry.Name)" }
 $config = Get-Content -LiteralPath (Join-Path $release 'opencode.json') -Raw | ConvertFrom-Json
-Assert ($config.mcp.figma.command[0] -eq (Join-Path $release 'bin/figma-mcp-go.exe').Replace('\','/')) 'Release config path incorrect'
+Assert ($config.mcp.figma.command[0] -eq (Join-Path $release 'bin/figma-designer-mcp.exe').Replace('\','/')) 'Release config path incorrect'
 Write-Host 'Source archive acceptance PASS: all three runtime files, exact hashes, local configuration, repeated setup.'
 Write-Host 'Release ZIP regression PASS: canonical package/extraction, setup without Go/Bun, preserved runtime, repeated setup.'

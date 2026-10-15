@@ -50,7 +50,7 @@ if ($Mode -eq 'Release') {
         elseif ((Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash.ToLowerInvariant() -ne $entry.Value) { $failures += "Approved runtime hash: $($entry.Name)" }
     }
     if (-not $failures.Count) {
-        & node (Join-Path $PSScriptRoot 'release-privacy-check.mjs') (Join-Path $RuntimeRoot 'bin/figma-mcp-go.exe')
+        & node (Join-Path $PSScriptRoot 'release-privacy-check.mjs') (Join-Path $RuntimeRoot 'bin/figma-designer-mcp.exe')
         if ($LASTEXITCODE -ne 0) { $failures += 'Approved runtime binary privacy' }
     }
 }
@@ -67,7 +67,7 @@ $generated = Join-Path $fixture 'opencode.json'
 if (-not (Test-Path -LiteralPath $generated)) { $failures += 'Setup failed to generate missing config' }
 else {
     $config = Get-Content -LiteralPath $generated -Raw | ConvertFrom-Json
-    if ($config.mcp.figma.command[0] -ne (Join-Path $fixture 'bin/figma-mcp-go.exe').Replace('\','/') -or $config.mcp.figma.timeout -ne 10000 -or $config.model -ne $template.model -or $config.default_agent -ne $template.default_agent) { $failures += 'Setup config generation policy/path' }
+    if ($config.mcp.figma.command[0] -ne (Join-Path $fixture 'bin/figma-designer-mcp.exe').Replace('\','/') -or $config.mcp.figma.timeout -ne 10000 -or $config.model -ne $template.model -or $config.default_agent -ne $template.default_agent) { $failures += 'Setup config generation policy/path' }
     $before = (Get-FileHash -LiteralPath $generated).Hash
     & $shell -NoProfile -File (Join-Path $fixture 'setup.ps1') -Configure -SkipBrowser *> (Join-Path $temporary 'setup-existing.txt')
     if ((Get-FileHash -LiteralPath $generated).Hash -ne $before) { $failures += 'Setup overwrote existing config' }

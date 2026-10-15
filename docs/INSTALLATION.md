@@ -6,6 +6,8 @@ This does not change the published Beta 3 installation. See [Application guide](
 
 Use the prebuilt Release ZIP for normal use. Go, Bun, Git, and native Orca are not required. Use a writable folder, keep its files together, and avoid synchronizing or moving it during a session.
 
+For current main, the runtime is **Figma Designer MCP 1.0.0**; Beta 3 remains the older rollback. Existing source users must change only `mcp.figma.command[0]` to `bin/figma-designer-mcp.exe` and reimport/reload the same plugin manifest. Setup preserves existing configuration and will report a stale path rather than changing provider/model settings. The technical plugin ID remains stable; do not create a duplicate plugin.
+
 ## Prerequisites
 
 - Figma Desktop with a design file open and development-plugin import available.
@@ -25,7 +27,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -Configure -Inst
 
 `-Configure` creates only missing local `opencode.json` from the template and your current folder path. `-InstallDependencies` uses `npm ci` with the unchanged lockfile. It replaces only local `node_modules`, as npm ci normally does. `-InstallBrowser` invokes the installed pinned Playwright CLI to install Chromium to its normal user cache. Each action is announced. No elevated terminal is required. Every setup invocation also builds a missing MCP executable and prepares missing Figma plugin assets from checked-out source and verifies the dispatcher SHA-256 against `APPROVED_RUNTIME.json`. Existing approved ZIP assets are verified without installing plugin dependencies or rebuilding. Other configuration/browser actions require their flags. Setup exits nonzero if required checks fail and prints recovery instructions instead of plugin-import instructions.
 
-Existing config is read and preserved. A wrong executable path is reported; edit only `mcp.figma.command[0]` to the current `bin/figma-mcp-go.exe`, retaining your settings. The placeholder in `opencode.example.json` is not executable and must not be copied unchanged into `opencode.json`.
+Existing config is read and preserved. A wrong executable path is reported; edit only `mcp.figma.command[0]` to the current `bin/figma-designer-mcp.exe`, retaining your settings. The placeholder in `opencode.example.json` is not executable and must not be copied unchanged into `opencode.json`.
 
 ## Connect Figma
 
@@ -41,7 +43,7 @@ Chromium is needed for `/figma/browser-test`. It is downloaded during the setup 
 
 Both a Git clone and GitHub's automatically generated Source code ZIP are supported source installations. They intentionally omit generated plugin assets and the MCP executable. Install **Go 1.26.1 for Windows x64** from [Go downloads](https://go.dev/dl/) (the exact version in `go.mod` and hosted CI), then reopen PowerShell and check `go version`. Setup requires that exact toolchain only when the executable is missing; it never installs or automatically downloads Go.
 
-Setup uses the canonical release Go build with `CGO_ENABLED=0`, `-trimpath`, the pinned MCP version, and explicit `-buildvcs=false` to reproduce the approved non-Git build. It verifies the resulting exact release SHA-256 before installing into `bin/figma-mcp-go.exe`; temporary output from a failed or mismatched build is removed. Existing executables are verified and preserved, never silently rebuilt. No local identity receipt or source marker can bypass the hash.
+Setup uses the canonical release Go build with `CGO_ENABLED=0`, `-trimpath`, the pinned MCP version, and explicit `-buildvcs=false` to reproduce the approved non-Git build. It verifies the resulting exact release SHA-256 before installing into `bin/figma-designer-mcp.exe`; temporary output from a failed or mismatched build is removed. Existing executables are verified and preserved, never silently rebuilt. No local identity receipt or source marker can bypass the hash.
 
 Setup handles plugin preparation using the same **Bun 1.4.2** and frozen lockfile as hosted CI. If setup asks for the build tool, install that exact version using the [official Bun installer](https://bun.com/docs/installation#installing-older-versions):
 

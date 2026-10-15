@@ -1,0 +1,4 @@
+# Preserve the approved import byte/EOL conventions; do not mass-normalize source.
+* -text
+*.exe binary
+*.png binary

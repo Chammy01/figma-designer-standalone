@@ -27,7 +27,8 @@ function call(method, params) {
 }
 try {
   const initialized = await call('initialize', { protocolVersion: '2024-11-05', capabilities: {}, clientInfo: { name: 'local-hardening-check', version: '1.2.0' } });
-  assert.equal(initialized.result.serverInfo.version, '1.2.0-standalone-hardening');
+  assert.equal(initialized.result.serverInfo.version, '1.0.0');
+  assert.equal(initialized.result.serverInfo.name, 'figma-designer-mcp');
   child.stdin.write(JSON.stringify({ jsonrpc: '2.0', method: 'notifications/initialized' }) + '\n');
   const tools = (await call('tools/list', {})).result.tools;
   assert.equal(tools.length, 106);

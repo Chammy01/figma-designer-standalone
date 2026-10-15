@@ -1,20 +1,36 @@
 {
-  "releaseVersion": "v1.2.1-beta.3",
+  "releaseVersion": "v1.2.1-ownership.1",
   "systemVersion": "1.2.1",
-  "mcpVersion": "1.2.0-standalone-hardening",
+  "mcpVersion": "1.0.0",
   "upstreamCommit": "5806e71b8fd4bad97671038a0b010f04df1aaa41",
   "sha256": {
-    "bin/figma-mcp-go.exe": "bc9eec0d9a9cddd20e27331a41319a59b84bd51f88a78e59885b901456562f3f",
-    "vendor/figma-mcp/plugin/dist/code.js": "273e20f56b80e9a7d995962948b1bb93e5cc1dfa19471ecd834ca7308d7da941",
-    "vendor/figma-mcp/plugin/dist/index.html": "661fb49dd3ca38ed4648e70858822f59f565093718d02143c6b1b85628f054ee"
+    "bin/figma-designer-mcp.exe": "d64210d464b39d27e24861c399425a74780851c0a20fbefec5c7247124eab78d",
+    "vendor/figma-mcp/plugin/dist/code.js": "95cfd61fce73ef51cce155a9bb33c43898dbfa8565af367f3c878e3d99d92dcf",
+    "vendor/figma-mcp/plugin/dist/index.html": "74067837ed24279beaca0d95f1a822708ded8713b589bb1be4fce55d17a55f02"
   },
   "previousApprovedMcpSha256": "7ef0688e0dccf1abc52b0fd903b9bb2f907af898b548f73a419d9daded574ccb",
   "previousApprovedPluginCodeSha256": "24bb648c96cc7288938e87aedc07f44de48d9ea25fe9f19f3256633c31dad849",
   "publicBuild": {
     "goVersion": "go1.26.1 windows/amd64",
-    "command": "CGO_ENABLED=0 go build -trimpath -buildvcs=false -ldflags \"-X main.version=1.2.0-standalone-hardening\" -o <staging>/bin/figma-mcp-go.exe ./cmd/figma-mcp-go",
-    "source": "Upstream remains pinned at 5806e71b8fd4bad97671038a0b010f04df1aaa41. Executable Go source/runtime remains unchanged. Plugin code.js is rebuilt from the pinned source plus Figma Designer's approved local conditional source-freshness collector patch.",
+    "command": "CGO_ENABLED=0 go build -trimpath -buildvcs=false -ldflags \"-X main.version=1.0.0\" -o <staging>/bin/figma-designer-mcp.exe ./cmd/figma-mcp-go",
+    "source": "Owned source pinned at Chammy01/figma-designer-mcp a0b2e1c3e2ab2dd37c512fc3edeacb77a785a418, derived from standalone fa2fd109b2ff5b10057582f981211514bf51bc14 vendor tree da05aeb87d24cd3f241e249370534ba77fd83fbb. Upstream lineage 5806e71b8fd4bad97671038a0b010f04df1aaa41 is historical, not the active source pin. Identity-only Go/plugin rebuild; no new behavior.",
     "buildMetadataDifference": "Go module (devel); buildvcs=false explicitly reproduces the approved non-Git release metadata; trimpath=true",
     "sourceBootstrapPolicy": "Go 1.26.1 windows/amd64, CGO_ENABLED=0; exact approved SHA-256 for both source builds and packaged executables. Never accept a local receipt/version alone."
-  }
+  },
+  "releaseStatus": "UNRELEASED_SOURCE_VALIDATION; Beta 3 remains public rollback",
+  "mcpProduct": "Figma Designer MCP",
+  "mcpServerId": "figma-designer-mcp",
+  "ownedRepository": "https://github.com/Chammy01/figma-designer-mcp",
+  "ownedCommit": "a0b2e1c3e2ab2dd37c512fc3edeacb77a785a418",
+  "baselineStandaloneCommit": "fa2fd109b2ff5b10057582f981211514bf51bc14",
+  "priorApprovedRuntime": {
+    "record": "docs/APPROVED_RUNTIME_BETA_3.json",
+    "sha256": {
+      "bin/figma-mcp-go.exe": "bc9eec0d9a9cddd20e27331a41319a59b84bd51f88a78e59885b901456562f3f",
+      "vendor/figma-mcp/plugin/dist/code.js": "273e20f56b80e9a7d995962948b1bb93e5cc1dfa19471ecd834ca7308d7da941",
+      "vendor/figma-mcp/plugin/dist/index.html": "661fb49dd3ca38ed4648e70858822f59f565093718d02143c6b1b85628f054ee"
+    },
+    "rollbackRelease": "v1.2.1-beta.3"
+  },
+  "migrationReason": "Identity/module/ownership migration only; exact approved source including all local patches retained."
 }

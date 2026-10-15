@@ -8,7 +8,7 @@
 
 ## Quick orientation
 
-You have access to **`mcp__figma-mcp-go__*`** — 105 MCP tools that operate a live Figma file via a WebSocket bridge to a local plugin. Figma Desktop must be open with the plugin running; if it's not, every tool call will fail.
+You have access to **`mcp__figma-designer-mcp__*`** — 106 MCP tools that operate a live Figma file via a WebSocket bridge to a local plugin. Figma Desktop must be open with the plugin running; if it's not, every tool call will fail.
 
 Typical use cases are social-media carousels (1080×1350 slides), mockups, and design-system automation. The toolkit is split into nine groups; pick from the right one.
 
@@ -315,7 +315,7 @@ For anything else, call `health_check` to confirm the bridge is alive, then re-a
 ## Operational checklist
 
 Before doing real work:
-- [ ] User has Figma Desktop open with the plugin running ("Figma MCP Go — Tharun")
+- [ ] User has Figma Desktop open with the plugin running ("Figma Designer MCP")
 - [ ] `health_check` returns `ok: true` with `version: "1.3.0"` (or higher)
 - [ ] If you're going to make >5 tool calls, mention it to the user up front
 

@@ -4,7 +4,7 @@ OpenCode uses the local Figma MCP executable, localhost WebSocket bridge, and Fi
 
 Read `rules/figma-standalone-rules.md` and `rules/figma-design-rules.md` before every Figma task. They govern ownership, source inspection, authoring, revisions, and partial-write recovery.
 
-Resolve `bin/figma-mcp-go.exe` relative to this project. The default bridge is `127.0.0.1:1994`. Run health_check, inspect the current document, plan the requested sections, create section-by-section using higher-level HTML operations, inspect generated sections and repair material layout defects. Prefer Auto Layout. Default desktop width is 1440px with about 1200px content and vertical page growth.
+Resolve `bin/figma-designer-mcp.exe` relative to this project. The default bridge is `127.0.0.1:1994`. Run health_check, inspect the current document, plan the requested sections, create section-by-section using higher-level HTML operations, inspect generated sections and repair material layout defects. Prefer Auto Layout. Default desktop width is 1440px with about 1200px content and vertical page growth.
 
 For revisions, identify and inspect the smallest affected subtree, preserve unaffected layers and IDs, use patch_html or focused updates, and re-inspect. Do not duplicate existing sections or rebuild entire pages for small edits.
 

@@ -1,10 +1,10 @@
 {
-  "name": "@vkhanhqui/figma-mcp-go",
-  "version": "0.0.1-alpha",
-  "description": "A zero-cost, unlimited Figma MCP server — no API key, no rate limits",
-  "mcpName": "io.github.vkhanhqui/figma-mcp-go",
+  "name": "@chammy01/figma-designer-mcp",
+  "version": "1.0.0",
+  "description": "Writable Figma MCP server with a local development-plugin bridge",
+  "mcpName": "io.github.Chammy01/figma-designer-mcp",
   "bin": {
-    "figma-mcp-go": "bin/run.js"
+    "figma-designer-mcp": "bin/run.js"
   },
   "files": [
     "bin/run.js",
@@ -25,13 +25,14 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vkhanhqui/figma-mcp-go.git"
+    "url": "git+https://github.com/Chammy01/figma-designer-mcp.git"
   },
-  "homepage": "https://github.com/vkhanhqui/figma-mcp-go#readme",
+  "homepage": "https://github.com/Chammy01/figma-designer-mcp",
   "bugs": {
-    "url": "https://github.com/vkhanhqui/figma-mcp-go/issues"
+    "url": "https://github.com/Chammy01/figma-designer-mcp/issues"
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "private": true
 }

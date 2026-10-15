@@ -1,0 +1,55 @@
+name: Owned MCP checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  go:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.1'
+      - run: go test -count=1 ./...
+      - run: go vet ./...
+      - shell: pwsh
+        run: |
+          $env:CGO_ENABLED='0'
+          go build -trimpath -buildvcs=false -ldflags '-X main.version=1.0.0' -o bin/figma-designer-mcp.exe ./cmd/figma-mcp-go
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.15.0'
+      - run: node --test scripts/catalog.test.mjs scripts/identity.test.mjs
+  plugin:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.2'
+      - run: bun install --frozen-lockfile
+        working-directory: plugin
+      - run: bun test
+        working-directory: plugin
+      - run: bun run build
+        working-directory: plugin
+      - run: bun test scripts/figma-hardening.test.ts scripts/figma-variants.test.ts
+      - shell: pwsh
+        run: |
+          $env:FIGMA_PLUGIN_BUNDLE=(Resolve-Path plugin/dist/code.js).Path
+          bun test scripts/figma-hardening.test.ts scripts/figma-variants.test.ts
+  source-package:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.1'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.2'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.15.0'
+      - shell: pwsh
+        run: ./scripts/package.test.ps1

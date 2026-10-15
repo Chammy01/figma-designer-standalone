@@ -1,5 +1,7 @@
 # Figma Designer
 
+> Main uses the owned **Figma Designer MCP 1.0.0** source runtime. This is an unreleased ownership checkpoint, not Beta 4. Published Beta 3 remains the previous-runtime rollback. See [migration and activation](docs/FIGMA_DESIGNER_MCP_OWNERSHIP_V1_4_3A.md).
+
 Create editable Figma interfaces by describing what you want.
 
 Source preview: V1.4 adds an optional local application. After source setup, run
@@ -141,7 +143,7 @@ This example shows setup after a source build. The official Windows ZIP verifies
 2. Open or create a **Design file**. A new empty file is a good place to practice.
 3. Open the **Figma menu** at the top left, then go to **Plugins → Development → Import plugin from manifest…**.
 4. Select `vendor\figma-mcp\plugin\manifest.json` inside your extracted Figma Designer folder. Setup also prints its full location.
-5. Run the imported **Figma MCP Go — Tharun** plugin from **Plugins → Development**.
+5. Run the imported **Figma Designer MCP** plugin from **Plugins → Development** (frozen Beta 3 retains its historical plugin name).
 6. Keep the plugin window open.
 7. Start OpenCode using the next section, then wait until the plugin says **Connected**. It may say **Disconnected** until OpenCode is running.
 

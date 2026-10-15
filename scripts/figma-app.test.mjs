@@ -93,7 +93,7 @@ test('owned process is bound locally, authenticated, and removed on shutdown',as
 });
 test('runtime integrity and Figma disconnection use fixed read-only evidence',async t=>{
   const root=await mkdtemp(join(tmpdir(),'figma-app-runtime-'));t.after(async()=>{assert.ok(root.startsWith(join(tmpdir(),'figma-app-runtime-')));await rm(root,{recursive:true,force:true});});
-  const paths=['bin/figma-mcp-go.exe','vendor/figma-mcp/plugin/dist/code.js','vendor/figma-mcp/plugin/dist/index.html'];const sha256={};
+  const paths=['bin/figma-designer-mcp.exe','vendor/figma-mcp/plugin/dist/code.js','vendor/figma-mcp/plugin/dist/index.html'];const sha256={};
   for(const file of paths){await mkdir(join(root,file,'..'),{recursive:true});await writeFile(join(root,file),'synthetic-runtime');sha256[file]=createHash('sha256').update('synthetic-runtime').digest('hex');}await mkdir(join(root,'docs'));await writeFile(join(root,'docs/APPROVED_RUNTIME.json'),JSON.stringify({sha256}));
   let calls=0;const read=async tool=>{calls++;assert.equal(tool,'get_metadata');return {currentPageId:'fixture'};};assert.deepEqual(await systemStatus(root,read),{runtime:'VERIFIED',figma:'CONNECTED',connection:{bridge:'HEALTHY',plugin:'CONNECTED',document:'READABLE'}});
   await writeFile(join(root,paths[0]),'changed');assert.equal((await systemStatus(root,read)).runtime,'HASH_MISMATCH');

@@ -75,7 +75,7 @@ test('no command, stateful feature, critique guard or approved runtime drift',()
   assert.match(read('docs/STATEFUL_VARIABLES_V1_2_5.md'),/FIGMA_STATEFUL_VARIABLES: HOLD\s*$/);
   assert.equal(createHash('sha256').update(read('.opencode/plugins/figma-critique-guard.js')).digest('hex'),'2bc365e1f41d80cf9adab177847f6f4dd13000766455ac4150399a7690cb23dc');
   const approved=JSON.parse(read('docs/APPROVED_RUNTIME.json'));assert.equal(approved.releaseVersion,read('VERSION').trim());
-  assert.deepEqual(approved.sha256,{
+  assert.deepEqual(approved.priorApprovedRuntime.sha256,{
     'bin/figma-mcp-go.exe':'bc9eec0d9a9cddd20e27331a41319a59b84bd51f88a78e59885b901456562f3f',
     'vendor/figma-mcp/plugin/dist/code.js':'273e20f56b80e9a7d995962948b1bb93e5cc1dfa19471ecd834ca7308d7da941',
     'vendor/figma-mcp/plugin/dist/index.html':'661fb49dd3ca38ed4648e70858822f59f565093718d02143c6b1b85628f054ee',

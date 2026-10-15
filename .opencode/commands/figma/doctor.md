@@ -10,7 +10,7 @@ This is read-only. Do not modify Figma or project files.
 
 Check:
 - before connection checks, verify `vendor/figma-mcp/plugin/dist/code.js` and `vendor/figma-mcp/plugin/dist/index.html` exist relative to this project; verify the dispatcher SHA-256 against `docs/APPROVED_RUNTIME.json`
-- before connection checks, verify `bin/figma-mcp-go.exe` exists and its SHA-256 matches `docs/APPROVED_RUNTIME.json`
+- before connection checks, verify `bin/figma-designer-mcp.exe` exists and its SHA-256 matches `docs/APPROVED_RUNTIME.json`
 - Figma MCP health_check succeeds
 - current Figma document can be read with get_document
 - `.opencode/agents/figma-designer.md` exists

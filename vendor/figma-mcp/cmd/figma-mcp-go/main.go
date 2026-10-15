@@ -11,7 +11,7 @@ import (
 
 	"github.com/mark3labs/mcp-go/server"
 
-	"github.com/vkhanhqui/figma-mcp-go/internal"
+	"github.com/Chammy01/figma-designer-mcp/internal"
 )
 
 // version is injected at build time:
@@ -47,9 +47,9 @@ func main() {
 		logger.Fatalf("election start: %v", err)
 	}
 
-	logger.Printf("Starting figma-mcp-go (Tharun) %s (role: %s)", version, node.RoleName())
+	logger.Printf("Starting Figma Designer MCP %s (role: %s)", version, node.RoleName())
 
-	s := server.NewMCPServer("figma-mcp-go-tharun", version)
+	s := server.NewMCPServer("figma-designer-mcp", version)
 	internal.RegisterTools(s, node)
 	internal.RegisterPrompts(s)
 

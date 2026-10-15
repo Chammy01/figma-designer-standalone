@@ -1,0 +1,90 @@
+{
+  "baselineStandaloneCommit": "fa2fd109b2ff5b10057582f981211514bf51bc14",
+  "ownedCommit": "a0b2e1c3e2ab2dd37c512fc3edeacb77a785a418",
+  "oldInfo": {
+    "name": "figma-mcp-go-tharun",
+    "version": "1.2.0-standalone-hardening"
+  },
+  "newInfo": {
+    "name": "figma-designer-mcp",
+    "version": "1.0.0"
+  },
+  "toolCount": 106,
+  "catalogSha256": "3a6e7f0e0384ba7b9b103ad940352b54457e48b517af9cfa864d358a85c9b15a",
+  "schemasRequiredOptionalAnnotations": "IDENTICAL",
+  "protocolCapabilities": "IDENTICAL",
+  "stableReads": [
+    {
+      "name": "get_metadata",
+      "equal": true,
+      "oldSha256": "64b88066c94276a47499d9f5af9f87a9ab2ac22015e43b91097d28512941de68",
+      "newSha256": "64b88066c94276a47499d9f5af9f87a9ab2ac22015e43b91097d28512941de68"
+    },
+    {
+      "name": "get_document",
+      "equal": true,
+      "oldSha256": "bf131155d227deaaf9fc83d45440004493001e3cf98cd6e34435e734e4298187",
+      "newSha256": "bf131155d227deaaf9fc83d45440004493001e3cf98cd6e34435e734e4298187"
+    },
+    {
+      "name": "get_node",
+      "equal": true,
+      "oldSha256": "89291584ee54f3d14cde2da45cc01bbd576c0a724acb683d9bfe68f28279823c",
+      "newSha256": "89291584ee54f3d14cde2da45cc01bbd576c0a724acb683d9bfe68f28279823c"
+    },
+    {
+      "name": "get_styles",
+      "equal": true,
+      "oldSha256": "152f2b4682b0c66dfefa412f5097d720e9a35330b796bccf97ab3378fa430639",
+      "newSha256": "152f2b4682b0c66dfefa412f5097d720e9a35330b796bccf97ab3378fa430639"
+    },
+    {
+      "name": "get_local_components",
+      "equal": true,
+      "oldSha256": "7a9286a284dbbab197e4d8829cb81fb3f4607f36cf126cbab9cbbe978e68f70f",
+      "newSha256": "7a9286a284dbbab197e4d8829cb81fb3f4607f36cf126cbab9cbbe978e68f70f"
+    },
+    {
+      "name": "get_reactions",
+      "equal": true,
+      "oldSha256": "2264a27f95c0ec1453361ec17c1f81ab9d172b4235411c319dfb2d5e1259d080",
+      "newSha256": "2264a27f95c0ec1453361ec17c1f81ab9d172b4235411c319dfb2d5e1259d080"
+    }
+  ],
+  "invalidReactionErrors": [
+    {
+      "name": "set_reactions",
+      "equal": true,
+      "rejectedBeforeDispatch": true
+    },
+    {
+      "name": "set_reactions",
+      "equal": true,
+      "rejectedBeforeDispatch": true
+    },
+    {
+      "name": "set_reactions",
+      "equal": true,
+      "rejectedBeforeDispatch": true
+    },
+    {
+      "name": "remove_reactions",
+      "equal": true,
+      "rejectedBeforeDispatch": true
+    },
+    {
+      "name": "remove_reactions",
+      "equal": true,
+      "rejectedBeforeDispatch": true
+    }
+  ],
+  "functionalDifferences": [],
+  "intentionalDifferences": [
+    "product/module/binary/repository/package names",
+    "version identity",
+    "plugin branding",
+    "provenance/docs"
+  ],
+  "writeCalls": 0,
+  "sourceComparison": "101 runtime files canonicalized only for explicit identity literals and original EOL conventions; unchanged dependencies and manifest technical fields"
+}

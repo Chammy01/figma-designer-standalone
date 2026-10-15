@@ -24,7 +24,7 @@ After setup succeeds and reports **Figma plugin dispatcher verified**, open Figm
 
 ## 4. Start the plugin and OpenCode
 
-Run the imported **Figma MCP Go — Tharun** plugin from Plugins → Development. It may say Disconnected until OpenCode starts. Keep the plugin window open.
+Run the imported **Figma Designer MCP** plugin from Plugins → Development (frozen Beta 3 retains its historical plugin name). It may say Disconnected until OpenCode starts. Keep the plugin window open.
 
 In the PowerShell window in the extracted folder type `opencode` and press Enter. Follow its first-use sign-in/provider instructions if requested. A provider is the AI service that reads your prompt; its access and charges are separate. The preserved model is `opencode/space-bunny-free`. If OpenCode reports it unavailable, see Installation; setup does not silently substitute a model. After OpenCode starts, the plugin should say Connected. If necessary close/reopen only the plugin window, keeping the document and OpenCode open.
 

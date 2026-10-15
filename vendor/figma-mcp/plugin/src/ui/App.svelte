@@ -217,10 +217,10 @@
     <div class="footer-row">
       <a
         class="author"
-        href="https://github.com/tharuneswarj"
+        href="https://github.com/Chammy01/figma-designer-mcp"
         target="_blank"
       >
-        Tharun's Figma MCP
+        Figma Designer MCP · Chammy01
       </a>
       <div class="links">
         <a
@@ -232,7 +232,7 @@
           <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
             <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm7-3.25v2.992l2.028.812.772-1.932-2.8-1.872ZM6.272 3.937 3.5 5.808l.772 1.932L6.3 6.928V3.873a.75.75 0 0 0-.028.064ZM8.75 9.75H7.25V11h1.5V9.75Zm0-5.5H7.25v4h1.5v-4Z"/>
           </svg>
-          Fork
+          Upstream
         </a>
       </div>
     </div>

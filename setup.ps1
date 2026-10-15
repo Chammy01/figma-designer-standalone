@@ -45,7 +45,7 @@ foreach ($name in @('setup','doctor','design','revise','critique','states','flow
 }
 $missing = @($paths | Where-Object { -not (Test-Path -LiteralPath (Join-Path $ProjectRoot $_) -PathType Leaf) })
 Result ($missing.Count -eq 0) 'Project files' ("Extract the complete Release ZIP. Missing: " + ($missing -join ', '))
-$exe = Join-Path $ProjectRoot 'bin/figma-mcp-go.exe'
+$exe = Join-Path $ProjectRoot 'bin/figma-designer-mcp.exe'
 $manifest = Join-Path $ProjectRoot 'vendor/figma-mcp/plugin/manifest.json'
 # Reject links/junctions so builds and output stay inside this installation.
 function RequireLocalPath([string]$Path) {
@@ -60,7 +60,7 @@ function RequireLocalPath([string]$Path) {
 $buildOutput = $null
 try {
     $approved = Get-Content -LiteralPath (Join-Path $ProjectRoot 'docs/APPROVED_RUNTIME.json') -Raw | ConvertFrom-Json
-    $exeHash = $approved.sha256.'bin/figma-mcp-go.exe'
+    $exeHash = $approved.sha256.'bin/figma-designer-mcp.exe'
     if ($exeHash -notmatch '^[a-f0-9]{64}$') { throw 'Approved MCP SHA-256 is missing or invalid.' }
     if (Test-Path -LiteralPath $exe) {
         RequireLocalPath $exe
@@ -94,7 +94,7 @@ try {
             Write-Host '[INFO] Building Figma MCP from checked-out pinned Go source.'
             Push-Location $goRoot
             try {
-                & $go.Source build -trimpath -buildvcs=false -ldflags '-X main.version=1.2.0-standalone-hardening' -o $buildOutput ./cmd/figma-mcp-go
+                & $go.Source build -trimpath -buildvcs=false -ldflags '-X main.version=1.0.0' -o $buildOutput ./cmd/figma-mcp-go
                 if ($LASTEXITCODE -ne 0) { throw 'Go build failed. Check the compiler/network output above, restore pinned source and go.mod/go.sum, then rerun setup.' }
             } finally { Pop-Location }
             if (-not (Test-Path -LiteralPath $buildOutput -PathType Leaf)) { throw 'Go build did not produce the MCP executable.' }

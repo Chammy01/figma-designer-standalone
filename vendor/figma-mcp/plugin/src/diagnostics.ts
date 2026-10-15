@@ -9,7 +9,7 @@
  * silent failures (failed style bindings, font load errors, etc.).
  */
 
-const PLUGIN_VERSION = "1.3.0"; // bumped when toolkit overhaul lands
+const PLUGIN_VERSION = "1.0.0"; // Owned product identity; capability behavior unchanged
 
 interface ErrorEntry {
   tool: string;

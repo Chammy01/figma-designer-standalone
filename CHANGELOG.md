@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — MCP ownership migration (V1.4.3A)
+
+Adopts Figma Designer MCP 1.0.0 from Chammy01/figma-designer-mcp at an exact source pin. Public identity/module/binary/plugin branding changes; the 106-tool contract and runtime behavior remain equivalent. Approved hashes rotate with rollback provenance retained. Local validation package identity is v1.2.1-ownership.1; no release or Beta 4 is published, and Beta 3 remains immutable. V1.2.5 remains HOLD.
+
 ## v1.2.1-beta.3 — public prerelease checkpoint
 
 Packages current design/briefing/routing/planner workflows, supported centered overlays, Interaction QA V2, the native motion audit, explicit smooth scrolling and browser motion parity. Approved runtime hashes, system 1.2.1 and MCP 1.2.0-standalone-hardening remain unchanged. V1.2.5 variables/conditionals remain HOLD. See [release notes](RELEASE_NOTES_v1.2.1-beta.3.md).

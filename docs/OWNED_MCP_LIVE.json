@@ -1,0 +1,200 @@
+{
+  "ownedCommit": "a0b2e1c3e2ab2dd37c512fc3edeacb77a785a418",
+  "connection": {
+    "product": "Figma Designer MCP",
+    "pluginVersion": "1.0.0",
+    "serverId": "figma-designer-mcp",
+    "approvedHashes": {
+      "bin/figma-designer-mcp.exe": "d64210d464b39d27e24861c399425a74780851c0a20fbefec5c7247124eab78d",
+      "vendor/figma-mcp/plugin/dist/code.js": "95cfd61fce73ef51cce155a9bb33c43898dbfa8565af367f3c878e3d99d92dcf",
+      "vendor/figma-mcp/plugin/dist/index.html": "74067837ed24279beaca0d95f1a822708ded8713b589bb1be4fce55d17a55f02"
+    },
+    "bridgeExecutable": "bin/figma-designer-mcp.exe"
+  },
+  "design": {
+    "status": "PASS",
+    "rootId": "1028:760",
+    "editableNative": true
+  },
+  "components": {
+    "instanceId": "1028:803",
+    "afterSwap": {
+      "componentSetId": "1028:797",
+      "mainComponentId": "1028:796"
+    },
+    "afterRestore": {
+      "componentSetId": "1028:797",
+      "mainComponentId": "1028:793"
+    }
+  },
+  "prototypePlayback": {
+    "environment": "Figma Desktop 126.9.13, native prototype player",
+    "pageId": "1028:758",
+    "homeId": "1028:768",
+    "detailsId": "1028:769",
+    "modalId": "1028:770",
+    "observations": [
+      {
+        "behavior": "NAVIGATE",
+        "result": "Home -> Details",
+        "status": "PLAYBACK_VERIFIED"
+      },
+      {
+        "behavior": "CHANGE_TO",
+        "result": "Inherited instance Hover me changes from green to dark green on pointer entry",
+        "status": "PLAYBACK_VERIFIED"
+      },
+      {
+        "behavior": "BACK",
+        "result": "Details -> Home",
+        "status": "PLAYBACK_VERIFIED"
+      },
+      {
+        "behavior": "OVERLAY",
+        "result": "Centered white modal opens above Home; close returns to same Home",
+        "status": "PLAYBACK_VERIFIED"
+      },
+      {
+        "behavior": "SCROLL_ANIMATE",
+        "result": "Jump to section scrolls down to existing Scroll destination",
+        "status": "PLAYBACK_VERIFIED"
+      }
+    ],
+    "exactTimingMeasured": false,
+    "scrollPreparation": "Native UI Vertical overflow on disposable Home only; confirmed VERTICAL by source readback",
+    "productionWrites": 0
+  },
+  "exportDimensions": [
+    {
+      "name": "home-a.png",
+      "width": 400,
+      "height": 360
+    },
+    {
+      "name": "home-b.png",
+      "width": 400,
+      "height": 360
+    }
+  ],
+  "qa": {
+    "status": "WARN",
+    "counts": {
+      "workingActions": 5,
+      "workingStates": 1,
+      "brokenControls": 0,
+      "unknown": 1,
+      "limitedControls": 0,
+      "intentionallyInert": 0,
+      "brokenEdges": 0,
+      "unreachable": 0,
+      "limitations": 0
+    },
+    "findings": [],
+    "integrity": {
+      "status": "VERIFIED_UNCHANGED",
+      "before": {
+        "document": {
+          "algorithm": "canonical-json-sha256-v1",
+          "sha256": "e2f20220a51bd0775777a36b5ef6ff323840a35a5f3bfdb81f0737c3fba9f2f4"
+        },
+        "source": {
+          "algorithm": "canonical-json-sha256-v1",
+          "sha256": "0e64cd77b8882795b575adc75f47e590aa475808df25bd4a335f40b83e0d7b60"
+        }
+      },
+      "after": {
+        "document": {
+          "algorithm": "canonical-json-sha256-v1",
+          "sha256": "e2f20220a51bd0775777a36b5ef6ff323840a35a5f3bfdb81f0737c3fba9f2f4"
+        },
+        "source": {
+          "algorithm": "canonical-json-sha256-v1",
+          "sha256": "0e64cd77b8882795b575adc75f47e590aa475808df25bd4a335f40b83e0d7b60"
+        }
+      },
+      "readCalls": 6,
+      "writeCalls": 0
+    },
+    "wholeRunIntegrity": {
+      "scope": "current-page",
+      "state": "UNCHANGED",
+      "beforeFingerprint": "e2f20220a51bd0775777a36b5ef6ff323840a35a5f3bfdb81f0737c3fba9f2f4",
+      "afterFingerprint": "e2f20220a51bd0775777a36b5ef6ff323840a35a5f3bfdb81f0737c3fba9f2f4"
+    },
+    "inspectionAliases": 17,
+    "collectorReads": 6,
+    "writeTools": 0,
+    "blockedTools": [
+      "execute"
+    ],
+    "completed": true
+  },
+  "doctor": {
+    "state": "COMPLETED",
+    "status": "PASS"
+  },
+  "modelSwitch": {
+    "sameSession": true,
+    "changed": {
+      "id": "gemini-4-argon",
+      "providerID": "opencode",
+      "name": "Gemini 4 Argon",
+      "available": true
+    },
+    "restored": {
+      "id": "cat-jam-free",
+      "providerID": "opencode",
+      "name": "Cat Jam Free",
+      "available": true
+    }
+  },
+  "cleanup": {
+    "restored": true,
+    "pageFingerprint": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "a68cfd586576aa6f2d199c8edd4e46c541b5d7e9a22508a16781e8fff3712be6"
+    },
+    "sourceFingerprint": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "129cd01193e0d6d52a3c992380c48ed41650ea372316dadbd30d22ece81fcd27"
+    },
+    "sourceStable": true,
+    "pages": [
+      {
+        "id": "0:1",
+        "name": "Page 1"
+      }
+    ],
+    "componentCount": 20,
+    "componentSetCount": 0,
+    "productionWrites": 0,
+    "acceptancePageRemoved": "1028:758",
+    "restoredOriginalQACache": true,
+    "health": {
+      "fileName": "Untitled",
+      "fontFamilyCount": 2025,
+      "ok": true,
+      "pageName": "Page 1",
+      "recentErrorCount": 0,
+      "styleCount": 7,
+      "variableCount": 0,
+      "version": "1.0.0"
+    }
+  },
+  "browser": {
+    "existingPreview": "CURRENT after restored source readback",
+    "test": "FAIL",
+    "sourceFidelity": "FAIL",
+    "unchangedKnownStrokeFindings": 5,
+    "newDefectsClaimed": false
+  },
+  "timeouts": 0,
+  "newCommands": 0,
+  "statefulVariables": "HOLD",
+  "beta3": "Published assets untouched",
+  "limitations": [
+    "Manual bounded native playback; exact timings not measured.",
+    "No loaded-bundle cryptographic attestation protocol: visible branding, live diagnostic version, exact file hashes and controlled reload provide activation evidence.",
+    "Browser generator was not redesigned; existing five fidelity defects remain."
+  ]
+}

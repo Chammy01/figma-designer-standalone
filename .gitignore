@@ -21,7 +21,10 @@ __pycache__/
 *.pyc
 .cache/
 .impeccable/
-bin/figma-mcp-go.exe
+bin/figma-designer-mcp.exe
 release/
 release-staging/
 # Generated MCP executable and plugin dist are omitted; manifests, sources/tests and inactive skill references are retained.
+
+# Historical rollback executable, never shipped by the owned runtime.
+bin/figma-mcp-go.exe

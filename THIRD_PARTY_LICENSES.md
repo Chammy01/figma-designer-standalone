@@ -86,3 +86,5 @@ The following families were identified from the preserved full texts; the full n
 | @playwright/test | Apache-2.0 | [licenses/node/@playwright__test/LICENSE](licenses/node/@playwright__test/LICENSE) |
 | playwright | Apache-2.0 | [licenses/node/playwright/LICENSE](licenses/node/playwright/LICENSE) |
 | playwright-core | Apache-2.0 | [licenses/node/playwright-core/LICENSE](licenses/node/playwright-core/LICENSE) |
+
+Active runtime: [Figma Designer MCP](https://github.com/Chammy01/figma-designer-mcp), maintained by Chammy01, MIT. Upstream notices above remain attribution, not the active source pin. See [owned provenance](vendor/figma-mcp/docs/PROVENANCE.md).

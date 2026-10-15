@@ -1,0 +1,39 @@
+{
+  "baselineStandaloneCommit": "fa2fd109b2ff5b10057582f981211514bf51bc14",
+  "baselineVendorTree": "da05aeb87d24cd3f241e249370534ba77fd83fbb",
+  "catalog": {
+    "oldCount": 106,
+    "newCount": 106,
+    "namesSchemasRequiredOptional": "IDENTICAL",
+    "combine_as_variants": true,
+    "protocolCapabilities": "IDENTICAL",
+    "unknownMethodError": "IDENTICAL",
+    "unknownToolError": "IDENTICAL"
+  },
+  "runtimeSource": {
+    "files": 101,
+    "normalization": "Line endings and explicit product/module/version/branding literals only; scripts/identity-normalize.mjs",
+    "status": "PASS"
+  },
+  "dependencies": {
+    "goSum": "UNCHANGED",
+    "goRequirements": "UNCHANGED",
+    "pluginDependenciesAndResolutions": "UNCHANGED",
+    "lockRootPackageName": "IDENTITY_ONLY"
+  },
+  "pluginManifest": {
+    "name": "Figma Designer MCP",
+    "id": "figma-mcp-go",
+    "networkAccess": "UNCHANGED"
+  },
+  "functionalDifferences": [],
+  "allowedIdentityDifferences": [
+    "serverInfo.name",
+    "serverInfo.version",
+    "diagnostics.version",
+    "binary/module/repository/package name",
+    "plugin display branding",
+    "maintainer/provenance docs"
+  ],
+  "liveAcceptance": "Recorded separately in the Figma Designer ownership report; not inferred from schema equality"
+}

@@ -1,5 +1,5 @@
 {
-  "name": "figma-mcp-go-plugin",
+  "name": "figma-designer-mcp-plugin",
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,5 +16,6 @@
     "typescript": "^5",
     "vite": "^6",
     "vite-plugin-singlefile": "^2"
-  }
+  },
+  "version": "1.0.0"
 }

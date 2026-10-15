@@ -1,4 +1,5 @@
 {
+  "recordScope": "Historical original Beta source provenance; active owned runtime pin is docs/OWNED_MCP_SOURCE.json and docs/APPROVED_RUNTIME.json",
   "upstreamCommit": "5806e71b8fd4bad97671038a0b010f04df1aaa41",
   "baselineCopiedFiles": 252,
   "baselineOriginalPreserved": true,

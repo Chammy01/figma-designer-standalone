@@ -24,7 +24,7 @@ The fork started out solid as a *creation* tool but bad as an *iteration* tool. 
 ```mermaid
 flowchart LR
     subgraph LOCAL["Local machine"]
-      C[Claude Code / Cursor / Copilot] -- "stdio MCP" --> S[figma-mcp-go binary]
+      C[Claude Code / Cursor / Copilot] -- "stdio MCP" --> S[figma-designer-mcp binary]
       S <-- "WebSocket :1994" --> P[Figma Plugin<br/>TS + Svelte]
       P <-- "Plugin API" --> F[(Figma Desktop)]
     end

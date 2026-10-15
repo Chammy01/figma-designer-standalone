@@ -24,7 +24,7 @@ $StateFile = Join-Path $StateDir "session.json"
 $ConfigFile = Join-Path $ProjectRoot "opencode.json"
 $AgentFile = Join-Path $ProjectRoot ".opencode\agents\web-designer.md"
 $RulesFile = Join-Path $ProjectRoot "rules\figma-design-rules.md"
-$McpExe = Join-Path $ProjectRoot "bin\figma-mcp-go.exe"
+$McpExe = Join-Path $ProjectRoot "bin\figma-designer-mcp.exe"
 
 $BrowserDir = Join-Path $ProjectRoot ".orca\browser-prototype"
 $BrowserManifest = Join-Path $BrowserDir "orca-browser.json"

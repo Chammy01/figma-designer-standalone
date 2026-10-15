@@ -55,7 +55,7 @@ try {
         [IO.File]::WriteAllText($dispatcher, "fixture dispatcher`r`n")
         [IO.File]::WriteAllText((Join-Path $plugin 'dist/index.html'), 'fixture UI')
         New-Item -ItemType Directory -Path (Join-Path $fixture 'bin') | Out-Null
-        [IO.File]::WriteAllText((Join-Path $fixture 'bin/figma-mcp-go.exe'), 'fixture executable')
+        [IO.File]::WriteAllText((Join-Path $fixture 'bin/figma-designer-mcp.exe'), 'fixture executable')
         $approved = Get-Content -LiteralPath (Join-Path $fixture 'docs/APPROVED_RUNTIME.json') -Raw | ConvertFrom-Json
         foreach ($entry in $approved.sha256.PSObject.Properties) {
             $entry.Value = (Get-FileHash -LiteralPath (Join-Path $fixture $entry.Name)).Hash.ToLowerInvariant()
@@ -66,7 +66,7 @@ try {
         if ($mode -eq 'missing-ui') { Remove-Item -LiteralPath (Join-Path $plugin 'dist/index.html') }
         if ($mode -eq 'hash-mismatch') { [IO.File]::WriteAllText($dispatcher, 'unapproved') }
         if ($mode -eq 'missing-source') { Remove-Item -LiteralPath (Join-Path $plugin 'bun.lock') }
-        $exe = Join-Path $fixture 'bin/figma-mcp-go.exe'
+        $exe = Join-Path $fixture 'bin/figma-designer-mcp.exe'
         $goModes = @('source','missing-go','wrong-go','go-build-fail','go-missing-output','go-hash-mismatch','go-missing-source','go-spoof')
         if ($mode -in $goModes) {
             Remove-Item -LiteralPath $exe

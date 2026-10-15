@@ -1,0 +1,602 @@
+{
+  "repository": "https://github.com/Chammy01/figma-designer-mcp",
+  "commit": "a0b2e1c3e2ab2dd37c512fc3edeacb77a785a418",
+  "files": [
+    {
+      "path": "vendor/figma-mcp/.gitattributes",
+      "sha256": "923eec3f678193bd0d9b155b266bdd04202ce32d9291982ce977c215702a6a1f"
+    },
+    {
+      "path": "vendor/figma-mcp/.github/workflows/ci.yml",
+      "sha256": "500ae13b9fd85cb2afb35ef2a8fb51eb7f14a3165d5181441bf93e9f19e539e5"
+    },
+    {
+      "path": "vendor/figma-mcp/.gitignore",
+      "sha256": "3cfd06c4c9239a91975eb2366c39be21347dea496572f4ea6f57b1c797fe2429"
+    },
+    {
+      "path": "vendor/figma-mcp/CHANGELOG.md",
+      "sha256": "83777dad8c28d2a9a344c13d93c1886c7e278fd4e5764f5d47aed965008909a6"
+    },
+    {
+      "path": "vendor/figma-mcp/LICENSE",
+      "sha256": "b24907f6aa673658cec2315dd52af4d69db4e488be78008796131ebe4bd9833d"
+    },
+    {
+      "path": "vendor/figma-mcp/Makefile",
+      "sha256": "08fed28a40678d0017e7de379db38c661c332fd6d0eddd8e6b13a1c6e9e3577e"
+    },
+    {
+      "path": "vendor/figma-mcp/README.md",
+      "sha256": "052e8df691e7a1d729f97241094decabd77ed883b205424ff4e0c34624ffab72"
+    },
+    {
+      "path": "vendor/figma-mcp/VERSION",
+      "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03"
+    },
+    {
+      "path": "vendor/figma-mcp/cmd/figma-mcp-go/main.go",
+      "sha256": "2194a7fb0c611ab2e5cec1127e4f74d8e0b87ffe8166e4aed401f1da2991175f"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/ARCHITECTURE.md",
+      "sha256": "6b66d537694fbeed4c4f967485af312fd7444094b5ce8988c85f06d93a2f6c30"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/BEHAVIOR_EQUIVALENCE.json",
+      "sha256": "17daecd74fe81756c7dd310dc79812820997d00e6ee7027e98ae363f3b81c0e7"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/BUILDING.md",
+      "sha256": "2ab34714314f4c52dbd2ee5f3c2812a4de2a94dbd13bca1166956e0a68c5ac54"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/COMPATIBILITY.md",
+      "sha256": "deb8c04e2d42e92e0fcc99548d73cf112de25b22f0676dcfd7efeee2ae96e6b1"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/PROVENANCE.md",
+      "sha256": "25dae63ec259bfb217cafcd2af319d7d4f37c1d6706926179ba222a60d0425c7"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/README.md",
+      "sha256": "04a4285f269adec80a634dfbfaecf08425f47954322e684f1757c0d4f45884b0"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/ROADMAP.md",
+      "sha256": "44ac048a6d2a1c7fa3bc75902a35a79068120cd22894494222391f720c5e9be3"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/agent-toolkit-v1.3.md",
+      "sha256": "fb28b22fa8fa3b63f5863f93a93d81921ee13f727d28ababdefd5915e3d1305a"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/bug-fixes-v1.3.md",
+      "sha256": "2e66269d8a9a611ef6127cf7940b5f8eb516f7cf9de5312c3d70c793fa53b47e"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/cowork-mcp-guide.md",
+      "sha256": "c1fe51a046343dd9b27fa207825d1422c4e464b5dd99935c4d361742dda6045f"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/ownership-import.json",
+      "sha256": "4d70124bbd356279e4ce918412fc58f30f76d9e42d0431491c8d526438d53035"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/recipes/carousel-slides.md",
+      "sha256": "4e225642f334bf661fac500cf5c37ecb5a7fa31c957981ec8b1824dd2a32830d"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/recipes/design-system-bootstrap.md",
+      "sha256": "1f810f5a9f2300c6b1d6c52870e01f27bb4a057d4cb10c28be479f0e709087b1"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/recipes/edit-not-rewrite.md",
+      "sha256": "0c520d32087d4e0920ebf58689c8333cf90b27ef092661a7aed0f843cbce04f4"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/skill/SKILL.md",
+      "sha256": "91c42644ad6e4a49b8eb4789d82a6b820353c6fa5cba1d5a3420f8a44a56ba7c"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/skill/decision-tree.md",
+      "sha256": "8ba4594bafcbd07b0c5ed351f44909125a66c5f5c6a9ee55a24ddb31f8ecc096"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/skill/examples/01-create-cover-slide.md",
+      "sha256": "ef661e64b53a3340350978b3b871dddaf8014e502ceab011049531ee1a02380e"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/skill/examples/02-edit-not-rewrite.md",
+      "sha256": "2907245032abe62274e47102e7c7371e5d87e7faae70aff3df9fa3d83c463520"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/skill/examples/03-design-tokens.md",
+      "sha256": "3310f4f742945f072815354f26dd1dacb6a90f2b2b69b0cc24a3278b231748ee"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/tools-reference.md",
+      "sha256": "88154d6b1f4ee1f434a3b60fc362083345caf77a298fe41e4a4e1f9b9703be81"
+    },
+    {
+      "path": "vendor/figma-mcp/go.mod",
+      "sha256": "377282beb9e210de3c984ac239c4a9dd5e514741e8f19c4ee383efe5052ddb4c"
+    },
+    {
+      "path": "vendor/figma-mcp/go.sum",
+      "sha256": "0b9cf89771ebb560424bfa1612fe7a9d0e45d3fbcc86a3269e01a426059dd5f1"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/bridge.go",
+      "sha256": "fc542dc31a196c118a44e618c88a7a0ad68d7227d74ff9cf43acbaead25dcdf7"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/bridge_test.go",
+      "sha256": "a3949893af6641cc74f8d543ade7b814039e36473f9cf31b41342a9cf92f7436"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/election.go",
+      "sha256": "eae900279abb6bb0c696c47aff010b469a48d13537556ef4341c1408f2705c06"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/election_test.go",
+      "sha256": "fb922c772a1e1b61f3c840eccb7f9b65f8c773bb9e3bdfa7c5c97abb7f463dd6"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/follower.go",
+      "sha256": "c2c6090f10c526619e25b310b1fc2099d2b499e1eb023c6493e3968fa7e08232"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/follower_test.go",
+      "sha256": "bb4632533263b7ed7810837fd04793d59deb5ae53e1a9845c0ee860bc1fc24a8"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/helpers_test.go",
+      "sha256": "3d9a7c126b10186c9a3f00ed0192876cc211903a0ede2061b8f48982c5a0371c"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/leader.go",
+      "sha256": "dc559491d592aff2cf5ced14e25e665c42fba6e5e9ec8647a2098422a51a98af"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/leader_test.go",
+      "sha256": "b73a5236902e52f6ebbac63c3391468b853ed9552f19e9d1ccfd303d6513fc48"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/node.go",
+      "sha256": "ecac680e179da1cef4999ca1f63969634e81d76b9b61a59940f08d51b827cd23"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/node_test.go",
+      "sha256": "9a6e6bd6823bf0a3da824b2653d425c340e6a9091c1c79c2eb9ab899de0ec81e"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/prompts/annotation_conversion_strategy.go",
+      "sha256": "ac5bb8c6ecfc9dab3520b50f187842bcfde68fc96a9879c571e42a8c719a13f5"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/prompts/bulk_rename_strategy.go",
+      "sha256": "066cd33ba147d6dda7635e5d7c62a32fea941d70fd2a0b4231a2f412ca011309"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/prompts/design_strategy.go",
+      "sha256": "88e887251096f29a5b2fdd032892cb70fdcdd0df22df5423455ab6691db56db3"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/prompts/design_token_generation_strategy.go",
+      "sha256": "e5003c9689296d7446b4a786a6083fd80a475e5b2a22201c4dbf2997ae4c2145"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/prompts/generate_color_palette.go",
+      "sha256": "025527c5d0e6fad488a1cfab971e18ac45e53febeac48c53ddc830188dfb2c7c"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/prompts/generate_component_variants.go",
+      "sha256": "8d537acbdd31f7c785ac6ede98516cb4685e2b02c668f0b70928fd6195aa59e6"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/prompts/generate_type_scale.go",
+      "sha256": "ae7f083f84d8433a9c79824e5adf238e49dcbf2d6dfafd7ccbfa6a7cb44c371e"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/prompts/prompts.go",
+      "sha256": "2188aafe4f2723d68fe5bd827751b0575e987f12c90e2b0ca6bdf1282ea94462"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/prompts/prompts_test.go",
+      "sha256": "e7d1cc941ab3f725fc865493b1ad8c4edde5e839cb97ec9da0489f795fbd18ab"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/prompts/reaction_to_connector_strategy.go",
+      "sha256": "fc97ccd3d0f24b2bc8b061c2bd60682ec9218d928200a1ecc4c46eb2f55e6653"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/prompts/read_design_strategy.go",
+      "sha256": "cfe5ca8722059c54dcc6644f330d4f3dd66f40a95615af998204697d3e2ebff2"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/prompts/style_audit_strategy.go",
+      "sha256": "3b8e0dc2a3399d9a4517f576ae5c65ced1192d217ae033acf932d3158bfd155e"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/prompts/swap_overrides_instances.go",
+      "sha256": "666c98a4e9577b3a5f0677b9d00a4de35bc2410588bef424920330c0d3041bf8"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/prompts/text_replacement_strategy.go",
+      "sha256": "5de096719cd98e824636b7cafd8e9d71efd1eba978bbef3eadfd300028a6415c"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/reaction_hardening_test.go",
+      "sha256": "2e16fdddc2108ebdddb1765f3def9ec3f7b4a6e20efa9e5e2878373ff42c1322"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/schema.go",
+      "sha256": "ec304009c1303ec84822ec1e122320a2b111ce5671ec9760eb959d501023f066"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/schema_test.go",
+      "sha256": "b9975442fa461900d54c2175946792546c60ccb03260477079cbcec3e1e52879"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/timeout_model_test.go",
+      "sha256": "3a434a7f3e32abf2835670224c3bbc94165f1eeff3e8d3a28a2d7fdd9fca9dcd"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools.go",
+      "sha256": "99a40c0a6166b08cf63ae03a860504f1c2bc880b49bfe4eaef25c618766d5741"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_components_v2.go",
+      "sha256": "b160057984ebff4e9f72dab8cb1f81810f09901f5a1ac51eeb68939dfd87ebc2"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_diagnostics.go",
+      "sha256": "683029c0c3fd6f2efea5fa4050293563e75310de0007dc6de407443500911389"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_edit.go",
+      "sha256": "a2d7ab04b0d58f4ef130699756cd68df39a3946ba5d50adefb1b5791f74694e6"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_export_v2.go",
+      "sha256": "c98508105c1a4a3d59a65b590be9a82da9718296eb285191151afd890f8424b6"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_handler_test.go",
+      "sha256": "281476c263bafbc4e77d0cb962452828d88d6584cde405ea08b3806af2926f36"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_layout.go",
+      "sha256": "22e1389eb396549c2c181d965bcb0197a3cc81c2a5ddf442648509f7b77fcb4e"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_read.go",
+      "sha256": "adbd2b26197f552f9d1107dde971ffa6fed4fd8c43b231fcdff1fa18be970df4"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_read_document.go",
+      "sha256": "e55ac3a68180e31489c726c295438be59993ec33c35c665bcb640abff70d86ab"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_read_export.go",
+      "sha256": "fd785b2d460e2844109e1c7354140c0f048557b0b037c9cbb4f15fe82d35457c"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_read_export_test.go",
+      "sha256": "f68728c76c6d50abfcb8e04cfc28df562feafa9cf846fca013b9ceef722812f4"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_read_styles.go",
+      "sha256": "f1a7301cb7883a5eb2c55382debd3e7766d96376532d00bb036620e8b154a900"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_schema_test.go",
+      "sha256": "edcdfd29fd827b89abb50f7978c78dc51b438e29de81cdb8f5da865183367388"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_slides.go",
+      "sha256": "96facf5b5854731cf061a22fe389e4fea22e3b84db1362dab548c71b45ac9a9e"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_style_ecosystem.go",
+      "sha256": "09b4c59132c51b53a09200166477a64b540332b53daefa8562c93f6ae99cf9af"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_test.go",
+      "sha256": "a21df303031c87eea33c41fa7796ea549a040d1c783fc2a44a477dc3f10e7cb1"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_validation.go",
+      "sha256": "7a7afa2b89c888dc7c1ee1befdfed955bc75435b117f76979e513e40c7f88f28"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_write.go",
+      "sha256": "585adf7a6972c57372000fcf601a1a933eb3ff1d045fdbd092207eaad194aeb2"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_write_components.go",
+      "sha256": "b5ff948b112535fcf682173901e2a93645526bd87f6139e8922dbd36177aec05"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_write_create.go",
+      "sha256": "f2b705bb0dd1237a997079851fe134457842c98df9e44827907006699ce7f214"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_write_html.go",
+      "sha256": "3f2a1ec1c5aac5a4e13a294714ec9dff0c45601c34dd6fb82ecd1ada95525c45"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_write_html_test.go",
+      "sha256": "83564978cc4c94f04ca70fa6727e70482b3824aa0ea6e0ff5215d21fc234c7f1"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_write_modify.go",
+      "sha256": "c2a0841fb88ee68e5b6ef1a56a6739cb9e88be928caa6367f370e0b9b05535f9"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_write_page.go",
+      "sha256": "6c1c4c7585f6803747435c2752a1c7efe4524d5ea1c232d9fa7e9cb0c13da8ca"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_write_prototype.go",
+      "sha256": "348b6549715ef7f811fb0af2b038568c0f3990f8db4b29667e9c25013f8ecac8"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_write_styles.go",
+      "sha256": "a4444681641f75c39de2f8437de74896ed4f259842dd2594b8eff72f14fdce00"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/tools_write_variables.go",
+      "sha256": "5ef8a497c186ce44c6a6e5f26a6a72aa55bf1e5af2d3c81b5a4673aec1eef575"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/types.go",
+      "sha256": "5917c8f65cd25b7143c1f15c175f8515138e943df3636733e7612e3939fa7967"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/types_test.go",
+      "sha256": "9168f0274b3d35b2f49d6e4941011f84cd807ff411712d75c271d24b31d8525b"
+    },
+    {
+      "path": "vendor/figma-mcp/npm/bin/run.js",
+      "sha256": "e2e447402cf22cfe9efb1d88838646880e2799de4fc93bee06b68a7fb8d8453e"
+    },
+    {
+      "path": "vendor/figma-mcp/npm/package.json",
+      "sha256": "c38eb83b3a6382e1b33c5360d8ca990f96b15d638ddab28cd27a30adf56fb39f"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/bun.lock",
+      "sha256": "63e56ac3a66be8b73e5018e230c33298c9e5bab783ae9264b7ad3a87376d26f8"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/manifest.json",
+      "sha256": "8cc166fa76f0882456c7b34b2e710cf6de3524aa8a4f1a84a5c2c6b0510daeb1"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/package.json",
+      "sha256": "29cf85be6e5587e707311ff0e3ce4d9f015a621767fdbe8f787e2f787a14e15f"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/browser-source.ts",
+      "sha256": "1cbec0214d3c4e41612dc8ab61209bda05ae5e0cf7dd1f9ef442058e44fa6fdb"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/components-v2.ts",
+      "sha256": "30a422062917fbb8dd53fffcd1dccd00882819170426372856c74d70f7f716cb"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/diagnostics.ts",
+      "sha256": "d678288746adc45ee50bf33c3859a4f306fd5a270352ce0e59c7506fc1cfdcc0"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/edit.ts",
+      "sha256": "9eb313e619800974596a454a35f32e5e468a16d3bc2366daecd91f48ac73ceb6"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/export-v2.ts",
+      "sha256": "fd60c0141ca19977088de5bfa82e76691e81f9773871ffdcbf2de9b41576e2c2"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/global.d.ts",
+      "sha256": "e05f99dbcefc8af133cddaa661898339ceff8d909917287b65da85443adac126"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/layout.ts",
+      "sha256": "232048c16f62727a7fee8fa228e0703da1b5a8e73087c5256cb4a9ffddaf61aa"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/main.ts",
+      "sha256": "897b5988d6e431c52422ebfbc91b755461c64b24eed5431df7e4dbba829711b3"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/read-document.ts",
+      "sha256": "f5ae7ef2a31cc59c78e599c59d4f0723e9ae882166de6c46850100c3056cc6bb"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/read-export.ts",
+      "sha256": "c200271893ffc687ee7761bfbbc4b87dbba39d942852d74889cfd67dee494710"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/read-handlers.ts",
+      "sha256": "b6769372c9f5246a0856339556362616472d346e4389de58494a23123bab3cdd"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/read-styles.test.ts",
+      "sha256": "14ac3d3ad4d19d667075b5bc1fd9c041d679748b18f177060de5ad776c6f3d78"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/read-styles.ts",
+      "sha256": "338702a7eaa5908ead8c1110bd3d15b662d4c93f7bf7d807ee33ff115106e3f5"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/serializers.test.ts",
+      "sha256": "7bd993454c213e5e8b3ac621ce22288eece002f0618b2490d659a4dc69c798e8"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/serializers.ts",
+      "sha256": "4a0da825be2122e46bf8845c3ee450ed7d01061de9122a186c631a99eaba6fbd"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/slides.ts",
+      "sha256": "a4933a9edcf5de853da75abd13c8d164c48752959b3c99bc327df7d17f22d83b"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/style-ecosystem.ts",
+      "sha256": "5266d5eae504ab76158c3ca016568e36b08d9e6a9a5ce332b3c0022861593b0b"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/toolkit-v2.test.ts",
+      "sha256": "117e7bac33204e68a1529ff744fe63de71a579d34b357850d2fe14de8c49bf39"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/ui/App.svelte",
+      "sha256": "f4db402ca95605c9485eff6eb73b6dae3dbf4bc1ed3db26d04f11c3c4f84b681"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/ui/index.html",
+      "sha256": "2ac2f77058ba84e02461df72904e9d5f0b63d6534bc214291456e10ca22334ab"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/ui/main.ts",
+      "sha256": "3e5b47e4ba42d249b9cf192aded49dfffd658cd910b1f4c81d250e96dee6e8f3"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/validation.ts",
+      "sha256": "32745b81aa5c16f8cdc4aad23f0ace734be3975a6fa4eff6ec8c1f13cd5a3b51"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-components.test.ts",
+      "sha256": "273593e78704af1002c92ce0db5cc6964dd252c9f9f50b5a699dde9cfa601b97"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-components.ts",
+      "sha256": "eea35f1f92a30f63799fcae44c43066a28041dad96ea5f3a699d91bccbddca45"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-create.test.ts",
+      "sha256": "b127e07ab17a3d2b4076e518d0c3d3110d3b7c545caa49bf2a9313d9054ffd32"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-create.ts",
+      "sha256": "622fbb1a302ab8b392e011a011c1f857873310ee9b716ce9fd573c037ef82bfd"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-effects.test.ts",
+      "sha256": "cb4e559cf07cd8498044932b2a41c762d411b3df3c135d54c6663d4e767b5e8f"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-handlers.ts",
+      "sha256": "6c2146827af7bb3c28e64f5af80e07c0f8f2f4ba75f980eb8706fc1cb28b9a50"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-helpers.test.ts",
+      "sha256": "0de7bc6dbe82523fa6246dc9b1121b8cd44454ddefb6341d4afccc755b2741b0"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-helpers.ts",
+      "sha256": "3e2af998a7c66f8d72d5172599efe6c677373e1d93abbd5a5f64e6b4dd20f397"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-html.test.ts",
+      "sha256": "4be01039408edbe5b852d82bfde723f46f1ceab13c43e7bbcbf1e39bb9c7ce56"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-html.ts",
+      "sha256": "9f2bc66f086086b594022c360d13b67d37740c98a011e53fe545f98efe5f9998"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-modify.test.ts",
+      "sha256": "452c321ff9cb68119c6b1b7c9e801679f8d6d18366e84867e30763dc1bdf39b4"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-modify.ts",
+      "sha256": "50defbe8eed2681449bd056dc298de1efa463ddd576537078866acc1418bba73"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-page.test.ts",
+      "sha256": "eacf0600da413b45afab60465785444dbe9b9831776498c9666ab839e7b76753"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-page.ts",
+      "sha256": "47d788120c8bd5fc41534aa4add9d5a1c076e53510909a4f28deb07c92230554"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-prototype.test.ts",
+      "sha256": "02c4341ab527de8983a03d42c20aa4230f03cd038b0cf82e6d8f08884a62a491"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-prototype.ts",
+      "sha256": "f87d859ae3f2ebd50e02a3d18860dd415c78cecbe1e188071dff4c9bc80b9f48"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-styles.ts",
+      "sha256": "a3ae26c832d7b7411959de105e1a05f1ca601b305a7c1c669f1262ac42dc560f"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/write-variables.ts",
+      "sha256": "6333d3eae8e70952260cab6c40a56d859e799cd59938961e3ff0efcb0fc3855e"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/svelte.config.js",
+      "sha256": "4e2863144e05fb29c6b4965de78fef7d703154259436bc09583b66ff439babf8"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/tsconfig.json",
+      "sha256": "e729b37edabd0fa94637c16e2e35aad774366c5987aea6bf4806e6aa6a5dd76e"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/vite.config.main.ts",
+      "sha256": "e84070ba26e2ace9522754be6908c1a71077f2f917dcab92a9bf5dab5bf3a434"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/vite.config.ts",
+      "sha256": "beffa7a711e6a5abaf36697fefda40ed33eced970d1b1c98ba790c3a38eac6d0"
+    },
+    {
+      "path": "vendor/figma-mcp/scripts/build.ps1",
+      "sha256": "77b17117a5253a784a3bc8109b624ce35d6eaf411cca3debcf28c3cf51bcdd67"
+    },
+    {
+      "path": "vendor/figma-mcp/scripts/catalog.test.mjs",
+      "sha256": "84e6bb5acc28fb0a5610b723f1c19771f427e85d0f67eb2de0f6b0645a384c93"
+    },
+    {
+      "path": "vendor/figma-mcp/scripts/figma-hardening.test.ts",
+      "sha256": "4670844a0c40c1a2ce4eb5e35361a739f71fbc3eb6bd7a7c177cfd2a745cbea0"
+    },
+    {
+      "path": "vendor/figma-mcp/scripts/figma-plugin-test-dispatch.ts",
+      "sha256": "c8b64a8852c8ef0f6ee16e9ec62427f9e85a6e5fca1add34c675f4f94898a46a"
+    },
+    {
+      "path": "vendor/figma-mcp/scripts/figma-variants.test.ts",
+      "sha256": "65ba12440265e414b642e566bb248f393ed8d55b4fe6848fa60e9f6fcabf8fae"
+    },
+    {
+      "path": "vendor/figma-mcp/scripts/fixtures/approved-catalog.json",
+      "sha256": "61421a5f6e2acee011830e1ed88d1be7be57a90fbaeab6da0139d005960bcdbf"
+    },
+    {
+      "path": "vendor/figma-mcp/scripts/fixtures/functional-source.json",
+      "sha256": "f6dd05e35801834b49c1e5f7f448bfe0d632f786c42b041ee09f05fd00702909"
+    },
+    {
+      "path": "vendor/figma-mcp/scripts/identity-normalize.mjs",
+      "sha256": "c21d41b4c0e73813b8c9ea8802ea0d6e542c0dda3441773717962afef357affe"
+    },
+    {
+      "path": "vendor/figma-mcp/scripts/identity.test.mjs",
+      "sha256": "945b21fef40407985e37e8438bbdf1126ea70ab6ae657d864203266780032691"
+    },
+    {
+      "path": "vendor/figma-mcp/scripts/mcp-client.mjs",
+      "sha256": "95fcca70683d19c717cbbb2f43de1fecc5d573205be890820612658199a1cd7c"
+    },
+    {
+      "path": "vendor/figma-mcp/scripts/package.test.ps1",
+      "sha256": "77da5964339c583aecf78cd924dbc007ad6b9688ba0861d31a651271ca0cf559"
+    }
+  ]
+}

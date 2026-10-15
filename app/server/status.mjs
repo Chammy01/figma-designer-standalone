@@ -7,7 +7,7 @@ import {browserStatus} from '../../scripts/figma-browser-status.mjs';
 export async function systemStatus(root,read=readSourceRPC) {
   let runtime='VERIFIED';
   try{const approved=JSON.parse(await readFile(join(root,'docs/APPROVED_RUNTIME.json'),'utf8'));
-    for(const path of ['bin/figma-mcp-go.exe','vendor/figma-mcp/plugin/dist/code.js','vendor/figma-mcp/plugin/dist/index.html'])if(createHash('sha256').update(await readFile(join(root,path))).digest('hex')!==approved.sha256[path])runtime='HASH_MISMATCH';
+    for(const path of ['bin/figma-designer-mcp.exe','vendor/figma-mcp/plugin/dist/code.js','vendor/figma-mcp/plugin/dist/index.html'])if(createHash('sha256').update(await readFile(join(root,path))).digest('hex')!==approved.sha256[path])runtime='HASH_MISMATCH';
   }catch(error){runtime=error.code==='ENOENT'?'MISSING':'UNKNOWN';}
   let figma='UNKNOWN';
   try{const m=await read('get_metadata');figma=m?.currentPageId?'CONNECTED':'DOCUMENT_UNAVAILABLE';}
