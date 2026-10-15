@@ -15,7 +15,7 @@ jobs:
       - shell: pwsh
         run: |
           $env:CGO_ENABLED='0'
-          go build -trimpath -buildvcs=false -ldflags '-X main.version=1.0.0' -o bin/figma-designer-mcp.exe ./cmd/figma-mcp-go
+          go build -trimpath -buildvcs=false -ldflags '-X main.version=1.1.0' -o bin/figma-designer-mcp.exe ./cmd/figma-mcp-go
       - uses: actions/setup-node@v4
         with:
           node-version: '24.15.0'

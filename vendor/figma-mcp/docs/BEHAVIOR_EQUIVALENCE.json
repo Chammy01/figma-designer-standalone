@@ -35,5 +35,6 @@
     "plugin display branding",
     "maintainer/provenance docs"
   ],
-  "liveAcceptance": "Recorded separately in the Figma Designer ownership report; not inferred from schema equality"
+  "liveAcceptance": "Recorded separately in the Figma Designer ownership report; not inferred from schema equality",
+  "scope": "Historical V1.4.3A / 1.0.0 ownership equivalence; not the additive 1.1.0 reliability surface"
 }

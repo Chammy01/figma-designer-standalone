@@ -15,7 +15,7 @@ import (
 )
 
 // version is injected at build time:
-// go build -ldflags "-X main.version=1.0.0" ./cmd/figma-mcp-go
+// go build -ldflags "-X main.version=1.1.0" ./cmd/figma-mcp-go
 var version = "dev"
 
 var logger = log.New(os.Stderr, "", 0)

@@ -14,3 +14,15 @@ test('critique still denies the QA helper rather than becoming a bypass',()=>{as
 test('QA helper fails closed if its collector ever reports an unexpected write',async()=>{for(const result of[{collection:{writeCalls:1},integrity:{writeCalls:0}},{collection:{writeCalls:0},integrity:{writeCalls:1}},{collection:{writeCalls:0}}])await assert.rejects(qaReport({},async()=>result),/QA_READ_ONLY_INTEGRITY_FAILED/);});
 
 test('combined native plugin retains critique protection across QA and authoring continuation',async()=>{const {critiqueMarker}=await import('../.opencode/plugins/figma-critique-guard.js');const messages=[{type:'assistant'}],h=await harness(new Map(),messages,true);await h.call('prompt',{sessionID:'one',prompt:{text:critiqueMarker}});await assert.rejects(h.call('execute.before',{sessionID:'one',tool:qaReportTool}),/FIGMA_CRITIQUE_READ_ONLY/);await h.call('prompt',{sessionID:'one',prompt:{text:qaMarker}});await assert.rejects(h.call('execute.before',{sessionID:'one',tool:qaReportTool}),/FIGMA_CRITIQUE_READ_ONLY/);messages.push({type:'idle'});await h.call('prompt',{sessionID:'one',prompt:{text:qaMarker}});await h.call('execute.before',{sessionID:'one',tool:qaReportTool});await assert.rejects(h.call('execute.before',{sessionID:'one',tool:'execute'}),/FIGMA_QA_READ_ONLY/);await h.call('prompt',{sessionID:'one',prompt:{text:'Make the hero shorter'}});await h.call('execute.before',{sessionID:'one',tool:'figma_update_node_props'});});
+
+test('receipt/revision reads are allowed; operation envelopes never unlock writes in either guard',async()=>{
+ const {critiqueMarker}=await import('../.opencode/plugins/figma-critique-guard.js');
+ for(const marker of [critiqueMarker,qaMarker]){
+  const h=await harness(new Map(),[],true);await h.call('prompt',{sessionID:'guard',prompt:{text:marker}});
+  for(const tool of ['figma_critique_get_operation_receipt','figma_critique_get_document_revision'])await h.call('execute.before',{sessionID:'guard',tool});
+  for(const tool of ['figma_create_frame','figma_set_reactions','execute','figma_retry_operation']){
+   await assert.rejects(h.call('execute.before',{sessionID:'guard',tool,input:{operationId:'operation-guard-test',preconditions:{expectedNodeType:'FRAME'}}}),/READ_ONLY/);
+   const permission={sessionID:'guard',action:tool,effect:'allow'};await h.call('permission.evaluate',permission);assert.equal(permission.effect,'deny');
+  }
+ }
+});

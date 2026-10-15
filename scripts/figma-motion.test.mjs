@@ -119,7 +119,7 @@ test('router and planner consume exactly the shared semantic policy', async () =
   assert.match(read('rules/figma-prototype-planner.md'),/MOTION only when requested or supported/);
 });
 test('guard unchanged, 14 commands, no runtime/protocol imports or tool execution', () => {
-  const guard=read('.opencode/plugins/figma-critique-guard.js');assert.equal(createHash('sha256').update(guard).digest('hex'),'2bc365e1f41d80cf9adab177847f6f4dd13000766455ac4150399a7690cb23dc');
+  const guard=read('.opencode/plugins/figma-critique-guard.js');assert.equal(createHash('sha256').update(guard).digest('hex'),'520c8934b0fbc4a334d084596e3e5dd3f4e2aff41fe7ff5bf130e1515c9f11ed');
   assert.equal(readdirSync(new URL('../.opencode/commands/figma/',import.meta.url)).filter(n=>n.endsWith('.md')).length,14);
   assert.doesNotMatch(read('rules/figma-motion-semantics.mjs'),/fetch\(|execFile|writeFile|set_reactions|ctx\.mcp/);
   for(const path of ['docs/SOURCE_ALLOWLIST.json','docs/RELEASE_ALLOWLIST.json']) for(const name of ['rules/figma-motion-semantics.mjs','rules/figma-motion-semantics.md']) assert.ok(JSON.parse(read(path)).includes(name));

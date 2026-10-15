@@ -9,7 +9,7 @@
  * silent failures (failed style bindings, font load errors, etc.).
  */
 
-const PLUGIN_VERSION = "1.0.0"; // Owned product identity; capability behavior unchanged
+const PLUGIN_VERSION = "1.1.0"; // Additive reliability protocol 2
 
 interface ErrorEntry {
   tool: string;
@@ -18,9 +18,11 @@ interface ErrorEntry {
 }
 
 const errorBuffer: ErrorEntry[] = [];
+export let errorSequence = 0;
 const ERROR_BUFFER_MAX = 50;
 
 export function recordError(tool: string, message: string): void {
+  errorSequence++;
   errorBuffer.push({ tool, message, timestamp: Date.now() });
   if (errorBuffer.length > ERROR_BUFFER_MAX) {
     errorBuffer.splice(0, errorBuffer.length - ERROR_BUFFER_MAX);

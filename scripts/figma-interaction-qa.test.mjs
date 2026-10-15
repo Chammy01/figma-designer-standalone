@@ -84,7 +84,7 @@ test('new dependencies are enumerated without a new public command or runtime dr
   for(const p of ['rules/figma-interaction-qa.mjs','rules/figma-interaction-qa.md','scripts/figma-interaction-qa.mjs']){assert.ok(JSON.parse(read('docs/SOURCE_ALLOWLIST.json')).includes(p));assert.ok(JSON.parse(read('docs/RELEASE_ALLOWLIST.json')).includes(p));assert.ok(read('setup.ps1').includes(p));}
   assert.equal(readdirSync(new URL('../.opencode/commands/figma/',import.meta.url)).filter(n=>n.endsWith('.md')).length,14);
   assert.match(read('docs/STATEFUL_VARIABLES_V1_2_5.md'),/FIGMA_STATEFUL_VARIABLES: HOLD\s*$/);
-  assert.equal(createHash('sha256').update(read('.opencode/plugins/figma-critique-guard.js')).digest('hex'),'2bc365e1f41d80cf9adab177847f6f4dd13000766455ac4150399a7690cb23dc');
+  assert.equal(createHash('sha256').update(read('.opencode/plugins/figma-critique-guard.js')).digest('hex'),'520c8934b0fbc4a334d084596e3e5dd3f4e2aff41fe7ff5bf130e1515c9f11ed');
 });
 
 test('prose and overlay heading are not inferred controls; native text links remain candidates',()=>{const f=modalFixture();f.node('8:1','TEXT','3:2','Close returns to the screen',{characters:'Close returns to the screen'});f.node('8:2','TEXT','3:1','Help',{textDecoration:'UNDERLINE',characters:'Help'});const r=analyzeInteractions(f.model);assert.ok(!r.controls.some(c=>['4:4','8:1'].includes(c.id)));assert.ok(r.controls.some(c=>c.id==='8:2'));});

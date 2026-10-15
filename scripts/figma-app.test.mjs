@@ -95,9 +95,27 @@ test('runtime integrity and Figma disconnection use fixed read-only evidence',as
   const root=await mkdtemp(join(tmpdir(),'figma-app-runtime-'));t.after(async()=>{assert.ok(root.startsWith(join(tmpdir(),'figma-app-runtime-')));await rm(root,{recursive:true,force:true});});
   const paths=['bin/figma-designer-mcp.exe','vendor/figma-mcp/plugin/dist/code.js','vendor/figma-mcp/plugin/dist/index.html'];const sha256={};
   for(const file of paths){await mkdir(join(root,file,'..'),{recursive:true});await writeFile(join(root,file),'synthetic-runtime');sha256[file]=createHash('sha256').update('synthetic-runtime').digest('hex');}await mkdir(join(root,'docs'));await writeFile(join(root,'docs/APPROVED_RUNTIME.json'),JSON.stringify({sha256}));
-  let calls=0;const read=async tool=>{calls++;assert.equal(tool,'get_metadata');return {currentPageId:'fixture'};};assert.deepEqual(await systemStatus(root,read),{runtime:'VERIFIED',figma:'CONNECTED',connection:{bridge:'HEALTHY',plugin:'CONNECTED',document:'READABLE'}});
+  let calls=0;const read=async tool=>{calls++;if(tool==='health_check')return {handshake:{server:{version:'1.1.0'},plugin:{version:'1.1.0',protocolVersion:2},compatibility:{state:'COMPATIBLE'}}};assert.equal(tool,'get_metadata');return {currentPageId:'fixture'};};assert.deepEqual(await systemStatus(root,read),{runtime:'VERIFIED',figma:'CONNECTED',mcp:{state:'COMPATIBLE',serverVersion:'1.1.0',pluginVersion:'1.1.0',protocolVersion:2},connection:{bridge:'HEALTHY',plugin:'CONNECTED',document:'READABLE'}});
   await writeFile(join(root,paths[0]),'changed');assert.equal((await systemStatus(root,read)).runtime,'HASH_MISMATCH');
-  assert.equal((await systemStatus(root,async()=>{throw Error('plugin not connected');})).figma,'PLUGIN_NOT_CONNECTED');assert.equal(calls,2);
+  assert.equal((await systemStatus(root,async()=>{throw Error('plugin not connected');})).figma,'PLUGIN_NOT_CONNECTED');assert.equal(calls,4);
+});
+
+test('incompatible plugin handshake blocks workflow submission before provider or Figma writes',async t=>{
+ const f=await fixture(t);f.setHealth({runtime:'VERIFIED',figma:'CONNECTED',mcp:{state:'PROTOCOL_MISMATCH'}});
+ const r=await f.api('/api/run',{input:'create a frame',requestId:randomUUID()});assert.equal(r.status,409);assert.equal(r.value.error.code,'MCP_INCOMPATIBLE');
+ assert.equal(f.mock.calls.some(c=>/prompt|command/.test(c.path)),false);assert.equal(f.app.runs.runs.length,0);
+});
+
+test('status exposes only bounded handshake versions/state, never raw plugin metadata',async t=>{
+ const f=await fixture(t);const status=await systemStatus(f.root,async name=>name==='get_metadata'?{currentPageId:'fixture'}:{handshake:{server:{version:'1.1.0'},plugin:{version:'secret-private-path',protocolVersion:2,secret:'private'},compatibility:{state:'PROTOCOL_MISMATCH',reason:'private'}}});
+ assert.deepEqual(status.mcp,{state:'PROTOCOL_MISMATCH',serverVersion:'1.1.0',pluginVersion:null,protocolVersion:2});assert.doesNotMatch(JSON.stringify(status),/secret|private/);
+});
+
+test('a compatible peer must also match the locally approved product/protocol',async t=>{
+ const f=await fixture(t);await mkdir(join(f.root,'docs'),{recursive:true});await writeFile(join(f.root,'docs/APPROVED_RUNTIME.json'),JSON.stringify({mcpVersion:'1.1.0',mcpBridgeProtocolVersion:2,sha256:{}}));
+ for(const [version,protocol,state]of [['1.0.0',2,'PLUGIN_VERSION_MISMATCH'],['1.1.0',3,'PROTOCOL_MISMATCH'],['1.1.0',2,'COMPATIBLE']]){
+  const value=await systemStatus(f.root,async name=>name==='get_metadata'?{currentPageId:'fixture'}:{handshake:{server:{version,protocolVersion:protocol},plugin:{version,protocolVersion:protocol},compatibility:{state:'COMPATIBLE'}}});assert.equal(value.mcp.state,state);
+ }
 });
 test('preview is a separate origin with no app API or arbitrary filesystem access',async t=>{
   const f=await fixture(t);const output=join(f.root,'.figma-designer/browser-prototype');await mkdir(output,{recursive:true});await writeFile(join(output,'index.html'),'<h1>Fixture preview</h1>');

@@ -1,10 +1,10 @@
 # Figma Designer MCP
 
-Maintained by Chammy01. Version **1.0.0** (ownership migration, 2026-10-15).
+Maintained by Chammy01. Version **1.1.0** (additive reliability hardening; unreleased).
 
 A writable Figma MCP server: MCP clients communicate over stdio with a Go server,
 which bridges through localhost WebSocket to a Figma Desktop development plugin.
-It creates editable native layers and exposes 106 existing tools, including
+It creates editable native layers and exposes 108 tools (106 existing plus receipt/revision inspection), including
 `combine_as_variants`. It does not use the Figma REST API.
 
 ## Setup
@@ -24,7 +24,7 @@ client; other stdio clients need their own acceptance):
 Default bridge: `127.0.0.1:1994`. Existing address flags, bridge election, tools,
 timeouts and reaction semantics are unchanged. Writes affect the connected file;
 read back after indeterminate writes before retrying. No stable release or npm
-package is published by this migration.
+package is published by this milestone.
 
 ## Provenance and license
 
@@ -37,3 +37,7 @@ modifications. [Exact import provenance](docs/PROVENANCE.md),
 Prior docs retain historical toolkit versions; these are not a new feature
 release. Plugin wildcard network permission is deliberately unchanged pending
 V1.4.3B. Stateful conditional prototype workflows remain HOLD.
+
+## Reliability
+
+Version 1.1.0 adds optional operation IDs, fail-closed preconditions, scoped revisions and bridge protocol 2. Use a matched server/plugin pair. A timeout remains indeterminate: query its receipt and inspect before retrying. See [reliability guarantees and limits](docs/RELIABILITY_V1_4_3B.md) and [protocol](docs/PROTOCOL.md).

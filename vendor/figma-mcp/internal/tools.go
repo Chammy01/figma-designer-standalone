@@ -10,15 +10,16 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/Chammy01/figma-designer-mcp/internal/prompts"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	"github.com/Chammy01/figma-designer-mcp/internal/prompts"
 )
 
 // RegisterTools registers all MCP tools on the server.
 func RegisterTools(s *server.MCPServer, node *Node) {
 	registerReadTools(s, node)
 	registerWriteTools(s, node)
+	registerReliabilityTools(s, node)
 }
 
 // RegisterPrompts registers MCP prompts on the server.
@@ -42,13 +43,21 @@ func renderResponse(resp BridgeResponse, err error) (*mcp.CallToolResult, error)
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 	if resp.Error != "" {
-		return mcp.NewToolResultError(resp.Error), nil
+		result := mcp.NewToolResultError(resp.Error)
+		if data, ok := resp.Data.(map[string]interface{}); ok && data["operation"] != nil {
+			result.StructuredContent = map[string]interface{}{"operation": data["operation"]}
+		}
+		return result, nil
 	}
 	text, err := json.Marshal(resp.Data)
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("marshal response: %v", err)), nil
 	}
-	return mcp.NewToolResultText(string(text)), nil
+	result := mcp.NewToolResultText(string(text))
+	if data, ok := resp.Data.(map[string]interface{}); ok && data["operation"] != nil {
+		result.StructuredContent = map[string]interface{}{"operation": data["operation"]}
+	}
+	return result, nil
 }
 
 // toStringSlice converts []interface{} to []string.

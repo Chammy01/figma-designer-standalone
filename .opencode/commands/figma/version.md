@@ -10,6 +10,6 @@ FIGMA_DESIGNER_VERSION: 1.2.1-standalone-source-freshness
 
 Architecture: OpenCode + Figma MCP/plugin + Playwright. Native Orca is not required. Canonical runtime: `Figma Designer — Interactive App`.
 
-System release: 1.2.1. Manifest/report schemas: 2. Projection: figma-browser-source-v1. Fingerprint: canonical-json-sha256-v1. Main uses owned MCP 1.0.0 from the exact pin in docs/APPROVED_RUNTIME.json. This ownership identity migration preserves behavior and schemas; frozen Beta 3 retains its previous runtime.
+System release: 1.2.1. Manifest/report schemas: 2. Projection: figma-browser-source-v1. Fingerprint: canonical-json-sha256-v1. Main uses owned MCP 1.1.0 / bridge protocol 2 from the exact pin in docs/APPROVED_RUNTIME.json. Reliability fields are additive; browser schemas are preserved; frozen Beta 3 retains its previous runtime.
 
-Public package/repository release: v1.2.1-beta.2. System/MCP/schema/projection/fingerprint versions above remain unchanged.
+Public rollback: v1.2.1-beta.3. Main package identity: v1.2.1-reliability.1 (unpublished); this does not publish Beta 4.

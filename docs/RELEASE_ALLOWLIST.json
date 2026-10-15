@@ -185,5 +185,8 @@
   "docs/FIGMA_DESIGNER_MCP_OWNERSHIP_V1_4_3A.md",
   "docs/OWNED_MCP_SOURCE.json",
   "docs/OWNED_MCP_EQUIVALENCE.json",
-  "docs/OWNED_MCP_LIVE.json"
+  "docs/OWNED_MCP_LIVE.json",
+  "app/server/operation-recovery.mjs",
+  "docs/APPROVED_RUNTIME_V1_4_3A.json",
+  "docs/FIGMA_DESIGNER_MCP_RELIABILITY_V1_4_3B.md"
 ]

@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/Chammy01/figma-designer-mcp",
-  "commit": "a0b2e1c3e2ab2dd37c512fc3edeacb77a785a418",
+  "commit": "c95e264350ecd4f13f11f4012cc13dcc96edc927",
   "files": [
     {
       "path": "vendor/figma-mcp/.gitattributes",
@@ -8,15 +8,15 @@
     },
     {
       "path": "vendor/figma-mcp/.github/workflows/ci.yml",
-      "sha256": "500ae13b9fd85cb2afb35ef2a8fb51eb7f14a3165d5181441bf93e9f19e539e5"
+      "sha256": "60bb04fbe49b4462debc15dd196495568ff6ee5356505dd5936ddf2716e61ded"
     },
     {
       "path": "vendor/figma-mcp/.gitignore",
-      "sha256": "3cfd06c4c9239a91975eb2366c39be21347dea496572f4ea6f57b1c797fe2429"
+      "sha256": "ccc6547fbca44fea82b3e6fcac22cd08b55550874dcd7a6020536c4611ed9b1f"
     },
     {
       "path": "vendor/figma-mcp/CHANGELOG.md",
-      "sha256": "83777dad8c28d2a9a344c13d93c1886c7e278fd4e5764f5d47aed965008909a6"
+      "sha256": "0708dcf472018fe06781518f88d65be5589a0916bdd389f8bc294cbc2290c4d3"
     },
     {
       "path": "vendor/figma-mcp/LICENSE",
@@ -28,31 +28,35 @@
     },
     {
       "path": "vendor/figma-mcp/README.md",
-      "sha256": "052e8df691e7a1d729f97241094decabd77ed883b205424ff4e0c34624ffab72"
+      "sha256": "0074e9cb31d88a4b21c2affe8d6fd94fd43f4091d4b405868e14843f521f994f"
     },
     {
       "path": "vendor/figma-mcp/VERSION",
-      "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03"
+      "sha256": "1575e1af4a95f12f70b4ee6a6adce8160953d93ea17dc2611b90883ccc3ad3b8"
     },
     {
       "path": "vendor/figma-mcp/cmd/figma-mcp-go/main.go",
-      "sha256": "2194a7fb0c611ab2e5cec1127e4f74d8e0b87ffe8166e4aed401f1da2991175f"
+      "sha256": "f05ef305fbdec9d95e34a043d6193fc4940cd4a4a98ab372805963640b9d025a"
     },
     {
       "path": "vendor/figma-mcp/docs/ARCHITECTURE.md",
-      "sha256": "6b66d537694fbeed4c4f967485af312fd7444094b5ce8988c85f06d93a2f6c30"
+      "sha256": "a0baf82117f0391fb5355173c46167fdb1e2f5b3f1ed2b380a57ae78c2e1b7a4"
     },
     {
       "path": "vendor/figma-mcp/docs/BEHAVIOR_EQUIVALENCE.json",
-      "sha256": "17daecd74fe81756c7dd310dc79812820997d00e6ee7027e98ae363f3b81c0e7"
+      "sha256": "d5ee8eb3d46748cbf329254b73a7d63af1fb00c9e912fa332b20f01e24bc4882"
     },
     {
       "path": "vendor/figma-mcp/docs/BUILDING.md",
-      "sha256": "2ab34714314f4c52dbd2ee5f3c2812a4de2a94dbd13bca1166956e0a68c5ac54"
+      "sha256": "04a37412631392356cbdf633a1578cec0930ef307f3ddb6f7d8d3191366925d6"
     },
     {
       "path": "vendor/figma-mcp/docs/COMPATIBILITY.md",
-      "sha256": "deb8c04e2d42e92e0fcc99548d73cf112de25b22f0676dcfd7efeee2ae96e6b1"
+      "sha256": "361081274576328e5c0dc925bcfbe14997b53e38df294fc7e04935dc9139baa7"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/PROTOCOL.md",
+      "sha256": "c2487ea15f2072dae0475f5ff52a838c821fc6fdf3612b89597776129d3b4f9b"
     },
     {
       "path": "vendor/figma-mcp/docs/PROVENANCE.md",
@@ -63,8 +67,24 @@
       "sha256": "04a4285f269adec80a634dfbfaecf08425f47954322e684f1757c0d4f45884b0"
     },
     {
+      "path": "vendor/figma-mcp/docs/RELIABILITY_NATIVE_V1_4_3B.json",
+      "sha256": "ebea4f340180d57c777629af1c9eb2fcf492c5dfa8abe3ad0a81d6f076cc1230"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/RELIABILITY_V1_4_3B.md",
+      "sha256": "c7bf3c5b637b5deab5133dba4c9a2c51679d6b3bd86f927dcd7c01bf2c8ff76d"
+    },
+    {
       "path": "vendor/figma-mcp/docs/ROADMAP.md",
       "sha256": "44ac048a6d2a1c7fa3bc75902a35a79068120cd22894494222391f720c5e9be3"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/WRITE_PATH_AUDIT_V1_4_3B.json",
+      "sha256": "7b28be309ee6f87b6843f5523322737f5b2b5acea32689a192efd716aefdb924"
+    },
+    {
+      "path": "vendor/figma-mcp/docs/WRITE_PATH_AUDIT_V1_4_3B.md",
+      "sha256": "a4fd0e5fa9008ba12d0f36db09d9b01f9a60746a0fe6bfb0a1ca44ee890e21e9"
     },
     {
       "path": "vendor/figma-mcp/docs/agent-toolkit-v1.3.md",
@@ -128,7 +148,7 @@
     },
     {
       "path": "vendor/figma-mcp/internal/bridge.go",
-      "sha256": "fc542dc31a196c118a44e618c88a7a0ad68d7227d74ff9cf43acbaead25dcdf7"
+      "sha256": "f59040e896c07ec8799c836f5bfed84e277b7710c0e8799bd362367a25ddfd9b"
     },
     {
       "path": "vendor/figma-mcp/internal/bridge_test.go",
@@ -144,7 +164,7 @@
     },
     {
       "path": "vendor/figma-mcp/internal/follower.go",
-      "sha256": "c2c6090f10c526619e25b310b1fc2099d2b499e1eb023c6493e3968fa7e08232"
+      "sha256": "9463386616e9707077b0797f90802b9718c8673a34c9344765f6b577a1b52618"
     },
     {
       "path": "vendor/figma-mcp/internal/follower_test.go",
@@ -152,7 +172,7 @@
     },
     {
       "path": "vendor/figma-mcp/internal/helpers_test.go",
-      "sha256": "3d9a7c126b10186c9a3f00ed0192876cc211903a0ede2061b8f48982c5a0371c"
+      "sha256": "ed8bb6397afac4f34ac79900c450b65d83ab7877311ec3a8328a3410c1db9308"
     },
     {
       "path": "vendor/figma-mcp/internal/leader.go",
@@ -164,7 +184,7 @@
     },
     {
       "path": "vendor/figma-mcp/internal/node.go",
-      "sha256": "ecac680e179da1cef4999ca1f63969634e81d76b9b61a59940f08d51b827cd23"
+      "sha256": "3f8e139ac41cd90c6ef0bd2f6da989250c91d8fef609fed5b17da519d155ed33"
     },
     {
       "path": "vendor/figma-mcp/internal/node_test.go",
@@ -231,6 +251,18 @@
       "sha256": "2e16fdddc2108ebdddb1765f3def9ec3f7b4a6e20efa9e5e2878373ff42c1322"
     },
     {
+      "path": "vendor/figma-mcp/internal/reliability.go",
+      "sha256": "bb78daa76276c333ea18e183110ff65ba0a705b9b8964bfabb4ec693e7987d4f"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/reliability_test.go",
+      "sha256": "fc5ea3779e765ff00aa0a8912bcd446cb1cd251b0399a3405061c0039237aefd"
+    },
+    {
+      "path": "vendor/figma-mcp/internal/reliability_tools.go",
+      "sha256": "4731575422b4ea2a47f0df09729868b4e06029cdbd3264515436e9cb4fe20158"
+    },
+    {
       "path": "vendor/figma-mcp/internal/schema.go",
       "sha256": "ec304009c1303ec84822ec1e122320a2b111ce5671ec9760eb959d501023f066"
     },
@@ -244,7 +276,7 @@
     },
     {
       "path": "vendor/figma-mcp/internal/tools.go",
-      "sha256": "99a40c0a6166b08cf63ae03a860504f1c2bc880b49bfe4eaef25c618766d5741"
+      "sha256": "223e30e1223a76e9196a9ccbd603d06a47c4bb686f667e17a6bfc603a1e533fc"
     },
     {
       "path": "vendor/figma-mcp/internal/tools_components_v2.go",
@@ -292,7 +324,7 @@
     },
     {
       "path": "vendor/figma-mcp/internal/tools_schema_test.go",
-      "sha256": "edcdfd29fd827b89abb50f7978c78dc51b438e29de81cdb8f5da865183367388"
+      "sha256": "e5297391d9c60d582405910d58c5941208e5ce2fb8aedbadf6e1c10c39e43b24"
     },
     {
       "path": "vendor/figma-mcp/internal/tools_slides.go",
@@ -352,7 +384,7 @@
     },
     {
       "path": "vendor/figma-mcp/internal/types.go",
-      "sha256": "5917c8f65cd25b7143c1f15c175f8515138e943df3636733e7612e3939fa7967"
+      "sha256": "a20ab2622eb848f09d9e3879c62164c0257bdef36ad164304292c1e2be1597fc"
     },
     {
       "path": "vendor/figma-mcp/internal/types_test.go",
@@ -376,11 +408,15 @@
     },
     {
       "path": "vendor/figma-mcp/plugin/package.json",
-      "sha256": "29cf85be6e5587e707311ff0e3ce4d9f015a621767fdbe8f787e2f787a14e15f"
+      "sha256": "c90fd4ec8720234d18e7ae9b6ba856861c1b7794d9bf2cc939135f6a41207ebd"
     },
     {
       "path": "vendor/figma-mcp/plugin/src/browser-source.ts",
-      "sha256": "1cbec0214d3c4e41612dc8ab61209bda05ae5e0cf7dd1f9ef442058e44fa6fdb"
+      "sha256": "bb4c3db73668f5dce5a722c9bfd1ec146c0d561db07cfb4f7ba161be48119807"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/canonical.ts",
+      "sha256": "f81d33358676194a61e8bf1b2012d82806334c2368bdb581dd2dd09d806af306"
     },
     {
       "path": "vendor/figma-mcp/plugin/src/components-v2.ts",
@@ -388,7 +424,7 @@
     },
     {
       "path": "vendor/figma-mcp/plugin/src/diagnostics.ts",
-      "sha256": "d678288746adc45ee50bf33c3859a4f306fd5a270352ce0e59c7506fc1cfdcc0"
+      "sha256": "4daf893fe3a38ff65572a4fb68e8bff707a9185be7374dfc28f97b72d906c8b2"
     },
     {
       "path": "vendor/figma-mcp/plugin/src/edit.ts",
@@ -408,7 +444,7 @@
     },
     {
       "path": "vendor/figma-mcp/plugin/src/main.ts",
-      "sha256": "897b5988d6e431c52422ebfbc91b755461c64b24eed5431df7e4dbba829711b3"
+      "sha256": "a005f616a8c93ef1e9e9885ff937ec433cc734632dd754fc589f243c00973ff4"
     },
     {
       "path": "vendor/figma-mcp/plugin/src/read-document.ts",
@@ -429,6 +465,22 @@
     {
       "path": "vendor/figma-mcp/plugin/src/read-styles.ts",
       "sha256": "338702a7eaa5908ead8c1110bd3d15b662d4c93f7bf7d807ee33ff115106e3f5"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/reliability-tools.json",
+      "sha256": "d46804626dd0b2d8694e1e0c45dc88777993fa4003d7c6e02d524026f30718b0"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/reliability.test.ts",
+      "sha256": "9d3d81c6469c435523b961ae49646120c730a959612573b3aec165dd89ca1dd5"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/reliability.ts",
+      "sha256": "8e7c02d4a7d280e6d8db12f9aa7da4fc87bd848e4d12b4b101f6347557f885db"
+    },
+    {
+      "path": "vendor/figma-mcp/plugin/src/sandbox-compatibility.test.ts",
+      "sha256": "8a50e67e97a1a059629d94a591982591c0415d740d9d326e5f108d12240d5b5e"
     },
     {
       "path": "vendor/figma-mcp/plugin/src/serializers.test.ts",
@@ -556,11 +608,11 @@
     },
     {
       "path": "vendor/figma-mcp/scripts/build.ps1",
-      "sha256": "77b17117a5253a784a3bc8109b624ce35d6eaf411cca3debcf28c3cf51bcdd67"
+      "sha256": "1eda671d73409c7d71d74be7ae82de80954f86180b3f5ecc3c02f14736b785d2"
     },
     {
       "path": "vendor/figma-mcp/scripts/catalog.test.mjs",
-      "sha256": "84e6bb5acc28fb0a5610b723f1c19771f427e85d0f67eb2de0f6b0645a384c93"
+      "sha256": "d4d3fca0e029ad1a36ec668a5388cff1d451fa9cabd337c45ec69cba1848fb0d"
     },
     {
       "path": "vendor/figma-mcp/scripts/figma-hardening.test.ts",
@@ -568,7 +620,7 @@
     },
     {
       "path": "vendor/figma-mcp/scripts/figma-plugin-test-dispatch.ts",
-      "sha256": "c8b64a8852c8ef0f6ee16e9ec62427f9e85a6e5fca1add34c675f4f94898a46a"
+      "sha256": "ee6911ad9025511f8c27c0298aa1cbbb0f955b1b5268448b92435da52956676c"
     },
     {
       "path": "vendor/figma-mcp/scripts/figma-variants.test.ts",
@@ -588,7 +640,7 @@
     },
     {
       "path": "vendor/figma-mcp/scripts/identity.test.mjs",
-      "sha256": "945b21fef40407985e37e8438bbdf1126ea70ab6ae657d864203266780032691"
+      "sha256": "635727896f21ce3dd415e3e819ede273bd5d3868d3a3bdb885d38f13afbffc02"
     },
     {
       "path": "vendor/figma-mcp/scripts/mcp-client.mjs",
@@ -596,7 +648,7 @@
     },
     {
       "path": "vendor/figma-mcp/scripts/package.test.ps1",
-      "sha256": "77da5964339c583aecf78cd924dbc007ad6b9688ba0861d31a651271ca0cf559"
+      "sha256": "e704870440622f34caad81331a086e59474952b2b2fcf40608308d671a60fc4b"
     }
   ]
 }

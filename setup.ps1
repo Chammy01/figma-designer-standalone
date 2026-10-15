@@ -34,7 +34,7 @@ $paths = @('opencode.example.json','package.json','package-lock.json','docs/APPR
     '.opencode/agents/figma-designer.md','.opencode/agents/web-designer.md',
     '.opencode/plugins/figma-critique-guard.js',
     '.opencode/plugins/figma-qa-guard.js',
-    'app/shared/result-contract.mjs','app/server/validation.mjs','app/web/validation.js','app/server/ai.mjs','app/server/index.mjs','app/server/opencode-client.mjs','app/server/runs.mjs','app/server/status.mjs','app/web/index.html','app/web/styles.css','app/web/app.js','rules/figma-qa-guard.mjs','rules/figma-standalone-rules.md','rules/figma-design-rules.md','rules/figma-intent-router.mjs','rules/figma-prototype-planner.md',
+    'app/shared/result-contract.mjs','app/server/validation.mjs','app/web/validation.js','app/server/ai.mjs','app/server/index.mjs','app/server/opencode-client.mjs','app/server/runs.mjs','app/server/operation-recovery.mjs','app/server/status.mjs','app/web/index.html','app/web/styles.css','app/web/app.js','rules/figma-qa-guard.mjs','rules/figma-standalone-rules.md','rules/figma-design-rules.md','rules/figma-intent-router.mjs','rules/figma-prototype-planner.md',
     'rules/figma-motion-semantics.mjs','rules/figma-motion-semantics.md','rules/figma-browser-motion.mjs','rules/figma-browser-motion.md','rules/figma-browser-fidelity.mjs','rules/figma-browser-fidelity.md',
     'rules/figma-interaction-qa.mjs','rules/figma-interaction-qa.md','scripts/figma-interaction-qa.mjs',
     'rules/figma-overlay-rules.md',
@@ -94,7 +94,7 @@ try {
             Write-Host '[INFO] Building Figma MCP from checked-out pinned Go source.'
             Push-Location $goRoot
             try {
-                & $go.Source build -trimpath -buildvcs=false -ldflags '-X main.version=1.0.0' -o $buildOutput ./cmd/figma-mcp-go
+                & $go.Source build -trimpath -buildvcs=false -ldflags '-X main.version=1.1.0' -o $buildOutput ./cmd/figma-mcp-go
                 if ($LASTEXITCODE -ne 0) { throw 'Go build failed. Check the compiler/network output above, restore pinned source and go.mod/go.sum, then rerun setup.' }
             } finally { Pop-Location }
             if (-not (Test-Path -LiteralPath $buildOutput -PathType Leaf)) { throw 'Go build did not produce the MCP executable.' }

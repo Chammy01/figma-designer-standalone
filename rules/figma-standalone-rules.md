@@ -199,6 +199,15 @@ single motion requests stay in motion and retain the transition-only write contr
 
 If a write or conversion times out, the outcome is indeterminate rather than failed.
 
+When a compatible runtime returns an operationId, inspect get_operation_receipt
+before considering another mutation. COMMITTED preserves the existing result;
+IN_PROGRESS, UNKNOWN or an uncertain failure never proves retry safe. Reusing a
+retained committed ID is only valid for the identical request; do not generate a
+new ID to discover whether an uncertain write happened. Optional preconditions and
+get_document_revision can guard known targets. Receipts are bounded and document
+identity may be session-scoped; reconcile actual nodes when evidence is incomplete.
+No operation envelope bypasses critique/QA read-only guards or ownership rules.
+
 1. inspect the live document
 2. wait for node counts/state to stabilize when the job may still be in flight
 3. determine exactly what succeeded

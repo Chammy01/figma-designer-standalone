@@ -30,7 +30,7 @@ function renderRuns(){
   }
   active=history.find(r=>r.state==='RUNNING')??null;
   update('run-state',active?'Working…':status.reconciliationRequired?'Checking the current result before another task can start.':history.filter(r=>r.sessionId===status.sessionId).at(-1)?.state==='WAITING_FOR_USER'?'Ready for your reply.':'');
-  $('send').disabled=!!pendingSubmission||!!status.activeRun||!!active||!['READY','EXTERNAL'].includes(status.engine?.state)||status.figma!=='CONNECTED'||status.runtime!=='VERIFIED'||status.reconciliationRequired||status.ai?.state!=='READY'||status.ai?.busy;
+  $('send').disabled=!!pendingSubmission||!!status.activeRun||!!active||!['READY','EXTERNAL'].includes(status.engine?.state)||status.figma!=='CONNECTED'||status.runtime!=='VERIFIED'||(status.mcp&&status.mcp.state!=='COMPATIBLE')||status.reconciliationRequired||status.ai?.state!=='READY'||status.ai?.busy;
   $('cancel').hidden=!active;for(const b of document.querySelectorAll('[data-mode],#new-design'))b.disabled=!!pendingSubmission||!!status.activeRun||!!active||!!status.reconciliationRequired||!!status.ai?.busy;
   for(const b of document.querySelectorAll('.recovery button'))if(['Try Again','Continue From Current Design'].includes(b.textContent))b.disabled=!!active||!!status.reconciliationRequired;
   renderAI();
@@ -48,11 +48,12 @@ function renderAI(){
 }
 async function refreshStatus(force=false){
   status=await api('/api/app/status'+(force?'?refresh=1':''));const engineReady=['READY','EXTERNAL'].includes(status.engine.state),ai=status.ai??{};
-  const labels=[['Figma',status.figma==='CONNECTED'?'Connected':'Not connected'],['Engine',engineReady?'Ready':status.engine.state],['Model',ai.selected?.name??'Not selected']];const label=labels.map(([n,v])=>n+' · '+v).join('');if($('statuses').textContent!==label)$('statuses').replaceChildren(...labels.map(([n,v])=>{const el=text('span',n+' · '+v);el.className='status';if(n==='Figma')el.dataset.connected=String(status.figma==='CONNECTED');return el;}));
+  const labels=[['Figma',status.figma==='CONNECTED'?'Connected':'Not connected'],...(status.mcp?[['Plugin',status.mcp.state==='COMPATIBLE'?'Compatible':'Update needed']]:[]),['Engine',engineReady?'Ready':status.engine.state],['Model',ai.selected?.name??'Not selected']];const label=labels.map(([n,v])=>n+' · '+v).join('');if($('statuses').textContent!==label)$('statuses').replaceChildren(...labels.map(([n,v])=>{const el=text('span',n+' · '+v);el.className='status';if(n==='Figma')el.dataset.connected=String(status.figma==='CONNECTED');return el;}));
   let title='Your workspace is connected',copy='Describe your next design or continue the conversation below.';
   if(status.runtime!=='VERIFIED'){title='Runtime verification needs attention';copy='Restore the approved runtime before starting design work.';}
   else if(!engineReady){title=status.engine.state==='STARTING'?'Starting your design engine':'The design engine needs attention';copy='Check the application setup. Safe details are available in Settings.';}
   else if(status.figma!=='CONNECTED'){title=status.figma==='PLUGIN_NOT_CONNECTED'?'Figma plugin not connected':'Figma connection needs attention';copy='Open your design file in Figma Desktop and run the imported Figma Designer development plugin. Then choose Check Again.';}
+  else if(status.mcp&&status.mcp.state!=='COMPATIBLE'){title='Plugin update needed';copy='Run the matching Figma Designer MCP development plugin and choose Check Again.';}
   else if(pendingSubmission){title='Checking the last request';copy='Some changes may already exist in Figma. Check the current result before sending again.';}
   else if(status.reconciliationRequired){title='Checking the previous operation';copy='Some changes may already exist in Figma. Check the current result before repeating the request.';}
   else if(ai.state!=='READY'){const missing={PROVIDER_REQUIRED:['AI provider needed','Runtime verified and Figma connected. Connect an AI provider before starting a design.'],PROVIDER_AUTH_REQUIRED:['Reconnect your AI provider','Your provider needs authentication before you can continue.'],MODEL_REQUIRED:['Choose an AI model','Choose an available model to start designing.'],MODEL_UNAVAILABLE:['Selected model unavailable','Choose another available model to continue.']};[title,copy]=missing[ai.state]??['Checking AI availability','The engine is loading its provider and model catalog.'];}

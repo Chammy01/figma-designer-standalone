@@ -103,7 +103,7 @@ test('fourteen commands, stateful HOLD, critique guard and approved runtime hash
   assert.match(read('docs/STATEFUL_VARIABLES_V1_2_5.md'),/FIGMA_STATEFUL_VARIABLES: HOLD/);
   const approved=JSON.parse(read('docs/APPROVED_RUNTIME.json'));
   for(const [path,hash]of Object.entries(approved.sha256)){const url=new URL('../'+path,import.meta.url);if(existsSync(url))assert.equal(createHash('sha256').update(readFileSync(url)).digest('hex'),hash);}
-  assert.equal(createHash('sha256').update(read('.opencode/plugins/figma-critique-guard.js')).digest('hex'),'2bc365e1f41d80cf9adab177847f6f4dd13000766455ac4150399a7690cb23dc');
+  assert.equal(createHash('sha256').update(read('.opencode/plugins/figma-critique-guard.js')).digest('hex'),'520c8934b0fbc4a334d084596e3e5dd3f4e2aff41fe7ff5bf130e1515c9f11ed');
   const live=JSON.parse(read('scripts/fixtures/browser-motion-live.json'));
   assert.equal(live.browserAcceptance,'PASS');assert.equal(live.sourceExportState,'STABLE');assert.equal(live.readCounts.figmaWrites,0);
   assert.equal(live.integrity.nodeCountBefore,live.integrity.nodeCountAfter);assert.deepEqual(live.integrity.before,live.integrity.after);

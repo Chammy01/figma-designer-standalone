@@ -2,6 +2,7 @@ import {randomUUID} from 'node:crypto';
 import {isCritiqueReadTool} from '../../.opencode/plugins/figma-critique-guard.js';
 import {qaReportTool} from '../../rules/figma-qa-guard.mjs';
 import {redact} from '../shared/result-contract.mjs';
+import {operationRecovery} from './operation-recovery.mjs';
 export {redact} from '../shared/result-contract.mjs';
 
 export const modes=['AUTO','DESIGN','QA','BROWSER','BROWSER_TEST','STATUS'];
@@ -9,6 +10,7 @@ export function safeError(error) {
   const tag=String(error?.code??error?.message??'');
   if(tag==='MODEL_SWITCH_UNVERIFIED')return {code:tag,title:'Model change not confirmed',message:'Choose and apply a model before starting another task. The last change could not be verified.',recoverable:true};
   if(tag==='PROVIDER_CONNECT_INVALID')return {code:tag,title:'Check your provider details',message:'Enter an API key or choose a supported sign-in method.',recoverable:true};
+  if(tag==='MCP_INCOMPATIBLE')return {code:tag,title:'Plugin update needed',message:'Run the matching Figma Designer MCP development plugin and choose Check Again.',recoverable:true};
   if(['PLUGIN_NOT_CONNECTED','MCP_UNAVAILABLE','FIGMA_DISCONNECTED'].includes(tag))return {code:tag,title:'Figma disconnected',message:'Open your Figma file and run the Figma Designer development plugin, then choose Check Again.',recoverable:true};
   const code=['PROVIDER_REQUIRED','MODEL_REQUIRED','PROVIDER_AUTH_REQUIRED','MODEL_CHANGE_LOCKED','MODEL_UNAVAILABLE','READ_ONLY_VERIFICATION_FAILED'].includes(tag)?tag:/auth|credential/i.test(tag)?'PROVIDER_AUTH_REQUIRED':error?.providerStatus===429?'PROVIDER_RATE_LIMITED':/model/i.test(tag)?'MODEL_UNAVAILABLE':/provider/i.test(tag)?'PROVIDER_UNAVAILABLE':/runtime/i.test(tag)?'RUNTIME_HASH_MISMATCH':/OPENCODE|ENGINE/i.test(tag)?'OPENCODE_START_FAILED':'SESSION_FAILED';
   const copy={PROVIDER_REQUIRED:['AI provider needed','Connect an AI provider before starting a design.'],MODEL_REQUIRED:['Choose an AI model','Choose an available model to continue.'],PROVIDER_AUTH_REQUIRED:['Reconnect your AI provider','Your provider needs authentication before it can continue.'],MODEL_UNAVAILABLE:['Selected model unavailable','Choose another available model to continue.'],MODEL_CHANGE_LOCKED:['Finish the current task first','Models stay locked while a task is running or its result needs checking.'],PROVIDER_UNAVAILABLE:['AI provider unavailable','Your provider could not complete the request.'],PROVIDER_RATE_LIMITED:['Your provider needs a moment','The provider reported a request limit. Wait before trying again.'],RUNTIME_HASH_MISMATCH:['Runtime verification needs attention','Restore the approved runtime before starting design work.'],OPENCODE_START_FAILED:['Design engine unavailable','Check the application setup and choose Check Again.'],SESSION_FAILED:['This task needs attention','The design engine could not finish this task.']};
@@ -16,7 +18,7 @@ export function safeError(error) {
   const [title,message]=copy[code];return {code,title,message,recoverable:true};
 }
 export class Runs {
-  constructor(engine,log=()=>{},fingerprint=async()=>null,result=async()=>{}){this.engine=engine;this.log=log;this.fingerprint=fingerprint;this.result=result;this.runs=[];this.session=null;this.workspaceId=randomUUID();this.active=null;this.closed=false;}
+  constructor(engine,log=()=>{},fingerprint=async()=>null,result=async()=>{},lookup=async()=>null){this.engine=engine;this.log=log;this.fingerprint=fingerprint;this.result=result;this.lookup=lookup;this.runs=[];this.session=null;this.workspaceId=randomUUID();this.active=null;this.closed=false;}
   async sessionForWorkspace(){if(!this.session){this.sessionPending??=this.engine.createSession(this.ai?.selected);try{this.session=await this.sessionPending;}finally{this.sessionPending=null;}}return this.session;}
   async newWorkspace(){this.sessionPending??=this.engine.createSession(this.ai?.selected);try{const session=await this.sessionPending;this.session=session;this.workspaceId=randomUUID();return session;}finally{this.sessionPending=null;}}
   async verifyReadOnly(run){
@@ -77,6 +79,15 @@ export class Runs {
       if(!run.submissionStarted){run.recovery='RETRY_SAFE';this.uncertain=false;return;}
       const context=(await this.engine.context(run.sessionId)).slice(run.offset??0),idle=context.at(-1);
       if(idle?.type!=='idle')return;
+      const operations=await operationRecovery(context,this.lookup,run.startedAt);
+      if(operations){
+        run.recoveryEvidence={source:operations.source,counts:operations.counts,complete:operations.complete};
+        if(['QA','BROWSER','BROWSER_TEST'].includes(run.mode)&&operations.counts.COMMITTED+operations.counts.FAILED_AFTER_PARTIAL_WRITE>0){run.error=safeError(Error('READ_ONLY_VERIFICATION_FAILED'));return;}
+        if(operations.pending)return;
+        if(operations.complete&&run.integrity?.state!=='CHANGED'){
+          run.recovery=operations.recovery;this.uncertain=false;return;
+        }
+      }
       const text=(context.filter(m=>m.type==='assistant').at(-1)?.content??[]).filter(c=>c.type==='text').map(c=>c.text).join('\n\n');
       if(run.integrity?.state!=='CHANGED'&&idle.outcome==='succeeded'&&!context.some(m=>m.type==='error'||m.error)&&/FIGMA_[A-Z0-9_]+:\s*(?:PASS|WARN|FAIL|HOLD|BLOCKED)/.test(text)){
         await this.verifyReadOnly(run).catch(error=>run.error=safeError(error));

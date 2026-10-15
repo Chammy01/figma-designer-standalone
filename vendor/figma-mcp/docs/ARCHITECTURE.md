@@ -1,12 +1,9 @@
 # Architecture
 
-MCP client → stdio JSON-RPC → Go MCP server → existing leader/follower localhost
-bridge → Figma development plugin → native Figma Plugin API. Responses return
-through the same unchanged path. The Svelte plugin UI owns bridge connection
-settings. HTML, components, reactions and source collectors retain imported code.
-The main package directory remains `cmd/figma-mcp-go` internally to avoid churn;
-the public executable is `figma-designer-mcp.exe`.
+MCP client → stdio → Go MCP server → leader/follower loopback bridge → Figma plugin → native API. Public binary figma-designer-mcp.exe; internal main folder remains cmd/figma-mcp-go.
 
-Default address and handshake are unchanged. Plugin ID `figma-mcp-go` and
-wildcard network permissions remain technical compatibility choices, not public
-product names. Restriction/handshake/receipts/idempotency are deferred to V1.4.3B.
+Protocol 2 adds a compatible plugin capability check before mutations. MCP optional metadata reaches the plugin even through legacy argument adapters. The plugin serializes execution, checks preconditions and stores bounded receipts in local clientStorage before responding. No server-side replay or database. Read-only revision/receipt primitives share the inspection path.
+
+Native writes are not transactional. Local receipt persistence cannot close the native-commit/storage-crash window. See RELIABILITY_V1_4_3B.md and PROTOCOL.md. Source collector projection and existing HTML/component/prototype algorithms remain unchanged.
+
+Plugin technical ID and network permissions remain stable. Default bridge is loopback; explicit remote binds retain warnings.

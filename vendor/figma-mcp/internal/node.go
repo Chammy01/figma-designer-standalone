@@ -55,6 +55,18 @@ func (n *Node) RoleName() string {
 
 // Send routes a request to the appropriate backend.
 func (n *Node) Send(ctx context.Context, tool string, nodeIDs []string, params map[string]interface{}) (BridgeResponse, error) {
+	if mutatingTools[tool] {
+		copyParams := make(map[string]interface{}, len(params)+3)
+		for k, v := range params {
+			copyParams[k] = v
+		}
+		if extra, ok := ctx.Value(reliabilityContextKey{}).(map[string]interface{}); ok {
+			for k, v := range extra {
+				copyParams[k] = v
+			}
+		}
+		params = copyParams
+	}
 	n.mu.RLock()
 	role := n.role
 	leader := n.leader

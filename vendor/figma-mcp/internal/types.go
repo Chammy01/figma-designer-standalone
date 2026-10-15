@@ -2,10 +2,11 @@ package internal
 
 // BridgeRequest is sent from the Go server to the Figma plugin over WebSocket.
 type BridgeRequest struct {
-	Type      string                 `json:"type"`
-	RequestID string                 `json:"requestId"`
-	NodeIDs   []string               `json:"nodeIds,omitempty"`
-	Params    map[string]interface{} `json:"params,omitempty"`
+	ProtocolVersion int                    `json:"protocolVersion,omitempty"`
+	Type            string                 `json:"type"`
+	RequestID       string                 `json:"requestId"`
+	NodeIDs         []string               `json:"nodeIds,omitempty"`
+	Params          map[string]interface{} `json:"params,omitempty"`
 }
 
 // BridgeResponse is received from the Figma plugin over WebSocket.

@@ -1,0 +1,99 @@
+{
+  "status": "NATIVE_ACCEPTANCE_VERIFIED",
+  "runtimeVersion": "1.1.0",
+  "bridgeProtocolVersion": 2,
+  "cases": {
+    "A": "COMPATIBLE handshake; readable document; no writes",
+    "B": "Identical operationId returned same node and replayed receipt",
+    "C": "Different create arguments rejected; revision unchanged",
+    "D": "Proxy dropped native COMMITTED response; lookup recovered ID; zero resends",
+    "E": "Matching guards succeeded; stale revision and wrong type rejected; revision unchanged",
+    "F": "combine_as_variants, instantiate_by_name and swap verified actual source/set IDs",
+    "G": "Reaction-count guard succeeded then rejected stale count; full reactions unchanged",
+    "H": "Plugin close/reopen restored compatibility; retained receipt and unchanged page fingerprint",
+    "I": "Wildcard retained as UNRESOLVED; default 1994 and alternate loopback 1995 connection observed"
+  },
+  "controlledResponseLoss": {
+    "createdNodeIds": [
+      "1036:769"
+    ],
+    "operationId": "08dd1299-a110-4485-bc42-56a7e78e4350",
+    "responseDropped": true,
+    "state": "COMMITTED"
+  },
+  "harnessCounts": {
+    "mcpCalls": 41,
+    "mutatingMcpRequests": 21,
+    "physicalNativePrimitiveCount": "NOT_INFERRED"
+  },
+  "disposablePageId": "1036:758",
+  "cleanup": {
+    "affectedNodeIds": [],
+    "completedAt": "2026-10-15T17:24:26.789Z",
+    "createdNodeIds": [],
+    "documentId": "session-mv9t4uuv-afbfuqcjquk",
+    "operationId": "b0413ca0-433b-4d07-a80f-1577c9291fb5",
+    "pageId": "0:1",
+    "resultSummary": {
+      "deleted": true,
+      "id": "1036:758"
+    },
+    "revisionAfter": "04c5ae4b9af0338950a6433ac09af66d8385741a09bb694f8167ee8504cd08e2",
+    "revisionBefore": "04c5ae4b9af0338950a6433ac09af66d8385741a09bb694f8167ee8504cd08e2",
+    "startedAt": "2026-10-15T17:23:53.104Z",
+    "state": "COMMITTED",
+    "tool": "delete_page",
+    "warnings": []
+  },
+  "protectedBefore": {
+    "page": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "a68cfd586576aa6f2d199c8edd4e46c541b5d7e9a22508a16781e8fff3712be6"
+    },
+    "source": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "129cd01193e0d6d52a3c992380c48ed41650ea372316dadbd30d22ece81fcd27"
+    }
+  },
+  "protectedAfter": {
+    "page": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "a68cfd586576aa6f2d199c8edd4e46c541b5d7e9a22508a16781e8fff3712be6"
+    },
+    "source": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "129cd01193e0d6d52a3c992380c48ed41650ea372316dadbd30d22ece81fcd27"
+    },
+    "writeCalls": 0
+  },
+  "revisionRead": {
+    "scope": "current-page",
+    "pageId": "0:1",
+    "revision": "ec88e9254617c7518f2eca1d8e8254e17e805ff03b66009d9a66dbfacff739f0",
+    "firstMs": 15268,
+    "totalMs": 31097,
+    "stable": true,
+    "writeCalls": 0,
+    "plugin": "1.1.0"
+  },
+  "timeoutReconciliation": [
+    "add_page response timed out; COMMITTED receipt recovered; no replay",
+    "delete_page active-page native rejection; FAILED receipt and equal revisions verified; switched pages before distinct cleanup",
+    "delete_page cleanup response timed out; COMMITTED receipt recovered; no replay"
+  ],
+  "limitations": [
+    "Receipts are bounded, single active plugin; not unbounded exactly-once",
+    "No fileKey in this environment; plugin-session identity limits duplicate binding after reload"
+  ],
+  "statefulVariables": "HOLD",
+  "beta3": "UNCHANGED",
+  "finalProgress": {
+    "verified": true,
+    "cleanupOperationId": "e4870c35-b864-4d98-b388-f90a8b9bafa5",
+    "elapsedMs": 32076,
+    "protectedFingerprintsRestored": true,
+    "additionalDisposablePageRemoved": "1036:770",
+    "timeoutValues": "UNCHANGED"
+  },
+  "leaderRecovery": "External legacy OpenCode session closed; owned MCP 1.1.0 regained port 1994 leadership; no mutation replay"
+}

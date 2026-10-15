@@ -73,7 +73,7 @@ test('shared policy is packaged and setup rejects a missing dependency',()=>{
 test('no command, stateful feature, critique guard or approved runtime drift',()=>{
   assert.equal(readdirSync(new URL('../.opencode/commands/figma/',import.meta.url)).filter(n=>n.endsWith('.md')).length,14);
   assert.match(read('docs/STATEFUL_VARIABLES_V1_2_5.md'),/FIGMA_STATEFUL_VARIABLES: HOLD\s*$/);
-  assert.equal(createHash('sha256').update(read('.opencode/plugins/figma-critique-guard.js')).digest('hex'),'2bc365e1f41d80cf9adab177847f6f4dd13000766455ac4150399a7690cb23dc');
+  assert.equal(createHash('sha256').update(read('.opencode/plugins/figma-critique-guard.js')).digest('hex'),'520c8934b0fbc4a334d084596e3e5dd3f4e2aff41fe7ff5bf130e1515c9f11ed');
   const approved=JSON.parse(read('docs/APPROVED_RUNTIME.json'));assert.equal(approved.releaseVersion,read('VERSION').trim());
   assert.deepEqual(approved.priorApprovedRuntime.sha256,{
     'bin/figma-mcp-go.exe':'bc9eec0d9a9cddd20e27331a41319a59b84bd51f88a78e59885b901456562f3f',

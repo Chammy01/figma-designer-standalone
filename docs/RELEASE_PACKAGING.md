@@ -2,7 +2,7 @@
 
 ## GitHub source candidate
 
-`SOURCE_ALLOWLIST.json` records the baseline files retained in the public candidate. Source/tests, pinned lockfiles, agents/core commands, rules, the MIT root LICENSE, and full third-party notices remain. Generated plugin assets are omitted from Git; source CI builds them with the committed Bun lockfile before dispatcher regressions. Approved release assets are supplied separately. Main vendors owned Figma Designer MCP `a0b2e1c3e2ab2dd37c512fc3edeacb77a785a418`. The old upstream lineage is historical; variants, hardening and the conditional collector patch are retained. Runtime hashes rotate for identity only; behavior and timeouts do not change. `v1.2.1-ownership.1` names local source/package validation, not a published release. Do not replace Beta 3 assets. See [Beta 2 provenance](CONDITIONAL_FRESHNESS_BETA_2.md).
+`SOURCE_ALLOWLIST.json` records the baseline files retained in the public candidate. Source/tests, pinned lockfiles, agents/core commands, rules, the MIT root LICENSE, and full third-party notices remain. Generated plugin assets are omitted from Git; source CI builds them with the committed Bun lockfile before dispatcher regressions. Approved release assets are supplied separately. Main vendors owned Figma Designer MCP `c95e264350ecd4f13f11f4012cc13dcc96edc927`. The upstream lineage is historical; variants, hardening and the conditional collector patch are retained. The 1.1.0 runtime adds receipts, optional guards, scoped revisions and bridge protocol 2; timeout values and existing authoring semantics remain unchanged. `v1.2.1-reliability.1` names unpublished local source/package validation. The previous owned approval and Beta 3 remain rollback records; do not replace Beta 3 assets. See [reliability provenance](FIGMA_DESIGNER_MCP_RELIABILITY_V1_4_3B.md) and [Beta 2 provenance](CONDITIONAL_FRESHNESS_BETA_2.md).
 
 Optional Impeccable engine/launchers/command are removed. Its active skill is archived as reference-only material; original license/notice texts remain. See [the engine audit](SKILL_ENGINE_AUDIT.md). Dependencies, staging/evidence, configuration, logs, generated history, private design data, caches, and arbitrary archives are excluded from source inventories.
 
@@ -17,7 +17,7 @@ Normal users need no Go/Bun build. Node/npm installs pinned Playwright/Chromium 
 Build the executable from the exact owned pinned vendor source with Go 1.26.1 and `CGO_ENABLED=0`:
 
 ```powershell
-go build -trimpath -buildvcs=false -ldflags "-X main.version=1.0.0" -o <staged-runtime>/bin/figma-designer-mcp.exe ./cmd/figma-mcp-go
+go build -trimpath -buildvcs=false -ldflags "-X main.version=1.1.0" -o <staged-runtime>/bin/figma-designer-mcp.exe ./cmd/figma-mcp-go
 ```
 
 Run from `vendor/figma-mcp`. The output placeholder is a contributor staging path. Source setup uses the same command with a temporary output before exact-hash verification and installation. `-buildvcs=false` explicitly reproduces the approved non-Git metadata for Git clones too. Build plugin core/UI from pinned source using Bun 1.4.2 (`bun install --frozen-lockfile`, `bun run build`) and verify their approved hashes in that runtime root; no maintainer artifact copying is needed. Verify Go tests/vet, privacy scanning, MCP initialization/version/catalog/rejection probes, and the full safe regressions before recording the public hash in `APPROVED_RUNTIME.json`.

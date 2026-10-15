@@ -19,7 +19,7 @@ Normal requirements: Windows x64, Node.js 20+ with npm, OpenCode, Figma Desktop,
 In `vendor/figma-mcp`, with `CGO_ENABLED=0`, Windows amd64, and default GOAMD64=v1:
 
 ```powershell
-go build -trimpath -buildvcs=false -ldflags "-X main.version=1.0.0" -o ../../bin/figma-designer-mcp.exe ./cmd/figma-mcp-go
+go build -trimpath -buildvcs=false -ldflags "-X main.version=1.1.0" -o ../../bin/figma-designer-mcp.exe ./cmd/figma-mcp-go
 ```
 
 Setup uses an equivalent temporary output path and normalizes/restores relevant Go environment settings, disables workspace overrides, and requires the locally installed toolchain (no automatic Go upgrade).
@@ -76,4 +76,4 @@ Offline acceptance establishes local installation readiness, not a live Figma/pr
 
 ## Owned runtime pin
 
-Main builds Figma Designer MCP 1.0.0 from the exact owned commit in APPROVED_RUNTIME.json; no floating upstream download. The existing vendor directory and OpenCode alias are compatibility paths. Beta 3 has its own preserved approved-runtime record. New local package identity is v1.2.1-ownership.1 and is not published.
+Main builds Figma Designer MCP 1.1.0 from the exact owned commit in APPROVED_RUNTIME.json; no floating upstream download. The existing vendor directory and OpenCode alias are compatibility paths. Beta 3 has its own preserved approved-runtime record. New local package identity is v1.2.1-reliability.1 and is not published.

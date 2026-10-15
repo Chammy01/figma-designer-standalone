@@ -214,7 +214,7 @@ Technical scope: Acceptance is separate from CURRENT, STALE, and UNVERIFIED; rea
 
 Show the system and runtime version information.
 
-Technical scope: Main uses owned MCP 1.0.0; frozen public v1.2.1-beta.3 retains MCP 1.2.0-standalone-hardening. System 1.2.1 and schema 2 are unchanged.
+Technical scope: Main uses owned MCP 1.1.0 / bridge protocol 2; frozen public v1.2.1-beta.3 retains MCP 1.2.0-standalone-hardening. System 1.2.1 and schema 2 are unchanged.
 
 ## Suggested order
 

@@ -128,7 +128,7 @@ test('V1.2.5 remains HOLD, with no new slash command or runtime dependency',()=>
 });
 test('approved hashes and critique guard remain unchanged',()=>{
   const a=JSON.parse(read('docs/APPROVED_RUNTIME.json'));for(const [p,hash]of Object.entries(a.sha256)){const url=new URL('../'+p,import.meta.url);if(existsSync(url))assert.equal(createHash('sha256').update(readFileSync(url)).digest('hex'),hash);}
-  assert.equal(createHash('sha256').update(read('.opencode/plugins/figma-critique-guard.js')).digest('hex'),'2bc365e1f41d80cf9adab177847f6f4dd13000766455ac4150399a7690cb23dc');
+  assert.equal(createHash('sha256').update(read('.opencode/plugins/figma-critique-guard.js')).digest('hex'),'520c8934b0fbc4a334d084596e3e5dd3f4e2aff41fe7ff5bf130e1515c9f11ed');
 });
 test('retained native acceptance proves explicit authoring, float readback and separate playback',()=>{
   assert.equal(live.cases.A.route,'motion');assert.equal(live.cases.A.directMCPWrites,1);assert.ok(transitionMatches(live.cases.A.after[0].actions[0].transition,token));assert.equal(live.playback.status,'PLAYBACK_VERIFIED');assert.equal(live.playback.exactTimingMeasured,false);assert.deepEqual(reactionSemantics(live.cases.A.before),reactionSemantics(live.cases.A.after));

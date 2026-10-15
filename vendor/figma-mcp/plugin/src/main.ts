@@ -2,6 +2,8 @@
 
 import { handleReadRequest } from "./read-handlers";
 import { handleWriteRequest } from "./write-handlers";
+import { createReliability } from "./reliability";
+const reliability = createReliability(figma);
 
 const sendStatus = () => {
   figma.ui.postMessage({
@@ -16,8 +18,8 @@ const sendStatus = () => {
 
 const handleRequest = async (request: any) => {
   try {
-    const result =
-      (await handleReadRequest(request)) ?? (await handleWriteRequest(request));
+    const result = await reliability.handle(request, async r =>
+      (await handleReadRequest(r)) ?? (await handleWriteRequest(r)));
     if (result === null)
       throw new Error(`Unknown request type: ${request.type}`);
     return result;

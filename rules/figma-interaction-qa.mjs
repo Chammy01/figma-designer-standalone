@@ -3,7 +3,7 @@ import {normalizeSource} from '../scripts/figma-live-source.mjs';
 import {sourceFingerprint} from '../scripts/figma-browser-freshness.mjs';
 import {resolveMotion,transitionMatches,inspectScrollContext,conflictingScrollActions} from './figma-motion-semantics.mjs';
 
-export const qaReadTools=Object.freeze(['health_check','get_metadata','get_document','get_node','get_reactions','get_local_components','get_design_context']);
+export const qaReadTools=Object.freeze(['health_check','get_metadata','get_document','get_node','get_reactions','get_local_components','get_design_context','get_operation_receipt','get_document_revision']);
 export const coverageClasses=Object.freeze(['WORKING_ACTION','WORKING_STATE','FIGMA_LIMITED','INTENTIONALLY_INERT','UNKNOWN_EXPECTATION','BROKEN']);
 const runtimeName='Figma Designer — Interactive App',libraryName='Figma Designer — Component States',legacyName='Figma Designer — Prototype Flows';
 const rank={BLOCKER:0,HIGH:1,MEDIUM:2,LOW:3,LIMITATION:4};

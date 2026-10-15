@@ -33,7 +33,7 @@ func NewFollower(leaderURL string) *Follower {
 
 // Send proxies a tool call to the leader.
 func (f *Follower) Send(ctx context.Context, tool string, nodeIDs []string, params map[string]interface{}) (BridgeResponse, error) {
-	followerLogger.Printf("proxy %s nodeIDs=%v params=%v → %s/rpc", tool, nodeIDs, params, f.leaderURL)
+	followerLogger.Printf("proxy %s nodeIDs=%v → %s/rpc", tool, nodeIDs, f.leaderURL)
 	start := time.Now()
 
 	rpcReq := RPCRequest{
@@ -56,18 +56,22 @@ func (f *Follower) Send(ctx context.Context, tool string, nodeIDs []string, para
 	resp, err := f.client.Do(req)
 	if err != nil {
 		followerLogger.Printf("proxy %s rpc error: %v", tool, err)
-		return BridgeResponse{}, fmt.Errorf("rpc call: %w", err)
+		code := "BRIDGE_UNAVAILABLE"
+		if mutatingTools[tool] {
+			code = "WRITE_RESPONSE_LOST"
+		}
+		return BridgeResponse{}, fmt.Errorf("%s: operationId=%v; do not replay uncertain mutations: %w", code, params["operationId"], err)
 	}
 	defer resp.Body.Close()
 
 	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return BridgeResponse{}, fmt.Errorf("read response: %w", err)
+		return BridgeResponse{}, fmt.Errorf("BRIDGE_UNAVAILABLE: read response: %w", err)
 	}
 
 	var rpcResp RPCResponse
 	if err := json.Unmarshal(respBody, &rpcResp); err != nil {
-		return BridgeResponse{}, fmt.Errorf("unmarshal: %w", err)
+		return BridgeResponse{}, fmt.Errorf("BRIDGE_UNAVAILABLE: invalid leader response: %w", err)
 	}
 
 	if rpcResp.Error != "" {

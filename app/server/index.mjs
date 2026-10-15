@@ -4,6 +4,7 @@ import {join,resolve,extname,basename} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {OpenCodeClient} from './opencode-client.mjs';
 import {Runs,safeError} from './runs.mjs';
+import {lookupCurrentOperation} from './operation-recovery.mjs';
 import {systemStatus,previewStatus} from './status.mjs';
 import {AI} from './ai.mjs';
 import {readQATool} from '../../scripts/figma-interaction-qa.mjs';
@@ -21,7 +22,7 @@ function json(res,value,status=200){res.writeHead(status,{'Content-Type':'applic
 export async function createApplication({root=projectRoot,engine=new OpenCodeClient({root,executable:process.env.OPENCODE_EXECUTABLE,url:process.env.FIGMA_APP_OPENCODE_URL,password:process.env.FIGMA_APP_OPENCODE_PASSWORD}),status=()=>systemStatus(root),browser=()=>previewStatus(root),fingerprint=async()=>root===projectRoot?documentFingerprint(await readQATool('get_document')).sha256:null,validation=new Validation(root,root===projectRoot?{}:{read:async()=>{throw Error('Fixture source unavailable');}}),port=0}={}) {
   const events=[];let logChain=Promise.resolve(),closed=false;
   const log=event=>{events.push({...event,time:new Date().toISOString()});if(events.length>100)events.shift();logChain=logChain.then(async()=>{await mkdir(join(root,'.figma-designer/app'),{recursive:true});await writeFile(join(root,'.figma-designer/app/events.json'),JSON.stringify(events));}).catch(()=>{});};
-  const runs=new Runs(engine,log,fingerprint,(run,context)=>validation.capture(run,context)),ai=new AI(engine,runs,root);runs.ai=ai;let cachedStatus,lastCheck=0,statusPending,preview;
+  const runs=new Runs(engine,log,fingerprint,(run,context)=>validation.capture(run,context),id=>root===projectRoot?lookupCurrentOperation(id):null),ai=new AI(engine,runs,root);runs.ai=ai;let cachedStatus,lastCheck=0,statusPending,preview;
   async function check(force=false){if(force || !cachedStatus || Date.now()-lastCheck>3000){statusPending??=status().then(s=>{cachedStatus=s;lastCheck=Date.now();return s;}).finally(()=>statusPending=undefined);await statusPending;}return cachedStatus;}
   async function previewUrl(){
     const state=await browser();if(state.state==='NOT_BUILT')throw Object.assign(Error('Browser preview has not been built'),{status:404});
@@ -60,7 +61,7 @@ export async function createApplication({root=projectRoot,engine=new OpenCodeCli
         if(path==='/api/session'){if(runs.active||runs.uncertain||ai.busy)throw Object.assign(Error('Wait for the active task or result check'),{status:409});if(!['READY','EXTERNAL'].includes(engine.status().state))throw Object.assign(Error('Engine is not ready'),{status:503});ai.assertReady();json(res,{id:(await runs.newWorkspace()).id});return;}
         if(path==='/api/run'){
           if(!['READY','EXTERNAL'].includes(engine.status().state))throw Object.assign(Error('Engine is not ready'),{status:503});
-          if(['AUTO','DESIGN','QA','BROWSER','BROWSER_TEST'].includes(value.mode??'AUTO')){const health=await check();if(health.runtime!=='VERIFIED')throw Object.assign(Error('Runtime must be verified before a workflow'),{status:409,code:'RUNTIME_HASH_MISMATCH'});if(health.figma!=='CONNECTED')throw Object.assign(Error('Connect the Figma plugin first'),{status:409,code:health.figma});}
+          if(['AUTO','DESIGN','QA','BROWSER','BROWSER_TEST'].includes(value.mode??'AUTO')){const health=await check();if(health.runtime!=='VERIFIED')throw Object.assign(Error('Runtime must be verified before a workflow'),{status:409,code:'RUNTIME_HASH_MISMATCH'});if(health.figma!=='CONNECTED')throw Object.assign(Error('Connect the Figma plugin first'),{status:409,code:health.figma});if(health.mcp&&health.mcp.state!=='COMPATIBLE')throw Object.assign(Error('Run the matching Figma Designer MCP plugin'),{status:409,code:'MCP_INCOMPATIBLE'});}
           json(res,await runs.submit({...value,mode:value.mode??'AUTO'}),202);return;
         }
         if(/^\/api\/run\/[\w-]+\/cancel$/.test(path)){json(res,await runs.cancel(path.split('/')[3]));return;}

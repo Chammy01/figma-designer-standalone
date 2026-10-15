@@ -2,7 +2,7 @@
 const projectionVersion = "figma-browser-source-v1";
 const runtimeName = "Figma Designer — Interactive App";
 const supported = new Set(["FRAME", "GROUP", "COMPONENT", "INSTANCE", "TEXT", "RECTANGLE", "ELLIPSE", "VECTOR", "LINE", "BOOLEAN_OPERATION", "STAR", "POLYGON"]);
-const fields = [
+export const fields = [
   "visible", "opacity", "rotation", "relativeTransform", "fills", "strokes", "effects", "blendMode",
   "strokeWeight", "strokeTopWeight", "strokeRightWeight", "strokeBottomWeight", "strokeLeftWeight",
   "strokeAlign", "strokeCap", "strokeJoin", "strokeMiterLimit", "dashPattern",
@@ -18,7 +18,7 @@ const fields = [
   "overlayPositionType", "overlayBackground", "overlayBackgroundInteraction",
   "boundVariables", "explicitVariableModes", "resolvedVariableModes", "componentProperties", "componentPropertyReferences", "componentPropertyDefinitions", "variantProperties",
 ];
-const textFields = ["fontName", "fontSize", "fontWeight", "fills", "textCase", "textDecoration", "textDecorationStyle", "textDecorationOffset", "textDecorationThickness", "textDecorationColor", "textDecorationSkipInk", "letterSpacing", "lineHeight", "listOptions", "indentation", "paragraphIndent", "paragraphSpacing", "listSpacing", "hyperlink", "openTypeFeatures", "boundVariables"];
+export const textFields = ["fontName", "fontSize", "fontWeight", "fills", "textCase", "textDecoration", "textDecorationStyle", "textDecorationOffset", "textDecorationThickness", "textDecorationColor", "textDecorationSkipInk", "letterSpacing", "lineHeight", "listOptions", "indentation", "paragraphIndent", "paragraphSpacing", "listSpacing", "hyperlink", "openTypeFeatures", "boundVariables"];
 
 function json(value: any): any {
   if (typeof value === "symbol") return { mixed: true };

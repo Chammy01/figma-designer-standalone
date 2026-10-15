@@ -52,7 +52,9 @@ READ / INSPECT WORKFLOW
    health_check, get_metadata, get_pages, get_document, get_selection, get_node,
    get_nodes_info, get_design_context, search_nodes, scan_text_nodes,
    scan_nodes_by_types, get_fonts, get_styles, get_local_components, get_reactions,
-   inspect_node_as_html, explain_layout, explain_node, get_screenshot.
+   inspect_node_as_html, explain_layout, explain_node, get_screenshot,
+   get_operation_receipt, get_document_revision.
+   Receipt and revision lookup are optional read-only evidence, never replay paths.
    Use get_design_context for exploration and get_node/get_nodes_info for full
    properties. Resolve get_document globalVars style references before comparison.
    Use inspect_node_as_html/explain_layout for layoutMode, itemSpacing, padding,

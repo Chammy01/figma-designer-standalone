@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -33,12 +34,14 @@ type Bridge struct {
 	conn    *websocket.Conn
 	pending map[string]*pendingEntry
 	counter atomic.Int64
+	nonce   string
 }
 
 // NewBridge creates a ready-to-use Bridge.
 func NewBridge() *Bridge {
 	return &Bridge{
 		pending: make(map[string]*pendingEntry),
+		nonce:   strings.ReplaceAll(newOperationID(), "-", ""),
 	}
 }
 
@@ -82,6 +85,11 @@ func (b *Bridge) readLoop(conn *websocket.Conn) {
 		b.mu.Lock()
 		if b.conn == conn {
 			b.conn = nil
+			for id, entry := range b.pending {
+				entry.timer.Stop()
+				entry.once.Do(func() { close(entry.ch) })
+				delete(b.pending, id)
+			}
 		}
 		b.mu.Unlock()
 		bridgeLogger.Printf("plugin disconnected")
@@ -140,7 +148,9 @@ func (b *Bridge) readLoop(conn *websocket.Conn) {
 }
 
 func bridgeInactivityTimeout(requestType string) time.Duration {
-	if requestType == "get_document" { return 60 * time.Second }
+	if requestType == "get_document" {
+		return 60 * time.Second
+	}
 	return 30 * time.Second
 }
 
@@ -151,20 +161,63 @@ func (entry *pendingEntry) extendForProgress() {
 
 // Send sends a request to the plugin and waits for the response.
 func (b *Bridge) Send(ctx context.Context, requestType string, nodeIDs []string, params map[string]interface{}) (BridgeResponse, error) {
+	if mutatingTools[requestType] && !(requestType == "slide_template" && params["action"] == "list") {
+		if params == nil {
+			params = map[string]interface{}{}
+		}
+		copyParams := make(map[string]interface{}, len(params)+1)
+		for k, v := range params {
+			copyParams[k] = v
+		}
+		params = copyParams
+		if _, ok := params["operationId"]; !ok {
+			params["operationId"] = newOperationID()
+		}
+		if err := validateOperationID(params["operationId"]); err != nil {
+			return BridgeResponse{}, err
+		}
+		hello, err := b.sendRaw(ctx, "bridge_hello", nil, nil)
+		if err != nil {
+			return BridgeResponse{}, fmt.Errorf("PLUGIN_NOT_CONNECTED: %w", err)
+		}
+		if err := compatiblePlugin(hello); err != nil {
+			return BridgeResponse{}, err
+		}
+		response, err := b.sendRaw(ctx, requestType, nodeIDs, params)
+		if err != nil {
+			return BridgeResponse{}, fmt.Errorf("WRITE_RESPONSE_LOST: operationId=%s; outcome indeterminate; query receipt before retry: %w", params["operationId"], err)
+		}
+		if response.Error != "" {
+			response.Error = fmt.Sprintf("%s: operationId=%s; query receipt before retry", response.Error, params["operationId"])
+		}
+		return response, nil
+	}
+	resp, err := b.sendRaw(ctx, requestType, nodeIDs, params)
+	if err != nil && !strings.Contains(err.Error(), "PLUGIN_NOT_CONNECTED") {
+		err = fmt.Errorf("BRIDGE_UNAVAILABLE: %w", err)
+	}
+	if requestType == "health_check" && err == nil && resp.Error == "" {
+		enrichHealth(&resp)
+	}
+	return resp, err
+}
+
+func (b *Bridge) sendRaw(ctx context.Context, requestType string, nodeIDs []string, params map[string]interface{}) (BridgeResponse, error) {
 	b.mu.RLock()
 	conn := b.conn
 	b.mu.RUnlock()
 
 	if conn == nil {
-		return BridgeResponse{}, errors.New("plugin not connected")
+		return BridgeResponse{}, errors.New("PLUGIN_NOT_CONNECTED: plugin not connected")
 	}
 
 	requestID := b.nextID()
 	req := BridgeRequest{
-		Type:      requestType,
-		RequestID: requestID,
-		NodeIDs:   nodeIDs,
-		Params:    params,
+		ProtocolVersion: BridgeProtocolVersion,
+		Type:            requestType,
+		RequestID:       requestID,
+		NodeIDs:         nodeIDs,
+		Params:          params,
 	}
 
 	ch := make(chan BridgeResponse, 1)
@@ -187,7 +240,7 @@ func (b *Bridge) Send(ctx context.Context, requestType string, nodeIDs []string,
 	b.pending[requestID] = entry
 	b.mu.Unlock()
 
-	bridgeLogger.Printf("→ %s %s nodeIDs=%v params=%v", requestID, requestType, nodeIDs, params)
+	bridgeLogger.Printf("→ %s %s nodeIDs=%v", requestID, requestType, nodeIDs)
 	start := time.Now()
 
 	b.wmu.Lock()
@@ -241,9 +294,7 @@ func (b *Bridge) Close() {
 // nextID generates a request ID in the format req-HHMMSS-N.
 func (b *Bridge) nextID() string {
 	n := b.counter.Add(1)
-	now := time.Now()
-	return fmt.Sprintf("req-%02d%02d%02d-%d",
-		now.Hour(), now.Minute(), now.Second(), n)
+	return fmt.Sprintf("req-%s-%d", b.nonce, n)
 }
 
 // IsConnected reports whether the plugin is currently connected.

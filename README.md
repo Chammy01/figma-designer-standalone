@@ -1,6 +1,6 @@
 # Figma Designer
 
-> Main uses the owned **Figma Designer MCP 1.0.0** source runtime. This is an unreleased ownership checkpoint, not Beta 4. Published Beta 3 remains the previous-runtime rollback. See [migration and activation](docs/FIGMA_DESIGNER_MCP_OWNERSHIP_V1_4_3A.md).
+> Main uses **Figma Designer MCP 1.1.0**, with operation receipts and guarded writes. This is an unreleased source checkpoint, not Beta 4. Published Beta 3 remains the rollback. See [reliability and activation](docs/FIGMA_DESIGNER_MCP_RELIABILITY_V1_4_3B.md).
 
 Create editable Figma interfaces by describing what you want.
 

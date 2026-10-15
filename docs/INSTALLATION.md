@@ -6,7 +6,7 @@ This does not change the published Beta 3 installation. See [Application guide](
 
 Use the prebuilt Release ZIP for normal use. Go, Bun, Git, and native Orca are not required. Use a writable folder, keep its files together, and avoid synchronizing or moving it during a session.
 
-For current main, the runtime is **Figma Designer MCP 1.0.0**; Beta 3 remains the older rollback. Existing source users must change only `mcp.figma.command[0]` to `bin/figma-designer-mcp.exe` and reimport/reload the same plugin manifest. Setup preserves existing configuration and will report a stale path rather than changing provider/model settings. The technical plugin ID remains stable; do not create a duplicate plugin.
+For current main, use the matched **Figma Designer MCP 1.1.0 / bridge protocol 2** server and plugin; Beta 3 remains the older rollback. Existing source users keep `mcp.figma.command[0]` pointing to `bin/figma-designer-mcp.exe` and reimport/reload the same plugin manifest. Close older OpenCode/MCP sessions that own port 1994 before activation. Check Again must report the matching pair as compatible before writes. Setup preserves existing configuration and reports stale paths without changing provider/model settings. The technical plugin ID stays stable; do not create a duplicate plugin. See [reliability limits and rollback](FIGMA_DESIGNER_MCP_RELIABILITY_V1_4_3B.md).
 
 ## Prerequisites
 

@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([Parameter(Mandatory=$true)][string]$OutputRoot)
+param([Parameter(Mandatory=$true)][string]$OutputRoot,[string]$SourceRevision='UNSPECIFIED')
 $ErrorActionPreference='Stop'
 $root=Split-Path -Parent $PSScriptRoot
 $OutputRoot=[IO.Path]::GetFullPath($OutputRoot)
@@ -13,7 +13,7 @@ try {
  New-Item -ItemType Directory -Path (Join-Path $OutputRoot 'bin') | Out-Null
  Run { go test -count=1 ./... }; Run { go vet ./... }
  $savedCGO=$env:CGO_ENABLED
- try { $env:CGO_ENABLED='0'; Run { go build -trimpath -buildvcs=false -ldflags '-X main.version=1.0.0' -o (Join-Path $OutputRoot 'bin/figma-designer-mcp.exe') ./cmd/figma-mcp-go } } finally { $env:CGO_ENABLED=$savedCGO }
+ try { $env:CGO_ENABLED='0'; Run { go build -trimpath -buildvcs=false -ldflags '-X main.version=1.1.0' -o (Join-Path $OutputRoot 'bin/figma-designer-mcp.exe') ./cmd/figma-mcp-go } } finally { $env:CGO_ENABLED=$savedCGO }
  Push-Location plugin
  try { Run { bun install --frozen-lockfile }; Run { bun test }; Run { bun run build } } finally { Pop-Location }
  Run { bun test scripts/figma-hardening.test.ts scripts/figma-variants.test.ts }
@@ -25,7 +25,8 @@ try {
  Copy-Item plugin/manifest.json (Join-Path $OutputRoot 'plugin/manifest.json')
  Copy-Item plugin/dist/code.js,plugin/dist/index.html (Join-Path $OutputRoot 'plugin/dist')
  Copy-Item LICENSE,README.md,VERSION (Join-Path $OutputRoot '.')
- Copy-Item docs/ownership-import.json (Join-Path $OutputRoot 'PROVENANCE.json')
+ $provenance=@{product='Figma Designer MCP';version=(Get-Content VERSION -Raw).Trim();bridgeProtocolVersion=2;sourceRevision=$SourceRevision;importedBaseline=(Get-Content docs/ownership-import.json -Raw | ConvertFrom-Json)}
+ [IO.File]::WriteAllText((Join-Path $OutputRoot 'PROVENANCE.json'),($provenance | ConvertTo-Json -Depth 10))
  $lines=@('bin/figma-designer-mcp.exe','plugin/dist/code.js','plugin/dist/index.html') | ForEach-Object { (Get-FileHash -LiteralPath (Join-Path $OutputRoot $_) -Algorithm SHA256).Hash.ToLowerInvariant()+'  '+$_ }
  [IO.File]::WriteAllLines((Join-Path $OutputRoot 'SHA256SUMS.txt'),$lines)
  Write-Host 'Owned MCP build/package checks PASS'

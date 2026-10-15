@@ -120,7 +120,8 @@ for (const [name, pattern] of invariants) test(name, () => assert.match(rules, p
 test('existing critique enforcement source is unchanged except its pre-routing integration', () => {
   const source = read('.opencode/plugins/figma-critique-guard.js')
     .replace("import { installIntentRouter } from '../../rules/figma-intent-router.mjs';\n", '')
-    .replace('    await installIntentRouter(ctx);\n', '');
+    .replace('    await installIntentRouter(ctx);\n', '')
+    .replace("  'get_operation_receipt', 'get_document_revision',\n", '');
   assert.equal(createHash('sha256').update(source).digest('hex'), '884fc738f8464cfc4c9a6d3ddfe16579b58662517bfca2f9023d96e28bb2bfaf');
   assert.match(routingInstructions, /production_revision[\s\S]*design_critique[\s\S]*browser_test/);
 });

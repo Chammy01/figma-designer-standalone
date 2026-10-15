@@ -8,7 +8,7 @@ import (
 // freePort finds an available TCP port on 127.0.0.1.
 func freePort(t *testing.T) int {
 	t.Helper()
-	ln, err := net.Listen("tcp", ":0")
+	ln, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
 		t.Fatalf("freePort: %v", err)
 	}

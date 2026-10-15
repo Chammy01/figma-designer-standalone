@@ -120,7 +120,7 @@ func TestToolSchemas_AllToolsRegistered(t *testing.T) {
 	// F: export_node_as_react, export_html_self_contained, replace_image_globally       (3)
 	// G: slide_template, regenerate_slide, make_slide_grid, list_slides                 (4)
 	// H: health_check, get_recent_errors, explain_node                                  (3)
-	const want = 106
+	const want = 108 // Existing 106 plus two read-only reliability primitives.
 
 	got := len(resp.Result.Tools)
 	if got != want {

@@ -1,0 +1,3477 @@
+{
+  "baseline": "a0b2e1c3e2ab2dd37c512fc3edeacb77a785a418",
+  "tools": [
+    {
+      "tool": "add_page",
+      "category": "PAGE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "index": {
+            "description": "Position index to insert the page (0 = first). Defaults to last position.",
+            "type": "number"
+          },
+          "name": {
+            "description": "Name for the new page (default 'Page')",
+            "type": "string"
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-page.ts:3",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{\r\n          id: page.id,\r\n          name: page.name,\r\n          index: figma.root.children.indexOf(page),\r\n        }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createPage",
+        "figma.root.insertChild"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "add_variable_mode",
+      "category": "VARIABLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "collectionId": {
+            "description": "Variable collection ID",
+            "type": "string"
+          },
+          "modeName": {
+            "description": "Name for the new mode",
+            "type": "string"
+          }
+        },
+        "required": [
+          "collectionId",
+          "modeName"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-variables.ts:37",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "collectionId"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_variable_defs",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ collectionId: p.collectionId, modeId, modeName: p.modeName }"
+      ],
+      "staticNativeCallSites": [
+        "collection.addMode"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "align_nodes",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "mode": {
+            "description": "One of: left, right, center-x, top, bottom, center-y.",
+            "type": "string"
+          },
+          "nodeIds": {
+            "description": "JSON array of node IDs to align. Example: [\"1:2\",\"1:3\",\"1:4\"]",
+            "type": "string"
+          },
+          "referenceNodeId": {
+            "description": "Optional anchor node — others align to it. Defaults to bounding box of all nodes.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeIds",
+          "mode"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/layout.ts:104",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ mode, results }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "apply_style_to_node",
+      "category": "STYLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "nodeId": {
+            "description": "Target node ID in colon format e.g. 4029:12345",
+            "type": "string"
+          },
+          "styleId": {
+            "description": "Style ID to apply (from get_styles)",
+            "type": "string"
+          },
+          "target": {
+            "description": "For paint styles only — apply to 'fill' (default) or 'stroke'",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId",
+          "styleId"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-styles.ts:167",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: n.id, name: n.name, styleId: p.styleId, styleType: style.type }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "apply_styles_batch",
+      "category": "STYLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "bindings": {
+            "description": "Array of {nodeId, textStyleId?, fillStyleId?} objects. Each nodeId in colon format e.g. '4029:12345'. Style IDs from get_styles.",
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "bindings"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-styles.ts:212",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ bound, failed, results }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "auto_layout_from_positions",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "dryRun": {
+            "description": "If true, return the inferred layout without applying it.",
+            "type": "boolean"
+          },
+          "nodeId": {
+            "description": "Frame whose children should be analyzed and converted.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/layout.ts:40",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "nodeId",
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{\r\n          nodeId,\r\n          dryRun,\r\n          inferred,\r\n          childOrder: children.map(c => c.id),\r\n        }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "batch_rename_nodes",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "find": {
+            "description": "String (or regex pattern when useRegex=true) to search for in the node name",
+            "type": "string"
+          },
+          "nodeIds": {
+            "description": "Node IDs in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "prefix": {
+            "description": "String to prepend to the node name",
+            "type": "string"
+          },
+          "regexFlags": {
+            "description": "Regex flags e.g. 'gi' (default 'g'). Only used when useRegex=true.",
+            "type": "string"
+          },
+          "replace": {
+            "description": "Replacement string. Required when find is provided.",
+            "type": "string"
+          },
+          "suffix": {
+            "description": "String to append to the node name",
+            "type": "string"
+          },
+          "useRegex": {
+            "description": "Treat find as a regular expression (default false)",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "nodeIds"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:325",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "bind_variable_to_node",
+      "category": "VARIABLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "field": {
+            "description": "Property to bind: fillColor | strokeColor | visible | opacity | rotation | width | height | cornerRadius | topLeftRadius | topRightRadius | bottomLeftRadius | bottomRightRadius | strokeWeight | itemSpacing | paddingTop | paddingRight | paddingBottom | paddingLeft",
+            "type": "string"
+          },
+          "nodeId": {
+            "description": "Target node ID in colon format e.g. 4029:12345",
+            "type": "string"
+          },
+          "variableId": {
+            "description": "Variable ID to bind (from get_variable_defs)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId",
+          "variableId",
+          "field"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-styles.ts:306",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id",
+        "variableId"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_variable_defs",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: node.id, name: node.name, variableId: p.variableId, field: p.field }"
+      ],
+      "staticNativeCallSites": [
+        "node.setBoundVariable"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "bind_variable_to_style",
+      "category": "VARIABLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "styleId": {
+            "description": "Paint style ID.",
+            "type": "string"
+          },
+          "variableId": {
+            "description": "Variable ID (must be COLOR type).",
+            "type": "string"
+          }
+        },
+        "required": [
+          "styleId",
+          "variableId"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/style-ecosystem.ts:191",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "variableId"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_variable_defs",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ styleId, variableId, ok: true }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "clone_node",
+      "category": "CREATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "nodeId": {
+            "description": "Source node ID in colon format e.g. '4029:12345'",
+            "type": "string"
+          },
+          "parentId": {
+            "description": "Parent node ID for the clone. Defaults to same parent as source.",
+            "type": "string"
+          },
+          "x": {
+            "description": "X position of the clone",
+            "type": "number"
+          },
+          "y": {
+            "description": "Y position of the clone",
+            "type": "number"
+          }
+        },
+        "required": [
+          "nodeId"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:114",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: clone.id, name: clone.name, type: clone.type, bounds: getBounds(clone) }"
+      ],
+      "staticNativeCallSites": [
+        "node.clone",
+        "(parent as any).appendChild"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "combine_as_variants",
+      "category": "COMPONENT",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "componentIds": {
+            "description": "Two or more local COMPONENT node IDs to combine.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Optional COMPONENT_SET name, e.g. \"Button / Primary\".",
+            "type": "string"
+          },
+          "parentId": {
+            "description": "Optional parent node for the new COMPONENT_SET. When omitted, the nearest safe common ancestor is used.",
+            "type": "string"
+          },
+          "propertyName": {
+            "description": "Variant property name. Defaults to \"State\".",
+            "type": "string"
+          },
+          "variantValues": {
+            "description": "Optional values parallel to componentIds, e.g. [\"Default\",\"Hover\",\"Pressed\",\"Disabled\"].",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "componentIds"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/components-v2.ts:349",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "componentSetId",
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{\n          componentSetId: componentSet.id,\n          name: componentSet.name,\n          parentId: componentSet.parent?.id || null,\n          propertyName,\n          bounds: getBounds(componentSet),\n          variants: componentSet.children.map((child: any) => ({\n            id: child.id,\n            name: child.name,\n            variantProperties: child.variantProperties || null,\n            bounds: getBounds(child),\n          })),\n          formerParentIds: formerParents,\n          emptyFormerParentIds,\n        }"
+      ],
+      "staticNativeCallSites": [
+        "figma.combineAsVariants"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "create_component",
+      "category": "COMPONENT",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "name": {
+            "description": "Optional name for the component. Defaults to the frame's current name.",
+            "type": "string"
+          },
+          "nodeId": {
+            "description": "FRAME node ID to convert, in colon format e.g. '4029:12345'",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-create.ts:106",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: component.id, name: component.name, type: component.type, bounds: getBounds(component) }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createComponent",
+        "component.resize",
+        "component.appendChild",
+        "parent.insertChild",
+        "node.remove"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "create_component_from_html",
+      "category": "HTML/BATCH",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "html": {
+            "description": "HTML body for the component.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Optional component name; defaults to the root layer-name.",
+            "type": "string"
+          },
+          "styleMapping": {
+            "description": "Optional JSON style mapping (same format as write_html).",
+            "type": "string"
+          },
+          "targetNodeId": {
+            "description": "Parent (page or section) where the component will live.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "html",
+          "targetNodeId"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/components-v2.ts:112",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "componentId",
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "Existing HTML font/cache behavior; no whole-operation transport replay",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{\n          componentId: component.id,\n          name: component.name,\n          bounds: getBounds(component),\n          children: created[0].children || [],\n        }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createComponentFromNode"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "create_effect_style",
+      "category": "STYLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "color": {
+            "description": "Shadow color as hex e.g. #000000 (default #000000, shadows only)",
+            "type": "string"
+          },
+          "description": {
+            "description": "Optional style description",
+            "type": "string"
+          },
+          "name": {
+            "description": "Style name e.g. 'Shadow/Card'",
+            "type": "string"
+          },
+          "offsetX": {
+            "description": "Shadow X offset in pixels (default 0, shadows only)",
+            "type": "number"
+          },
+          "offsetY": {
+            "description": "Shadow Y offset in pixels (default 4, shadows only)",
+            "type": "number"
+          },
+          "opacity": {
+            "description": "Shadow color opacity 0–1 (default 0.25, shadows only)",
+            "type": "number"
+          },
+          "radius": {
+            "description": "Blur radius in pixels (default 8 for shadows, 4 for blurs)",
+            "type": "number"
+          },
+          "spread": {
+            "description": "Shadow spread in pixels (default 0, shadows only)",
+            "type": "number"
+          },
+          "type": {
+            "description": "Effect type: DROP_SHADOW (default), INNER_SHADOW, LAYER_BLUR, or BACKGROUND_BLUR",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-styles.ts:57",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: existing.id, name: existing.name }",
+        "{ id: style.id, name: style.name }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createEffectStyle"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "create_ellipse",
+      "category": "CREATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "fillColor": {
+            "description": "Fill color as hex e.g. #3B82F6",
+            "type": "string"
+          },
+          "height": {
+            "description": "Height in pixels (default 100)",
+            "type": "number"
+          },
+          "name": {
+            "description": "Ellipse name",
+            "type": "string"
+          },
+          "parentId": {
+            "description": "Parent node ID in colon format. Defaults to current page.",
+            "type": "string"
+          },
+          "width": {
+            "description": "Width in pixels (default 100)",
+            "type": "number"
+          },
+          "x": {
+            "description": "X position (default 0)",
+            "type": "number"
+          },
+          "y": {
+            "description": "Y position (default 0)",
+            "type": "number"
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-create.ts:44",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: ellipse.id, name: ellipse.name, type: ellipse.type, bounds: getBounds(ellipse) }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createEllipse",
+        "ellipse.resize",
+        "(parent as any).appendChild"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "create_frame",
+      "category": "CREATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "counterAxisAlignItems": {
+            "description": "Cross-axis alignment: MIN, CENTER, MAX, or BASELINE",
+            "type": "string"
+          },
+          "counterAxisSizingMode": {
+            "description": "Cross-axis sizing: FIXED or AUTO (hug)",
+            "type": "string"
+          },
+          "counterAxisSpacing": {
+            "description": "Gap between wrapped rows/columns (only when layoutWrap is WRAP)",
+            "type": "number"
+          },
+          "fillColor": {
+            "description": "Fill color as hex e.g. #FFFFFF",
+            "type": "string"
+          },
+          "height": {
+            "description": "Height in pixels (default 100)",
+            "type": "number"
+          },
+          "itemSpacing": {
+            "description": "Auto-layout gap between children",
+            "type": "number"
+          },
+          "layoutMode": {
+            "description": "Auto-layout direction: HORIZONTAL, VERTICAL, or NONE",
+            "type": "string"
+          },
+          "layoutWrap": {
+            "description": "Wrap behaviour: NO_WRAP or WRAP",
+            "type": "string"
+          },
+          "name": {
+            "description": "Frame name",
+            "type": "string"
+          },
+          "paddingBottom": {
+            "description": "Auto-layout bottom padding",
+            "type": "number"
+          },
+          "paddingLeft": {
+            "description": "Auto-layout left padding",
+            "type": "number"
+          },
+          "paddingRight": {
+            "description": "Auto-layout right padding",
+            "type": "number"
+          },
+          "paddingTop": {
+            "description": "Auto-layout top padding",
+            "type": "number"
+          },
+          "parentId": {
+            "description": "Parent node ID in colon format. Defaults to current page.",
+            "type": "string"
+          },
+          "primaryAxisAlignItems": {
+            "description": "Main-axis alignment: MIN, CENTER, MAX, or SPACE_BETWEEN",
+            "type": "string"
+          },
+          "primaryAxisSizingMode": {
+            "description": "Main-axis sizing: FIXED or AUTO (hug)",
+            "type": "string"
+          },
+          "width": {
+            "description": "Width in pixels (default 100)",
+            "type": "number"
+          },
+          "x": {
+            "description": "X position (default 0)",
+            "type": "number"
+          },
+          "y": {
+            "description": "Y position (default 0)",
+            "type": "number"
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-create.ts:6",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: frame.id, name: frame.name, type: frame.type, bounds: getBounds(frame) }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createFrame",
+        "frame.resize",
+        "(parent as any).appendChild"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "create_grid_style",
+      "category": "STYLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "alignment": {
+            "description": "Alignment: STRETCH (default), CENTER, MIN, or MAX (COLUMNS/ROWS only)",
+            "type": "string"
+          },
+          "color": {
+            "description": "Grid line color as hex e.g. #FF0000 (GRID only, default #FF0000)",
+            "type": "string"
+          },
+          "count": {
+            "description": "Number of columns or rows (COLUMNS/ROWS only, default 12)",
+            "type": "number"
+          },
+          "description": {
+            "description": "Optional style description",
+            "type": "string"
+          },
+          "gutterSize": {
+            "description": "Gutter size in pixels (COLUMNS/ROWS only, default 16)",
+            "type": "number"
+          },
+          "name": {
+            "description": "Style name e.g. 'Grid/Desktop'",
+            "type": "string"
+          },
+          "offset": {
+            "description": "Margin/offset in pixels (COLUMNS/ROWS only, default 0)",
+            "type": "number"
+          },
+          "opacity": {
+            "description": "Grid line opacity 0–1 (GRID only, default 0.1)",
+            "type": "number"
+          },
+          "pattern": {
+            "description": "Grid pattern: GRID (default), COLUMNS, or ROWS",
+            "type": "string"
+          },
+          "sectionSize": {
+            "description": "Grid cell size in pixels (GRID only, default 8)",
+            "type": "number"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-styles.ts:96",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: existing.id, name: existing.name }",
+        "{ id: style.id, name: style.name }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createGridStyle"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "create_paint_style",
+      "category": "STYLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "color": {
+            "description": "Fill color as hex e.g. #FF5733",
+            "type": "string"
+          },
+          "description": {
+            "description": "Optional style description",
+            "type": "string"
+          },
+          "name": {
+            "description": "Style name e.g. 'Brand/Primary'",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "color"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-styles.ts:5",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: existing.id, name: existing.name }",
+        "{ id: style.id, name: style.name }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createPaintStyle"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "create_rectangle",
+      "category": "CREATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "cornerRadius": {
+            "description": "Corner radius in pixels",
+            "type": "number"
+          },
+          "fillColor": {
+            "description": "Fill color as hex e.g. #FF5733",
+            "type": "string"
+          },
+          "height": {
+            "description": "Height in pixels (default 100)",
+            "type": "number"
+          },
+          "name": {
+            "description": "Rectangle name",
+            "type": "string"
+          },
+          "parentId": {
+            "description": "Parent node ID in colon format. Defaults to current page.",
+            "type": "string"
+          },
+          "width": {
+            "description": "Width in pixels (default 100)",
+            "type": "number"
+          },
+          "x": {
+            "description": "X position (default 0)",
+            "type": "number"
+          },
+          "y": {
+            "description": "Y position (default 0)",
+            "type": "number"
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-create.ts:25",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: rect.id, name: rect.name, type: rect.type, bounds: getBounds(rect) }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createRectangle",
+        "rect.resize",
+        "(parent as any).appendChild"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "create_section",
+      "category": "CREATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "height": {
+            "description": "Height in pixels",
+            "type": "number"
+          },
+          "name": {
+            "description": "Section name (default 'Section')",
+            "type": "string"
+          },
+          "width": {
+            "description": "Width in pixels",
+            "type": "number"
+          },
+          "x": {
+            "description": "X position (default 0)",
+            "type": "number"
+          },
+          "y": {
+            "description": "Y position (default 0)",
+            "type": "number"
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-create.ts:152",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: section.id, name: section.name, type: section.type, bounds: getBounds(section) }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createSection",
+        "section.resizeWithoutConstraints"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "create_styles_from_palette",
+      "category": "STYLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "palette": {
+            "description": "JSON object {name: hex} of paint styles to create.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "palette"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/style-ecosystem.ts:55",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ created, failed }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createPaintStyle"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "create_text",
+      "category": "CREATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "fillColor": {
+            "description": "Text color as hex e.g. #000000 (default black)",
+            "type": "string"
+          },
+          "fontFamily": {
+            "description": "Font family name e.g. 'Inter', 'Roboto', 'SF Pro Display' (default Inter). Must be a font installed in Figma.",
+            "type": "string"
+          },
+          "fontSize": {
+            "description": "Font size in pixels (default 14)",
+            "type": "number"
+          },
+          "fontStyle": {
+            "description": "Font style variant e.g. 'Regular', 'Bold', 'Italic', 'Medium', 'SemiBold' (default Regular). Must match an available style for the chosen fontFamily.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Node name shown in the layers panel (defaults to the text content)",
+            "type": "string"
+          },
+          "parentId": {
+            "description": "Parent node ID in colon format. Defaults to current page.",
+            "type": "string"
+          },
+          "text": {
+            "description": "Text content to display",
+            "type": "string"
+          },
+          "x": {
+            "description": "X position in pixels (default 0)",
+            "type": "number"
+          },
+          "y": {
+            "description": "Y position in pixels (default 0)",
+            "type": "number"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-create.ts:62",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: textNode.id, name: textNode.name, type: textNode.type, bounds: getBounds(textNode) }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createText",
+        "(parent as any).appendChild"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "create_text_scale",
+      "category": "CREATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "scale": {
+            "description": "JSON object describing the typography scale.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scale"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/style-ecosystem.ts:85",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ created, failed }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createTextStyle"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "create_text_style",
+      "category": "STYLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "description": {
+            "description": "Optional human-readable description shown in the Figma style panel",
+            "type": "string"
+          },
+          "fontFamily": {
+            "description": "Font family name e.g. 'Inter', 'Roboto' (default Inter). Must be installed in Figma.",
+            "type": "string"
+          },
+          "fontSize": {
+            "description": "Font size in pixels (default 16)",
+            "type": "number"
+          },
+          "fontStyle": {
+            "description": "Font style variant e.g. 'Regular', 'Bold', 'Medium', 'SemiBold' (default Regular)",
+            "type": "string"
+          },
+          "letterSpacingUnit": {
+            "description": "Letter spacing unit: PIXELS (default) or PERCENT",
+            "type": "string"
+          },
+          "letterSpacingValue": {
+            "description": "Letter spacing value (unit set by letterSpacingUnit)",
+            "type": "number"
+          },
+          "lineHeightUnit": {
+            "description": "Line height unit: PIXELS (default) or PERCENT",
+            "type": "string"
+          },
+          "lineHeightValue": {
+            "description": "Line height value (unit set by lineHeightUnit)",
+            "type": "number"
+          },
+          "name": {
+            "description": "Style name — use slash notation to organise into groups e.g. 'Heading/H1', 'Body/Regular'",
+            "type": "string"
+          },
+          "textDecoration": {
+            "description": "Text decoration: NONE (default), UNDERLINE, or STRIKETHROUGH",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-styles.ts:25",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: existing.id, name: existing.name }",
+        "{ id: style.id, name: style.name }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createTextStyle"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "create_variable",
+      "category": "VARIABLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "collectionId": {
+            "description": "ID of the variable collection to add this variable to (from get_variable_defs)",
+            "type": "string"
+          },
+          "name": {
+            "description": "Variable name — use slash notation to group e.g. 'Color/Primary', 'Spacing/MD'",
+            "type": "string"
+          },
+          "type": {
+            "description": "Variable type: COLOR (hex color), FLOAT (numeric dimension/spacing), STRING (text), or BOOLEAN (true/false toggle)",
+            "type": "string"
+          },
+          "value": {
+            "description": "Initial value for the first mode. COLOR: hex e.g. #FF5733. FLOAT: number e.g. 16. STRING: text. BOOLEAN: true or false.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "collectionId",
+          "type"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-variables.ts:52",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id",
+        "collectionId"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_variable_defs",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{\r\n          id: variable.id,\r\n          name: variable.name,\r\n          resolvedType: variable.resolvedType,\r\n          collectionId: p.collectionId,\r\n        }"
+      ],
+      "staticNativeCallSites": [
+        "figma.variables.createVariable",
+        "variable.setValueForMode"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "create_variable_collection",
+      "category": "VARIABLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "initialModeName": {
+            "description": "Name for the initial mode (default 'Mode 1')",
+            "type": "string"
+          },
+          "name": {
+            "description": "Collection name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-variables.ts:18",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_variable_defs",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{\r\n          id: collection.id,\r\n          name: collection.name,\r\n          modes: collection.modes.map((m) => ({ modeId: m.modeId, name: m.name })),\r\n        }"
+      ],
+      "staticNativeCallSites": [
+        "figma.variables.createVariableCollection"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "delete_nodes",
+      "category": "DELETE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "nodeIds": {
+            "description": "Node IDs to delete in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "nodeIds"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-components.ts:42",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [
+        "n.remove"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "delete_page",
+      "category": "PAGE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "pageId": {
+            "description": "Page node ID in colon format e.g. '0:2'",
+            "type": "string"
+          },
+          "pageName": {
+            "description": "Exact page name to delete (alternative to pageId)",
+            "type": "string"
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-page.ts:22",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: deletedId, name: deletedName, deleted: true }"
+      ],
+      "staticNativeCallSites": [
+        "page.remove"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "delete_style",
+      "category": "STYLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "styleId": {
+            "description": "Style ID to delete",
+            "type": "string"
+          }
+        },
+        "required": [
+          "styleId"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-styles.ts:153",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ styleId: p.styleId, deleted: true }"
+      ],
+      "staticNativeCallSites": [
+        "style.remove"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "delete_variable",
+      "category": "VARIABLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "collectionId": {
+            "description": "Collection ID to delete (removes all variables in the collection)",
+            "type": "string"
+          },
+          "variableId": {
+            "description": "Variable ID to delete",
+            "type": "string"
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-variables.ts:96",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "variableId",
+        "collectionId"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_variable_defs",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ variableId: p.variableId, deleted: true }",
+        "{ collectionId: p.collectionId, deleted: true }"
+      ],
+      "staticNativeCallSites": [
+        "variable.remove",
+        "collection.remove"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "detach_instance",
+      "category": "COMPONENT",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "nodeIds": {
+            "description": "INSTANCE node IDs in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "nodeIds"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-components.ts:23",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "distribute_nodes",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "gap": {
+            "description": "Optional fixed gap; if set, overrides even distribution and uses the gap between nodes instead.",
+            "type": "number"
+          },
+          "mode": {
+            "description": "One of: horizontal-spacing, vertical-spacing, horizontal-centers, vertical-centers.",
+            "type": "string"
+          },
+          "nodeIds": {
+            "description": "JSON array of node IDs.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeIds",
+          "mode"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/layout.ts:149",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ mode, gap, results }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "group_nodes",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "name": {
+            "description": "Optional name for the new group",
+            "type": "string"
+          },
+          "nodeIds": {
+            "description": "Node IDs to group (minimum 2), in colon format e.g. ['4029:12345', '4029:12346']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "nodeIds"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-components.ts:78",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: group.id, name: group.name, type: group.type }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "import_design_tokens",
+      "category": "CREATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "collectionName": {
+            "description": "Variable collection name (default 'Imported Tokens').",
+            "type": "string"
+          },
+          "exposeAsStyles": {
+            "description": "If true, also create Paint/Text styles for color/typography tokens (default true).",
+            "type": "boolean"
+          },
+          "tokens": {
+            "description": "Design tokens JSON.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "tokens"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/style-ecosystem.ts:122",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "collectionId",
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{\r\n          collectionId: collection.id,\r\n          collectionName: collection.name,\r\n          created,\r\n          failed,\r\n        }"
+      ],
+      "staticNativeCallSites": [
+        "figma.variables.createVariableCollection",
+        "figma.variables.createVariable",
+        "v.setValueForMode",
+        "figma.createPaintStyle"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "import_image",
+      "category": "CREATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "height": {
+            "description": "Height in pixels (default 200)",
+            "type": "number"
+          },
+          "imageData": {
+            "description": "Base64-encoded image data (PNG or JPG)",
+            "type": "string"
+          },
+          "name": {
+            "description": "Node name",
+            "type": "string"
+          },
+          "parentId": {
+            "description": "Parent node ID in colon format. Defaults to current page.",
+            "type": "string"
+          },
+          "scaleMode": {
+            "description": "Image scale mode: FILL (default), FIT, CROP, or TILE",
+            "type": "string"
+          },
+          "width": {
+            "description": "Width in pixels (default 200)",
+            "type": "number"
+          },
+          "x": {
+            "description": "X position (default 0)",
+            "type": "number"
+          },
+          "y": {
+            "description": "Y position (default 0)",
+            "type": "number"
+          }
+        },
+        "required": [
+          "imageData"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-create.ts:85",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: rect.id, name: rect.name, type: rect.type, bounds: getBounds(rect) }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createImage",
+        "figma.createRectangle",
+        "rect.resize",
+        "(parent as any).appendChild"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "instantiate_by_name",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "componentName": {
+            "description": "Component name to look up.",
+            "type": "string"
+          },
+          "overrides": {
+            "description": "Optional JSON object: {\"layerName\":\"text\"} to set text on a child by layer name.",
+            "type": "string"
+          },
+          "parentId": {
+            "description": "Where to place the new instance (defaults to current page).",
+            "type": "string"
+          },
+          "x": {
+            "description": "Optional x position.",
+            "type": "number"
+          },
+          "y": {
+            "description": "Optional y position.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "componentName"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/components-v2.ts:154",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "instanceId",
+        "id",
+        "componentId"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{\n          instanceId: inst.id,\n          componentId: match.id,\n          componentName: match.name,\n          bounds: getBounds(inst),\n          appliedOverrides: applied,\n          ...(errors.length ? { errors } : {}),\n        }"
+      ],
+      "staticNativeCallSites": [
+        "match.createInstance",
+        "(parent as any).appendChild"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "lock_nodes",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "nodeIds": {
+            "description": "Node IDs in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "nodeIds"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:203",
+      "result": "Shares the following switch clause / Go adapter; see dispatch source.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "make_slide_grid",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "columns": {
+            "description": "Number of columns (default 4).",
+            "type": "number"
+          },
+          "frameIds": {
+            "description": "JSON array of slide frame IDs in display order.",
+            "type": "string"
+          },
+          "gap": {
+            "description": "Gap between cells in px (default 80).",
+            "type": "number"
+          },
+          "startX": {
+            "description": "Top-left X (default 0).",
+            "type": "number"
+          },
+          "startY": {
+            "description": "Top-left Y (default 0).",
+            "type": "number"
+          }
+        },
+        "required": [
+          "frameIds"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/slides.ts:239",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{\r\n          arranged,\r\n          rows: Math.ceil(frames.length / columns),\r\n          columns,\r\n          cellSize: { width: maxW, height: maxH },\r\n        }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "move_nodes",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "nodeIds": {
+            "description": "Node IDs in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "x": {
+            "description": "Target X position",
+            "type": "number"
+          },
+          "y": {
+            "description": "Target Y position",
+            "type": "number"
+          }
+        },
+        "required": [
+          "nodeIds"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:65",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "move_to_anchor",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "anchorId": {
+            "description": "Anchor node ID to align against.",
+            "type": "string"
+          },
+          "gap": {
+            "description": "Optional gap (default 0). For above/below/left-of/right-of this is the distance between the edges. For align-* modes it's an additional offset along the perpendicular axis.",
+            "type": "number"
+          },
+          "mode": {
+            "description": "One of: align-left, align-right, align-center-x, align-top, align-bottom, align-center-y, above, below, left-of, right-of.",
+            "type": "string"
+          },
+          "nodeId": {
+            "description": "Node ID to move.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId",
+          "anchorId",
+          "mode"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/edit.ts:372",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "nodeId",
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ nodeId: node.id, x: node.x, y: node.y, mode, anchorId }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "navigate_to_page",
+      "category": "OTHER",
+      "documentMutation": false,
+      "schema": {
+        "properties": {
+          "pageId": {
+            "description": "Page node ID in colon format e.g. '0:1'",
+            "type": "string"
+          },
+          "pageName": {
+            "description": "Exact page name to navigate to",
+            "type": "string"
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-components.ts:56",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: page.id, name: page.name }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "pack_grid",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "columns": {
+            "description": "Number of columns.",
+            "type": "number"
+          },
+          "gap": {
+            "description": "Gap (px) between cells (default 24).",
+            "type": "number"
+          },
+          "nodeIds": {
+            "description": "JSON array of node IDs to pack. Order is preserved.",
+            "type": "string"
+          },
+          "startX": {
+            "description": "Top-left X (default 0).",
+            "type": "number"
+          },
+          "startY": {
+            "description": "Top-left Y (default 0).",
+            "type": "number"
+          }
+        },
+        "required": [
+          "nodeIds",
+          "columns"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/layout.ts:202",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{\r\n          columns,\r\n          rows: rowHeights.length,\r\n          gap,\r\n          colWidth,\r\n          rowHeights,\r\n          results,\r\n        }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "patch_html",
+      "category": "HTML/BATCH",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "patches": {
+            "description": "JSON array of {\"selector\":\"...\", \"props\":{...}} patch entries.",
+            "type": "string"
+          },
+          "targetNodeId": {
+            "description": "Root of the subtree to walk. Patches only apply to nodes inside this subtree.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "targetNodeId",
+          "patches"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/edit.ts:280",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "Existing HTML font/cache behavior; no whole-operation transport replay",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{\r\n          matched: totalMatched,\r\n          // applied = nodes where ALL props applied (legacy semantic)\r\n          applied: totalAppliedAll,\r\n          // appliedPartial = nodes where AT LEAST ONE prop applied (more useful)\r\n          appliedPartial: totalAppliedAny,\r\n          results,\r\n        }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "regenerate_slide",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "frameId": {
+            "description": "Existing slide frame to regenerate.",
+            "type": "string"
+          },
+          "html": {
+            "description": "New HTML body for the slide's children.",
+            "type": "string"
+          },
+          "preserveBackground": {
+            "description": "If true (default true), keep the frame's existing fills.",
+            "type": "boolean"
+          },
+          "styleMapping": {
+            "description": "Optional styleMapping JSON.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "frameId",
+          "html"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/slides.ts:165",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "frameId"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{\r\n          frameId,\r\n          newChildren: writeRes?.data?.created || [],\r\n          removedChildren: removed,\r\n        }"
+      ],
+      "staticNativeCallSites": [
+        "p.remove",
+        "oc.remove",
+        "frame.resize"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "remove_reactions",
+      "category": "PROTOTYPE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "indices": {
+            "description": "Zero-based indices of reactions to remove. Omit or pass [] to remove all.",
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "nodeId": {
+            "description": "Node ID in colon format e.g. '4029:12345'",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-prototype.ts:106",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_reactions",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{\r\n          id: node.id,\r\n          name: (node as any).name,\r\n          removed: current.length - updated.length,\r\n          reactionCount: updated.length,\r\n        }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "rename_node",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "name": {
+            "description": "New name for the node. Figma supports slash-separated path notation e.g. 'Icons/Arrow/Left' to organise nodes in component panels.",
+            "type": "string"
+          },
+          "nodeId": {
+            "description": "Node ID in colon format e.g. '4029:12345'",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId",
+          "name"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:100",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: node.id, name: node.name }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "rename_page",
+      "category": "PAGE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "newName": {
+            "description": "New name for the page",
+            "type": "string"
+          },
+          "pageId": {
+            "description": "Page node ID in colon format e.g. '0:2'",
+            "type": "string"
+          },
+          "pageName": {
+            "description": "Current page name to find (alternative to pageId)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "newName"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-page.ts:50",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: page.id, oldName, name: page.name }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "reorder_nodes",
+      "category": "ORDERING",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "nodeIds": {
+            "description": "Node IDs in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "order": {
+            "description": "Order operation: bringToFront, sendToBack, bringForward, or sendBackward",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeIds",
+          "order"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:236",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [
+        "parent.insertChild"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "reparent_nodes",
+      "category": "REPARENT",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "nodeIds": {
+            "description": "Node IDs to move in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "parentId": {
+            "description": "Target parent node ID in colon format e.g. '4029:99'",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeIds",
+          "parentId"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:302",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [
+        "newParent.appendChild"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "replace_image_globally",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "newImageBase64": {
+            "description": "Base64 of the replacement image (omit if newImageHash is set).",
+            "type": "string"
+          },
+          "newImageHash": {
+            "description": "Hash of an already-imported replacement image.",
+            "type": "string"
+          },
+          "oldImageHash": {
+            "description": "The image hash currently in use (visible in get_node responses).",
+            "type": "string"
+          }
+        },
+        "required": [
+          "oldImageHash"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/export-v2.ts:225",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ affectedNodes: affected, total: affected.length, oldImageHash: oldHash, newImageHash: newHash }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createImage"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "resize_nodes",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "height": {
+            "description": "New height in pixels",
+            "type": "number"
+          },
+          "nodeIds": {
+            "description": "Node IDs in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "width": {
+            "description": "New width in pixels",
+            "type": "number"
+          }
+        },
+        "required": [
+          "nodeIds"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:82",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [
+        "n.resize"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "rotate_nodes",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "nodeIds": {
+            "description": "Node IDs in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "rotation": {
+            "description": "Rotation angle in degrees (positive = counter-clockwise in Figma)",
+            "type": "number"
+          }
+        },
+        "required": [
+          "nodeIds",
+          "rotation"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:220",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "set_auto_layout",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "counterAxisAlignItems": {
+            "description": "Cross-axis alignment: MIN, CENTER, MAX, or BASELINE",
+            "type": "string"
+          },
+          "counterAxisSizingMode": {
+            "description": "Cross-axis sizing: FIXED or AUTO (hug)",
+            "type": "string"
+          },
+          "counterAxisSpacing": {
+            "description": "Gap between wrapped rows/columns (only when layoutWrap is WRAP)",
+            "type": "number"
+          },
+          "itemSpacing": {
+            "description": "Gap between children",
+            "type": "number"
+          },
+          "layoutMode": {
+            "description": "Auto-layout direction: HORIZONTAL, VERTICAL, or NONE",
+            "type": "string"
+          },
+          "layoutWrap": {
+            "description": "Wrap behaviour: NO_WRAP or WRAP",
+            "type": "string"
+          },
+          "nodeId": {
+            "description": "Frame node ID in colon format e.g. '4029:12345'",
+            "type": "string"
+          },
+          "paddingBottom": {
+            "description": "Bottom padding",
+            "type": "number"
+          },
+          "paddingLeft": {
+            "description": "Left padding",
+            "type": "number"
+          },
+          "paddingRight": {
+            "description": "Right padding",
+            "type": "number"
+          },
+          "paddingTop": {
+            "description": "Top padding",
+            "type": "number"
+          },
+          "primaryAxisAlignItems": {
+            "description": "Main-axis alignment: MIN, CENTER, MAX, or SPACE_BETWEEN",
+            "type": "string"
+          },
+          "primaryAxisSizingMode": {
+            "description": "Main-axis sizing: FIXED or AUTO (hug)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:171",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: node.id, name: node.name }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "set_blend_mode",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "blendMode": {
+            "description": "Blend mode: NORMAL, MULTIPLY, SCREEN, OVERLAY, DARKEN, LIGHTEN, COLOR_DODGE, COLOR_BURN, HARD_LIGHT, SOFT_LIGHT, DIFFERENCE, EXCLUSION, HUE, SATURATION, COLOR, LUMINOSITY, PASS_THROUGH",
+            "type": "string"
+          },
+          "nodeIds": {
+            "description": "Node IDs in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "nodeIds",
+          "blendMode"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:267",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "set_constraints",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "horizontal": {
+            "description": "Horizontal constraint: MIN (left), MAX (right), CENTER, STRETCH, or SCALE",
+            "type": "string"
+          },
+          "nodeIds": {
+            "description": "Node IDs in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "vertical": {
+            "description": "Vertical constraint: MIN (top), MAX (bottom), CENTER, STRETCH, or SCALE",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeIds"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:283",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "set_corner_radius",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "bottomLeftRadius": {
+            "description": "Bottom-left corner radius",
+            "type": "number"
+          },
+          "bottomRightRadius": {
+            "description": "Bottom-right corner radius",
+            "type": "number"
+          },
+          "cornerRadius": {
+            "description": "Uniform corner radius applied to all corners",
+            "type": "number"
+          },
+          "nodeIds": {
+            "description": "Node IDs in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "topLeftRadius": {
+            "description": "Top-left corner radius",
+            "type": "number"
+          },
+          "topRightRadius": {
+            "description": "Top-right corner radius",
+            "type": "number"
+          }
+        },
+        "required": [
+          "nodeIds"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:151",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "set_effects",
+      "category": "STYLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "effects": {
+            "description": "Array of effect objects. Each has: type (DROP_SHADOW | INNER_SHADOW | LAYER_BLUR | BACKGROUND_BLUR), radius, color (hex, shadows only), opacity (0–1, shadows only), offsetX, offsetY (shadows only), spread (shadows only), visible (default true)",
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "nodeId": {
+            "description": "Target node ID in colon format e.g. 4029:12345",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId",
+          "effects"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-styles.ts:263",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: node.id, name: node.name, effectCount: effects.length }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "set_fills",
+      "category": "STYLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "color": {
+            "description": "Fill color as hex: #RRGGBB e.g. #FF5733 or #RRGGBBAA e.g. #FF573380 for 50% alpha",
+            "type": "string"
+          },
+          "mode": {
+            "description": "'replace' (default) overwrites all existing fills; 'append' stacks this fill on top of existing ones",
+            "type": "string"
+          },
+          "nodeId": {
+            "description": "Node ID in colon format e.g. '4029:12345'",
+            "type": "string"
+          },
+          "opacity": {
+            "description": "Fill opacity 0–1 (default 1). Combines multiplicatively with any alpha in the color hex.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "nodeId",
+          "color"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:26",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: node.id, name: node.name }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "set_instance_overrides_batch",
+      "category": "COMPONENT",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "updates": {
+            "description": "JSON array of {\"instanceId\":\"...\", \"overrides\":{...}} entries.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "updates"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/components-v2.ts:251",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ applied: appliedTotal, failed: failedTotal, results }"
+      ],
+      "staticNativeCallSites": [
+        "slot.swapComponent"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "set_opacity",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "nodeIds": {
+            "description": "Node IDs in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "opacity": {
+            "description": "Opacity value between 0 and 1",
+            "type": "number"
+          }
+        },
+        "required": [
+          "nodeIds",
+          "opacity"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:135",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "set_reactions",
+      "category": "PROTOTYPE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "mode": {
+            "description": "\"replace\" (default) overwrites all existing reactions; \"append\" adds to them",
+            "type": "string"
+          },
+          "nodeId": {
+            "description": "Node ID in colon format e.g. '4029:12345'",
+            "type": "string"
+          },
+          "reactions": {
+            "description": "Array of reaction objects. Each has a 'trigger' and an 'actions' array (plural) of Action objects.",
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "nodeId",
+          "reactions"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-prototype.ts:82",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_reactions",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: node.id, name: (node as any).name, reactionCount: final.length }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "set_strokes",
+      "category": "STYLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "color": {
+            "description": "Stroke color as hex e.g. #000000",
+            "type": "string"
+          },
+          "mode": {
+            "description": "'replace' (default) overwrites all strokes; 'append' stacks on top of existing strokes",
+            "type": "string"
+          },
+          "nodeId": {
+            "description": "Node ID in colon format e.g. '4029:12345'",
+            "type": "string"
+          },
+          "strokeWeight": {
+            "description": "Stroke weight in pixels (default 1)",
+            "type": "number"
+          }
+        },
+        "required": [
+          "nodeId",
+          "color"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:45",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: node.id, name: node.name }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "set_text",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "nodeId": {
+            "description": "TEXT node ID in colon format e.g. '4029:12345'",
+            "type": "string"
+          },
+          "text": {
+            "description": "New text content",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId",
+          "text"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:6",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: node.id, name: node.name, characters: node.characters }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "set_variable_value",
+      "category": "VARIABLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "modeId": {
+            "description": "Mode ID within the collection",
+            "type": "string"
+          },
+          "value": {
+            "description": "Value to set. COLOR: hex e.g. #FF5733. FLOAT: number e.g. 16. STRING: text. BOOLEAN: true or false.",
+            "type": "string"
+          },
+          "variableId": {
+            "description": "Variable ID",
+            "type": "string"
+          }
+        },
+        "required": [
+          "variableId",
+          "modeId",
+          "value"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-variables.ts:80",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "variableId",
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_variable_defs",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ variableId: variable.id, name: variable.name, modeId: p.modeId }"
+      ],
+      "staticNativeCallSites": [
+        "variable.setValueForMode"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "set_visible",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "nodeIds": {
+            "description": "Node IDs in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "visible": {
+            "description": "true to show the node, false to hide it",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "nodeIds",
+          "visible"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:187",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "slide_template",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "action": {
+            "description": "One of: list, preview, instantiate.",
+            "type": "string"
+          },
+          "frameHeight": {
+            "description": "Height (default 1350).",
+            "type": "number"
+          },
+          "frameWidth": {
+            "description": "Width (default 1080).",
+            "type": "number"
+          },
+          "parentId": {
+            "description": "Where to put the new slide (instantiate only).",
+            "type": "string"
+          },
+          "slots": {
+            "description": "JSON object of slot values for instantiate.",
+            "type": "string"
+          },
+          "styleMapping": {
+            "description": "Optional styleMapping JSON applied to the template.",
+            "type": "string"
+          },
+          "template": {
+            "description": "Template name (required for preview and instantiate).",
+            "type": "string"
+          },
+          "x": {
+            "description": "Slide x position (instantiate only).",
+            "type": "number"
+          },
+          "y": {
+            "description": "Slide y position (instantiate only).",
+            "type": "number"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/slides.ts:96",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "frameId",
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{\r\n            templates: Object.values(TEMPLATES).map(t => ({\r\n              name: t.name,\r\n              description: t.description,\r\n              slots: t.slots,\r\n            })),\r\n          }",
+        "{ template: tname, html, slots: tmpl.slots }",
+        "{\r\n          frameId: frame.id,\r\n          template: tname,\r\n          bounds: getBounds(frame),\r\n          children: writeRes?.data?.created || [],\r\n        }"
+      ],
+      "staticNativeCallSites": [
+        "figma.createFrame",
+        "frame.resize",
+        "(parent as any).appendChild"
+      ],
+      "containsLoop": false
+    },
+    {
+      "tool": "swap_component",
+      "category": "COMPONENT",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "componentId": {
+            "description": "Target COMPONENT node ID in colon format (from get_local_components)",
+            "type": "string"
+          },
+          "nodeId": {
+            "description": "INSTANCE node ID in colon format e.g. 4029:12345",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId",
+          "componentId"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-components.ts:3",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id",
+        "componentId"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: node.id, name: node.name, componentId: component.id, componentName: component.name }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "ungroup_nodes",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "nodeIds": {
+            "description": "GROUP node IDs in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "nodeIds"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-components.ts:97",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [
+        "parent.insertChild",
+        "group.remove"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "unlock_nodes",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "nodeIds": {
+            "description": "Node IDs in colon format e.g. ['4029:12345']",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "nodeIds"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-modify.ts:204",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ results }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "update_node_props",
+      "category": "UPDATE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "updates": {
+            "description": "JSON array of {\"nodeId\":\"...\", \"props\":{...}} update entries.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "updates"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/edit.ts:246",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ applied: appliedCount, failed: failedCount, results }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": true
+    },
+    {
+      "tool": "update_paint_style",
+      "category": "STYLE",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "color": {
+            "description": "New fill color as hex e.g. #FF5733",
+            "type": "string"
+          },
+          "description": {
+            "description": "New style description",
+            "type": "string"
+          },
+          "name": {
+            "description": "New style name",
+            "type": "string"
+          },
+          "styleId": {
+            "description": "Paint style ID",
+            "type": "string"
+          }
+        },
+        "required": [
+          "styleId"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-styles.ts:136",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [
+        "id"
+      ],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "No whole-operation bridge retry",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "{ id: style.id, name: style.name }"
+      ],
+      "staticNativeCallSites": [],
+      "containsLoop": false
+    },
+    {
+      "tool": "write_html",
+      "category": "HTML/BATCH",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "autoOffset": {
+            "description": "If true (default false) and x/y are omitted, automatically place the new root next to existing siblings (last child's x + width + 80) so consecutive write_html calls don't stack on top of each other.",
+            "type": "boolean"
+          },
+          "html": {
+            "description": "HTML string with inline CSS styles. Elements map to Figma nodes: div->Frame, p/span/h1-h6->Text, img->Rectangle with image fill.",
+            "type": "string"
+          },
+          "mode": {
+            "description": "'insert-children' (default) adds parsed HTML as children of targetNodeId. 'replace' removes targetNodeId and puts parsed HTML in its place.",
+            "type": "string"
+          },
+          "requestId": {
+            "description": "Optional idempotency key. If a previous write_html call with the same requestId already completed, the cached result is returned without recreating nodes (safe for timeout retries).",
+            "type": "string"
+          },
+          "styleMapping": {
+            "description": "JSON object mapping CSS class names to Figma style IDs. Example: {\"heading-cover\": {\"textStyleId\": \"S:abc123\", \"paintStyleId\": \"S:def456\"}, \"body-text\": {\"textStyleId\": \"S:ghi789\", \"paintStyleId\": \"S:jkl012\"}}. Use class=\"heading-cover\" in HTML to auto-bind styles. Each mapping entry may also include a \"variables\" array of {field, variableId} bindings (see B-8) — e.g. \"variables\":[{\"field\":\"fillColor\",\"variableId\":\"VariableID:...\"}] to bind a Figma Variable to the node's fill, stroke, opacity, width, height, cornerRadius, padding*, etc.",
+            "type": "string"
+          },
+          "targetNodeId": {
+            "description": "Parent node ID to insert children into (insert-children mode) or node to replace (replace mode). Colon format e.g. '4029:12345'.",
+            "type": "string"
+          },
+          "x": {
+            "description": "Optional X position for created root node(s). When omitted, nodes are placed at (0,0) inside the parent. For 'insert-children' mode this offsets the new children; for 'replace' mode this overrides the original target's position.",
+            "type": "number"
+          },
+          "y": {
+            "description": "Optional Y position for created root node(s).",
+            "type": "number"
+          }
+        },
+        "required": [
+          "html",
+          "targetNodeId"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-html.ts:1190",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "Existing HTML font/cache behavior; no whole-operation transport replay",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "completedRequests.get(p.requestId)",
+        "result"
+      ],
+      "staticNativeCallSites": [
+        "createFigmaNode",
+        "(targetNode as SceneNode).remove"
+      ],
+      "containsLoop": true
+    },
+    {
+      "tool": "write_html_batch",
+      "category": "HTML/BATCH",
+      "documentMutation": true,
+      "schema": {
+        "properties": {
+          "frameHeight": {
+            "description": "Height for all frames in pixels (default 1350)",
+            "type": "number"
+          },
+          "frameWidth": {
+            "description": "Width for all frames in pixels (default 1080)",
+            "type": "number"
+          },
+          "parentId": {
+            "description": "Parent node ID to contain all frames. Defaults to current page.",
+            "type": "string"
+          },
+          "slides": {
+            "description": "JSON array of slide objects. Each has: \"name\" (frame name), \"html\" (HTML content). Example: [{\"name\": \"A3-0 Cover\", \"html\": \"<div style='...'>...</div>\"}, {\"name\": \"A3-1 Content\", \"html\": \"<div style='...'>...</div>\"}]",
+            "type": "string"
+          },
+          "spacing": {
+            "description": "Horizontal spacing between frames in pixels (default 80)",
+            "type": "number"
+          },
+          "startX": {
+            "description": "X position of first frame (default 0)",
+            "type": "number"
+          },
+          "startY": {
+            "description": "Y position of first frame (default 0)",
+            "type": "number"
+          },
+          "styleMapping": {
+            "description": "JSON object mapping CSS class names to Figma style IDs. Applied to all slides. Example: {\"heading\": {\"textStyleId\": \"S:abc\", \"paintStyleId\": \"S:def\"}}",
+            "type": "string"
+          }
+        },
+        "required": [
+          "slides"
+        ],
+        "type": "object"
+      },
+      "dispatch": "plugin/src/write-html.ts:1298",
+      "result": "Exact baseline data expressions below; normal result fields are retained by hardening.",
+      "ids": [],
+      "retrySafeToday": false,
+      "idempotencyPossible": true,
+      "readback": "get_node/get_document; styles/components via corresponding reads",
+      "partialSuccessPossible": true,
+      "multipleNativeMutationsPossible": true,
+      "internalRetry": "Existing HTML font/cache behavior; no whole-operation transport replay",
+      "responseCanBeLostAfterCommit": true,
+      "returnedDataExpressions": [
+        "completedRequests.get(p.requestId)",
+        "batchResult"
+      ],
+      "staticNativeCallSites": [
+        "figma.createFrame",
+        "frame.resize",
+        "(parent as any).appendChild",
+        "createFigmaNode"
+      ],
+      "containsLoop": true
+    }
+  ],
+  "auditMethod": "Exact baseline public schemas plus TypeScript AST extraction of native dispatcher case locations, returned data expressions, loops and mutating-call sites. Partial/multiple flags are conservative non-atomicity warnings; static call sites are not exact dynamic counts."
+}

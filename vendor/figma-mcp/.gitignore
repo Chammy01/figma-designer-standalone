@@ -25,3 +25,5 @@ example/
 .vscode/
 release
 localonly
+
+.local/

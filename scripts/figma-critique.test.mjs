@@ -29,7 +29,7 @@ test('report contract requires priorities, actionable evidence, strengths and ho
 });
 
 test('every allowed MCP read is registered; every other tool including future tools is denied', () => {
-  const catalogSource = ['tools_read_document.go', 'tools_read_styles.go', 'tools_read_export.go', 'tools_edit.go', 'tools_layout.go', 'tools_diagnostics.go', 'tools_validation.go'].map(file => read(`vendor/figma-mcp/internal/${file}`)).join('\n');
+  const catalogSource = ['tools_read_document.go', 'tools_read_styles.go', 'tools_read_export.go', 'tools_edit.go', 'tools_layout.go', 'tools_diagnostics.go', 'tools_validation.go', 'reliability.go'].map(file => read(`vendor/figma-mcp/internal/${file}`)).join('\n');
   for (const name of critiqueReadTools) {
     assert.ok(catalogSource.includes(`"${name}"`), name);
     assert.equal(isCritiqueReadTool(`figma_${name}`), true);

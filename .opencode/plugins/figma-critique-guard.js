@@ -7,6 +7,7 @@ export const critiqueReadTools = [
   'scan_text_nodes', 'scan_nodes_by_types', 'get_fonts', 'get_styles',
   'get_local_components', 'get_reactions', 'inspect_node_as_html',
   'explain_layout', 'explain_node', 'get_screenshot',
+  'get_operation_receipt', 'get_document_revision',
 ];
 // OpenCode 2.0.24 Code Mode fetch bypasses tool hooks; block the wrapper too.
 const allowed = new Set(['read', 'glob', 'grep', ...critiqueReadTools.flatMap(name => [`figma_${name}`, `figma_critique_${name}`])]);
