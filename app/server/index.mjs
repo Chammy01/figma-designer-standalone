@@ -20,7 +20,7 @@ async function listen(server,port=0){await new Promise((r,reject)=>{server.once(
 async function body(req){if(req.headers.origin!==`http://${req.headers.host}` || req.headers['content-type']?.split(';')[0]!=='application/json')throw Object.assign(Error('Same-origin JSON required'),{status:403});const chunks=[];let size=0;for await(const chunk of req){size+=chunk.length;if(size>40000)throw Object.assign(Error('Request too large'),{status:413});chunks.push(chunk);}try{return JSON.parse(Buffer.concat(chunks).toString('utf8'));}catch{throw Object.assign(Error('Invalid JSON'),{status:400});}}
 function json(res,value,status=200){res.writeHead(status,{'Content-Type':'application/json'});res.end(JSON.stringify(value));}
 
-export async function createApplication({root=projectRoot,engine=new OpenCodeClient({root,executable:process.env.OPENCODE_EXECUTABLE,url:process.env.FIGMA_APP_OPENCODE_URL,password:process.env.FIGMA_APP_OPENCODE_PASSWORD}),status=()=>systemStatus(root),browser=()=>previewStatus(root),fingerprint=async()=>root===projectRoot?documentFingerprint(await readQATool('get_document')).sha256:null,validation=new Validation(root,root===projectRoot?{}:{read:async()=>{throw Error('Fixture source unavailable');}}),port=0,recoveryFile,onPreview=()=>{}}={}) {
+export async function createApplication({root=projectRoot,engine=new OpenCodeClient({root,executable:process.env.OPENCODE_EXECUTABLE,url:process.env.FIGMA_APP_OPENCODE_URL,password:process.env.FIGMA_APP_OPENCODE_PASSWORD}),status=()=>systemStatus(root),browser=()=>previewStatus(root),fingerprint=async()=>root===projectRoot?documentFingerprint(await readQATool('get_document')).sha256:null,validation=new Validation(root,root===projectRoot?{}:{read:async()=>{throw Error('Fixture source unavailable');}}),port=0,recoveryFile,onPreview=()=>{},onExternalSetup=()=>{}}={}) {
   const events=[];let logChain=Promise.resolve(),closed=false;
   const log=event=>{events.push({...event,time:new Date().toISOString()});if(events.length>100)events.shift();logChain=logChain.then(async()=>{await mkdir(join(root,'.figma-designer/app'),{recursive:true});await writeFile(join(root,'.figma-designer/app/events.json'),JSON.stringify(events));}).catch(()=>{});};
   const store=recoveryFile?recoveryStore(recoveryFile):null;
@@ -59,7 +59,7 @@ export async function createApplication({root=projectRoot,engine=new OpenCodeCli
         const value=await body(req);
         if(path==='/api/ai/model'){json(res,await ai.choose(value.model));return;}
         if(path==='/api/ai/check'){json(res,await ai.check());return;}
-        if(path==='/api/ai/connect'){json(res,await ai.connect(value));return;}
+        if(path==='/api/ai/connect'){const result=await ai.connect(value);if(result.url)onExternalSetup(result.url);json(res,result);return;}
         if(path==='/api/session'){if(runs.active||runs.uncertain||ai.busy)throw Object.assign(Error('Wait for the active task or result check'),{status:409});if(!['READY','EXTERNAL'].includes(engine.status().state))throw Object.assign(Error('Engine is not ready'),{status:503});ai.assertReady();json(res,{id:(await runs.newWorkspace()).id});return;}
         if(path==='/api/run'){
           if(!['READY','EXTERNAL'].includes(engine.status().state))throw Object.assign(Error('Engine is not ready'),{status:503});

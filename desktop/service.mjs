@@ -11,6 +11,6 @@ process.on('disconnect',close);process.on('SIGTERM',close);
 try{
   // Import the existing service from the writable workspace so its normal root stays authoritative.
   const {createApplication:create}=await import(pathToFileURL(join(root,'app/server/index.mjs')));
-  service=await create({root,engine,recoveryFile:join(root,'.figma-designer/app/recovery.json'),onPreview:url=>process.send?.({type:'preview',url})});
+  service=await create({root,engine,recoveryFile:join(root,'.figma-designer/app/recovery.json'),onPreview:url=>process.send?.({type:'preview',url}),onExternalSetup:url=>process.send?.({type:'provider-setup',url})});
   process.send({type:'ready',url:service.url});
 }catch{process.send?.({type:'error',code:'APP_SERVICE_FAILED'});await close();}

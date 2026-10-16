@@ -82,8 +82,9 @@ fixed plugin folder, gated to the main window and its exact local origin.
 
 Main-window navigation stays on its own origin. The preview gets a separate window,
 separate server origin, sandbox, no desktop bridge, and no arbitrary popups. External
-HTTPS setup links require explicit known hosts; unknown provider domains stay blocked
-pending a reviewed allowlist addition. No updater/telemetry/startup-on-login is added.
+HTTPS documentation links require explicit known hosts. Provider sign-in links are
+registered only from the existing validated provider-setup response: at most eight
+exact URLs for 15 minutes, in memory only; HTTPS or HTTP loopback, no credentials. No updater/telemetry/startup-on-login is added.
 Plugin wildcard network permission remains UNRESOLVED and unchanged.
 
 ## Install, upgrade, uninstall and validation

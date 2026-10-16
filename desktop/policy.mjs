@@ -7,7 +7,9 @@ export const applicationId='com.chammy01.figmadesigner';
 export const sha256=bytes=>createHash('sha256').update(bytes).digest('hex');
 export async function verifyRuntime(root){
   const approved=JSON.parse(await readFile(join(root,'docs/APPROVED_RUNTIME.json'),'utf8'));
-  for(const [file,hash]of Object.entries(approved.sha256))if(sha256(await readFile(join(root,file)))!==hash)throw Error('RUNTIME_HASH_MISMATCH');
+  const paths=['bin/figma-designer-mcp.exe','vendor/figma-mcp/plugin/dist/code.js','vendor/figma-mcp/plugin/dist/index.html'];
+  if(!approved.sha256||Object.keys(approved.sha256).length!==3||paths.some(p=>!/^[a-f0-9]{64}$/.test(approved.sha256[p]??'')))throw Error('RUNTIME_HASH_MISMATCH');
+  for(const file of paths)if(sha256(await readFile(join(root,file)))!==approved.sha256[file])throw Error('RUNTIME_HASH_MISMATCH');
   return approved;
 }
 export async function atomicJSON(file,value){await mkdir(dirname(file),{recursive:true});const temp=file+'.'+randomUUID()+'.tmp';await writeFile(temp,JSON.stringify(value));await rename(temp,file);}
@@ -18,6 +20,10 @@ export function restoredBounds(saved,displays){
   return b;
 }
 export function externalAllowed(value){try{const u=new URL(value);return u.protocol==='https:'&&!u.username&&!u.password&&['github.com','opencode.ai','accounts.google.com','huggingface.co','login.microsoftonline.com','developers.figma.com'].includes(u.hostname);}catch{return false;}}
+export function externalSetupPolicy(now=Date.now){
+  const urls=new Map();
+  return {register(value){try{const u=new URL(value);if(value.length>4096||u.username||u.password||!(u.protocol==='https:'||u.protocol==='http:'&&['127.0.0.1','localhost','[::1]'].includes(u.hostname)))return false;urls.set(u.href,now()+15*60*1000);while(urls.size>8)urls.delete(urls.keys().next().value);return true;}catch{return false;}},allows(value){try{return externalAllowed(value)||(urls.get(new URL(value).href)??0)>now();}catch{return false;}}};
+}
 export function sameOrigin(value,origin){try{return new URL(value).origin===origin;}catch{return false;}}
 export async function prepareWorkspace(payload,root){
   await verifyRuntime(join(payload,'workspace'));
