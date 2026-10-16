@@ -12,8 +12,9 @@ export async function verifyRuntime(root){
 }
 export async function atomicJSON(file,value){await mkdir(dirname(file),{recursive:true});const temp=file+'.'+randomUUID()+'.tmp';await writeFile(temp,JSON.stringify(value));await rename(temp,file);}
 export function restoredBounds(saved,displays){
-  const b={width:1320,height:860};
-  if(saved&&[saved.x,saved.y,saved.width,saved.height].every(Number.isFinite)&&saved.width>=900&&saved.height>=650&&displays.some(({workArea:a})=>saved.x>=a.x&&saved.y>=a.y&&saved.x+Math.min(saved.width,900)<=a.x+a.width&&saved.y+Math.min(saved.height,650)<=a.y+a.height))return saved;
+  const area=displays[0]?.workArea??{width:1320,height:860};
+  const b={width:Math.max(900,Math.min(1320,area.width)),height:Math.max(650,Math.min(860,area.height))};
+  if(saved&&[saved.x,saved.y,saved.width,saved.height].every(Number.isFinite)&&saved.width>=900&&saved.height>=650&&displays.some(({workArea:a})=>saved.x>=a.x&&saved.y>=a.y&&saved.x+saved.width<=a.x+a.width&&saved.y+saved.height<=a.y+a.height))return saved;
   return b;
 }
 export function externalAllowed(value){try{const u=new URL(value);return u.protocol==='https:'&&!u.username&&!u.password&&['github.com','opencode.ai','accounts.google.com','huggingface.co','login.microsoftonline.com','developers.figma.com'].includes(u.hostname);}catch{return false;}}

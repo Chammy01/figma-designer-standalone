@@ -19,7 +19,7 @@ if(!app.requestSingleInstanceLock()){app.quit();}else{
     await mkdir(data,{recursive:true});await cleanupDiagnostics(join(app.getPath('temp'),'Figma Designer'));
     await prepareWorkspace(payload,workspace);
     let saved;try{saved=JSON.parse(await readFile(join(data,'window.json'),'utf8'));}catch{}
-    window=new BrowserWindow({...restoredBounds(saved,screen.getAllDisplays()),minWidth:900,minHeight:650,title:'Figma Designer',show:false,webPreferences:{preload:join(here,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
+    window=new BrowserWindow({...restoredBounds(saved,[screen.getPrimaryDisplay(),...screen.getAllDisplays()]),minWidth:900,minHeight:650,title:'Figma Designer',show:false,webPreferences:{preload:join(here,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
     window.on('close',()=>atomicJSON(join(data,'window.json'),window.getNormalBounds()).catch(()=>{}));
     const allowed=(url,preview=false)=>sameOrigin(url,preview?previewOrigin:serviceOrigin);
     window.webContents.on('will-navigate',(e,url)=>{if(!allowed(url))e.preventDefault();});

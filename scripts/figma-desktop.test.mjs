@@ -10,6 +10,7 @@ import {Runs} from '../app/server/runs.mjs';
 
 test('desktop identity is separate from system and approved MCP versions',async()=>{assert.equal(desktopVersion,'1.4.4');assert.equal(applicationId,'com.chammy01.figmadesigner');const a=JSON.parse(await readFile('docs/APPROVED_RUNTIME.json','utf8'));assert.equal(a.mcpVersion,'1.1.0');assert.equal(a.mcpBridgeProtocolVersion,2);});
 test('visible window bounds restore; off-screen and malformed bounds reset',()=>{const screens=[{workArea:{x:0,y:0,width:1920,height:1080}}],b={x:50,y:50,width:1320,height:860};assert.deepEqual(restoredBounds(b,screens),b);for(const value of [{...b,x:9000},{...b,width:3},{...b,x:NaN},null])assert.deepEqual(restoredBounds(value,screens),{width:1320,height:860});});
+test('monitor changes cannot restore oversized windows or hidden title-bar controls',()=>{assert.deepEqual(restoredBounds({x:0,y:0,width:3000,height:2000},[{workArea:{x:0,y:0,width:1920,height:1080}}]),{width:1320,height:860});assert.deepEqual(restoredBounds(null,[{workArea:{x:0,y:0,width:1024,height:768}}]),{width:1024,height:768});});
 test('external links require exact HTTPS host; local navigation requires exact origin',()=>{assert.ok(externalAllowed('https://github.com/login'));for(const value of ['file:///C:/','javascript:alert(1)','https://github.com.evil.test','https://user@github.com','http://github.com','http://127.0.0.1:1994'])assert.equal(externalAllowed(value),false);assert.ok(sameOrigin('http://127.0.0.1:1234/#qa','http://127.0.0.1:1234'));assert.equal(sameOrigin('http://127.0.0.1:1235','http://127.0.0.1:1234'),false);});
 async function temporary(t){const root=await mkdtemp(join(tmpdir(),'Figma Desktop café '));t.after(()=>rm(root,{recursive:true,force:true}));return root;}
 test('runtime hash mismatch fails before startup without an executable call',async t=>{const root=await temporary(t);await mkdir(join(root,'docs'));await writeFile(join(root,'docs/APPROVED_RUNTIME.json'),JSON.stringify({sha256:{'candidate.exe':'incorrect'}}));await writeFile(join(root,'candidate.exe'),'fixture');await assert.rejects(verifyRuntime(root),/RUNTIME_HASH_MISMATCH/);});
@@ -34,4 +35,11 @@ test('workspace restart/upgrade handles read-only vendor licenses and preserves 
  await prepareWorkspace(payload,root);assert.equal(await readFile(join(root,'license.txt'),'utf8'),'old license');
  await writeFile(join(payload,'workspace/license.txt'),'updated license');files.find(f=>f.path==='workspace/license.txt').sha256=sha256('updated license');await inventory();
  await prepareWorkspace(payload,root);assert.equal(await readFile(join(root,'license.txt'),'utf8'),'updated license');assert.equal(await readFile(join(root,'.figma-designer/keep.json'),'utf8'),'retained');
+});
+for(const mode of ['AUTO','DESIGN','QA','BROWSER','BROWSER_TEST'])test(`closing during ${mode} preserves an uncertain checkpoint instead of claiming rollback`,async t=>{
+ const root=await temporary(t),store=recoveryStore(join(root,'recovery.json'));let release,started;const entered=new Promise(r=>started=r),pending=new Promise(r=>release=r);
+ const engine={createSession:async()=>({id:'fixture'}),context:async()=>[],submit:async()=>{started();await pending;}};
+ const runs=new Runs(engine,()=>{},async()=>null,async()=>{},async()=>null,store.save);
+ await runs.submit({mode,input:'synthetic acceptance',requestId:randomUUID()});await entered;runs.closed=true;release();while(runs.active)await new Promise(r=>setTimeout(r,10));
+ const restored=new Runs({});await store.restore(restored);assert.equal(restored.uncertain,true);assert.equal(restored.runs[0].recovery,'RECONCILIATION_REQUIRED');assert.equal(restored.runs[0].mode,mode);
 });
