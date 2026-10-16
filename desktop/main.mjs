@@ -25,6 +25,7 @@ if(!app.requestSingleInstanceLock()){app.quit();}else{
     let saved;try{saved=JSON.parse(await readFile(join(data,'window.json'),'utf8'));}catch{}
     window=new BrowserWindow({...restoredBounds(saved,[screen.getPrimaryDisplay(),...screen.getAllDisplays()]),minWidth:900,minHeight:650,title:'Figma Designer',show:false,webPreferences:{preload:join(here,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
     window.on('close',()=>atomicJSON(join(data,'window.json'),window.getNormalBounds()).catch(()=>{}));
+    window.on('closed',()=>{if(!quitting)app.quit();});
     const allowed=(url,preview=false)=>sameOrigin(url,preview?previewOrigin:serviceOrigin);
     window.webContents.on('will-navigate',(e,url)=>{if(!allowed(url))e.preventDefault();});
     window.webContents.on('will-redirect',(e,url)=>{if(!allowed(url))e.preventDefault();});
