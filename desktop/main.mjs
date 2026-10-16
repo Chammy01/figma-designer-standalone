@@ -7,6 +7,9 @@ import {fileURLToPath} from 'node:url';
 import {prepareWorkspace,atomicJSON,restoredBounds,applicationId,externalSetupPolicy,sameOrigin,cleanupDiagnostics} from './policy.mjs';
 
 app.setName('Figma Designer');app.setAppUserModelId(applicationId);
+app.setAppLogsPath(join(app.getPath('userData'),'logs'));
+app.commandLine.appendSwitch('log-file',join(app.getPath('userData'),'logs/chromium.log'));
+process.env.CHROME_LOG_FILE=join(app.getPath('userData'),'logs/chromium.log');
 const here=fileURLToPath(new URL('.',import.meta.url));
 let window,child,serviceOrigin,previewOrigin,quitting=false;
 const externalLinks=externalSetupPolicy();

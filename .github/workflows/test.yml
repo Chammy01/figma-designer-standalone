@@ -120,11 +120,11 @@ jobs:
       - name: Per-user installer, upgrade, uninstall and portable extraction
         shell: pwsh
         run: |
-          $target = Join-Path $env:RUNNER_TEMP 'Figma Desktop café acceptance'
+          $target = Join-Path ([IO.Path]::GetTempPath()) 'Figma Desktop café acceptance with an intentionally long installation directory'
           ./scripts/desktop-package.test.ps1 -Phase Install -InstallRoot $target
           ./scripts/desktop-package.test.ps1 -Phase Upgrade -InstallRoot $target
           ./scripts/desktop-package.test.ps1 -Phase Uninstall -InstallRoot $target
-          ./scripts/desktop-package.test.ps1 -Phase Portable -InstallRoot (Join-Path $env:RUNNER_TEMP 'Portable café with spaces')
+          ./scripts/desktop-package.test.ps1 -Phase Portable -InstallRoot (Join-Path ([IO.Path]::GetTempPath()) 'Portable café with spaces')
       - uses: actions/upload-artifact@v4
         with:
           name: Figma-Designer-1.4.4-Windows-Candidate

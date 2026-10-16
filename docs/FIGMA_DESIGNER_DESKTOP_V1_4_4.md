@@ -115,3 +115,5 @@ follower timeouts and session identity remain. This is Windows 10/11 x64 packagi
 other platforms, signing, auto-update, project selection and public Beta 4
 publication are deferred. VM-clean install and antivirus availability are reported
 separately from isolated local install; do not imply certification.
+
+The installer/uninstaller uses extended Windows paths for owned installation files, retaining NSIS's atomic rename/restore behavior. Acceptance includes a file beyond MAX_PATH with Windows long-path policy disabled; the installer does not change that policy. Earlier unpublished candidates are retried through their original uninstaller using the registered extended installation path. Missing ownership metadata or another uninstall failure stops the upgrade.

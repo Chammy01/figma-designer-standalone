@@ -76,6 +76,7 @@
   "bin/figma-designer-mcp.exe",
   "desktop/electron-builder.cjs",
   "desktop/icon.svg",
+  "desktop/installer.nsh",
   "desktop/main.mjs",
   "desktop/policy.mjs",
   "desktop/preload.cjs",
