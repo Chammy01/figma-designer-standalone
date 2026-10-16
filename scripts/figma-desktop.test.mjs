@@ -49,3 +49,5 @@ for(const mode of ['AUTO','DESIGN','QA','BROWSER','BROWSER_TEST'])test(`closing 
 });
 
 test('installer rejects unsafe path lengths before copying, without weakening package completeness',async()=>{const hook=await readFile('desktop/installer.nsh','utf8'),prepare=await readFile('scripts/desktop-prepare.mjs','utf8'),check=await readFile('scripts/desktop-extraction-check.mjs','utf8');assert.match(hook,/\$R9 > 100/);assert.match(hook,/customInit/);assert.match(hook,/customPageAfterChangeDir/);assert.match(prepare,/length>149/);assert.match(check,/missing\.length/);});
+
+test('desktop diagnostics include live MCP versions, bridge and document status',async()=>{const ui=await readFile('app/web/app.js','utf8');assert.match(ui,/mcp:status\.mcp/);assert.match(ui,/connection:status\.connection/);});
