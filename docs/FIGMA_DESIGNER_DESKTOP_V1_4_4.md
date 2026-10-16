@@ -1,6 +1,6 @@
 # Figma Designer Windows desktop candidate — V1.4.4
 
-Status: implementation and candidate validation in progress. No Beta 4 release/tag.
+This is an unpublished local/CI candidate. Acceptance evidence is recorded in the Beta 4 readiness record; no Beta 4 release/tag is created.
 The package is **UNSIGNED**; a new publisher/application may trigger SmartScreen.
 No security setting or warning bypass is part of setup.
 
