@@ -46,3 +46,7 @@ V1.2.5 HOLD. These records are outside the ZIP to avoid self-referential digests
 Historical docs/RELEASE_INVENTORY.json and docs/RELEASE_VALIDATION.json remain the
 original Beta 1 snapshots; use the records attached to each tagged release for
 that release. Download and verify the published assets and tag after upload.
+
+## Unpublished Windows desktop candidate
+
+Use npm run desktop:package after source runtime setup and pinned Chromium installation. Validate with node scripts/desktop-validate.mjs and scripts/desktop-package.test.ps1. The 1.4.4 NSIS/ZIP candidates are separate from source release identity and do not publish Beta 4. Runtime hashes must match APPROVED_RUNTIME.json exactly. Signing is UNSIGNED; inventory, checksums and install acceptance are required. See [desktop guide](FIGMA_DESIGNER_DESKTOP_V1_4_4.md).

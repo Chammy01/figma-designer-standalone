@@ -19,3 +19,7 @@ Read-only dependency-closed source projection; two matching captures; begin/fini
 ## V1.2 — hardened runtime
 
 Reaction input validation at Go/plugin boundaries prevents malformed destructive writes. Structural HTML comparison reports missing/extra children without executable structural patches. Browser checks scope controls correctly, exercise reduced motion, restrict networking, and bind reports to local assets. Custom combine_as_variants and existing motion tokens remain preserved.
+
+## Unreleased — Windows desktop candidate (V1.4.4)
+
+Adds a thin Electron shell, bundled toolchain, per-user installer/portable packaging, profile-owned default workspace and interrupted-run checkpoint/reconciliation. MCP 1.1.0/protocol 2 and its approved hashes remain unchanged. Beta 4 is not published; Beta 3 stays immutable and V1.2.5 remains HOLD.

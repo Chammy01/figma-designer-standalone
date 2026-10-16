@@ -1,5 +1,6 @@
 import {renderValidation,renderValidationHistory} from './validation.js';
 const $=id=>document.getElementById(id);
+if(window.figmaDesktop){$('open-plugin-folder').hidden=false;$('open-plugin-folder').addEventListener('click',()=>window.figmaDesktop.openPluginFolder());}
 let active=null,history=[],status={},polling=false,rendered='',aiRendered='',selectedRun=null,pendingSubmission=null;
 async function api(path,body){const r=await fetch(path,{method:body===undefined?'GET':'POST',headers:body===undefined?{}:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});const value=await r.json();if(!r.ok)throw Object.assign(Error(value.error?.message??'The local application is unavailable.'),{info:value.error});return value;}
 function text(tag,content){const el=document.createElement(tag);el.textContent=content;return el;}
@@ -53,7 +54,7 @@ async function refreshStatus(force=false){
   if(status.runtime!=='VERIFIED'){title='Runtime verification needs attention';copy='Restore the approved runtime before starting design work.';}
   else if(!engineReady){title=status.engine.state==='STARTING'?'Starting your design engine':'The design engine needs attention';copy='Check the application setup. Safe details are available in Settings.';}
   else if(status.figma!=='CONNECTED'){title=status.figma==='PLUGIN_NOT_CONNECTED'?'Figma plugin not connected':'Figma connection needs attention';copy='Open your design file in Figma Desktop and run the imported Figma Designer development plugin. Then choose Check Again.';}
-  else if(status.mcp&&status.mcp.state!=='COMPATIBLE'){title='Plugin update needed';copy='Run the matching Figma Designer MCP development plugin and choose Check Again.';}
+  else if(status.mcp&&status.mcp.state!=='COMPATIBLE'){title='Another Figma MCP runtime may be active';copy='Figma Designer MCP needs the approved runtime. Close the older Figma/OpenCode session, run the matching plugin, then choose Check Again.';}
   else if(pendingSubmission){title='Checking the last request';copy='Some changes may already exist in Figma. Check the current result before sending again.';}
   else if(status.reconciliationRequired){title='Checking the previous operation';copy='Some changes may already exist in Figma. Check the current result before repeating the request.';}
   else if(ai.state!=='READY'){const missing={PROVIDER_REQUIRED:['AI provider needed','Runtime verified and Figma connected. Connect an AI provider before starting a design.'],PROVIDER_AUTH_REQUIRED:['Reconnect your AI provider','Your provider needs authentication before you can continue.'],MODEL_REQUIRED:['Choose an AI model','Choose an available model to start designing.'],MODEL_UNAVAILABLE:['Selected model unavailable','Choose another available model to continue.']};[title,copy]=missing[ai.state]??['Checking AI availability','The engine is loading its provider and model catalog.'];}

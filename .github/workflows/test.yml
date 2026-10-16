@@ -79,3 +79,55 @@ jobs:
       - name: Real clean source archive and release setup regression
         shell: pwsh
         run: ./scripts/source-bootstrap.test.ps1 -OutputRoot "${{ runner.temp }}/Source bootstrap acceptance"
+  desktop:
+    needs: [node-contracts, plugin, go]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.15.0'
+          cache: npm
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.1'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.2'
+      - run: npm ci
+      - run: npx playwright install chromium
+      - name: Build the exact approved MCP/plugin
+        shell: pwsh
+        run: |
+          New-Item bin -ItemType Directory -Force | Out-Null
+          Push-Location vendor/figma-mcp
+          go build -trimpath -buildvcs=false -ldflags '-X main.version=1.1.0' -o ../../bin/figma-designer-mcp.exe ./cmd/figma-mcp-go
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Set-Location plugin
+          bun install --frozen-lockfile
+          bun run build
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Pop-Location
+      - run: npm run test:desktop
+      - run: npm run desktop:package
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - run: node scripts/desktop-validate.mjs
+      - name: Packaged launch, single instance and force-close process ownership
+        run: node scripts/desktop-smoke.mjs
+      - name: Per-user installer, upgrade, uninstall and portable extraction
+        shell: pwsh
+        run: |
+          $target = Join-Path $env:RUNNER_TEMP 'Figma Desktop café acceptance'
+          ./scripts/desktop-package.test.ps1 -Phase Install -InstallRoot $target
+          ./scripts/desktop-package.test.ps1 -Phase Upgrade -InstallRoot $target
+          ./scripts/desktop-package.test.ps1 -Phase Uninstall -InstallRoot $target
+          ./scripts/desktop-package.test.ps1 -Phase Portable -InstallRoot (Join-Path $env:RUNNER_TEMP 'Portable café with spaces')
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Figma-Designer-1.4.4-Windows-Candidate
+          path: |
+            release-staging/desktop/Figma-Designer-1.4.4-Windows-Setup.exe
+            release-staging/desktop/Figma-Designer-1.4.4-Windows-Portable.zip
+            release-staging/desktop/SHA256SUMS.txt
+            release-staging/desktop/DESKTOP_PACKAGE_*.json

@@ -18,7 +18,7 @@ export function safeError(error) {
   const [title,message]=copy[code];return {code,title,message,recoverable:true};
 }
 export class Runs {
-  constructor(engine,log=()=>{},fingerprint=async()=>null,result=async()=>{},lookup=async()=>null){this.engine=engine;this.log=log;this.fingerprint=fingerprint;this.result=result;this.lookup=lookup;this.runs=[];this.session=null;this.workspaceId=randomUUID();this.active=null;this.closed=false;}
+  constructor(engine,log=()=>{},fingerprint=async()=>null,result=async()=>{},lookup=async()=>null,checkpoint=async()=>{}){this.engine=engine;this.log=log;this.fingerprint=fingerprint;this.result=result;this.lookup=lookup;this.checkpoint=checkpoint;this.runs=[];this.session=null;this.workspaceId=randomUUID();this.active=null;this.closed=false;}
   async sessionForWorkspace(){if(!this.session){this.sessionPending??=this.engine.createSession(this.ai?.selected);try{this.session=await this.sessionPending;}finally{this.sessionPending=null;}}return this.session;}
   async newWorkspace(){this.sessionPending??=this.engine.createSession(this.ai?.selected);try{const session=await this.sessionPending;this.session=session;this.workspaceId=randomUUID();return session;}finally{this.sessionPending=null;}}
   async verifyReadOnly(run){
@@ -42,6 +42,7 @@ export class Runs {
       run.beforeFingerprint=await this.fingerprint().catch(()=>null);
       const session=await this.sessionForWorkspace();run.sessionId=session.id;
       const before=await this.engine.context(session.id);run.offset=before.length;
+      await this.checkpoint({...run,submissionStarted:true});
       try{run.submissionStarted=true;await this.engine.submit(session.id,run.mode,input);}catch(error){
         if(error.status && error.status<500 || /provider|model/i.test(error.code??''))throw error;
         // A lost submission response can hide completed writes; inspect, never resend.
@@ -70,7 +71,7 @@ export class Runs {
         await new Promise(r=>setTimeout(r,700));
       }
     }catch(error){run.state='FAILED';run.error=safeError(error);run.recovery='RECONCILIATION_REQUIRED';this.uncertain=true;this.uncertainOffset=run.offset??0;await this.reconcileRun(run);}
-    finally{await this.result(run,resultContext).catch(()=>{run.validationUnavailable=true;});run.finishedAt=new Date().toISOString();run.activity='';this.active=null;this.log({event:'run',id:run.id,state:run.state,code:run.error?.code});}
+    finally{await this.result(run,resultContext).catch(()=>{run.validationUnavailable=true;});run.finishedAt=new Date().toISOString();run.activity='';if(this.closed&&run.state==='RUNNING'){run.state='FAILED';run.recovery='RECONCILIATION_REQUIRED';}await this.checkpoint(run).catch(()=>{this.uncertain=true;});this.active=null;this.log({event:'run',id:run.id,state:run.state,code:run.error?.code});}
   }
   async reconcileRun(run){
     if(run.checking)return;
@@ -104,6 +105,6 @@ export class Runs {
       }
     }catch{}finally{run.checking=false;if(run.error){run.error.impact=run.recovery==='RETRY_SAFE'?'Your Figma file was not changed by this request.':run.recovery==='CONTINUE_FROM_CURRENT_STATE'?'Changes were found in the current Figma page. Preserve them and continue from the current design.':'Some changes may already exist in Figma. Check the current result before repeating this request.';if(run.error.code==='PROVIDER_UNAVAILABLE')run.error.code=run.recovery==='RETRY_SAFE'?'PROVIDER_UNAVAILABLE_SAFE':'PROVIDER_UNAVAILABLE_UNCERTAIN';}}
   }
-  async reconcile(){if(this.uncertain&&!this.active){const run=this.runs.at(-1);if(run&&!run.checking)await this.reconcileRun(run);}}
+  async reconcile(){if(this.uncertain&&!this.active){const run=this.runs.at(-1);if(run&&!run.checking){await this.reconcileRun(run);await this.checkpoint(run);}}}
   async cancel(id){const run=this.runs.find(r=>r.id===id);if(!run)throw Object.assign(Error('Run not found'),{status:404});if(run!==this.active)return run; if(!run.sessionId)throw Object.assign(Error('Run is starting; check again'),{status:409});const value=await this.engine.interrupt(run.sessionId);run.cancelRequested=value.interrupted===true;return {interrupted:run.cancelRequested,message:run.cancelRequested?'Interrupt requested. Any completed Figma writes remain; verify before retrying.':'No active engine operation was interrupted.'};}
 }

@@ -7,7 +7,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "node --test scripts/figma-browser-contract.test.mjs scripts/figma-browser-freshness.test.mjs scripts/figma-critique.test.mjs scripts/figma-design.test.mjs scripts/figma-intent-router.test.mjs scripts/figma-prototype-planner.test.mjs scripts/figma-motion.test.mjs scripts/figma-overlay.test.mjs scripts/figma-interaction-qa.test.mjs scripts/figma-motion-capability.test.mjs scripts/figma-native-scroll.test.mjs scripts/figma-browser-motion.test.mjs scripts/figma-browser-fidelity.test.mjs scripts/figma-app.test.mjs scripts/figma-qa-guard.test.mjs scripts/figma-app-validation.test.mjs scripts/figma-mcp-ownership.test.mjs scripts/figma-mcp-reliability.test.mjs",
+    "test": "node --test scripts/figma-browser-contract.test.mjs scripts/figma-browser-freshness.test.mjs scripts/figma-critique.test.mjs scripts/figma-design.test.mjs scripts/figma-intent-router.test.mjs scripts/figma-prototype-planner.test.mjs scripts/figma-motion.test.mjs scripts/figma-overlay.test.mjs scripts/figma-interaction-qa.test.mjs scripts/figma-motion-capability.test.mjs scripts/figma-native-scroll.test.mjs scripts/figma-browser-motion.test.mjs scripts/figma-browser-fidelity.test.mjs scripts/figma-app.test.mjs scripts/figma-qa-guard.test.mjs scripts/figma-app-validation.test.mjs scripts/figma-mcp-ownership.test.mjs scripts/figma-mcp-reliability.test.mjs scripts/figma-desktop.test.mjs",
     "test:hardening": "bun test scripts/figma-hardening.test.ts scripts/figma-variants.test.ts",
     "test:source": "bun test scripts/figma-live-source.test.ts",
     "test:browser": "node --test scripts/figma-browser-integration.test.mjs scripts/figma-browser-motion.integration.test.mjs && playwright test -c scripts/figma-browser-fidelity.config.mjs && node --test scripts/figma-app-ui.test.mjs scripts/figma-app-validation-ui.test.mjs",
@@ -18,9 +18,17 @@
     "figma:install-browser": "playwright install chromium",
     "app": "node app/server/index.mjs",
     "test:app": "node --test scripts/figma-app.test.mjs scripts/figma-qa-guard.test.mjs scripts/figma-app-validation.test.mjs",
-    "test:app-ui": "node --test scripts/figma-app-ui.test.mjs scripts/figma-app-validation-ui.test.mjs"
+    "test:app-ui": "node --test scripts/figma-app-ui.test.mjs scripts/figma-app-validation-ui.test.mjs",
+    "desktop": "electron desktop/main.mjs",
+    "desktop:prepare": "node scripts/desktop-prepare.mjs",
+    "desktop:build": "npm run desktop:prepare && electron-builder --config desktop/electron-builder.cjs --win --dir",
+    "desktop:package": "npm run desktop:prepare && electron-builder --config desktop/electron-builder.cjs --win --publish never",
+    "test:desktop": "node --test scripts/figma-desktop.test.mjs"
   },
   "devDependencies": {
-    "@playwright/test": "1.64.0"
+    "@opencode/cli": "2.0.28",
+    "@playwright/test": "1.64.0",
+    "electron": "44.7.2",
+    "electron-builder": "26.15.3"
   }
 }

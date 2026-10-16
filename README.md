@@ -348,3 +348,5 @@ See [Installation](docs/INSTALLATION.md) for source toolchain installation. Read
 ## License
 
 Project-owned code and documentation use the [MIT License](LICENSE). Dependencies and bundled third-party material retain their own [licenses and notices](THIRD_PARTY_LICENSES.md).
+
+Windows desktop candidate: V1.4.4 adds an Electron installer and portable ZIP around the same application. Candidates are unsigned and not published as Beta 4. See [desktop setup and validation](docs/FIGMA_DESIGNER_DESKTOP_V1_4_4.md).

@@ -21,3 +21,7 @@ Node browser export uses read-only live source capture, dependency closure, and 
 `vendor/figma-mcp` is a compatibility storage path for the owned pinned source, not an active upstream dependency. Its exact owned commit is recorded in APPROVED_RUNTIME.json. All approved local hardening, variants and conditional collector work is retained; dependencies are unchanged (only the lock root package name changes). Upstream attribution and the old approved record are preserved.
 
 Local history, activation backups, freshness evidence, generated acceptance exports, and personal document identifiers are excluded. Historical audit/hardening/freshness reports were consulted locally; this repository records only sanitized release facts. See [Release packaging](RELEASE_PACKAGING.md).
+
+## Desktop shell
+
+V1.4.4 adds one sandboxed Electron window and an owned bundled-Node service sidecar. The existing service, OpenCode sessions, guards and MCP contracts remain authoritative. The renderer has only a fixed plugin-folder operation; previews receive no preload bridge. Persistent workspace data lives under the user profile. See [desktop architecture](FIGMA_DESIGNER_DESKTOP_V1_4_4.md) and [packaging decision](DESKTOP_PACKAGING_DECISION_V1_4_4.md).

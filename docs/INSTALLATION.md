@@ -56,3 +56,7 @@ This separate command installs Bun in your user profile; setup does not install 
 Run the same documented setup command above after installing both source toolchains. No manual Go or Bun build is needed. All runtime checks must PASS before importing Figma. Normal users should choose `Figma-Designer-v1.2.1-beta.3-Windows.zip`, which needs neither Go nor Bun. See [source bootstrap policy and acceptance](SOURCE_BOOTSTRAP.md).
 
 This bundle uses native Windows PowerShell/OpenCode and a Windows executable. Follow the native Windows npm route above; WSL is not the validated path for this ZIP even though upstream OpenCode recommends WSL generally. Installation reference: [OpenCode official docs](https://opencode.ai/docs/). In OpenCode, `/connect` opens provider setup; follow its prompts and keep any API key in OpenCode's credential storage, never shared project files. `/models` shows model choices if your preserved model is unavailable. The bundled AGENTS.md is already prepared; you do not need `/init` for this project.
+
+## Windows desktop candidate (unpublished)
+
+The V1.4.4 per-user installer and portable ZIP bundle Node, OpenCode and the approved MCP/plugin. Normal desktop usage needs no terminal or source checkout. Import the plugin from Settings → Figma Plugin Setup → Open Plugin Folder. Candidates are unsigned; no security-warning bypass is required by these instructions. See [desktop guide](FIGMA_DESIGNER_DESKTOP_V1_4_4.md). Source setup below remains supported.

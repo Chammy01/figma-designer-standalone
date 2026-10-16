@@ -11,6 +11,7 @@ import {readQATool} from '../../scripts/figma-interaction-qa.mjs';
 import {documentFingerprint} from '../../rules/figma-interaction-qa.mjs';
 import {Validation} from './validation.mjs';
 import {safePath,isWithinRoot} from '../../scripts/figma-browser-contract.mjs';
+import {recoveryStore} from './recovery-store.mjs';
 
 export const projectRoot=resolve(fileURLToPath(new URL('../../',import.meta.url)));
 const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.json':'application/json'};
@@ -19,10 +20,11 @@ async function listen(server,port=0){await new Promise((r,reject)=>{server.once(
 async function body(req){if(req.headers.origin!==`http://${req.headers.host}` || req.headers['content-type']?.split(';')[0]!=='application/json')throw Object.assign(Error('Same-origin JSON required'),{status:403});const chunks=[];let size=0;for await(const chunk of req){size+=chunk.length;if(size>40000)throw Object.assign(Error('Request too large'),{status:413});chunks.push(chunk);}try{return JSON.parse(Buffer.concat(chunks).toString('utf8'));}catch{throw Object.assign(Error('Invalid JSON'),{status:400});}}
 function json(res,value,status=200){res.writeHead(status,{'Content-Type':'application/json'});res.end(JSON.stringify(value));}
 
-export async function createApplication({root=projectRoot,engine=new OpenCodeClient({root,executable:process.env.OPENCODE_EXECUTABLE,url:process.env.FIGMA_APP_OPENCODE_URL,password:process.env.FIGMA_APP_OPENCODE_PASSWORD}),status=()=>systemStatus(root),browser=()=>previewStatus(root),fingerprint=async()=>root===projectRoot?documentFingerprint(await readQATool('get_document')).sha256:null,validation=new Validation(root,root===projectRoot?{}:{read:async()=>{throw Error('Fixture source unavailable');}}),port=0}={}) {
+export async function createApplication({root=projectRoot,engine=new OpenCodeClient({root,executable:process.env.OPENCODE_EXECUTABLE,url:process.env.FIGMA_APP_OPENCODE_URL,password:process.env.FIGMA_APP_OPENCODE_PASSWORD}),status=()=>systemStatus(root),browser=()=>previewStatus(root),fingerprint=async()=>root===projectRoot?documentFingerprint(await readQATool('get_document')).sha256:null,validation=new Validation(root,root===projectRoot?{}:{read:async()=>{throw Error('Fixture source unavailable');}}),port=0,recoveryFile,onPreview=()=>{}}={}) {
   const events=[];let logChain=Promise.resolve(),closed=false;
   const log=event=>{events.push({...event,time:new Date().toISOString()});if(events.length>100)events.shift();logChain=logChain.then(async()=>{await mkdir(join(root,'.figma-designer/app'),{recursive:true});await writeFile(join(root,'.figma-designer/app/events.json'),JSON.stringify(events));}).catch(()=>{});};
-  const runs=new Runs(engine,log,fingerprint,(run,context)=>validation.capture(run,context),id=>root===projectRoot?lookupCurrentOperation(id):null),ai=new AI(engine,runs,root);runs.ai=ai;let cachedStatus,lastCheck=0,statusPending,preview;
+  const store=recoveryFile?recoveryStore(recoveryFile):null;
+  const runs=new Runs(engine,log,fingerprint,(run,context)=>validation.capture(run,context),id=>root===projectRoot?lookupCurrentOperation(id):null,store?.save),ai=new AI(engine,runs,root);runs.ai=ai;await store?.restore(runs);let cachedStatus,lastCheck=0,statusPending,preview;
   async function check(force=false){if(force || !cachedStatus || Date.now()-lastCheck>3000){statusPending??=status().then(s=>{cachedStatus=s;lastCheck=Date.now();return s;}).finally(()=>statusPending=undefined);await statusPending;}return cachedStatus;}
   async function previewUrl(){
     const state=await browser();if(state.state==='NOT_BUILT')throw Object.assign(Error('Browser preview has not been built'),{status:404});
@@ -33,7 +35,7 @@ export async function createApplication({root=projectRoot,engine=new OpenCodeCli
       if(req.method!=='GET'){res.writeHead(405);res.end();return;}
       try{const path=safePath(base,req.url);if(!path)throw Error();const file=await realpath(path);if(!isWithinRoot(base,file)||!(await stat(file)).isFile()||!mime[extname(file)]||extname(file)==='.json')throw Error();res.writeHead(200,{'Content-Type':mime[extname(file)],'Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'"});res.end(await readFile(file));}catch{res.writeHead(404);res.end();}
     });
-    preview={server,url:await listen(server)};return preview.url;
+    preview={server,url:await listen(server)};onPreview(preview.url);return preview.url;
   }
   const server=localServer(async(req,res)=>{
     res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'; form-action 'self'");
