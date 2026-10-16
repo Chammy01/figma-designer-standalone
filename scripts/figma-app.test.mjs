@@ -22,7 +22,7 @@ async function fixture(t,options={}){
   const app=await createApplication({root,engine,status:async()=>health,browser:async()=>({state:'NOT_BUILT',fidelity:{SOURCE_FIDELITY:'NOT_RUN'}}),...options});await app.ready;
   async function api(path,body,headers={}){const r=await fetch(app.url+path,{method:body===undefined?'GET':'POST',headers:{Origin:app.url,'Content-Type':'application/json',...headers},body:body===undefined?undefined:JSON.stringify(body)});return {status:r.status,value:await r.json()};}
   t.after(async()=>{await app.close();await new Promise(r=>mock.server.close(r));assert.ok(root.startsWith(join(tmpdir(),'figma-app-')));await rm(root,{recursive:true,force:true});});
-  async function wait(id){for(let i=0;i<30;i++){const r=(await api('/api/run/'+id)).value;if(r.state!=='RUNNING')return r;await new Promise(r=>setTimeout(r,100));}throw Error('run did not finish');}
+  async function wait(id){for(let i=0;i<30;i++){const r=(await api('/api/run/'+id)).value;if(r.state!=='RUNNING'&&!app.runs.active)return r;await new Promise(r=>setTimeout(r,100));}throw Error('run did not finish');}
   return {app,mock,api,wait,root,setHealth:value=>health=value};
 }
 test('loopback, same-origin boundary, strict paths, credentials and read-only startup',async t=>{
