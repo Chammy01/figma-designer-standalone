@@ -17,7 +17,7 @@ const options={encoding:'utf8',windowsHide:true,timeout:20000};
 if(execFileSync(join(payload,'tools/node.exe'),['--version'],options).trim()!=='v24.15.0')throw Error('Node version mismatch');
 if(!execFileSync(join(payload,'tools/opencode.exe'),['--version'],options).includes('2.0.28'))throw Error('OpenCode version mismatch');
 const artifacts=[];
-for(const name of ['Figma-Designer-1.4.4-Windows-Setup.exe','Figma-Designer-1.4.4-Windows-Portable.zip']){const path=join(output,name),s=await lstat(path);artifacts.push({name,bytes:s.size,sha256:sha256(await readFile(path))});}
+for(const name of ['Figma-Designer-v1.2.1-beta.4-Windows-Setup.exe','Figma-Designer-v1.2.1-beta.4-Windows-Portable.zip']){const path=join(output,name),s=await lstat(path);artifacts.push({name,bytes:s.size,sha256:sha256(await readFile(path))});}
 await writeFile(join(output,'DESKTOP_PACKAGE_INVENTORY.json'),JSON.stringify({version:1,files},null,2)+'\n');
 await writeFile(join(output,'SHA256SUMS.txt'),artifacts.map(a=>a.sha256+'  '+a.name).join('\n')+'\n');
 await writeFile(join(output,'DESKTOP_PACKAGE_VALIDATION.json'),JSON.stringify({version:1,packageVersion:'1.4.4',releaseState:'CANDIDATE_NOT_PUBLISHED',runtime:'VERIFIED',inventory:'PASS',privacy:'ALLOWLIST_VERIFIED',files:files.length,unpackedBytes:files.reduce((s,f)=>s+f.bytes,0),codeSigning:'UNSIGNED',artifacts,payloadReproducible:'NOT_YET_PROVEN',installerByteReproducible:'NOT_CLAIMED'},null,2)+'\n');

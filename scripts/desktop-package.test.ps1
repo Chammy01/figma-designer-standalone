@@ -8,12 +8,12 @@ $temp=[IO.Path]::GetFullPath([IO.Path]::GetTempPath()).TrimEnd('\')+'\'
 if(-not $target.StartsWith($temp,[StringComparison]::OrdinalIgnoreCase)){throw 'Acceptance install target must stay inside TEMP.'}
 if($Phase -eq 'RejectLongPath'){
   if($target.Length -le 100 -or (Test-Path -LiteralPath $target)){throw 'Use a fresh path longer than 100 characters.'}
-  $process=Start-Process -FilePath (Join-Path $output 'Figma-Designer-1.4.4-Windows-Setup.exe') -ArgumentList @('/S',('/D='+$target)) -WindowStyle Hidden -Wait -PassThru
+  $process=Start-Process -FilePath (Join-Path $output 'Figma-Designer-v1.2.1-beta.4-Windows-Setup.exe') -ArgumentList @('/S',('/D='+$target)) -WindowStyle Hidden -Wait -PassThru
   if($process.ExitCode -ne 2){throw 'Overlong path did not fail before installation.'}
   if((Test-Path -LiteralPath $target) -and @(Get-ChildItem -LiteralPath $target -Force).Count -ne 0){throw 'Overlong destination contains unexpected application files.'}
   Write-Host 'Overlong install path rejected before file changes.'
 }elseif($Phase -in @('Install','Upgrade')){
-  $installer=Join-Path $output 'Figma-Designer-1.4.4-Windows-Setup.exe'
+  $installer=Join-Path $output 'Figma-Designer-v1.2.1-beta.4-Windows-Setup.exe'
   $process=Start-Process -FilePath $installer -ArgumentList @('/S',('/D='+$target)) -WindowStyle Hidden -Wait -PassThru
   if($process.ExitCode -ne 0){throw "Installer failed: $($process.ExitCode)"}
   if(-not(Test-Path -LiteralPath (Join-Path $target 'Figma Designer.exe'))){throw 'Installed executable missing.'}
@@ -25,7 +25,7 @@ if($Phase -eq 'RejectLongPath'){
   Write-Host "$Phase PASS: per-user executable, plugin manifest and Start Menu shortcut."
 }elseif($Phase -eq 'Portable'){
   if(Test-Path -LiteralPath $target){throw 'Portable extraction target must be fresh.'}
-  Expand-Archive -LiteralPath (Join-Path $output 'Figma-Designer-1.4.4-Windows-Portable.zip') -DestinationPath $target
+  Expand-Archive -LiteralPath (Join-Path $output 'Figma-Designer-v1.2.1-beta.4-Windows-Portable.zip') -DestinationPath $target
   if(-not(Test-Path -LiteralPath (Join-Path $target 'Figma Designer.exe'))){throw 'Portable executable missing.'}
   & node (Join-Path $PSScriptRoot 'desktop-extraction-check.mjs') $target
   if($LASTEXITCODE -ne 0){throw 'Portable payload differs from approved candidate inventory.'}

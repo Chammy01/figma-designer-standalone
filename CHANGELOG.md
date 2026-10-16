@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.1-beta.4 — Windows desktop prerelease
+
+Per-user installer and portable app with bundled OpenCode 2.0.28, owned MCP 1.1.0/protocol 2, provider/model controls, structured validation, receipt-based recovery and isolated previews. Desktop package version remains 1.4.4. Unsigned; Beta 3 stays available for rollback and V1.2.5 remains HOLD. See [release notes](docs/RELEASE_NOTES_v1.2.1-beta.4.md).
+
 ## Unreleased — MCP ownership migration (V1.4.3A)
 
 Adopts Figma Designer MCP 1.0.0 from Chammy01/figma-designer-mcp at an exact source pin. Public identity/module/binary/plugin branding changes; the 106-tool contract and runtime behavior remain equivalent. Approved hashes rotate with rollback provenance retained. Local validation package identity is v1.2.1-ownership.1; no release or Beta 4 is published, and Beta 3 remains immutable. V1.2.5 remains HOLD.

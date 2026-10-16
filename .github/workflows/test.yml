@@ -135,9 +135,9 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - uses: actions/upload-artifact@v4
         with:
-          name: Figma-Designer-1.4.4-Windows-Candidate
+          name: Figma-Designer-v1.2.1-beta.4-Windows-Candidate
           path: |
-            release-staging/desktop/Figma-Designer-1.4.4-Windows-Setup.exe
-            release-staging/desktop/Figma-Designer-1.4.4-Windows-Portable.zip
+            release-staging/desktop/Figma-Designer-v1.2.1-beta.4-Windows-Setup.exe
+            release-staging/desktop/Figma-Designer-v1.2.1-beta.4-Windows-Portable.zip
             release-staging/desktop/SHA256SUMS.txt
             release-staging/desktop/DESKTOP_PACKAGE_*.json

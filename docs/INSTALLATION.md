@@ -1,8 +1,39 @@
 # Installation — Windows x64
 
-V1.4 source preview only: after successful source setup, `npm run app` starts the
-optional local application and prints its browser address. Keep that process running.
-This does not change the published Beta 3 installation. See [Application guide](FIGMA_DESIGNER_APP_V1_4_0.md).
+## Beta 4 desktop prerelease (recommended)
+
+**Beta 4 is unsigned. Windows may show a SmartScreen/reputation warning.**
+No warning-bypass procedure is provided. Normal desktop use needs no terminal or external Node/npm/Go/Bun installation.
+
+1. Download **Figma-Designer-v1.2.1-beta.4-Windows-Setup.exe** from [Beta 4 Assets](https://github.com/Chammy01/figma-designer-standalone/releases/tag/v1.2.1-beta.4).
+2. Install Figma Designer for your user account. The installer creates a Start Menu shortcut and Add/Remove Programs entry. Choose a path no longer than 100 characters.
+3. Open Figma Desktop and a Design file. Your account must permit development-plugin imports.
+4. Launch Figma Designer. In Settings → Figma Plugin Setup → Open Plugin Folder, locate `manifest.json`.
+5. In Figma, choose Plugins → Development → Import plugin from manifest and select that file, then run **Figma Designer MCP**. Keep its window open.
+6. Wait for a compatible connection. Configure an AI provider/model if needed, then start describing your design.
+7. Review/revise in the app and run QA/Browser validation when useful. Internet/provider access and associated limits/costs remain separate.
+
+The manifest is on the real filesystem at
+`resources/payload/workspace/vendor/figma-mcp/plugin/manifest.json` under the install folder.
+Its technical ID remains `figma-mcp-go`. Import/run this release's plugin rather than mixing files from another version. Reload it after a changed bundle.
+
+### Portable alternative
+
+Download **Figma-Designer-v1.2.1-beta.4-Windows-Portable.zip**, extract fully into a writable folder, and open **Figma Designer.exe**. Keep the extracted files together. Plugin setup is the same. Do not run from the compressed ZIP viewer. No auto-update is included.
+
+### Updating and rollback
+
+Install/extract Beta 4 separately; **do not merge Beta 3 and Beta 4 folders**.
+Close older OpenCode/MCP sessions before connecting the new runtime. Use the matching
+Beta 4 plugin manifest. Beta 3 remains the [unchanged rollback checkpoint](https://github.com/Chammy01/figma-designer-standalone/releases/tag/v1.2.1-beta.3).
+To roll back, close/uninstall Beta 4 normally and use the complete matching Beta 3 runtime/plugin set. Uninstall preserves app-owned user data and OpenCode credentials, and leaves Figma installed. Desktop user data lives under `%APPDATA%/Figma Designer/`.
+
+One workspace, manual plugin import, unsigned status, bounded recovery and current browser fidelity limitations are documented in the [release notes](RELEASE_NOTES_v1.2.1-beta.4.md). V1.2.5 variables/conditional workflows remain HOLD. No fresh-VM or native pixel-parity certification is claimed.
+
+## Developer/source workflow
+
+The source UI starts with `npm run app` after source setup. Keep that process running.
+These developer instructions are not required for normal Beta 4 desktop usage.
 
 Use the prebuilt Release ZIP for normal use. Go, Bun, Git, and native Orca are not required. Use a writable folder, keep its files together, and avoid synchronizing or moving it during a session.
 
@@ -53,10 +84,8 @@ iex "& {$(irm https://bun.com/install.ps1)} -Version 1.4.2"
 
 This separate command installs Bun in your user profile; setup does not install it or change your PATH. Reopen PowerShell in the project folder and rerun the setup command above. Setup runs `bun install --frozen-lockfile` and `bun run build` in `vendor/figma-mcp/plugin` when the dispatcher or UI is missing, then requires the approved hash. You normally do not run those build commands yourself. A failed build, missing output, or hash mismatch blocks readiness. For a source hash mismatch, restore pinned source/lockfiles, remove only the unapproved generated dispatcher using the exact command setup prints, and rerun setup. For an altered ZIP, re-extract the approved package. Do not copy `code.js` from another project.
 
-Run the same documented setup command above after installing both source toolchains. No manual Go or Bun build is needed. All runtime checks must PASS before importing Figma. Normal users should choose `Figma-Designer-v1.2.1-beta.3-Windows.zip`, which needs neither Go nor Bun. See [source bootstrap policy and acceptance](SOURCE_BOOTSTRAP.md).
+Run the same documented setup command above after installing both source toolchains. No manual Go or Bun build is needed. All runtime checks must PASS before importing Figma. Normal users should choose the Beta 4 desktop installer or portable ZIP, which bundle their tools. See [source bootstrap policy and acceptance](SOURCE_BOOTSTRAP.md).
 
 This bundle uses native Windows PowerShell/OpenCode and a Windows executable. Follow the native Windows npm route above; WSL is not the validated path for this ZIP even though upstream OpenCode recommends WSL generally. Installation reference: [OpenCode official docs](https://opencode.ai/docs/). In OpenCode, `/connect` opens provider setup; follow its prompts and keep any API key in OpenCode's credential storage, never shared project files. `/models` shows model choices if your preserved model is unavailable. The bundled AGENTS.md is already prepared; you do not need `/init` for this project.
 
-## Windows desktop candidate (unpublished)
-
-The V1.4.4 per-user installer and portable ZIP bundle Node, OpenCode and the approved MCP/plugin. Normal desktop usage needs no terminal or source checkout. Import the plugin from Settings → Figma Plugin Setup → Open Plugin Folder. Candidates are unsigned; no security-warning bypass is required by these instructions. See [desktop guide](FIGMA_DESIGNER_DESKTOP_V1_4_4.md). Source setup below remains supported.
+See the [desktop architecture and historical acceptance](FIGMA_DESIGNER_DESKTOP_V1_4_4.md). Release-specific validation/checksums are attached to Beta 4 rather than added to its source commit after building.

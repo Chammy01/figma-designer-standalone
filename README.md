@@ -1,12 +1,31 @@
 # Figma Designer
 
-> Main uses **Figma Designer MCP 1.1.0**, with operation receipts and guarded writes. This is an unreleased source checkpoint, not Beta 4. Published Beta 3 remains the rollback. See [reliability and activation](docs/FIGMA_DESIGNER_MCP_RELIABILITY_V1_4_3B.md).
+> **[Figma Designer v1.2.1 Beta 4](https://github.com/Chammy01/figma-designer-standalone/releases/tag/v1.2.1-beta.4)** is the recommended Windows desktop prerelease. **It is unsigned. Windows may show a SmartScreen/reputation warning.** Beta 3 remains the previous rollback checkpoint.
 
 Create editable Figma interfaces by describing what you want.
 
-Source preview: V1.4 adds an optional local application. After source setup, run
-`npm run app` and open the printed localhost address. Choose a model in Settings; interrupted tasks offer safe recovery actions. Review structured QA and browser evidence in the [application guide](docs/FIGMA_DESIGNER_APP_V1_4_2.md).
-This preview is not included in the published Beta 3 release; the terminal workflow remains available.
+## Start with the Beta 4 desktop app
+
+1. Download **Figma-Designer-v1.2.1-beta.4-Windows-Setup.exe** from the release's Assets and install it for your user account.
+2. Open Figma Desktop and a Design file.
+3. Launch **Figma Designer** from the Start Menu.
+4. In Settings → Figma Plugin Setup → Open Plugin Folder, locate the manifest. In Figma, import it through Plugins → Development → Import plugin from manifest, then run **Figma Designer MCP** and keep it open.
+5. Configure your AI provider/model if needed, then describe your interface. Review/revise it and use QA/Browser validation when useful.
+
+No terminal, npm, Go, Bun or source checkout is required for normal desktop use.
+Figma Desktop, development-plugin import permission and internet/provider access are required.
+The alternative **Figma-Designer-v1.2.1-beta.4-Windows-Portable.zip** must be fully
+extracted before opening **Figma Designer.exe**. Keep its files together.
+
+Install/extract Beta 4 separately: **do not merge it with Beta 3**. Close older
+OpenCode/MCP sessions and use the matching plugin from the Beta 4 folder.
+Installation roots currently have a 100-character limit. See [Installation](docs/INSTALLATION.md)
+and the [release notes and limitations](docs/RELEASE_NOTES_v1.2.1-beta.4.md).
+
+The app bundles OpenCode 2.0.28 and owned Figma Designer MCP 1.1.0 / bridge protocol 2.
+Source setup and `npm run app` remain available for developers. The manual OpenCode
+examples and historical Beta 3 instructions below are optional terminal workflows;
+they are not needed for desktop usage.
 
 Write your instructions in **OpenCode** and watch the design appear in **Figma Desktop** through the connected plugin. Figma Designer creates real, editable frames, text, components, and layers. It is not an image generator.
 
@@ -61,7 +80,7 @@ Design direction:
 
 You can continue editing the generated frames, text, sections, and layers directly in Figma. Creating the layout does not automatically make every control work; use the interaction commands when you need a prototype.
 
-## Install Figma Designer
+## Legacy Beta 3 terminal installation
 
 ### 1. Requirements
 
@@ -349,4 +368,4 @@ See [Installation](docs/INSTALLATION.md) for source toolchain installation. Read
 
 Project-owned code and documentation use the [MIT License](LICENSE). Dependencies and bundled third-party material retain their own [licenses and notices](THIRD_PARTY_LICENSES.md).
 
-Windows desktop candidate: V1.4.4 adds an Electron installer and portable ZIP around the same application. Candidates are unsigned and not published as Beta 4. See [desktop setup and validation](docs/FIGMA_DESIGNER_DESKTOP_V1_4_4.md).
+Beta 4 packages the V1.4.4 desktop application. See [desktop architecture and acceptance](docs/FIGMA_DESIGNER_DESKTOP_V1_4_4.md) for the historical candidate evidence; release-specific inventories and checksums accompany the published release.
