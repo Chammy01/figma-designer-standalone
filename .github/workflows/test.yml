@@ -99,6 +99,8 @@ jobs:
       - name: Build the exact approved MCP/plugin
         shell: pwsh
         run: |
+          $env:CGO_ENABLED = '0'; $env:GOOS = 'windows'; $env:GOARCH = 'amd64'
+          $env:GOFLAGS = ''; $env:GOWORK = 'off'; $env:GOTOOLCHAIN = 'local'; $env:GOENV = 'off'; $env:GOAMD64 = 'v1'
           New-Item bin -ItemType Directory -Force | Out-Null
           Push-Location vendor/figma-mcp
           go build -trimpath -buildvcs=false -ldflags '-X main.version=1.1.0' -o ../../bin/figma-designer-mcp.exe ./cmd/figma-mcp-go
