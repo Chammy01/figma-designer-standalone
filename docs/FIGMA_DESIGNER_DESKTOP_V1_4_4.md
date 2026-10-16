@@ -84,7 +84,7 @@ Main-window navigation stays on its own origin. The preview gets a separate wind
 separate server origin, sandbox, no desktop bridge, and no arbitrary popups. External
 HTTPS documentation links require explicit known hosts. Provider sign-in links are
 registered only from the existing validated provider-setup response: at most eight
-exact URLs for 15 minutes, in memory only; HTTPS or HTTP loopback, no credentials. No updater/telemetry/startup-on-login is added.
+exact URLs for 15 minutes, in memory only; HTTPS or HTTP loopback, no credentials. The desktop-owned engine explicitly disables its updater. No updater/telemetry/startup-on-login is added.
 Plugin wildcard network permission remains UNRESOLVED and unchanged.
 
 ## Install, upgrade, uninstall and validation
@@ -116,4 +116,4 @@ other platforms, signing, auto-update, project selection and public Beta 4
 publication are deferred. VM-clean install and antivirus availability are reported
 separately from isolated local install; do not imply certification.
 
-The installer/uninstaller uses extended Windows paths for owned installation files, retaining NSIS's atomic rename/restore behavior. Acceptance includes a file beyond MAX_PATH with Windows long-path policy disabled; the installer does not change that policy. Earlier unpublished candidates are retried through their original uninstaller using the registered extended installation path. Missing ownership metadata or another uninstall failure stops the upgrade.
+The installer/uninstaller uses extended Windows paths for owned installation files, retaining NSIS's atomic rename/restore behavior. Acceptance includes a file beyond MAX_PATH with Windows long-path policy disabled; the installer does not change that policy. An earlier unpublished candidate lacked this initialization and failed at a 261-character file. That failure is retained in acceptance evidence; it requires the corrected same-identity uninstaller for cleanup. Normal upgrade acceptance uses candidates containing the fix.
