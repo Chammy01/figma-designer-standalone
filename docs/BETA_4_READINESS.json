@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 1,
+  "milestone": "V1.4.4",
+  "recordedDate": "2026-10-17",
+  "sourceCommit": "26776b7fc366cf8fe3e5821f3dda15e68075424f",
+  "sourceCommitMeaning": "Exact source of the local candidate artifacts; final acceptance documentation is committed separately.",
+  "mcpCommit": "c95e264350ecd4f13f11f4012cc13dcc96edc927",
+  "mcpVersion": "1.1.0",
+  "bridgeProtocol": 2,
+  "toolCount": 108,
+  "combine_as_variants": true,
+  "desktopPackageVersion": "1.4.4",
+  "systemVersion": "1.2.1",
+  "applicationId": "com.chammy01.figmadesigner",
+  "technology": {
+    "shell": "Electron 44.7.2",
+    "builder": "electron-builder 26.15.3",
+    "node": "24.15.0",
+    "opencode": "2.0.28"
+  },
+  "runtimeHashes": {
+    "bin/figma-designer-mcp.exe": "c6f7670c277ec91ec0ff4980b34878a0d309cff2dbcfb01f49899114fb779004",
+    "vendor/figma-mcp/plugin/dist/code.js": "8aa2b7aba459a96784efb2f1824b712a85077d09f15ba003a6a82bf980a34085",
+    "vendor/figma-mcp/plugin/dist/index.html": "74067837ed24279beaca0d95f1a822708ded8713b589bb1be4fce55d17a55f02"
+  },
+  "runtimeChanges": "NONE",
+  "artifactHashes": [
+    {
+      "name": "Figma-Designer-1.4.4-Windows-Setup.exe",
+      "bytes": 316617043,
+      "sha256": "539b1b64731e0148246f95f350e649788ebff3412afb35c2ee3d8b4872507940"
+    },
+    {
+      "name": "Figma-Designer-1.4.4-Windows-Portable.zip",
+      "bytes": 422706265,
+      "sha256": "974c80f26cf2e850cbac319276b274534fa1ebc1c2152085313c473ed006b496"
+    }
+  ],
+  "unpacked": {
+    "files": 769,
+    "bytes": 1030585901
+  },
+  "payloadReproducibility": {
+    "scope": "resources/payload/",
+    "sha256": "0edcc33a366a03d464ab6edb1233ca3ea4e3e25a80fba9df8ee33de8af441305",
+    "files": 695,
+    "twoCleanStagesByteIdentical": true,
+    "installerByteReproducible": "NOT_CLAIMED"
+  },
+  "tests": {
+    "npmContracts": 532,
+    "plugin": 328,
+    "sourceHardeningVariants": 153,
+    "browser": 34,
+    "totalPassingExecutions": 1047,
+    "countMeaning": "Test executions across the listed suites; not a claim of unique cases.",
+    "goTests": "PASS",
+    "goVet": "PASS",
+    "sourceArchiveSetupAndPackage": "PASS",
+    "sourcePackageEntries": 206,
+    "releaseSourcePrivacy": "PASS",
+    "installer": "PASS",
+    "upgrade": "PASS",
+    "uninstall": "PASS",
+    "portableExtraction": "PASS",
+    "installedAndPortableRestrictedPath": "PASS",
+    "singleInstance": "PASS",
+    "forceCloseOwnership": "PASS",
+    "defender": {
+      "setup": "NO_THREATS_FOUND",
+      "portable": "NO_THREATS_FOUND"
+    },
+    "sourceCodeCI": {
+      "url": "https://github.com/Chammy01/figma-designer-standalone/actions/runs/38950722419",
+      "conclusion": "success",
+      "jobs": [
+        "node-contracts",
+        "plugin",
+        "go",
+        "desktop"
+      ]
+    },
+    "localWorkingTreeCheck": "Raw recursive source check encountered malformed ignored historical evidence JSON. No evidence deleted; clean tracked-source validation used instead."
+  },
+  "liveAcceptance": {
+    "A": {
+      "case": "Install",
+      "result": "PASS",
+      "exactFiles": 769,
+      "unicodeAndSpaces": true,
+      "perUser": true
+    },
+    "B": {
+      "case": "First start",
+      "result": "PASS",
+      "runtime": "VERIFIED",
+      "engine": "READY",
+      "startupFigmaWrites": 0
+    },
+    "C": {
+      "case": "Connection",
+      "result": "PASS",
+      "serverVersion": "1.1.0",
+      "pluginVersion": "1.1.0",
+      "protocol": 2,
+      "handshake": "COMPATIBLE",
+      "documentReadable": true,
+      "pluginImportNote": "Existing development plugin has identical approved bytes; final packaged manifest path is verified accessible, not reimported during final candidate test."
+    },
+    "D": {
+      "case": "Design",
+      "result": "PASS",
+      "runId": "bcad820c-c8ec-4c7a-b82d-05934a4c0ee8",
+      "roots": [
+        "1040:759",
+        "1040:772"
+      ],
+      "nativeEditable": true
+    },
+    "E": {
+      "case": "Revision",
+      "result": "PASS",
+      "runId": "cdfd3b94-e765-47c3-8d70-65a2529c9684",
+      "node": "1040:762",
+      "change": "Tasks -> Team tasks",
+      "unaffectedIdsPreserved": true
+    },
+    "F": {
+      "case": "Lost response",
+      "result": "PASS",
+      "method": "Controlled checkpoint/reconciliation harness plus actual disposable-page cleanup receipt.",
+      "receipt": "ce3ce0ab-dacd-47a0-8317-69d20f1a3523",
+      "receiptState": "COMMITTED",
+      "blindRetries": 0,
+      "unknownRemainsLocked": true
+    },
+    "G": {
+      "case": "QA",
+      "result": "WARN",
+      "runId": "c9b069fc-62af-4d05-abee-29e81e4a6cc5",
+      "reads": 6,
+      "writes": 0,
+      "integrity": "UNCHANGED",
+      "workingActions": 2,
+      "intentionallyInert": 2,
+      "broken": 0,
+      "acceptance": "PASS: truthful read-only QA, not a clean-design claim."
+    },
+    "H": {
+      "case": "Browser",
+      "build": "PASS",
+      "buildChecks": 63,
+      "buildRunId": "a18a7ad6-b047-4d7f-82f3-12f72858bba6",
+      "finalTestRunId": "e895ba9b-5505-43dd-8052-e71452f39130",
+      "browserTest": "FAIL",
+      "findings": {
+        "high": 0,
+        "medium": 5,
+        "code": "PROPERTY_strokeWidth"
+      },
+      "limitations": {
+        "font": 199,
+        "complexPaint": 86
+      },
+      "source": "CURRENT",
+      "figmaWrites": 0,
+      "preview": "SEPARATE_ORIGIN_NO_DESKTOP_BRIDGE",
+      "acceptance": "PASS: actual bundled browser executes and dashboard preserves failures; fidelity itself remains FAIL.",
+      "nativePixelParity": "UNVERIFIED"
+    },
+    "I": {
+      "case": "Restart",
+      "result": "PASS",
+      "modelAndSessionRetained": true,
+      "noReplay": true,
+      "ownedProcessesStopped": true,
+      "figmaPreserved": true,
+      "historicalQAAfterProbeRemoval": "STALE"
+    },
+    "J": {
+      "case": "Upgrade",
+      "result": "PASS",
+      "candidateUpgradeAndFinalReinstall": true,
+      "preferencesPreserved": true,
+      "credentialsPreserved": true,
+      "noDuplicateStack": true
+    },
+    "K": {
+      "case": "Uninstall",
+      "result": "PASS",
+      "applicationAndShortcutRemoved": true,
+      "userDataRetained": true,
+      "credentialsRetained": true,
+      "figmaPreserved": true
+    }
+  },
+  "productionIntegrity": {
+    "page": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "a68cfd586576aa6f2d199c8edd4e46c541b5d7e9a22508a16781e8fff3712be6"
+    },
+    "source": {
+      "algorithm": "canonical-json-sha256-v1",
+      "sha256": "129cd01193e0d6d52a3c992380c48ed41650ea372316dadbd30d22ece81fcd27"
+    },
+    "pages": [
+      {
+        "id": "0:1",
+        "name": "Page 1"
+      }
+    ],
+    "restored": true,
+    "writes": 0
+  },
+  "timeoutReconciliation": {
+    "events": 2,
+    "operations": [
+      "add_page",
+      "delete_page"
+    ],
+    "blindRetries": 0,
+    "completedWritesPreserved": true
+  },
+  "codeSigning": "UNSIGNED",
+  "releaseState": "CANDIDATE_NOT_PUBLISHED",
+  "beta3": "UNCHANGED_ROLLBACK_CHECKPOINT",
+  "statefulVariables": "HOLD",
+  "knownLimitations": [
+    "No fresh Windows VM test; isolated local install and Windows hosted runner tested.",
+    "Unsigned: SmartScreen/reputation warnings possible; no bypass provided.",
+    "Install root limited to 100 characters; payload relative paths capped at 149.",
+    "No installer/container byte-reproducibility claim; only resources/payload verified twice.",
+    "Existing five stroke-width findings and 285 font/paint limitations remain.",
+    "No native pixel-parity certification.",
+    "One app-owned workspace; no project picker or updater.",
+    "Figma development plugin import/reload remains manual.",
+    "Wildcard plugin network permission remains unresolved and unchanged.",
+    "Prototype state/conditional feature remains HOLD.",
+    "Incidental native Crashpad diagnostic file can appear beside executable; not shipped, observed bounded and removed by uninstall.",
+    "Recovery preserves bounded session/receipt evidence, not a full conversation backup."
+  ],
+  "recommendation": "Proceed to Beta 4 release-candidate review and signing/publication decision; do not add another feature or publish automatically.",
+  "filesChanged": [
+    ".github/workflows/test.yml",
+    "CHANGELOG.md",
+    "README.md",
+    "app/server/index.mjs",
+    "app/server/recovery-store.mjs",
+    "app/server/runs.mjs",
+    "app/web/app.js",
+    "app/web/index.html",
+    "desktop/electron-builder.cjs",
+    "desktop/icon.svg",
+    "desktop/installer.nsh",
+    "desktop/main.mjs",
+    "desktop/policy.mjs",
+    "desktop/preload.cjs",
+    "desktop/preview-preload.cjs",
+    "desktop/runtime-lock.json",
+    "desktop/service.mjs",
+    "docs/ARCHITECTURE.md",
+    "docs/BETA_4_READINESS.json",
+    "docs/DESKTOP_PACKAGING_DECISION_V1_4_4.md",
+    "docs/FIGMA_DESIGNER_DESKTOP_V1_4_4.md",
+    "docs/INSTALLATION.md",
+    "docs/PRIVACY.md",
+    "docs/RELEASE_ALLOWLIST.json",
+    "docs/RELEASE_PACKAGING.md",
+    "docs/SOURCE_ALLOWLIST.json",
+    "package-lock.json",
+    "package.json",
+    "scripts/desktop-extraction-check.mjs",
+    "scripts/desktop-package.test.ps1",
+    "scripts/desktop-prepare.mjs",
+    "scripts/desktop-smoke.mjs",
+    "scripts/desktop-validate.mjs",
+    "scripts/figma-app.test.mjs",
+    "scripts/figma-desktop.test.mjs"
+  ]
+}
