@@ -9,7 +9,7 @@
 !macroend
 
 ; Unpublished early candidates lacked the extended-path uninstaller initialization.
-!macro customUnInstallCheckCurrentUser
+!macro customUnInstallCheck
   ${If} $R0 != 0
     Push $R8
     Push $R9

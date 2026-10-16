@@ -125,6 +125,8 @@ jobs:
           ./scripts/desktop-package.test.ps1 -Phase Upgrade -InstallRoot $target
           ./scripts/desktop-package.test.ps1 -Phase Uninstall -InstallRoot $target
           ./scripts/desktop-package.test.ps1 -Phase Portable -InstallRoot (Join-Path ([IO.Path]::GetTempPath()) 'Portable café with spaces')
+          node scripts/desktop-smoke.mjs (Join-Path ([IO.Path]::GetTempPath()) 'Portable café with spaces/Figma Designer.exe')
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - uses: actions/upload-artifact@v4
         with:
           name: Figma-Designer-1.4.4-Windows-Candidate
