@@ -20,10 +20,10 @@ const iconRoot=join(root,'.figma-designer/desktop/icons');await mkdir(iconRoot,{
 const iconBrowser=await chromium.launch({env:{...process.env,CHROME_LOG_FILE:join(iconRoot,'chromium.log')}});
 try{const page=await iconBrowser.newPage({viewport:{width:256,height:256},deviceScaleFactor:1});await page.setContent(await readFile(join(root,'desktop/icon.svg'),'utf8'));await page.addStyleTag({content:'body{margin:0;background:transparent}'});const png=await page.screenshot({omitBackground:true});const header=Buffer.alloc(22);header.writeUInt16LE(1,2);header.writeUInt16LE(1,4);header.writeUInt16LE(1,10);header.writeUInt16LE(32,12);header.writeUInt32LE(png.length,14);header.writeUInt32LE(22,18);await writeFile(join(iconRoot,'icon.ico'),Buffer.concat([header,png]));}finally{await iconBrowser.close();}
 const browser=chromium.executablePath(),browserRoot=dirname(dirname(browser));
-await access(browser);await copy(browserRoot,join(stage,'browsers',relative(dirname(browserRoot),browserRoot)));
-// Playwright's default launch uses the separately distributed headless shell.
+await access(browser);
+// The canonical Browser Test launches headless; Electron already supplies the visible preview.
 const browserCache=dirname(browserRoot);
-for(const name of (await readdir(browserCache)).filter(n=>/^chromium_headless_shell-/.test(n))){await copy(join(browserCache,name),join(stage,'browsers',name));}
+for(const name of (await readdir(browserCache)).filter(n=>/^(chromium_headless_shell|ffmpeg|winldd)-/.test(n))){await copy(join(browserCache,name),join(stage,'browsers',name));}
 const archive=join(tmpdir(),'figma-desktop-node-v24.15.0.zip');
 try{await access(archive);}catch{const response=await fetch(lock.node.url);if(!response.ok)throw Error('Node download failed');await writeFile(archive,Buffer.from(await response.arrayBuffer()));}
 if(sha256(await readFile(archive))!==lock.node.sha256)throw Error('Node archive hash mismatch');
