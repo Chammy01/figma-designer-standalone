@@ -47,3 +47,5 @@ for(const mode of ['AUTO','DESIGN','QA','BROWSER','BROWSER_TEST'])test(`closing 
  await runs.submit({mode,input:'synthetic acceptance',requestId:randomUUID()});await entered;runs.closed=true;release();while(runs.active)await new Promise(r=>setTimeout(r,10));
  const restored=new Runs({});await store.restore(restored);assert.equal(restored.uncertain,true);assert.equal(restored.runs[0].recovery,'RECONCILIATION_REQUIRED');assert.equal(restored.runs[0].mode,mode);
 });
+
+test('installer rejects unsafe path lengths before copying, without weakening package completeness',async()=>{const hook=await readFile('desktop/installer.nsh','utf8'),prepare=await readFile('scripts/desktop-prepare.mjs','utf8'),check=await readFile('scripts/desktop-extraction-check.mjs','utf8');assert.match(hook,/\$R9 > 100/);assert.match(hook,/customInit/);assert.match(hook,/customPageAfterChangeDir/);assert.match(prepare,/length>149/);assert.match(check,/missing\.length/);});

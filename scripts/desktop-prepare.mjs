@@ -40,5 +40,6 @@ await copy(join(root,'node_modules/electron/LICENSE'),join(stage,'licenses/Elect
 const files=[];
 async function inventory(dir){for(const name of(await readdir(dir)).sort()){const path=join(dir,name),s=await lstat(path);if(s.isDirectory())await inventory(path);else if(name!=='PAYLOAD_INVENTORY.json')files.push({path:relative(stage,path).replaceAll('\\','/'),bytes:s.size,sha256:sha256(await readFile(path))});}}
 await inventory(stage);
+if(files.some(file=>('resources/payload/'+file.path).length>149))throw Error('Payload exceeds the installer path budget; review the 100-character installation limit');
 await writeFile(join(stage,'PAYLOAD_INVENTORY.json'),JSON.stringify({version:1,tools:lock,files},null,2)+'\n');
 console.log(`Desktop payload verified: ${files.length} files; approved runtime unchanged.`);

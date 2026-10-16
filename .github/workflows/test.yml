@@ -78,7 +78,12 @@ jobs:
         run: npm install --global @opencode/cli@2.0.24
       - name: Real clean source archive and release setup regression
         shell: pwsh
-        run: ./scripts/source-bootstrap.test.ps1 -OutputRoot "${{ runner.temp }}/Source bootstrap acceptance"
+        run: |
+          try { ./scripts/source-bootstrap.test.ps1 -OutputRoot "${{ runner.temp }}/Source bootstrap acceptance" }
+          catch {
+            Get-Content "${{ runner.temp }}/Source bootstrap acceptance/source-setup.txt" -Tail 60 -ErrorAction SilentlyContinue
+            throw
+          }
   desktop:
     needs: [node-contracts, plugin, go]
     runs-on: windows-latest
@@ -120,7 +125,8 @@ jobs:
       - name: Per-user installer, upgrade, uninstall and portable extraction
         shell: pwsh
         run: |
-          $target = Join-Path ([IO.Path]::GetTempPath()) 'Figma Desktop café acceptance with an intentionally long installation directory'
+          $target = Join-Path ([IO.Path]::GetTempPath()) 'Figma Designer café acceptance'
+          ./scripts/desktop-package.test.ps1 -Phase RejectLongPath -InstallRoot (Join-Path ([IO.Path]::GetTempPath()) ('Figma Designer ' + ('x' * 100)))
           ./scripts/desktop-package.test.ps1 -Phase Install -InstallRoot $target
           ./scripts/desktop-package.test.ps1 -Phase Upgrade -InstallRoot $target
           ./scripts/desktop-package.test.ps1 -Phase Uninstall -InstallRoot $target
