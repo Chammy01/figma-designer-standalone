@@ -1,6 +1,7 @@
 import {readFile,mkdir,writeFile,rename} from 'node:fs/promises';
 import {dirname} from 'node:path';
 import {randomUUID} from 'node:crypto';
+import {observeActivityRun} from './agent-activity.mjs';
 
 const fields=['id','workspaceId','requestId','mode','startedAt','sessionId','offset','submissionStarted','beforeFingerprint','beforeGraphFingerprint','state','recovery','finishedAt','integrity'];
 export function recoveryStore(file){
@@ -17,6 +18,7 @@ export function recoveryStore(file){
       if(run.state==='RUNNING'||run.recovery==='RECONCILIATION_REQUIRED'){
         run.state='FAILED';run.recovery='RECONCILIATION_REQUIRED';run.error={code:'SESSION_INTERRUPTED',title:'Previous task needs checking',message:'The app closed before completion was verified. Check the current result before repeating it.',recoverable:true};runs.uncertain=true;
       }
+      observeActivityRun(run,{restored:true});
     }
   };
 }

@@ -1,5 +1,5 @@
 {
-  "releaseVersion": "v1.2.1-beta.4",
+  "releaseVersion": "v1.5.0-source",
   "systemVersion": "1.2.1",
   "mcpVersion": "1.1.0",
   "upstreamCommit": "5806e71b8fd4bad97671038a0b010f04df1aaa41",
@@ -17,8 +17,8 @@
     "buildMetadataDifference": "Go module (devel); buildvcs=false explicitly reproduces the approved non-Git release metadata; trimpath=true",
     "sourceBootstrapPolicy": "Go 1.26.1 windows/amd64, CGO_ENABLED=0; exact approved SHA-256 for both source builds and packaged executables. Never accept a local receipt/version alone."
   },
-  "releaseStatus": "BETA_4_PRERELEASE; Beta 3 remains public rollback",
-  "previousSourceCheckpoint": "v1.2.1-reliability.1",
+  "releaseStatus": "UNRELEASED_AGENT_STUDIO_SOURCE; Beta 4 remains immutable public checkpoint",
+  "previousSourceCheckpoint": "v1.2.1-beta.4",
   "mcpProduct": "Figma Designer MCP",
   "mcpServerId": "figma-designer-mcp",
   "ownedRepository": "https://github.com/Chammy01/figma-designer-mcp",

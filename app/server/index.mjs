@@ -14,7 +14,8 @@ import {safePath,isWithinRoot} from '../../scripts/figma-browser-contract.mjs';
 import {recoveryStore} from './recovery-store.mjs';
 
 export const projectRoot=resolve(fileURLToPath(new URL('../../',import.meta.url)));
-const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.json':'application/json'};
+const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.json':'application/json'};
+const studioAssets=new Set(['room/bedroom-base.png',...['idle','listening','planning','designing','prototyping','checking','waiting','recovering','done','alert'].map(n=>'character/'+n+'.png'),...['ready','inspecting','planning','designing','prototyping','checking','previewing','recovering','done','attention'].map(n=>'monitor/'+n+'.png')].map(p=>'/assets/agent-studio/'+p));
 function localServer(handler){return createServer((req,res)=>{const authority=`127.0.0.1:${req.socket.localPort}`;res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('Cache-Control','no-store');if(req.headers.host!==authority || req.headers.origin && req.headers.origin!==`http://${authority}` || req.headers['sec-fetch-site']==='cross-site'){json(res,{error:{title:'Access denied',message:'Use this application from its local address.'}},403);return;}Promise.resolve(handler(req,res)).catch(()=>{if(!res.headersSent)res.writeHead(500);res.end();});});}
 async function listen(server,port=0){await new Promise((r,reject)=>{server.once('error',reject);server.listen(port,'127.0.0.1',r);});return `http://127.0.0.1:${server.address().port}`;}
 async function body(req){if(req.headers.origin!==`http://${req.headers.host}` || req.headers['content-type']?.split(';')[0]!=='application/json')throw Object.assign(Error('Same-origin JSON required'),{status:403});const chunks=[];let size=0;for await(const chunk of req){size+=chunk.length;if(size>40000)throw Object.assign(Error('Request too large'),{status:413});chunks.push(chunk);}try{return JSON.parse(Buffer.concat(chunks).toString('utf8'));}catch{throw Object.assign(Error('Invalid JSON'),{status:400});}}
@@ -46,13 +47,14 @@ export async function createApplication({root=projectRoot,engine=new OpenCodeCli
         if(path==='/api/ai/status'||path==='/api/ai/models'||path==='/api/ai/providers'){const value=await ai.refresh();json(res,path.endsWith('/models')?value.models:path.endsWith('/providers')?value.integrations:value);return;}
         if(path==='/api/figma/status'){json(res,await check());return;}
         if(path==='/api/opencode/status'){json(res,engine.status());return;}
-        if(path==='/api/project'){json(res,{name:basename(root),version:'1.4.2-source'});return;}
+        if(path==='/api/project'){json(res,{name:basename(root),version:'1.5.0-source'});return;}
         if(path==='/api/runs'){json(res,runs.runs);return;}
         if(path==='/api/browser/status'){json(res,await browser());return;}
         if(path==='/api/validation'){json(res,await validation.get());return;}
         if(path==='/api/browser/preview'){json(res,{url:await previewUrl()});return;}
         if(/^\/api\/run\/[\w-]+$/.test(path)){const run=runs.runs.find(r=>r.id===path.split('/').at(-1));json(res,run??{error:'Run not found'},run?200:404);return;}
-        const staticFiles={'/':'index.html','/app.js':'app.js','/validation.js':'validation.js','/styles.css':'styles.css'};
+        const staticFiles={'/':'index.html','/app.js':'app.js','/validation.js':'validation.js','/styles.css':'styles.css','/agent-presence.js':'agent-presence.js','/agent-presence.css':'agent-presence.css','/agent-activity.mjs':'../shared/agent-activity.mjs'};
+        if(studioAssets.has(path)){res.writeHead(200,{'Content-Type':'image/png'});res.end(await readFile(join(projectRoot,'app/web',path)));return;}
         if(staticFiles[path]){res.writeHead(200,{'Content-Type':mime[extname(staticFiles[path])]});res.end(await readFile(join(projectRoot,'app/web',staticFiles[path])));return;}
       }
       if(req.method==='POST'){

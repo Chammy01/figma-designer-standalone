@@ -2,7 +2,7 @@ import {readFile,mkdir,writeFile,rename,copyFile,lstat,readdir,rm,chmod} from 'n
 import {join,dirname,resolve} from 'node:path';
 import {createHash,randomUUID} from 'node:crypto';
 
-export const desktopVersion='1.4.4';
+export const desktopVersion='1.5.0';
 export const applicationId='com.chammy01.figmadesigner';
 export const sha256=bytes=>createHash('sha256').update(bytes).digest('hex');
 export async function verifyRuntime(root){

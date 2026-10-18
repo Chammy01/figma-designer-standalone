@@ -33,3 +33,9 @@ Figma Motion capability audit
 
 ### V1.3+
 Advanced motion; Browser motion parity; Visual regression; Design-system intelligence
+
+### V1.5.0 (source)
+Agent Presence & Human Progress UX.
+
+### V1.6 (deferred)
+Design-System Intelligence; no implementation in V1.5.0.

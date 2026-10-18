@@ -369,3 +369,5 @@ See [Installation](docs/INSTALLATION.md) for source toolchain installation. Read
 Project-owned code and documentation use the [MIT License](LICENSE). Dependencies and bundled third-party material retain their own [licenses and notices](THIRD_PARTY_LICENSES.md).
 
 Beta 4 packages the V1.4.4 desktop application. See [desktop architecture and acceptance](docs/FIGMA_DESIGNER_DESKTOP_V1_4_4.md) for the historical candidate evidence; release-specific inventories and checksums accompany the published release.
+
+Source main now includes the unreleased V1.5.0 AI Designer presence: the bedroom-centered Agent Studio and short activity updates derived from observed work, with private details excluded. Beta 4 downloads remain unchanged.

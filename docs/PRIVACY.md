@@ -11,3 +11,7 @@ Uninstall preserves user data and provider credentials. No telemetry, automatic
 update, runtime executable download or startup-on-login is introduced. See
 [desktop storage and limits](FIGMA_DESIGNER_DESKTOP_V1_4_4.md) and the existing
 [release privacy scan](PRIVACY_SCAN.md).
+
+## Agent activity
+
+Presence uses fixed owned messages and allowlisted enums. It does not read reasoning, prompts, tool inputs/output, document text, paths or receipt payloads to create progress copy. Ten coalesced entries per run stay in the existing bounded in-memory run list; only existing safe recovery metadata persists. Restart reconstructs one static outcome, without replay. No remote art, telemetry, Pixel Agents service or new IPC is added.

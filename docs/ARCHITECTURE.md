@@ -25,3 +25,7 @@ Local history, activation backups, freshness evidence, generated acceptance expo
 ## Desktop shell
 
 V1.4.4 adds one sandboxed Electron window and an owned bundled-Node service sidecar. The existing service, OpenCode sessions, guards and MCP contracts remain authoritative. The renderer has only a fixed plugin-folder operation; previews receive no preload bridge. Persistent workspace data lives under the user profile. See [desktop architecture](FIGMA_DESIGNER_DESKTOP_V1_4_4.md) and [packaging decision](DESKTOP_PACKAGING_DECISION_V1_4_4.md).
+
+## Agent Studio (V1.5.0 source)
+
+The existing run observer translates tool names/statuses and authoritative run/recovery outcomes into an allowlisted shared activity model. No model call, workflow decision, extra Figma read, retry, or second transport is added. Existing run APIs carry current activity plus ten coalesced entries. The overhauled workspace renders locally prepared user-provided bedroom/character/CRT artwork; the Electron shell gains no privileges. See [activity architecture](AGENT_ACTIVITY_V1_5_0.md).
