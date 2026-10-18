@@ -81,7 +81,7 @@ export async function createApplication({root=projectRoot,engine=new OpenCodeCli
   });
   const url=await listen(server,port);
   const ready=engine.start().then(async()=>{await ai.initialize().catch(()=>{});log({event:'engine',state:engine.status().state});}).catch(error=>log({event:'engine',state:'FAILED',code:safeError(error).code}));
-  async function close(){if(closed)return;closed=true;runs.closed=true;await ready;await engine.stop();for(const s of [server,preview?.server].filter(Boolean)){s.closeAllConnections();await new Promise(r=>s.close(r));}await logChain;}
+  async function close(){if(closed)return;closed=true;runs.closed=true;await ready;await engine.stop();await runs.workPending;for(const s of [server,preview?.server].filter(Boolean)){s.closeAllConnections();await new Promise(r=>s.close(r));}await logChain;}
   return {url,server,runs,ai,validation,ready,close};
 }
 

@@ -209,3 +209,10 @@ test('manual resolution API enforces exact latest ID, confirmation and same-orig
  const before=f.mock.calls.length,result=await f.api(endpoint,{confirmation:'KEEP_CURRENT_FIGMA'});assert.equal(result.status,200);assert.equal(result.value.state,'FAILED');assert.equal(result.value.recovery,'USER_ACCEPTED_CURRENT_STATE');assert.equal(f.app.runs.uncertain,false);
  assert.equal(f.mock.calls.slice(before).filter(c=>/prompt|command/.test(c.path)).length,0);assert.equal((await f.api(endpoint,{confirmation:'KEEP_CURRENT_FIGMA'})).status,409);
 });
+
+test('application close drains the final durable checkpoint before workspace cleanup',async t=>{
+ const f=await fixture(t),runs=f.app.runs;let release,entered;const pending=new Promise(r=>release=r),started=new Promise(r=>entered=r);const save=runs.checkpoint;
+ runs.checkpoint=async run=>{if(run.finishedAt){entered();await pending;}await save(run);};
+ await f.api('/api/run',{input:'fresh shutdown task',requestId:randomUUID()});await started;
+ let closed=false;const closing=f.app.close().then(()=>closed=true);await new Promise(r=>setImmediate(r));assert.equal(closed,false);await assert.rejects(runs.submit({input:'late task',requestId:randomUUID()}),{status:409});release();await closing;assert.equal(closed,true);assert.equal(runs.active,null);const stored=JSON.parse(await readFile(join(f.root,'.figma-designer/app/recovery.json'),'utf8'));assert.ok(stored.runs.at(-1).finishedAt);
+});

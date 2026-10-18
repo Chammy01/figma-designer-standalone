@@ -31,12 +31,12 @@ export class Runs {
   async submit({input='',mode='AUTO',requestId}) {
     if(!modes.includes(mode)||typeof input!=='string'||input.length>32000||(!input.trim()&&mode==='AUTO')||!requestId||!/^[\w-]{8,80}$/.test(requestId))throw Object.assign(Error('Invalid request'),{status:400});
     const existing=this.runs.find(r=>r.requestId===requestId);if(existing)return existing;
-    if(this.active||this.uncertain||this.resolutionPending||this.ai?.busy||this.sessionPending)throw Object.assign(Error('A task is running or its result needs checking'),{status:409});
+    if(this.closed||this.active||this.uncertain||this.resolutionPending||this.ai?.busy||this.sessionPending)throw Object.assign(Error('A task is running or its result needs checking'),{status:409});
     this.ai?.assertReady();
     const run={id:randomUUID(),workspaceId:this.workspaceId,requestId,input:redact(input),mode,state:'RUNNING',startedAt:new Date().toISOString(),result:'',activity:'Working…'};
     observeActivityRun(run);
     this.active=run;this.runs.push(run);if(this.runs.length>50)this.runs.shift();
-    this.work(run,input);return run;
+    this.workPending=this.work(run,input);return run;
   }
   async work(run,input){
     let resultContext;
