@@ -53,7 +53,8 @@ export function observeActivityContext(run,context){
   const m=context[i];if(m?.type!=='assistant')continue;
   let pending=i===context.length-1&&!m.finish,recognized=false;
   for(let j=0;j<(m.content?.length??0);j++){
-   const t=m.content[j];if(t?.type!=='tool'||t.executed===false)continue;
+   // OpenCode 2.0.28 can retain executed=false on completed/running native tool records.
+   const t=m.content[j];if(t?.type!=='tool')continue;
    const trace=t.name==='execute'&&Array.isArray(t.state?.metadata?.toolCalls)?t.state.metadata.toolCalls.slice(0,64):null;
    const tools=trace?.length?trace.map(x=>({name:x?.tool,status:x?.status})):[{name:t.name,status:t.state?.status}];
    if(!['completed','error'].includes(t.state?.status))pending=true;

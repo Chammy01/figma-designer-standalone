@@ -87,3 +87,21 @@ test('all studio states and supporting pages remain usable in the new shell',asy
  await page.click('a[href="#workspace"]');await page.locator('#workspace').waitFor({state:'visible'});await page.setViewportSize({width:900,height:650});
  for(const id of ['prompt','send']){const b=await page.locator('#'+id).boundingBox();assert.ok(b.x>=0&&b.y>=0&&b.x+b.width<=900&&b.y+b.height<=650,id+' must fit minimum desktop');}
 });
+
+test('controlled lost response shows real reconciliation then recovered completion without resend',async t=>{
+ const w=await workspace(t),{page,app}=w,engine=app.runs.engine,submit=engine.submit.bind(engine),context=engine.context.bind(engine);let lost=false;
+ engine.submit=async(...args)=>{await submit(...args);lost=true;throw Error('Fixture response lost');};
+ engine.context=async(...args)=>{if(lost)await new Promise(r=>setTimeout(r,2200));return context(...args);};
+ await page.fill('#prompt','Create a controlled test design.');await page.click('#send');
+ await page.waitForFunction(()=>document.getElementById('agent-studio').dataset.phase==='RECOVERING');
+ assert.match(await page.textContent('#agent-message'),/checking the last change/);await page.screenshot({path:'.figma-designer/presence/controlled-recovery.png'});
+ await page.waitForFunction(()=>document.getElementById('agent-studio').dataset.phase==='COMPLETED');assert.match(await page.textContent('#agent-message'),/already completed/);assert.equal(w.mock.calls.filter(c=>c.path.endsWith('/prompt')).length,1);
+ assert.equal(app.runs.runs[0].recovery,'RECOVERED_COMPLETED');assert.equal(await page.locator('#send').isDisabled(),false);
+});
+
+test('supported provider failure translates the actual run and preserves explicit recovery controls',async t=>{
+ const {page,mock}=await workspace(t);await page.fill('#prompt','provider-failure');await page.click('#send');
+ await page.waitForFunction(()=>document.getElementById('agent-message').textContent.includes('reconnect your AI provider'));
+ assert.equal(await page.locator('#agent-scene').getAttribute('data-animation'),'ALERT');await page.locator('#conversation').getByRole('button',{name:'Try Again',exact:true}).waitFor();
+ assert.doesNotMatch(await page.textContent('#agent-message'),/ProviderAuthError|exception|503/);assert.equal(mock.calls.filter(c=>c.path.endsWith('/prompt')).length,1);await page.screenshot({path:'.figma-designer/presence/controlled-provider-failure.png'});
+});

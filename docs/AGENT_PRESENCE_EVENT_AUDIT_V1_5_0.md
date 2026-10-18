@@ -46,3 +46,6 @@ instructions.
   and stop the working animation; do not artificially delay or replay work.
 - Safety/recovery/checkpoint/result code remains authoritative and independent.
 - No new MCP capability is needed. MCP 1.1.0 / protocol 2 / 108 tools is unchanged.
+## Live compatibility correction
+
+Native OpenCode 2.0.28 records observed during the first Studio generation retained `executed: false` while `state.status` was `running`/`completed` and structured Code Mode traces contained completed Figma calls. The initial observer incorrectly discarded those records. The corrected observer uses explicit native status, not that legacy boolean, as execution evidence. Pending/missing status still cannot claim work. This affects presentation only; existing submission/recovery decisions are unchanged. The exact shape has a deterministic regression test. The first live attempt is retained as a failed presence probe and must not be relabeled as a passing sequence.

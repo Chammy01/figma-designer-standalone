@@ -10,7 +10,7 @@ Phases: IDLE, LISTENING, INSPECTING, PLANNING, DESIGNING, PROTOTYPING, CHECKING,
 
 Animations: IDLE, LISTEN, READ, THINK, TYPE, CONNECT, CHECK, PREVIEW, TALK, WAIT, RECOVER, DONE, ALERT.
 
-Semantic groups: READ_DESIGN, WRITE_DESIGN, COMPONENTS, PROTOTYPE, EXPORT, QA, BROWSER, RECOVERY, OTHER. Unknown/system tools use neutral preparation, never an inferred design write. Tool names/IDs stay off the human-facing surface. Mode-aware QA/browser/status copy preserves actual workflow ownership.
+Semantic groups: READ_DESIGN, WRITE_DESIGN, COMPONENTS, PROTOTYPE, EXPORT, QA, BROWSER, RECOVERY, OTHER. Unknown/system tools use neutral preparation, never an inferred design write. Native state.status is authoritative for activity: OpenCode 2.0.28 can retain executed=false on completed/running records. Pending/missing status does not claim work. Tool names/IDs stay off the human-facing surface. Mode-aware QA/browser/status copy preserves actual workflow ownership.
 
 ## Translation and recovery
 
