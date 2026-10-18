@@ -28,3 +28,4 @@ release-staging/
 
 # Historical rollback executable, never shipped by the owned runtime.
 bin/figma-mcp-go.exe
+graphify-out/
