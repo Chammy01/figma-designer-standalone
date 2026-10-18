@@ -41,7 +41,7 @@ export const activityCopy={
  waiting:copy('WAITING','TALK','I need your input before I continue.','Reply to the question in the conversation below.'),
  cancelled:copy('CANCELLED','WAIT','The task stopped. Any completed changes remain.','Check the result before starting again.'),
  completed:copy('COMPLETED','DONE','Your design task is finished. Review the result below.'),
- restored:copy('COMPLETED','DONE','Your previous task has finished. Review its saved evidence.'),
+ restored:copy('COMPLETED','DONE','Your previous task has finished.'),
  findings:copy('COMPLETED','ALERT','The check is finished. There are findings to review.'),
  limited:copy('BLOCKED','ALERT','This task needs attention. Review the result below.'),
  failed:copy('BLOCKED','ALERT',"I couldn't finish this task. Review the recovery options below."),
