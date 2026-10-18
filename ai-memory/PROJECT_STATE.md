@@ -10,6 +10,10 @@ This repository is an active standalone Figma automation project.
 
 The project is being developed as an AI-assisted pipeline for generating, validating, and maintaining structured Figma designs while preserving reliable state across multiple AI harnesses.
 
+Project memory is tracked at `aedddf46ef884effa88ae4957376a18fe1054132`. Shared `ai checkpoint` / `ai resume` / `ai status` automation is installed; checkpoint Graphify update and Obsidian export succeeded on 2026-10-18. Real interruption/harness recovery still needs separate validation. Graphify export reported a stale analysis sidecar and used the current graph.
+
+V1.5.0 remains HOLD due to an indeterminate later request; see `HANDOFF.md`. V1.2.5 remains HOLD. Published Beta 3/Beta 4 checkpoints and approved runtime are untouched.
+
 ## Current Architecture Direction
 
 The system should favor:
@@ -75,6 +79,11 @@ Verified working:
 - Codex reads global memory and project memory.
 - OpenCode reads the same global memory and project memory.
 - Both harnesses can operate against the same repository and Graphify graph.
+- Cross-harness continuation is verified. On 2026-10-18 OpenCode reconstructed the objective, dirty-tree state, HOLD status, reconciliation lock semantics, Graphify/Obsidian state, the unresolved `bedroom-base.jpg` constraint, and the next safe action without access to the previous Codex chat.
+
+Not yet verified:
+
+- Abrupt/interrupted-session recovery. No test has been run. Cross-harness continuation and interruption recovery are distinct scenarios and one does not imply the other.
 
 ## Global Memory
 
@@ -106,7 +115,7 @@ Current verified state:
 - CLI version: `0.9.92`
 - code graph built successfully
 - `graphify-out/graph.json` exists
-- graph contains 2,394 nodes
+- graph contains 4,245 nodes (2026-10-18 query)
 - `GRAPH_REPORT.md` exists
 - `graph.html` exists
 - Codex Graphify integration installed
@@ -205,12 +214,10 @@ Completed:
 - Graphify export to Obsidian
 - Codex startup verification
 - OpenCode startup verification
+- Codex → OpenCode cross-harness recovery test (passed 2026-10-18)
 
 Remaining:
 
-- track project memory in Git
-- implement checkpoint/resume automation
 - test interrupted-session recovery
-- test a real Codex-to-OpenCode continuation
 - decide whether generated Graphify output should be committed or ignored
 - reconcile the unexplained modified JPG before any broad commit

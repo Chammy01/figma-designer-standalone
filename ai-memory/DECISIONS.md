@@ -228,3 +228,28 @@ If a decision changes:
 1. add a new dated decision
 2. reference the previous decision
 3. explain why it was superseded
+
+## 2026-10-18 — Preserve Uncertainty Across Memory Checkpoints
+
+Green CI, memory checkpoints, and unchanged dashboard geometry do not resolve an indeterminate Figma request. Preserve V1.5 HOLD and its recovery lock until attributable native completion/receipt evidence supports the established recovery procedure. Do not resend requests, borrow old receipts, or edit recovery state to certify success. A checkpoint updates memory and derived repository data only.
+
+---
+
+## 2026-10-18 — Recovery Tests Are Only Valid for the Scenario Actually Tested
+
+### Decision
+
+Treat each recovery scenario as separately verified or unverified, and record which one a test covered. Mark a scenario complete only when an agent actually performed that recovery.
+
+### Reason
+
+Cross-harness continuation and abrupt interruption are different failures. On 2026-10-18 a Codex → OpenCode continuation test passed: OpenCode reconstructed objective, dirty-tree state, HOLD status, reconciliation lock semantics, Graphify/Obsidian state, an unresolved asset constraint, and the next safe action with no access to the previous chat. That result says nothing about a session killed mid-write, and it certified nothing about Figma document state.
+
+Collapsing the two would let a completed test silently certify a scenario nobody exercised.
+
+### Consequences
+
+- Cross-harness continuation is recorded complete as of 2026-10-18.
+- Abrupt/interrupted-session recovery remains open until a session is actually killed and resumed.
+- A passing memory-recovery test never releases a product HOLD or a Figma reconciliation lock. Only native, attributable evidence does.
+- Record the read-only or write scope of each test so later readers know what it could not have touched.
