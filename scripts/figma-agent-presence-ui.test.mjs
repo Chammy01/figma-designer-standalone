@@ -29,7 +29,7 @@ test('studio follows semantic tools; coalesces history; details are opt-in and s
  const w=await workspace(t),{page,run}=w;
  assert.equal(await page.textContent('#agent-message'),'Ready when you are.');assert.equal(await page.locator('#agent-details').getAttribute('open'),null);
  await w.tool('figma.get_node');assert.equal(await page.locator('#agent-scene').getAttribute('data-animation'),'READ');
- for(let i=0;i<20;i++)await w.tool('figma.get_node');assert.equal(await page.locator('#agent-history li').count(),1);
+ for(let i=0;i<20;i++)await w.tool('figma.get_node');assert.equal(await page.locator('#agent-history li').count(),1);assert.match(await page.locator('#agent-history').textContent(),/Design review/);
  await w.tool('figma.write_html');assert.match(await page.textContent('#agent-message'),/updating the interface/);assert.equal(await page.locator('#agent-scene').getAttribute('data-animation'),'TYPE');assert.match(await page.locator('#studio-character').getAttribute('src'),/designing.png/);assert.match(await page.locator('#studio-monitor').getAttribute('src'),/designing.png/);
  await w.tool('figma.set_reactions');assert.equal(await page.locator('#agent-scene').getAttribute('data-animation'),'CONNECT');
  await w.tool('figma.get_node','completed');assert.equal(await page.locator('#agent-studio').getAttribute('data-phase'),'CHECKING');
