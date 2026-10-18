@@ -68,6 +68,8 @@ test('real run API adds activity without changing submit count, result or questi
  const runs=await(await fetch(app.url+'/api/runs')).json();assert.equal(runs.length,2);assert.equal(runs[0].sessionId,runs[1].sessionId);assert.equal(runs[0].state,'WAITING_FOR_USER');assert.match(runs[1].result,/FIGMA_DESIGN_V2: PASS/);assert.ok(runs.every(r=>r.agentActivity&&r.activityHistory.length<=10));
  assert.equal(await page.locator('.designer-response').last().getAttribute('open'),null);assert.equal(await page.getByText('What should users do first?',{exact:true}).isVisible(),true);
  assert.equal(w.mock.calls.filter(c=>c.path.endsWith('/prompt')).length,2);assert.doesNotMatch(JSON.stringify(runs.map(r=>[r.agentActivity,r.activityHistory])),/HIDDEN_REASONING|Authorization|Basic secret/);
+ await page.evaluate(()=>{window.conversationMutations=0;new MutationObserver(r=>window.conversationMutations+=r.length).observe(document.getElementById('conversation'),{childList:true,subtree:true});});
+ observeActivityRun(app.runs.runs.at(-1));await page.waitForTimeout(1700);assert.equal(await page.evaluate(()=>window.conversationMutations),0);
 });
 
 test('production art is explicit PNG-only; unknown, traversal and source files are denied',async t=>{
