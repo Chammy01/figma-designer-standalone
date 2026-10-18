@@ -6,11 +6,11 @@
 
 ## Active Objective
 
-Make the shared AI-memory workflow durable and automate checkpoint/resume behavior now that Codex, OpenCode, Graphify, and Obsidian are connected and verified.
+Finish V1.5.0 user-accepted current-state recovery, live Browser/restart/package acceptance and exact-head CI. Do not replay the old request.
 
 ## Current Status
 
-Checkpoint saved and cross-harness continuation verified. The Codex → OpenCode recovery test passed on 2026-10-18. Abrupt/interrupted-session recovery was exercised on 2026-10-18 and passed; evidence and scope limits are in `HANDOFF.md`.
+Implementation and live/package acceptance are complete. Source head 0c105a4 passed all four hosted jobs (39162090680). Only final documentation-head CI and final reporting remain; no more Figma writes or replay are needed. Read docs/USER_ACCEPTED_CURRENT_STATE_V1_5_0.md for full evidence and the Browser Test procedure deviation.
 
 ## Completed
 
@@ -110,3 +110,7 @@ Implementation remains uncommitted on 0335d5e. User resumed after stopping Compu
 The new UI Check Again kept old run a700300a-db2f-45d8-944b-02c20964745b unresolved. The explicit Keep Current Figma confirmation was then executed as authorized by the user task: old state FAILED, recovery USER_ACCEPTED_CURRENT_STATE, original outcome UNVERIFIED; no replay. Durable metadata created a new workspace 36cfd25e-3c33-4a32-9ff4-d9a3cd10cc5c and fresh session ses_eaf6b32d7ffeWCrsja2GjGWACv. Resolution left page fingerprint 8830fd4bdf16f232d830301db8ea11d8b793375b7e67713461edf7d44aed4c79 unchanged, one root1053:1059/314 nodes. Fresh run a70990e6-b264-421b-b777-be6dc06e4e6b COMPLETED: only heading1053:1108 changed to Project Overview (native setter also renamed that text layer); no nodes added/removed. Receipt dbc900fad658f9cbcb7ef04a54bf3a10 verified COMMITTED, applied1/failed0. QA now running. Evidence .figma-designer/presence/recovery/. No commits yet; package/restart/finalCI pending.
 
 QA completed read-only (0 writes), unchanged page fingerprint7b41848fd6a5263b775efd12811f19e6822090b1efa92d236ec4c9d8c77d0e52; canonical FAIL because disposable dashboard has no runtime SECTION. Do not repair or relabel that finding. Protected Page1 recapture now succeeds and matches a68cfd586576aa6f2d199c8edd4e46c541b5d7e9a22508a16781e8fff3712be6. Browser acceptance uses the already-existing runtime1023:1802 on Page1, read-only; UI page selection changed only view. No new runtime/prototype objects authorized.
+
+## Latest source/CI — 2026-10-19
+
+Source90cc143 CI39161490548 exposed a real shutdown/checkpoint race (ENOTEMPTY during test workspace cleanup); node-contracts failed, desktop skipped, plugin/Go passed. Fixed in0c105a4b51ded9748c92df660db5857fbda72629: track workPending, reject submits after closed, await final worker checkpoint on close. Added regression;588npm contracts and30UI cases pass. NewCI39162090680 node-contracts/plugin/Go green, desktop pending. Latest package now rebuilding in recovery-candidate from refreshed payload including0c105a4. Running desktop remains the earlier recovery build until liveBrowser finishes and a normal restart activates the final package. Browser56e5731b-4636-40f7-9582-63138bf454fe still active; metadata-only SQLite read of that exact native session confirmed recent read/shell/edit tool completions and no pending permissions. No credentials or reasoning were inspected. Do not resend.

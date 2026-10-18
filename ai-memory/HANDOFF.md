@@ -6,7 +6,7 @@
 
 ## Current Objective
 
-Cross-harness continuity is proven and abrupt/interrupted-session recovery is now exercised. Do not resume Figma product work — V1.5.0 remains HOLD under the reconciliation lock.
+Finish final documentation-head CI for V1.5.0 user-accepted recovery, then report. All source/live/package acceptance is recorded in docs/USER_ACCEPTED_CURRENT_STATE_V1_5_0.md. Original outcome UNVERIFIED; manual resolution USER_ACCEPTED_CURRENT_STATE; no replay. No active app task or uncertainty lock remains.
 
 ## Verified Working
 
@@ -193,3 +193,15 @@ Implementation remains uncommitted on 0335d5e. User resumed after stopping Compu
 The new UI Check Again kept old run a700300a-db2f-45d8-944b-02c20964745b unresolved. The explicit Keep Current Figma confirmation was then executed as authorized by the user task: old state FAILED, recovery USER_ACCEPTED_CURRENT_STATE, original outcome UNVERIFIED; no replay. Durable metadata created a new workspace 36cfd25e-3c33-4a32-9ff4-d9a3cd10cc5c and fresh session ses_eaf6b32d7ffeWCrsja2GjGWACv. Resolution left page fingerprint 8830fd4bdf16f232d830301db8ea11d8b793375b7e67713461edf7d44aed4c79 unchanged, one root1053:1059/314 nodes. Fresh run a70990e6-b264-421b-b777-be6dc06e4e6b COMPLETED: only heading1053:1108 changed to Project Overview (native setter also renamed that text layer); no nodes added/removed. Receipt dbc900fad658f9cbcb7ef04a54bf3a10 verified COMMITTED, applied1/failed0. QA now running. Evidence .figma-designer/presence/recovery/. No commits yet; package/restart/finalCI pending.
 
 QA completed read-only (0 writes), unchanged page fingerprint7b41848fd6a5263b775efd12811f19e6822090b1efa92d236ec4c9d8c77d0e52; canonical FAIL because disposable dashboard has no runtime SECTION. Do not repair or relabel that finding. Protected Page1 recapture now succeeds and matches a68cfd586576aa6f2d199c8edd4e46c541b5d7e9a22508a16781e8fff3712be6. Browser acceptance uses the already-existing runtime1023:1802 on Page1, read-only; UI page selection changed only view. No new runtime/prototype objects authorized.
+
+## Source checkpoint — 2026-10-19
+
+Recovery implementation pushed as90cc1437ff3c705e2cb69ad213a16023f6f51522; CI39161490548 running (plugin green). Browser run56e5731b-4636-40f7-9582-63138bf454fe is still active in the actual packaged app. Do not resend or close the app during it. Final candidate package builds in release-staging/recovery-candidate, separate from the running release-staging/desktop/win-unpacked. Remaining: Browser/Test/preview, fingerprints, restart persistence/no replay, package validation/extraction/smoke and final exact-head CI. User-modified JPG remains excluded.
+
+## Latest source/CI — 2026-10-19
+
+Source90cc143 CI39161490548 exposed a real shutdown/checkpoint race (ENOTEMPTY during test workspace cleanup); node-contracts failed, desktop skipped, plugin/Go passed. Fixed in0c105a4b51ded9748c92df660db5857fbda72629: track workPending, reject submits after closed, await final worker checkpoint on close. Added regression;588npm contracts and30UI cases pass. NewCI39162090680 node-contracts/plugin/Go green, desktop pending. Latest package now rebuilding in recovery-candidate from refreshed payload including0c105a4. Running desktop remains the earlier recovery build until liveBrowser finishes and a normal restart activates the final package. Browser56e5731b-4636-40f7-9582-63138bf454fe still active; metadata-only SQLite read of that exact native session confirmed recent read/shell/edit tool completions and no pending permissions. No credentials or reasoning were inspected. Do not resend.
+
+## Final live/package acceptance — 2026-10-19
+
+All five historical run IDs persisted through normal restart, portable smoke, and final relaunch; no active run, lock or native replay. MCP connected/compatible1.1.0 protocol2,108tools; loaded code matches0c105a4. Protected fingerprinta68cfd58… unchanged afterrestart; disposable root1053:1059/314nodes fingerprint7b41848f… unchanged after approved title edit. QA truthfully FAIL (no runtime on visual page); Browser preview works from existing Page1 runtime; final direct read-only Browser Test FAIL retains5MEDIUM strokes, hashes unchanged. Model-orchestrated Test earlier made8artifact editcalls to fix6HIGH generated defects; do not call that procedure artifact-read-only. No runner/threshold changes. Standard staging promoted to final candidate,795-file validation/extraction/smoke pass; Setup/ZIP hashes and all proof in the report. Source0c105a4 CI39162090680 allfourgreen; final documentation commit must get its own green run before final marker. User JPG remains untouched.

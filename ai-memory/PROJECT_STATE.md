@@ -12,7 +12,7 @@ The project is being developed as an AI-assisted pipeline for generating, valida
 
 Project memory is tracked at `aedddf46ef884effa88ae4957376a18fe1054132`. Shared `ai checkpoint` / `ai resume` / `ai status` automation is installed; checkpoint Graphify update and Obsidian export succeeded on 2026-10-18. The earlier stale analysis sidecar has been refreshed, and the following `ai checkpoint` completed without that warning.
 
-V1.5.0 remains HOLD due to an indeterminate later request; see `HANDOFF.md`. V1.2.5 remains HOLD. Published Beta 3/Beta 4 checkpoints and approved runtime are untouched.
+V1.5.0 source/live/package acceptance is complete; the final documentation-head CI is the remaining report gate. Source0c105a4 CI39162090680 passed allfourjobs. The old request stays FAILED/UNVERIFIED with explicit USER_ACCEPTED_CURRENT_STATE resolution. QA and Browser fidelity FAIL findings remain visible; see docs/USER_ACCEPTED_CURRENT_STATE_V1_5_0.md. V1.2.5 remains HOLD. Published Beta3/Beta4 and approved MCP runtime are unchanged.
 
 ## Current Architecture Direction
 

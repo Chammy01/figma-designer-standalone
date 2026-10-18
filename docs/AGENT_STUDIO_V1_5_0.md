@@ -51,4 +51,4 @@ The existing translator, recovery machinery and completed design/revision eviden
 
 The previously submitted native waiting-case request failed with SESSION_FAILED / RECONCILIATION_REQUIRED. Current native session context has no appended request beyond its recorded offset. It is not declared a safe retry or successful waiting acceptance. No request was resent and no recovery state was manually cleared. This remaining acceptance issue must be reconciled truthfully; it does not undo the visual checkpoint or the previously completed design/revision.
 
-FIGMA_DESIGNER_AGENT_STUDIO: HOLD
+Historical checkpoint: HOLD. The user-authorized recovery follow-up is recorded in USER_ACCEPTED_CURRENT_STATE_V1_5_0.md. The old request remains unverified; workflow acceptance is a separate user decision. Final milestone completion requires the final exact-head CI gate.
