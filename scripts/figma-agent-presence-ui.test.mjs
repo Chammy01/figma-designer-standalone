@@ -108,3 +108,34 @@ test('supported provider failure translates the actual run and preserves explici
  assert.equal(await page.locator('#agent-scene').getAttribute('data-animation'),'ALERT');await page.locator('#conversation').getByRole('button',{name:'Try Again',exact:true}).waitFor();
  assert.doesNotMatch(await page.textContent('#agent-message'),/ProviderAuthError|exception|503/);assert.equal(mock.calls.filter(c=>c.path.endsWith('/prompt')).length,1);await page.screenshot({path:'.figma-designer/presence/controlled-provider-failure.png'});
 });
+
+test('course correction keeps the room dominant, composer visible and orientation stable',async t=>{
+ const {page}=await workspace(t);await page.emulateMedia({colorScheme:'dark',reducedMotion:'reduce'});
+ assert.equal(await page.locator('#connection').isVisible(),false);
+ for(const [width,height] of [[1320,860],[1200,800],[1024,720],[900,650]]){
+  await page.setViewportSize({width,height});const scene=await page.locator('#agent-scene').boundingBox(),composer=await page.locator('#composer').boundingBox(),studio=await page.locator('#workspace').boundingBox();
+  assert.ok(scene.width>300);assert.ok(composer.y+composer.height<=height);assert.ok(scene.y+scene.height<=composer.y);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+  if(width===1320)assert.ok(scene.width/studio.width>=.45&&scene.width/studio.width<=.55);
+  assert.equal(await page.locator('.studio-character').evaluate(el=>getComputedStyle(el).transform),'none');
+  await page.screenshot({path:`.figma-designer/presence/correction-${width}x${height}.png`});
+ }
+});
+test('long user requests collapse without losing content or requiring another model call',async t=>{
+ const {page}=await workspace(t),input='Design a compact useful dashboard. '.repeat(18);
+ await page.fill('#prompt',input);await page.click('#send');await page.locator('.request-full').waitFor();
+ assert.equal(await page.locator('.request-full').first().getAttribute('open'),null);assert.ok((await page.locator('.request-preview').first().textContent()).length<=240);
+ await page.locator('.request-full summary').first().focus();await page.keyboard.press('Enter');assert.equal(await page.locator('.request-full pre').first().textContent(),input);
+});
+test('incomplete validation cannot expose undefined-status errors or stale passing evidence',async t=>{
+ const {page}=await workspace(t);await page.route('**/api/validation',r=>r.fulfill({json:{}}));
+ await page.click('a[href="#qa"]');await page.locator('#error').waitFor({state:'visible'});
+ assert.equal(await page.locator('#error h3').textContent(),'Something needs attention');assert.doesNotMatch(await page.locator('#error').textContent(),/Cannot read properties|undefined|reading.*status/);
+ assert.match(await page.locator('#qa-result').textContent(),/Evidence unavailable/);assert.equal(await page.locator('#validation-summary').isVisible(),false);assert.equal(await page.locator('#open-preview').isDisabled(),true);
+ assert.equal(await page.locator('#error details').getAttribute('open'),null);await page.locator('#error summary').focus();await page.keyboard.press('Enter');assert.match(await page.locator('#error details').textContent(),/Internal interface data error/);
+ await page.unroute('**/api/validation');await page.locator('#qa .refresh-validation').click();await page.locator('#error').waitFor({state:'hidden'});assert.match(await page.locator('#qa-result').textContent(),/PASS/);
+});
+
+test('unexpected browser errors expose only a fixed technical classification',async t=>{
+ const {page}=await workspace(t);await page.evaluate(()=>window.dispatchEvent(new ErrorEvent('error',{error:new TypeError("Cannot read properties of undefined (reading 'status')"),cancelable:true})));
+ assert.equal(await page.locator('#error h3').textContent(),'Something needs attention');assert.doesNotMatch(await page.locator('#error').textContent(),/undefined|reading.*status/);assert.equal(await page.locator('#error details').getAttribute('open'),null);
+});

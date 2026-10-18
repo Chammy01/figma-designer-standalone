@@ -40,3 +40,12 @@ test('all copy is bounded and uses declared phases/animations; technical values 
 test('UI has opt-in safe details and no remote art/runtime integration',async()=>{const html=await readFile('app/web/index.html','utf8'),renderer=await readFile('app/web/agent-presence.js','utf8'),server=await readFile('app/server/agent-activity.mjs','utf8');assert.match(html,/<details id="agent-details">/);assert.doesNotMatch(html,/<details id="agent-details"[^>]*open/);assert.match(html,/id="agent-message" role="status"/);assert.doesNotMatch(renderer,/innerHTML|fetch\(|ipcRenderer|tool\.state\.input/);assert.doesNotMatch(server,/\.submit\(|\.request\(|\.text\b|\.input\b|\.error\.message|setTimeout/);});
 
 test('OpenCode 2.0.28 executed=false records use explicit native status, including Code Mode traces',()=>{const r=run();observe(r,[message(tool('figma_critique_get_node','completed',{executed:false}))]);assert.equal(r.agentActivity.messageId,'readDone');observe(r,[message(tool('execute','completed',{executed:false,state:{status:'completed',metadata:{toolCalls:[{tool:'figma.write_html',status:'completed'}]}}}))]);assert.equal(r.agentActivity.messageId,'writeDone');assert.equal(r.agentActivity.active,false);observe(r,[message(tool('figma.set_reactions','running',{executed:false}))]);assert.equal(r.agentActivity.messageId,'prototypeStart');assert.equal(r.agentActivity.active,true);});
+
+test('opaque assistant steps do not alternate a known read phase with generic planning',()=>{
+ const r=run(),c=[];for(let i=0;i<20;i++){c.push(message(tool('get_node','completed')));observe(r,c);c.push({type:'assistant',content:[]});observe(r,c);}
+ assert.equal(r.activityHistory.length,1);assert.equal(r.agentActivity.messageId,'readDone');assert.equal(r.agentActivity.active,false);
+});
+test('fixed workflow history coalesces across read/export tool categories',()=>{
+ const r=run({mode:'BROWSER'}),c=[];for(const name of ['get_node','save_screenshots','get_document']){c.push(message(tool(name,'completed')));observe(r,c);}
+ assert.equal(r.activityHistory.length,1);assert.equal(r.agentActivity.messageId,'previewStart');
+});

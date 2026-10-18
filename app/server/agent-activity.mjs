@@ -16,7 +16,7 @@ export function classifyActivityTool(name){
 function state(run){let s=observers.get(run);if(!s){s={index:0,pending:new Set(),seen:new Map(),wrote:false};observers.set(run,s);}return s;}
 function emit(run,messageId,{group='OTHER',active=false,attention=false,terminal=false,observation='state',now=new Date().toISOString(),restored=false}={}){
  const copy=activityCopy[messageId];if(!copy)return;
- const previous=run.agentActivity,key=copy.phase+':'+group;
+ const previous=run.agentActivity,key=copy.phase+':'+(modeMessage(run.mode)&&group!=='RECOVERY'?run.mode:group);
  const same=previous?.semanticKey===key;
  const sequence=(previous?.sequence??0)+(same?0:1);
  const technical={workflow:['AUTO','DESIGN','QA','BROWSER','BROWSER_TEST','STATUS'].includes(run.mode)?run.mode:'AUTO',runState:['RUNNING','COMPLETED','FAILED','CANCELLED','WAITING_FOR_USER'].includes(run.state)?run.state:'UNKNOWN',category:activityGroups.includes(group)?group:'OTHER',...(restored?{restored:true}:{})};
@@ -34,8 +34,10 @@ function event(run,group,status){
  if(status==='pending')return; // Queued is not executing.
  if(!['running','completed','error'].includes(status))return;
  const active=status==='running',s=state(run);
+ if(group==='OTHER'&&s.known)return;
  if(status==='error'){emit(run,'stepError',{attention:true});return;}
  if(group==='RECOVERY'){emit(run,run.responseLost||run.checking?'recoveryStart':active?'receiptStart':'receiptDone',{group,active,observation:active?'started':'completed'});return;}
+ if(group!=='OTHER')s.known=true;
  const fixed=modeMessage(run.mode);
  const key=fixed??({READ_DESIGN:s.wrote?active?'checkStart':'checkDone':active?'readStart':'readDone',WRITE_DESIGN:active?'writeStart':'writeDone',COMPONENTS:active?'componentsStart':'componentsDone',PROTOTYPE:active?'prototypeStart':'prototypeDone',EXPORT:active?'exportStart':'exportDone',QA:'qaStart',OTHER:'planning'})[group]??'planning';
  if(['WRITE_DESIGN','COMPONENTS','PROTOTYPE'].includes(group))s.wrote=true;
@@ -68,7 +70,7 @@ export function observeActivityContext(run,context){
    }
   }
   if(pending){s.pending.add(i);if(s.pending.size>64)s.pending.delete(s.pending.values().next().value);}else s.pending.delete(i);
-  if(i>=s.index&&!recognized&&!m.finish)emit(run,modeMessage(run.mode)??'planning',{active:true});
+  if(i>=s.index&&!recognized&&!m.finish&&!s.known)emit(run,modeMessage(run.mode)??'planning',{active:true});
  }
  s.index=context.length;
  // An unrelated completion must not hide a different tool which is still running.

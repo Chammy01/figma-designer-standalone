@@ -53,6 +53,14 @@ function renderBrowser(){
 }
 function renderFidelityFindings(){const filter=$('fidelity-filter').value,rows=current.fidelity.findings.filter(f=>filter==='ALL'||filter==='DEFECTS'&&f.severity!=='LIMITATION'||filter==='FONTS'&&f.code==='FONT_FIDELITY_LIMITATION'||filter==='LIMITATIONS'&&f.severity==='LIMITATION');$('fidelity-findings').replaceChildren(...rows.map(f=>finding(f,'fidelity')));if(!rows.length)$('fidelity-findings').append(el('p','No findings in this filter. Unmeasured properties remain unverified.','muted'));}
 export function renderValidation(value){
+  // Reject incomplete evidence before dereferencing nested status/count fields.
+  if(!value?.qa?.counts||!value.qa.integrity||!Array.isArray(value.qa.findings)||!value.browser||!Array.isArray(value.browser.checks)||!value.motion||!Array.isArray(value.motion.rows)||!value.fidelity?.coverage||!Array.isArray(value.fidelity.findings)||!Array.isArray(value.fidelity.fonts)){
+    current=undefined;rendered=undefined;
+    for(const id of ['qa-result','browser-status','qa-integrity','qa-findings','qa-raw','browser-tests','browser-motion','fidelity','fidelity-findings','font-limitations','property-limitations','browser-regression','native-parity','browser-raw'])$(id).replaceChildren(el('h3','Evidence unavailable'),el('p','Check again to load complete validation evidence.'));
+    $('validation-summary').hidden=true;$('open-preview').disabled=true;
+    throw Object.assign(new TypeError('Incomplete validation evidence'),{code:'VALIDATION_EVIDENCE_INCOMPLETE'});
+  }
+
   $('validation-asof').textContent='Evidence checked: '+stamp(value.asOf);
   const signature=JSON.stringify({...value,asOf:null});if(signature===rendered)return;rendered=signature;
   current=value;renderQA();renderBrowser();
