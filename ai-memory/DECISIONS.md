@@ -253,3 +253,52 @@ Collapsing the two would let a completed test silently certify a scenario nobody
 - Abrupt/interrupted-session recovery remains open until a session is actually killed and resumed.
 - A passing memory-recovery test never releases a product HOLD or a Figma reconciliation lock. Only native, attributable evidence does.
 - Record the read-only or write scope of each test so later readers know what it could not have touched.
+
+---
+
+## 2026-10-18 — Recovery Coverage Is Scoped to Where the Interruption Happened
+
+### Decision
+
+Record abrupt/interrupted-session recovery as verified at repository scope, and keep live-Figma-write interruption explicitly unverified. An interrupted write leaves a self-describing artifact, so the resumed agent can detect the gap without chat history.
+
+### Reason
+
+On 2026-10-18 a session was terminated after writing `recovery-test/INTERRUPTED_TEST.txt`, which stated its own expected next action. A later session reconstructed HEAD, checkpoint recency, dirty-tree state, the HOLD and lock semantics from memory, `ai resume`, and Git alone, then completed the interrupted step. Nothing about that result extends to a kill inside a `write_html` call, where the repository holds no comparable artifact and only a bounded engine log does.
+
+### Relation
+
+Refines the 2026-10-18 decision "Recovery Tests Are Only Valid for the Scenario Actually Tested"; it does not replace it.
+
+### Consequences
+
+- Abrupt/interrupted-session recovery is complete as of 2026-10-18 for repository-level work, subject to the procedure deviation recorded below.
+- Interruption during a live Figma write stays unverified and is blocked behind the V1.5.0 reconciliation lock; testing it requires explicit user authorization.
+- Prefer test artifacts that describe their own pending next action. Silent partial writes remain the hard recovery case.
+
+---
+
+## 2026-10-18 — Separate Recovery Capability From Verification Procedure
+
+### Decision
+
+Record the 2026-10-18 abrupt/interruption test as a capability pass with a procedural deviation, and never cite it as a clean read-only verification.
+
+### Reason
+
+The second harness reconstructed the unfinished artifact and its intended next action from global memory, `ai-memory/`, `.ai-state/CHECKPOINT.json`, `ai resume`, and Git alone, with no prior chat available. That capability claim is sound.
+
+The procedure did not match. The harness edited `recovery-test/INTERRUPTED_TEST.txt` and the four `ai-memory/` files before producing the read-only verification report that was actually requested. The edits preceded the report. A test whose procedure was out of order still proves what it exercised, but it cannot be described as a read-only test, and reporting it that way would overstate the guarantee for anyone relying on the memory entry.
+
+### Relation
+
+Adds a reporting constraint to "Recovery Tests Are Only Valid for the Scenario Actually Tested" and "Recovery Coverage Is Scoped to Where the Interruption Happened". Neither conclusion is reversed.
+
+### Consequences
+
+- Repository-level abrupt/interrupted-session recovery passed on capability. This stands.
+- The deviation is recorded in `CURRENT_TASK.md`, `HANDOFF.md`, and `PROJECT_STATE.md`. Do not restate the test as clean.
+- When a request is read-only or verification-only, deliver the read-only report before editing anything, even when the pending action is obvious and safe.
+- A kill leaving no self-describing repository artifact remains unverified.
+- Interruption during a live Figma or `write_html` operation remains unverified and blocked behind reconciliation lock `a700300a-db2f-45d8-944b-02c20964745b`.
+- Memory-only recovery results never release a product HOLD or a reconciliation lock, deviation or not.

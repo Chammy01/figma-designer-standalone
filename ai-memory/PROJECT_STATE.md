@@ -10,7 +10,7 @@ This repository is an active standalone Figma automation project.
 
 The project is being developed as an AI-assisted pipeline for generating, validating, and maintaining structured Figma designs while preserving reliable state across multiple AI harnesses.
 
-Project memory is tracked at `aedddf46ef884effa88ae4957376a18fe1054132`. Shared `ai checkpoint` / `ai resume` / `ai status` automation is installed; checkpoint Graphify update and Obsidian export succeeded on 2026-10-18. Real interruption/harness recovery still needs separate validation. Graphify export reported a stale analysis sidecar and used the current graph.
+Project memory is tracked at `aedddf46ef884effa88ae4957376a18fe1054132`. Shared `ai checkpoint` / `ai resume` / `ai status` automation is installed; checkpoint Graphify update and Obsidian export succeeded on 2026-10-18. The earlier stale analysis sidecar has been refreshed, and the following `ai checkpoint` completed without that warning.
 
 V1.5.0 remains HOLD due to an indeterminate later request; see `HANDOFF.md`. V1.2.5 remains HOLD. Published Beta 3/Beta 4 checkpoints and approved runtime are untouched.
 
@@ -80,10 +80,13 @@ Verified working:
 - OpenCode reads the same global memory and project memory.
 - Both harnesses can operate against the same repository and Graphify graph.
 - Cross-harness continuation is verified. On 2026-10-18 OpenCode reconstructed the objective, dirty-tree state, HOLD status, reconciliation lock semantics, Graphify/Obsidian state, the unresolved `bedroom-base.jpg` constraint, and the next safe action without access to the previous Codex chat.
+- Abrupt/interrupted-session recovery passed at the repository level. On 2026-10-18 a session killed after writing `recovery-test/INTERRUPTED_TEST.txt` was resumed from memory, `ai resume`, and Git evidence alone, and its interrupted step was completed.
+- That test carried a procedure deviation. The second harness reconstructed the artifact and intended next action without prior chat, but edited the test file and the memory files before delivering the requested read-only verification report. The capability passed; the procedure was not followed exactly. It must not be cited as a clean read-only test.
 
 Not yet verified:
 
-- Abrupt/interrupted-session recovery. No test has been run. Cross-harness continuation and interruption recovery are distinct scenarios and one does not imply the other.
+- A kill that leaves no self-describing repository artifact. The 2026-10-18 test succeeded partly because the interrupted file stated its own pending next action; a silent partial write is untested.
+- Interruption during a live Figma or `write_html` operation. Blocked behind the V1.5.0 reconciliation lock, requires explicit user authorization, and is not covered by any memory test.
 
 ## Global Memory
 
@@ -115,7 +118,8 @@ Current verified state:
 - CLI version: `0.9.92`
 - code graph built successfully
 - `graphify-out/graph.json` exists
-- graph contains 4,245 nodes (2026-10-18 query)
+- graph contains 4,253 nodes and 8,399 edges
+- analysis sidecar refreshed with `graphify cluster-only . --no-label`, producing 4,253 nodes, 8,399 edges, and 276 communities; the following `ai checkpoint` completed without the stale-sidecar warning
 - `GRAPH_REPORT.md` exists
 - `graph.html` exists
 - Codex Graphify integration installed
@@ -215,9 +219,11 @@ Completed:
 - Codex startup verification
 - OpenCode startup verification
 - Codex → OpenCode cross-harness recovery test (passed 2026-10-18)
+- Abrupt/interrupted-session recovery test at repository level (capability passed 2026-10-18, with a recorded read-only procedure deviation)
 
 Remaining:
 
-- test interrupted-session recovery
-- decide whether generated Graphify output should be committed or ignored
+- decide whether generated Graphify output should be committed or ignored — resolved in favour of ignoring (`efa72c4`)
 - reconcile the unexplained modified JPG before any broad commit
+- optional coverage: a kill leaving no self-describing repository artifact
+- blocked coverage: interruption during a live Figma or `write_html` operation, pending lock release and user authorization

@@ -6,7 +6,7 @@
 
 ## Current Objective
 
-Cross-harness continuity is proven; the remaining recovery work is abrupt/interrupted-session recovery testing. Do not resume Figma product work — V1.5.0 remains HOLD under the reconciliation lock.
+Cross-harness continuity is proven and abrupt/interrupted-session recovery is now exercised. Do not resume Figma product work — V1.5.0 remains HOLD under the reconciliation lock.
 
 ## Verified Working
 
@@ -74,7 +74,7 @@ Verified:
 Codex → OpenCode continuation verified. OpenCode reconstructed the following with no access to the previous Codex chat, using only global memory, `ai-memory/`, `.ai-state/CHECKPOINT.json`, Git state, and Graphify:
 
 - the current objective
-- dirty working-tree state (all seven modified paths and three untracked trees)
+- dirty working-tree state, recorded at the time as seven modified paths and three untracked trees; later superseded by the ignore resolutions below, see `Working Tree Warning`
 - the V1.5.0 / V1.2.5 HOLD state
 - the exact reconciliation lock semantics for run `a700300a-db2f-45d8-944b-02c20964745b`
 - Graphify and Obsidian state
@@ -83,11 +83,40 @@ Codex → OpenCode continuation verified. OpenCode reconstructed the following w
 
 The test was read-only. It made no Figma claim, no product claim, and no commit.
 
-This completes the cross-harness continuation criterion. It does **not** complete abrupt/interrupted-session recovery, which is a separate scenario with no test evidence yet.
+This completes the cross-harness continuation criterion. It does **not** complete abrupt/interrupted-session recovery, which is a separate scenario.
+
+### Abrupt/Interrupted-Session Recovery Test — 2026-10-18 (PASSED)
+
+Scenario: a harness ran `ai checkpoint` at 14:49:43, wrote `recovery-test/INTERRUPTED_TEST.txt` at 14:52:28, and was terminated before recording completion. The file carried its own expected next action so a later session could detect the interruption without chat history.
+
+A later OpenCode session recovered it with only global memory, `ai-memory/`, `ai resume` output, and Git evidence. It reconstructed:
+
+- HEAD `efa72c4` and branch `main`
+- the checkpoint at 14:49:43 and that it predated the interrupted file
+- the single unexplained modified binary plus the new untracked `recovery-test/` path
+- the V1.5.0 HOLD and the exact indeterminate-run lock semantics
+- the intended next action, taken from the interrupted file itself
+
+It then appended `RECOVERED_BY_SECOND_HARNESS` and updated project memory. The test made no Figma call and certified no document state; `recovery-test/` remains untracked and uncommitted.
+
+#### Procedure deviation on this test — do not present it as a clean read-only test
+
+The recovery capability passed. The read-only verification procedure was not followed exactly.
+
+- The second harness did reconstruct the unfinished artifact and its intended next action using only global memory, `ai-memory/`, `.ai-state/CHECKPOINT.json`, `ai resume`, Git status/diff, and repository files. No prior chat was available or used.
+- However, it edited `recovery-test/INTERRUPTED_TEST.txt` and the four `ai-memory/` files **before** producing the requested read-only verification report. The edits happened first; the read-only report followed.
+- Therefore the reconstruction evidence is valid and the scenario is a genuine pass, but the procedure that produced it was out of order. Reporting this test as a clean read-only verification would misstate what happened.
+
+This deviation does not invalidate repository-level recovery, and it changed no product, Figma, or asset state. It is recorded so a later reader does not infer a stricter guarantee than the run provides.
+
+#### Coverage limits on this test
+
+- A kill that leaves **no self-describing repository artifact** remains unverified. This run succeeded partly because the interrupted file stated its own pending next action. A silent partial write is the hard case and is untested.
+- Interruption during a live Figma or `write_html` operation remains unverified. It is blocked behind reconciliation lock `a700300a-db2f-45d8-944b-02c20964745b` and requires explicit user authorization to attempt.
 
 ## Checkpoint Infrastructure
 
-All six project-memory files are tracked at HEAD `aedddf46ef884effa88ae4957376a18fe1054132` (`Add shared AI project memory`). The installed `E:\AI-Memory\bin\ai.cmd` implements checkpoint/resume/status. Run it from the project root. `ai checkpoint` refreshed Graphify and the configured Obsidian export successfully. The local `.ai-state/` snapshot is excluded through Git local configuration. Export warned that the analysis sidecar was stale and reconstructed communities from `graph.json`; this is not a product test failure.
+All six project-memory files are tracked at HEAD `aedddf46ef884effa88ae4957376a18fe1054132` (`Add shared AI project memory`). The installed `E:\AI-Memory\bin\ai.cmd` implements checkpoint/resume/status. Run it from the project root. `ai checkpoint` refreshed Graphify and the configured Obsidian export successfully. The local `.ai-state/` snapshot is excluded through Git local configuration. The analysis-sidecar warning seen on the 14:49:43 checkpoint has been resolved: the sidecar was refreshed with `graphify cluster-only . --no-label`, and the following `ai checkpoint` completed without the stale-sidecar warning.
 
 ## Working Tree Warning
 
@@ -98,6 +127,8 @@ The tracked binary file:
 is modified and not explained by current memory.
 
 Do not revert, overwrite, or include it in a setup commit until its intent is confirmed.
+
+`recovery-test/` is untracked evidence from the interruption test. `.codex/`, `.ai-state/`, and `graphify-out/` are excluded locally; `.opencode/plugins/graphify.js` is committed. The earlier "seven modified paths and three untracked trees" description referred to the state before those resolutions and is superseded by `git status`.
 
 ## Current Development Context
 
@@ -118,13 +149,17 @@ If taking over after another harness stopped unexpectedly:
 2. Inspect `git status`.
 3. Inspect `git diff`.
 4. Identify changes newer than the last memory checkpoint.
-5. Validate unfinished work before editing it.
+5. Reconstruct and state the evidence **before** editing anything. If the request is read-only or verification-only, produce that report first and change nothing until it is delivered.
 6. Query Graphify for affected systems when useful.
 7. Update `CURRENT_TASK.md` and this file after reconstructing the actual state.
 
 ## Next Recommended Action
 
-Test abrupt/interrupted-session recovery — a session killed mid-work and resumed — and keep that separate from the cross-harness continuation test that already passed. Do not mark interruption recovery complete without an actual test run.
+Both recovery scenarios are now exercised and both passed on capability. No further recovery testing is required for memory continuity.
+
+Two cases remain unverified: a kill that leaves no self-describing repository artifact, and an interruption during a live Figma or `write_html` operation, which is blocked behind the reconciliation lock and needs explicit user authorization.
+
+When reporting the 2026-10-18 interruption test, state the procedure deviation recorded above. Do not present it as a clean read-only verification.
 
 Read the preserved product HOLD below before any future Figma work. Do not stage, reset, or clean unrelated working-tree changes.
 
@@ -142,5 +177,5 @@ The handoff should remain useful after a sudden usage-limit cutoff or harness fa
 - Protected Page 1 recapture timed out natively. Final live QA/Browser acceptance is deferred while recovery is locked. Existing browser fidelity evidence has five MEDIUM stroke-width findings; native pixel parity remains UNVERIFIED. Do not hide findings or adjust thresholds to certify completion.
 - Detailed ignored local evidence: `.figma-designer/presence/FINALIZATION_V1_5_0.md` and adjacent `final-*` reports, logs and images. These may be absent in a fresh clone; the safety constraints above must survive without them.
 - V1.2.5 remains HOLD. Beta 3 and Beta 4 published assets remain immutable. Owned MCP 1.1.0 / protocol 2 / 108 tools is unchanged by checkpoint work.
-- Preserve unrelated dirty `.gitattributes`, `AGENTS.md`, user-modified `design-references/1.5-agent-studio/bedroom-base.jpg`, and untracked `.codex/`, `.opencode/plugins/graphify.js`, `graphify-out/`. No blanket stage/reset/cleanup. No commit/push performed for this request.
-- The 2026-10-18 cross-harness recovery test was repository-memory-only. It did not read, modify, or certify any Figma document state, so every constraint above still stands unchanged.
+- Preserve unrelated dirty `.gitattributes`, `AGENTS.md`, user-modified `design-references/1.5-agent-studio/bedroom-base.jpg`, and untracked `.codex/`, `.opencode/plugins/graphify.js`, `graphify-out/`. No blanket stage/reset/cleanup. No commit/push performed for this request. `.gitattributes` and `AGENTS.md` were since committed (`8b25dec`), `.opencode/plugins/graphify.js` in `1074113`, and `graphify-out/` was ignored in `efa72c4`; only the JPG and `recovery-test/` remain dirty and uncommitted.
+- The 2026-10-18 cross-harness recovery test and the 2026-10-18 abrupt/interruption test were both repository-memory-only. Neither read, modified, or certified any Figma document state, so every constraint above still stands unchanged.
