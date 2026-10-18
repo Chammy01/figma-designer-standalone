@@ -84,7 +84,7 @@ test('production art is explicit PNG-only; unknown, traversal and source files a
 test('all studio states and supporting pages remain usable in the new shell',async t=>{
  const w=await workspace(t),{page,run}=w;
  for(const [name,state]of [['listening','RUNNING'],['waiting','WAITING_FOR_USER'],['done','COMPLETED'],['alert','FAILED']]){
-  Object.assign(run,{state,result:'FIGMA_DESIGN_V2: PASS',error:state==='FAILED'?{code:'PROVIDER_AUTH_REQUIRED'}:null});observeActivityRun(run);await w.render();assert.equal(await page.locator('#studio-character').evaluate(el=>el.complete&&el.naturalWidth>0),true);
+  Object.assign(run,{state,result:'FIGMA_DESIGN_V2: PASS',error:state==='FAILED'?{code:'PROVIDER_AUTH_REQUIRED'}:null});observeActivityRun(run);await w.render();assert.equal(await page.locator('#studio-character').evaluate(async el=>{await el.decode();return el.complete&&el.naturalWidth>0;}),true);
  }
  for(const route of ['prototype','qa','browser','runs','settings']){await page.click(`a[href="#${route}"]`);await page.locator('#'+route).waitFor({state:'visible'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);}
  await page.click('a[href="#workspace"]');await page.locator('#workspace').waitFor({state:'visible'});await page.setViewportSize({width:900,height:650});
@@ -138,4 +138,19 @@ test('incomplete validation cannot expose undefined-status errors or stale passi
 test('unexpected browser errors expose only a fixed technical classification',async t=>{
  const {page}=await workspace(t);await page.evaluate(()=>window.dispatchEvent(new ErrorEvent('error',{error:new TypeError("Cannot read properties of undefined (reading 'status')"),cancelable:true})));
  assert.equal(await page.locator('#error h3').textContent(),'Something needs attention');assert.doesNotMatch(await page.locator('#error').textContent(),/undefined|reading.*status/);assert.equal(await page.locator('#error details').getAttribute('open'),null);
+});
+
+test('unverified recovery requires confirmation; cancel preserves lock; accepting shows IDLE and honest journal',async t=>{
+ const {page,app,mock}=await workspace(t),run={id:crypto.randomUUID(),workspaceId:app.runs.workspaceId,requestId:crypto.randomUUID(),mode:'AUTO',state:'FAILED',recovery:'RECONCILIATION_REQUIRED',startedAt:new Date().toISOString(),sessionId:'unverified_fixture',offset:58,submissionStarted:true};
+ app.runs.runs.push(run);app.runs.uncertain=true;observeActivityRun(run);
+ await page.reload();const keep=page.getByRole('button',{name:'Keep Current Figma & Continue',exact:true});await keep.waitFor();
+ assert.equal(await page.locator('#agent-studio').getAttribute('data-phase'),'RECOVERING');assert.equal(await page.locator('#send').isDisabled(),true);
+ assert.equal(await page.locator('.recovery details[open]').count(),0);assert.equal(await page.locator('.recovery').getByRole('button',{name:/Retry|Resend|Run again/}).count(),0);
+ await keep.click();assert.equal(app.runs.uncertain,true);await page.locator('#accept-current-dialog').getByRole('button',{name:'Cancel',exact:true}).click();assert.equal(run.recovery,'RECONCILIATION_REQUIRED');
+ await keep.click();await page.locator('#accept-current-dialog').getByRole('button',{name:'Keep Current Figma',exact:true}).click();
+ await page.waitForFunction(()=>document.getElementById('agent-message').textContent.includes("I'll continue from the design"));
+ assert.equal(await page.locator('#agent-studio').getAttribute('data-phase'),'IDLE');assert.equal(await page.locator('#send').isDisabled(),false);assert.equal(run.state,'FAILED');
+ assert.match(await page.locator('#agent-history').textContent(),/Previous change could not be confirmed/);assert.match(await page.locator('#agent-history').textContent(),/Current Figma state accepted/);
+ await page.locator('nav a[href="#runs"]').click();await page.locator('#recent-runs button').last().click();assert.match(await page.locator('#run-detail').textContent(),/Outcome: Unverified.*Kept current Figma state/s);
+ assert.equal(mock.calls.filter(c=>/\/prompt$|\/command$/.test(c.path)).length,0);
 });

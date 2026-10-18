@@ -34,7 +34,7 @@ export class AI {
     return {state,selected:this.selectionUnverified?null:model??(this.selected?{...this.selected,name:this.selected.id,available:false}:null),selectionUnverified:!!this.selectionUnverified,verified:!this.selectionUnverified&&!!this.checked&&same(this.checked,this.selected),busy:!!this.busy,locked:!!(this.runs.active||this.runs.uncertain||this.runs.sessionPending),providers:this.providers??[],models:this.models??[],integrations:this.integrations??[]};
   }
   assertReady(){const state=this.status().state;if(state!=='READY')throw fail(state);}
-  async exclusive(fn,allowUncertain=false){if(this.busy||this.runs.active||this.runs.uncertain&&!allowUncertain||this.runs.sessionPending)throw fail('MODEL_CHANGE_LOCKED');this.busy=true;try{return await fn();}finally{this.busy=false;}}
+  async exclusive(fn,allowUncertain=false){if(this.busy||this.runs.active||this.runs.resolutionPending||this.runs.uncertain&&!allowUncertain||this.runs.sessionPending)throw fail('MODEL_CHANGE_LOCKED');this.busy=true;try{return await fn();}finally{this.busy=false;}}
   async choose(model){return this.exclusive(async()=>{
     await this.refresh(true);const actual=this.models.find(m=>same(m,model)&&m.available);if(!actual)throw fail('MODEL_UNAVAILABLE');
     const chosen=ref(actual);

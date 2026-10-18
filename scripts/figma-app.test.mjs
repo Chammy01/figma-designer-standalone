@@ -198,3 +198,14 @@ test('unverified native model switch blocks authoring and does not claim an acti
 
 test('fixed validation API exposes normalized evidence, never documents, arbitrary files or native context',async t=>{const f=await fixture(t),v=validationFixture('FAIL');await f.app.validation.capture({mode:'QA',integrity:{state:'UNCHANGED'}},[{content:[{type:'tool',name:'figma_qa_report',state:{status:'completed',metadata:{qaResult:v.qa,privateContext:'PRIVATE_SENTINEL'}}}]}]);const result=await f.api('/api/validation');assert.equal(result.status,200);assert.equal(result.value.contractVersion,'1.4.2');assert.equal(result.value.qa.counts.brokenControls,v.result.coverage.BROKEN);assert.equal(result.value.qa.freshness,'UNVERIFIED');assert.doesNotMatch(JSON.stringify(result.value),/PRIVATE_SENTINEL|Authorization|node_modules|private-password/);assert.equal((await f.api('/api/validation/file')).status,404);});
 test('assistant prose cannot create structured QA evidence or metrics',async t=>{const f=await fixture(t);await f.app.validation.capture({mode:'QA'},[{type:'assistant',content:[{type:'text',text:'QA PASS, 99 working controls, 0 defects'}]}]);const r=await f.api('/api/validation');assert.equal(r.value.qa.status,'NOT_RUN');assert.deepEqual(r.value.qa.counts,{});});
+
+test('manual resolution API enforces exact latest ID, confirmation and same-origin JSON without resending',async t=>{
+ const f=await fixture(t),run={id:randomUUID(),workspaceId:f.app.runs.workspaceId,requestId:randomUUID(),mode:'AUTO',state:'FAILED',recovery:'RECONCILIATION_REQUIRED',startedAt:new Date().toISOString(),sessionId:'unknown',offset:58,submissionStarted:true};
+ f.app.runs.runs.push(run);f.app.runs.uncertain=true;const endpoint='/api/run/'+run.id+'/accept-current-state';
+ assert.equal((await f.api(endpoint,{})).status,400);
+ assert.equal((await f.api(endpoint,{confirmation:'KEEP_CURRENT_FIGMA'},{Origin:'https://evil.example'})).status,403);
+ assert.equal((await f.api(endpoint,{confirmation:'KEEP_CURRENT_FIGMA'},{'Content-Type':'text/plain'})).status,403);
+ assert.equal((await f.api('/api/run/'+randomUUID()+'/accept-current-state',{confirmation:'KEEP_CURRENT_FIGMA'})).status,404);
+ const before=f.mock.calls.length,result=await f.api(endpoint,{confirmation:'KEEP_CURRENT_FIGMA'});assert.equal(result.status,200);assert.equal(result.value.state,'FAILED');assert.equal(result.value.recovery,'USER_ACCEPTED_CURRENT_STATE');assert.equal(f.app.runs.uncertain,false);
+ assert.equal(f.mock.calls.slice(before).filter(c=>/prompt|command/.test(c.path)).length,0);assert.equal((await f.api(endpoint,{confirmation:'KEEP_CURRENT_FIGMA'})).status,409);
+});

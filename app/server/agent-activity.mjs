@@ -20,7 +20,8 @@ function emit(run,messageId,{group='OTHER',active=false,attention=false,terminal
  const same=previous?.semanticKey===key;
  const sequence=(previous?.sequence??0)+(same?0:1);
  const technical={workflow:['AUTO','DESIGN','QA','BROWSER','BROWSER_TEST','STATUS'].includes(run.mode)?run.mode:'AUTO',runState:['RUNNING','COMPLETED','FAILED','CANCELLED','WAITING_FOR_USER'].includes(run.state)?run.state:'UNKNOWN',category:activityGroups.includes(group)?group:'OTHER',...(restored?{restored:true}:{})};
- if(['RECONCILIATION_REQUIRED','RECOVERED_COMPLETED','CONTINUE_FROM_CURRENT_STATE','RETRY_SAFE'].includes(run.recovery))technical.recovery=run.recovery;
+ if(['RECONCILIATION_REQUIRED','RECOVERED_COMPLETED','CONTINUE_FROM_CURRENT_STATE','RETRY_SAFE','USER_ACCEPTED_CURRENT_STATE'].includes(run.recovery))technical.recovery=run.recovery;
+ if(run.recovery==='USER_ACCEPTED_CURRENT_STATE'){technical.resolutionSource='USER';technical.originalOutcome='UNVERIFIED';}
  if(['UNCHANGED','CHANGED','UNVERIFIED'].includes(run.integrity?.state))technical.integrity=run.integrity.state;
  const counts=run.recoveryEvidence?.counts;
  if(counts)technical.receiptState=['UNKNOWN','IN_PROGRESS','FAILED_AFTER_PARTIAL_WRITE','COMMITTED','FAILED_PRECONDITION','FAILED_BEFORE_WRITE'].find(k=>Number.isSafeInteger(counts[k])&&counts[k]>0)??'UNVERIFIED';
@@ -78,6 +79,7 @@ export function observeActivityContext(run,context){
 }
 export function observeActivityRun(run,{recovering=false,restored=false}={}){
  const options={terminal:run.state!=='RUNNING',restored};
+ if(run.recovery==='USER_ACCEPTED_CURRENT_STATE'){if(!run.agentActivity)emit(run,'unknown',{...options,attention:true,group:'RECOVERY'});emit(run,'accepted',{...options,group:'RECOVERY',observation:'completed'});return;}
  if(run.integrity?.state==='CHANGED'){emit(run,'integrity',{...options,attention:true});return;}
  if(recovering||run.checking){emit(run,'recoveryStart',{group:'RECOVERY',active:true});return;}
  if(run.recovery==='RECOVERED_COMPLETED'){emit(run,'recovered',options);return;}

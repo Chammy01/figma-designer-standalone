@@ -21,7 +21,7 @@ export function safeError(error) {
 export class Runs {
   constructor(engine,log=()=>{},fingerprint=async()=>null,result=async()=>{},lookup=async()=>null,checkpoint=async()=>{}){this.engine=engine;this.log=log;this.fingerprint=fingerprint;this.result=result;this.lookup=lookup;this.checkpoint=checkpoint;this.runs=[];this.session=null;this.workspaceId=randomUUID();this.active=null;this.closed=false;}
   async sessionForWorkspace(){if(!this.session){this.sessionPending??=this.engine.createSession(this.ai?.selected);try{this.session=await this.sessionPending;}finally{this.sessionPending=null;}}return this.session;}
-  async newWorkspace(){this.sessionPending??=this.engine.createSession(this.ai?.selected);try{const session=await this.sessionPending;this.session=session;this.workspaceId=randomUUID();return session;}finally{this.sessionPending=null;}}
+  async newWorkspace(){if(this.resolutionPending||this.sessionPending)throw Object.assign(Error('Workspace operation in progress'),{status:409});this.sessionPending=this.engine.createSession(this.ai?.selected);try{const session=await this.sessionPending;this.session=session;this.workspaceId=randomUUID();return session;}finally{this.sessionPending=null;}}
   async verifyReadOnly(run){
     if(!['QA','BROWSER','BROWSER_TEST'].includes(run.mode))return;
     const after=await this.fingerprint().catch(()=>null);
@@ -31,7 +31,7 @@ export class Runs {
   async submit({input='',mode='AUTO',requestId}) {
     if(!modes.includes(mode)||typeof input!=='string'||input.length>32000||(!input.trim()&&mode==='AUTO')||!requestId||!/^[\w-]{8,80}$/.test(requestId))throw Object.assign(Error('Invalid request'),{status:400});
     const existing=this.runs.find(r=>r.requestId===requestId);if(existing)return existing;
-    if(this.active||this.uncertain||this.ai?.busy||this.sessionPending)throw Object.assign(Error('A task is running or its result needs checking'),{status:409});
+    if(this.active||this.uncertain||this.resolutionPending||this.ai?.busy||this.sessionPending)throw Object.assign(Error('A task is running or its result needs checking'),{status:409});
     this.ai?.assertReady();
     const run={id:randomUUID(),workspaceId:this.workspaceId,requestId,input:redact(input),mode,state:'RUNNING',startedAt:new Date().toISOString(),result:'',activity:'Working…'};
     observeActivityRun(run);
@@ -78,7 +78,7 @@ export class Runs {
     finally{await this.result(run,resultContext).catch(()=>{run.validationUnavailable=true;});run.finishedAt=new Date().toISOString();run.activity='';if(this.closed&&run.state==='RUNNING'){run.state='FAILED';run.recovery='RECONCILIATION_REQUIRED';}observeActivityRun(run);await this.checkpoint(run).catch(()=>{this.uncertain=true;});this.active=null;this.log({event:'run',id:run.id,state:run.state,code:run.error?.code});}
   }
   async reconcileRun(run){
-    if(run.checking)return;
+    if(run.checking||this.resolutionPending||run.recovery==='USER_ACCEPTED_CURRENT_STATE')return;
     run.checking=true;
     observeActivityRun(run,{recovering:true});
     try{
@@ -110,6 +110,34 @@ export class Runs {
       }
     }catch{}finally{run.checking=false;if(run.error){run.error.impact=run.recovery==='RETRY_SAFE'?'Your Figma file was not changed by this request.':run.recovery==='CONTINUE_FROM_CURRENT_STATE'?'Changes were found in the current Figma page. Preserve them and continue from the current design.':'Some changes may already exist in Figma. Check the current result before repeating this request.';if(run.error.code==='PROVIDER_UNAVAILABLE')run.error.code=run.recovery==='RETRY_SAFE'?'PROVIDER_UNAVAILABLE_SAFE':'PROVIDER_UNAVAILABLE_UNCERTAIN';}observeActivityRun(run);}
   }
-  async reconcile(){if(this.uncertain&&!this.active){const run=this.runs.at(-1);if(run&&!run.checking){await this.reconcileRun(run);await this.checkpoint(run);}}}
+  async checkLatest(id){
+    const run=this.runs.find(r=>r.id===id);
+    if(!run)throw Object.assign(Error('Run not found'),{status:404});
+    if(this.active||this.resolutionPending||this.reconcilePending||run.checking||run!==this.runs.at(-1))throw Object.assign(Error('Only the latest finished task can be checked'),{status:409});
+    this.reconcilePending=true;
+    try{await this.reconcileRun(run);await this.checkpoint(run);return run;}finally{this.reconcilePending=false;}
+  }
+  async reconcile(){if(this.uncertain&&!this.active&&!this.resolutionPending&&!this.reconcilePending){const run=this.runs.at(-1);if(run&&!run.checking)await this.checkLatest(run.id);}}
+  async acceptCurrentState(id,confirmation){
+    const run=this.runs.find(r=>r.id===id);
+    if(!run)throw Object.assign(Error('Run not found'),{status:404});
+    if(confirmation!=='KEEP_CURRENT_FIGMA')throw Object.assign(Error('Explicit confirmation required'),{status:400});
+    if(run!==this.runs.at(-1)||run.state!=='FAILED'||run.recovery!=='RECONCILIATION_REQUIRED'||!this.uncertain||this.active||run.checking||this.reconcilePending||this.resolutionPending||this.sessionPending||this.ai?.busy||this.closed)throw Object.assign(Error('Only the latest unresolved finished task can be accepted'),{status:409});
+    this.resolutionPending=true;
+    try{
+      // Persist a candidate, not a live mutation: a failed checkpoint keeps the lock and old record.
+      const candidate={...run,recovery:'USER_ACCEPTED_CURRENT_STATE',manualResolution:{type:'USER_ACCEPTED_CURRENT_STATE',at:new Date().toISOString()},acceptedWorkspaceId:randomUUID()};
+      await this.checkpoint(candidate);
+      Object.assign(run,candidate);
+      this.uncertain=false;
+      // A fresh boundary is durable above. Never continue the old session, even after a crash.
+      this.workspaceId=run.acceptedWorkspaceId;this.session=null;this.uncertainOffset=null;
+      observeActivityRun(run);
+      // Creating a session submits no prompt. Failure leaves a fresh, empty boundary for the next task.
+      try{await this.sessionForWorkspace();}catch{}
+      this.log({event:'manual-resolution',id:run.id,type:run.recovery});
+      return run;
+    }finally{this.resolutionPending=false;}
+  }
   async cancel(id){const run=this.runs.find(r=>r.id===id);if(!run)throw Object.assign(Error('Run not found'),{status:404});if(run!==this.active)return run; if(!run.sessionId)throw Object.assign(Error('Run is starting; check again'),{status:409});const value=await this.engine.interrupt(run.sessionId);run.cancelRequested=value.interrupted===true;return {interrupted:run.cancelRequested,message:run.cancelRequested?'Interrupt requested. Any completed Figma writes remain; verify before retrying.':'No active engine operation was interrupted.'};}
 }

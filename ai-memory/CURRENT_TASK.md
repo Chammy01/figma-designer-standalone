@@ -96,3 +96,17 @@ The shared workflow is considered operational when:
 User requested `ai checkpoint` only. No Figma operations, product changes, commit or push are authorized by this checkpoint. Shared CLI: `E:\AI-Memory\bin\ai.cmd`; local snapshot: `.ai-state/CHECKPOINT.json`. Graphify update and Obsidian export succeeded; export reconstructed communities from the current 4,245-node graph because the analysis sidecar was stale. Detailed recovery constraints are in `HANDOFF.md`.
 
 Historical note: the stale-sidecar warning above belongs to this specific checkpoint. The sidecar was later refreshed with `graphify cluster-only . --no-label` (4,253 nodes, 8,399 edges, 276 communities) and the following `ai checkpoint` completed without the warning. Current sidecar state is tracked in `PROJECT_STATE.md`.
+
+## Active Recovery Feature — 2026-10-18
+
+User authorized implementation of confirmed USER_ACCEPTED_CURRENT_STATE recovery. Preserve old FAILED/UNVERIFIED outcome; never replay or claim retry safety. Implement durable acceptance before unlocking, fresh session boundary, bounded privacy-safe history and confirmation UI. Current actual base 0335d5e; unrelated modified bedroom-base.jpg excluded. Source implementation and tests in progress; live acceptance and new exact-head CI pending. Do not manually edit live recovery metadata.
+
+## Recovery continuation — 2026-10-19
+
+Implementation remains uncommitted on 0335d5e. User resumed after stopping Computer Use. Prior 79 focused / 586 npm tests passed, but later source edits need rerun. Full browser tests exposed an obsolete recovery-copy assertion (updated); package failed because running desktop held a DLL (desktop now absent). Added acceptance-versus-reconciliation checkpoint serialization. Build/regression and live confirmation are pending. Preserve old run UNVERIFIED; no replay or manual recovery-file edits. New contract: docs/USER_ACCEPTED_CURRENT_STATE_V1_5_0.md.
+
+## Live recovery progress — 2026-10-19
+
+The new UI Check Again kept old run a700300a-db2f-45d8-944b-02c20964745b unresolved. The explicit Keep Current Figma confirmation was then executed as authorized by the user task: old state FAILED, recovery USER_ACCEPTED_CURRENT_STATE, original outcome UNVERIFIED; no replay. Durable metadata created a new workspace 36cfd25e-3c33-4a32-9ff4-d9a3cd10cc5c and fresh session ses_eaf6b32d7ffeWCrsja2GjGWACv. Resolution left page fingerprint 8830fd4bdf16f232d830301db8ea11d8b793375b7e67713461edf7d44aed4c79 unchanged, one root1053:1059/314 nodes. Fresh run a70990e6-b264-421b-b777-be6dc06e4e6b COMPLETED: only heading1053:1108 changed to Project Overview (native setter also renamed that text layer); no nodes added/removed. Receipt dbc900fad658f9cbcb7ef04a54bf3a10 verified COMMITTED, applied1/failed0. QA now running. Evidence .figma-designer/presence/recovery/. No commits yet; package/restart/finalCI pending.
+
+QA completed read-only (0 writes), unchanged page fingerprint7b41848fd6a5263b775efd12811f19e6822090b1efa92d236ec4c9d8c77d0e52; canonical FAIL because disposable dashboard has no runtime SECTION. Do not repair or relabel that finding. Protected Page1 recapture now succeeds and matches a68cfd586576aa6f2d199c8edd4e46c541b5d7e9a22508a16781e8fff3712be6. Browser acceptance uses the already-existing runtime1023:1802 on Page1, read-only; UI page selection changed only view. No new runtime/prototype objects authorized.

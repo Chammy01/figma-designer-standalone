@@ -24,7 +24,7 @@ function json(res,value,status=200){res.writeHead(status,{'Content-Type':'applic
 export async function createApplication({root=projectRoot,engine=new OpenCodeClient({root,executable:process.env.OPENCODE_EXECUTABLE,url:process.env.FIGMA_APP_OPENCODE_URL,password:process.env.FIGMA_APP_OPENCODE_PASSWORD}),status=()=>systemStatus(root),browser=()=>previewStatus(root),fingerprint=async()=>root===projectRoot?documentFingerprint(await readQATool('get_document')).sha256:null,validation=new Validation(root,root===projectRoot?{}:{read:async()=>{throw Error('Fixture source unavailable');}}),port=0,recoveryFile,onPreview=()=>{},onExternalSetup=()=>{}}={}) {
   const events=[];let logChain=Promise.resolve(),closed=false;
   const log=event=>{events.push({...event,time:new Date().toISOString()});if(events.length>100)events.shift();logChain=logChain.then(async()=>{await mkdir(join(root,'.figma-designer/app'),{recursive:true});await writeFile(join(root,'.figma-designer/app/events.json'),JSON.stringify(events));}).catch(()=>{});};
-  const store=recoveryFile?recoveryStore(recoveryFile):null;
+  const store=recoveryStore(recoveryFile??join(root,'.figma-designer/app/recovery.json'));
   const runs=new Runs(engine,log,fingerprint,(run,context)=>validation.capture(run,context),id=>root===projectRoot?lookupCurrentOperation(id):null,store?.save),ai=new AI(engine,runs,root);runs.ai=ai;await store?.restore(runs);let cachedStatus,lastCheck=0,statusPending,preview;
   async function check(force=false){if(force || !cachedStatus || Date.now()-lastCheck>3000){statusPending??=status().then(s=>{cachedStatus=s;lastCheck=Date.now();return s;}).finally(()=>statusPending=undefined);await statusPending;}return cachedStatus;}
   async function previewUrl(){
@@ -73,7 +73,8 @@ export async function createApplication({root=projectRoot,engine=new OpenCodeCli
           json(res,await runs.submit({...value,mode:value.mode??'AUTO'}),202);return;
         }
         if(/^\/api\/run\/[\w-]+\/cancel$/.test(path)){json(res,await runs.cancel(path.split('/')[3]));return;}
-        if(/^\/api\/run\/[\w-]+\/reconcile$/.test(path)){const run=runs.runs.find(r=>r.id===path.split('/')[3]);if(!run)throw Object.assign(Error('Run not found'),{status:404});if(runs.active||run!==runs.runs.at(-1))throw Object.assign(Error('Only the latest finished task can be checked'),{status:409});await runs.reconcileRun(run);json(res,run);return;}
+        if(/^\/api\/run\/[\w-]+\/accept-current-state$/.test(path)){json(res,await runs.acceptCurrentState(path.split('/')[3],value.confirmation));return;}
+        if(/^\/api\/run\/[\w-]+\/reconcile$/.test(path)){json(res,await runs.checkLatest(path.split('/')[3]));return;}
       }
       json(res,{error:{title:'Not available',message:'This application endpoint does not exist.'}},404);
     }catch(error){const status=error.status??500;json(res,{error:error.code?safeError(error):status<500?{code:'REQUEST_INVALID',title:'Request needs attention',message:error.message,recoverable:true}:safeError(error)},status);}

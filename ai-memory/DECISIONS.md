@@ -302,3 +302,7 @@ Adds a reporting constraint to "Recovery Tests Are Only Valid for the Scenario A
 - A kill leaving no self-describing repository artifact remains unverified.
 - Interruption during a live Figma or `write_html` operation remains unverified and blocked behind reconciliation lock `a700300a-db2f-45d8-944b-02c20964745b`.
 - Memory-only recovery results never release a product HOLD or a reconciliation lock, deviation or not.
+
+## 2026-10-19 — Explicit Acceptance Resolves the Lock, Not the Old Outcome
+
+The current user task authorizes a confirmed USER_ACCEPTED_CURRENT_STATE path. It saves acceptance before clearing uncertainty and discards old session context. The old run remains FAILED/UNVERIFIED and is never replayed. This supersedes earlier memory statements that only native completion evidence could ever clear this lock; it does not alter what counts as completion or retry safety. Memory checkpoints alone still cannot resolve it.
