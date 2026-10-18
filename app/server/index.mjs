@@ -54,7 +54,11 @@ export async function createApplication({root=projectRoot,engine=new OpenCodeCli
         if(path==='/api/browser/preview'){json(res,{url:await previewUrl()});return;}
         if(/^\/api\/run\/[\w-]+$/.test(path)){const run=runs.runs.find(r=>r.id===path.split('/').at(-1));json(res,run??{error:'Run not found'},run?200:404);return;}
         const staticFiles={'/':'index.html','/app.js':'app.js','/validation.js':'validation.js','/styles.css':'styles.css','/agent-presence.js':'agent-presence.js','/agent-presence.css':'agent-presence.css','/agent-activity.mjs':'../shared/agent-activity.mjs'};
-        if(studioAssets.has(path)){res.writeHead(200,{'Content-Type':'image/png'});res.end(await readFile(join(projectRoot,'app/web',path)));return;}
+        if(studioAssets.has(path)){
+          const base=await realpath(join(projectRoot,'app/web/assets')),file=await realpath(join(projectRoot,'app/web',path));
+          if(!isWithinRoot(base,file)){res.writeHead(404);res.end();return;}
+          res.writeHead(200,{'Content-Type':'image/png'});res.end(await readFile(file));return;
+        }
         if(staticFiles[path]){res.writeHead(200,{'Content-Type':mime[extname(staticFiles[path])]});res.end(await readFile(join(projectRoot,'app/web',staticFiles[path])));return;}
       }
       if(req.method==='POST'){
