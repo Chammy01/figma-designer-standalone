@@ -20,3 +20,4 @@
 *.exe binary
 *.png binary
 *.zip binary
+graphify-out/graph.json merge=graphify
