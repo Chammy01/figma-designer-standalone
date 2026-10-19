@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, rm, mkdir, writeFile } from 'node:fs/promises';
+import { mkdtemp, rm, mkdir, writeFile, realpath } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import * as fs from 'node:fs/promises';
@@ -23,7 +23,7 @@ import {
 } from '../rules/browser-test-artifact-guard.mjs';
 
 async function createFixtureWorkspace() {
-  const dir = await mkdtemp(join(tmpdir(), 'figma-browser-workflow-'));
+  const dir = await realpath(await mkdtemp(join(tmpdir(), 'figma-browser-workflow-')));
   const protoDir = join(dir, '.figma-designer', 'browser-prototype');
   await mkdir(protoDir, { recursive: true });
   for (const name of ['index.html', 'styles.css', 'app.js', 'figma-browser.json', 'figma-source.json']) {

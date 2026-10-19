@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtemp,mkdir,writeFile,readFile,rm,symlink,link} from 'node:fs/promises';
+import {mkdtemp,mkdir,writeFile,readFile,rm,symlink,link,realpath} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {installBrowserWorkspaceCapabilities} from '../rules/browser-workspace-capabilities.mjs';
@@ -8,7 +8,7 @@ import {browserTestPaths,requiredArtifacts,artifactDirectory,acquireBrowserArtif
 import {beginExport,finishExport} from './figma-browser-source.mjs';
 
 async function fixture(fn){
- const root=await mkdtemp(join(tmpdir(),'browser-finite-')),paths=browserTestPaths(root);
+ const root=await realpath(await mkdtemp(join(tmpdir(),'browser-finite-'))),paths=browserTestPaths(root);
  await mkdir(paths.artifacts,{recursive:true});for(const name of requiredArtifacts)await writeFile(join(paths.artifacts,name),'original '+name);
  try{await fn(root,paths);}finally{await rm(root,{recursive:true,force:true});}
 }

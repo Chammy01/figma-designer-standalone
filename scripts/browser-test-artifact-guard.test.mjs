@@ -7,7 +7,7 @@ import {createHash} from 'node:crypto';
 import {browserTestPaths,artifactDirectory,requiredArtifacts,normalizeArtifactPath,classifyArtifactPath,authorizeArtifactOperation,protectedArtifactSnapshot,compareArtifactSnapshots,createBlockedEvidence,recordBlockedAttempt,acquireBrowserArtifactLease,acquireBrowserBuildWrite,writeBrowserTestOutput,policyCodes} from '../rules/browser-test-artifact-guard.mjs';
 
 async function fixture(fn){
- const root=await fs.mkdtemp(join(tmpdir(),'browser-read-only-'));
+ const root=await fs.realpath(await fs.mkdtemp(join(tmpdir(),'browser-read-only-')));
  const paths=browserTestPaths(root);await fs.mkdir(join(paths.artifacts,'assets'),{recursive:true});
  for(const name of requiredArtifacts)await fs.writeFile(join(paths.artifacts,name),'original '+name);
  await fs.writeFile(join(paths.artifacts,'assets/image.svg'),'<svg/>');

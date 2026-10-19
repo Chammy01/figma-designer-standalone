@@ -31,7 +31,12 @@ export async function normalizeArtifactPath(projectRoot,input){
  const withoutDrive=spelling.replace(/^[a-z]:/i,'');
  if(withoutDrive.includes(':')||withoutDrive.split('/').some(p=>p==='..'||/[. ]$/.test(p)&&p!=='.'||/^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(p)))throw invalid();
  const workspace=await realpath(resolve(projectRoot));
- const file=resolve(workspace,spelling);
+ let rel=spelling;
+ if(isAbsolute(input)||/^[a-z]:/i.test(spelling)){
+  const fromRoot=relative(resolve(projectRoot),resolve(input)).replaceAll('\\','/');
+  if(fromRoot===''||!fromRoot.startsWith('..')&&!isAbsolute(fromRoot))rel=fromRoot;
+ }
+ const file=resolve(workspace,rel);
  if(!within(workspace,file))throw invalid();
  let cursor=workspace;
  const parts=relative(workspace,file).split(/[\\/]/).filter(Boolean);
