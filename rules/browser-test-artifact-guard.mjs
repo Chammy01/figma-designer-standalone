@@ -42,8 +42,8 @@ export async function normalizeArtifactPath(projectRoot,input){
  const parts=relative(workspace,file).split(/[\\/]/).filter(Boolean);
  for(let i=0;i<parts.length;i++){
   cursor=join(cursor,parts[i]);
-  let info;try{info=await lstat(cursor);}catch(error){if(error.code==='ENOENT'){cursor=join(cursor,...parts.slice(i+1));break;}throw invalid();}
-  const actual=await realpath(cursor);
+  let info;try{info=await lstat(cursor);}catch(error){if(error.code==='ENOENT'||error.code==='EPERM'){cursor=join(cursor,...parts.slice(i+1));break;}throw invalid();}
+  let actual;try{actual=await realpath(cursor);}catch(error){if(error.code==='ENOENT'||error.code==='EPERM'){cursor=join(cursor,...parts.slice(i+1));break;}throw invalid();}
   if(info.isSymbolicLink()||!within(workspace,actual)||info.isFile()&&info.nlink!==1)throw invalid();
   cursor=actual;
  }
@@ -113,7 +113,7 @@ export async function acquireBrowserArtifactLease(projectRoot,kind){
  const paths=browserTestPaths(projectRoot);
  await mkdir(dirname(paths.lock),{recursive:true});
  await normalizeArtifactPath(projectRoot,paths.lock);
- try{await mkdir(paths.lock);}catch(error){if(error.code==='EEXIST')throw Object.assign(Error(policyCodes.busy),{code:policyCodes.busy});throw error;}
+ try{await mkdir(paths.lock);}catch(error){if(error.code==='EEXIST'||error.code==='EPERM')throw Object.assign(Error(policyCodes.busy),{code:policyCodes.busy});throw error;}
  const token=randomUUID(),owner=join(paths.lock,'owner.json');
  try{await writeFile(owner,JSON.stringify({kind,token,pid:process.pid}),{flag:'wx'});}catch(error){await rmdir(paths.lock).catch(()=>{});throw error;}
  let released=false;
