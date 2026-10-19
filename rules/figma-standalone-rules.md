@@ -86,10 +86,9 @@ reaction semantics, source verification and output truthfulness remain authorita
 ## Architecture
 
 Product, browser, and external developer harness architectures are strictly distinct:
-- **Product Architecture**: App → OpenCode → workflows (`.opencode/agents/figma-designer.md` as sole primary agent) → local Figma MCP executable → localhost WebSocket bridge → Figma Desktop development plugin → editable native layers in the design document.
-- **Browser Architecture**: Browser regression testing and prototype validation use local Node and Playwright, completely isolated from Figma write operations.
+- **Product Architecture**: App → OpenCode → workflows (`.opencode/agents/figma-designer.md` as sole primary agent) → local Figma MCP executable → localhost WebSocket bridge → Figma Desktop development plugin → editable native layers in the design document. All sessions run under an explicit workspace-wide finite capability profile (`rules/browser-workspace-capabilities.mjs`): exact approved 108 Figma MCP operations, safe reads (`read`, `glob`, `grep`, `question`, critique reads), finite file tools (`write`, `edit`, `patch`) restricted to active Build sessions targeting `.figma-designer/browser-prototype/`, and fixed workflow tools (`figma_browser_test_report`, `figma_qa_report`, `figma_browser_build_begin`, `figma_browser_build_finish`). Generic shell, Code Mode `execute`, Node, PowerShell, delegation, and formatters are denied across all workspace sessions. Mutating callbacks hold atomic shared Build-write leases through `finally`. Formatter execution is disabled at highest priority (`OPENCODE_CONFIG_CONTENT` with `formatter: false`); unmanaged engines fail closed on the Build-write precondition.
+- **Browser Architecture**: Browser generation and regression testing use local Node and Playwright, completely isolated from Figma write operations. Source capture and binding use fixed tools `figma_browser_build_begin` and `figma_browser_build_finish`. Source snapshot `figma-source.json` is strictly collector-owned and never model-authored. Application `BROWSER_TEST` runs `scripts/browser-test-canonical.mjs` directly (bypassing model execution and preserving `workspaceSessionId`). OpenCode natural Test allows only safe reads and the fixed once-per-turn `figma_browser_test_report` tool.
 - **Developer Harness Architecture**: OMP is the current external developer harness. Native Orca is obsolete; do not search for, install, invoke, or require it. An absent executable is expected and not a blocker.
-
 ## Canonical page-level ownership
 
 For new standalone documents:
@@ -225,13 +224,17 @@ Required files:
 - `styles.css`
 - `app.js`
 - `figma-browser.json`
+- `figma-source.json` (collector-owned; captured via `figma_browser_build_begin` and finalized via `figma_browser_build_finish`, never model-authored)
+
+Browser Build uses fixed no-argument source tools (`figma_browser_build_begin`, `figma_browser_build_finish`) and finite `write`, `edit`, and `patch` tools scoped strictly to `.figma-designer/browser-prototype/`. All mutating callbacks hold atomic shared Build-write leases through `finally`. Generic shell, Node, PowerShell, Code Mode, and formatters are denied.
+
+Browser Test observes only; it never repairs, regenerates, or formats inputs. The app invokes the canonical runner directly via `scripts/browser-test-canonical.mjs`. In OpenCode, Test uses the fixed no-argument `figma_browser_test_report` tool at most once per turn.
 
 Use stable `data-figma-*` hooks for automated testing.
 No remote scripts, CDNs, remote fonts, analytics, fetch/XHR dependencies, or dynamically loaded code.
 Use hash routing for static screen navigation.
 Support `prefers-reduced-motion` in the browser implementation.
 Map native Figma navigation to semantic anchors when practical so keyboard Enter works without synthetic click emulation.
-
 ## Visual quality
 
 Derive styling from the user's brief and the live Figma source. Avoid generic AI-looking patterns, unnecessary gradients, excessive pills, random decoration, fake dashboards, and gratuitous glassmorphism unless explicitly requested.

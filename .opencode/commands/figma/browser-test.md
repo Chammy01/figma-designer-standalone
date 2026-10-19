@@ -4,15 +4,15 @@ agent: figma-designer
 subagent: false
 ---
 
-FIGMA BROWSER TEST — STANDALONE V1.2.1
+FIGMA BROWSER TEST — ARTIFACT READ ONLY V1.5.1
 
 Do not modify Figma.
 Do not use native Orca.
 
-Run:
+Call `figma_browser_test_report` directly for the canonical browser test run. Do not use shell, bash, Node, execute/Code Mode, file writes, edits, or delegation tools: they are blocked before execution. Never fall back to shell or Code Mode.
 
-`node scripts/figma-browser-test.mjs`
-
+This command is strictly artifact-read-only. Do not modify or repair any file in `.figma-designer/browser-prototype/` or the workspace. Report findings and never repair during this turn. Any mutation call or changed artifact forces FAIL.
+Only inspection tools (read, glob, grep) and the canonical test runner are permitted. At most one test run is allowed per turn.
 The runner must validate the generated `.figma-designer/browser-prototype/` interface, including all manifest NAVIGATE interactions it can deterministically exercise, native keyboard activation, Back/Forward history, deep links, route fallback, reduced-motion contract, and local-only networking.
 
 Default mode requires manifest schema 2, the canonical Interactive App runtime, and a controls array. Regenerate V1 exports through `/figma/interactive` then `/figma/browser`. Only when the user explicitly requests historical V1 testing, run `node scripts/figma-browser-test.mjs --legacy`; successful legacy tests return WARN with navigation-only coverage, never V1.1 PASS.

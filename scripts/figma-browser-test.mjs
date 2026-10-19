@@ -1,6 +1,6 @@
 import { chromium } from '@playwright/test';
 import { createServer } from 'node:http';
-import { readFile, realpath, stat, writeFile } from 'node:fs/promises';
+import { readFile, realpath, stat } from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
 import { extname, join, resolve } from 'node:path';
 import { isWithinRoot, safePath, validateManifest } from './figma-browser-contract.mjs';
@@ -8,12 +8,13 @@ import { artifactHashes, classifyFreshness, runnerVersion, sourceFingerprint } f
 import { collectLiveSource } from './figma-live-source.mjs';
 import { verifyBrowserMotion } from './figma-browser-motion-check.mjs';
 import { verifyBrowserFidelity } from './figma-browser-fidelity.mjs';
+import {acquireBrowserArtifactLease,protectedArtifactSnapshot,compareArtifactSnapshots,createBlockedEvidence,writeBrowserTestOutput,browserTestPaths,policyCodes} from '../rules/browser-test-artifact-guard.mjs';
 
 const systemVersion = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8')).version;
 
-const root = resolve('.figma-designer/browser-prototype');
+const workspace = resolve('.');
+const {artifacts:root,report:reportPath} = browserTestPaths(workspace);
 const manifestPath = join(root, 'figma-browser.json');
-const reportPath = join(root, 'figma-browser-test.json');
 
 const results = [];
 function record(name, passed, detail = '', skipped = false) {
@@ -101,6 +102,10 @@ const unsupported = [];
 const motionFailures = new Set();
 let motionResults = [];
 let fidelity = {SOURCE_FIDELITY:'UNVERIFIED',BROWSER_VISUAL_REGRESSION:'UNVERIFIED',PIXEL_REGRESSION:'UNVERIFIED',NATIVE_RENDER_PARITY:'UNVERIFIED',FIGMA_PIXEL_PARITY:'UNVERIFIED'};
+let artifactLease;
+let snapshotBefore;
+let snapshotAfter;
+const blockedEvidence=createBlockedEvidence();
 
 async function checkReducedMotion(page) {
   const failures = await page.evaluate(() => {
@@ -118,6 +123,10 @@ async function checkReducedMotion(page) {
 }
 
 try {
+try {
+  artifactLease=await acquireBrowserArtifactLease(workspace,'TEST');
+  snapshotBefore=await protectedArtifactSnapshot(workspace);
+  if(snapshotBefore.status!=='CAPTURED')throw Error(policyCodes.unverified);
   artifactSha256 = await artifactHashes(root);
   manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
   legacy = validateManifest(manifest, process.argv.includes('--legacy'));
@@ -165,6 +174,7 @@ try {
   await page.goto(baseUrl, { waitUntil: 'networkidle' });
   record('App root hook present', await page.locator('[data-figma-app]').count() === 1);
   record('Bare URL renders start screen', await page.locator(screenSelector(start.id)).isVisible().catch(() => false), String(start.id));
+  await writeBrowserTestOutput(workspace,browserTestPaths(workspace).screenshot,await page.screenshot());
 
   const startRoute = routeForScreen(start);
   await page.goto(baseUrl + startRoute, { waitUntil: 'networkidle' });
@@ -322,7 +332,6 @@ try {
 
   record('Runtime resources stay local', externalRequests.length === 0, externalRequests.join(', '));
   currentHashes = await artifactHashes(root);
-  record('Generated artifacts remained unchanged during testing', JSON.stringify(artifactSha256) === JSON.stringify(currentHashes));
 } catch (error) {
   fatal = error instanceof Error ? error.message : String(error);
   record('Test harness completed without fatal error', false, fatal);
@@ -331,15 +340,23 @@ try {
   if (server) await new Promise(resolveClose => server.close(resolveClose));
 }
 
+// Freeze lasts through browser teardown and the final live-source read. No repair or Build phase exists here.
+const liveSource = artifactLease&&manifestValid?await collectLiveSource():{status:'UNAVAILABLE',reason:'Browser inputs were not verified.'};
+snapshotAfter=await protectedArtifactSnapshot(workspace,{requireInputs:false});
+const artifactIntegrity=compareArtifactSnapshots(snapshotBefore,snapshotAfter,blockedEvidence);
+const policyCode=artifactIntegrity.status==='CHANGED'?policyCodes.changed:artifactIntegrity.status!=='UNCHANGED'?policyCodes.unverified:null;
+record('Generated artifacts remained unchanged during testing',artifactIntegrity.status==='UNCHANGED',policyCode??'Protected SHA-256 and sizes match.');
 const failures = results.filter(r => !r.passed && !r.skipped);
 const acceptance = failures.length ? 'FAIL' : legacy || unsupported.some(i => i.motionRequired) ? 'WARN' : 'PASS';
-const liveSource = await collectLiveSource();
 const sourceSummary = live => live ? { status: live.status, reason: live.reason ?? null, sourceFingerprint: live.sourceFingerprint ?? null, sourceProjectionVersion: live.sourceProjectionVersion, sourceRuntimeId: live.sourceRuntimeId ?? null, metrics: live.metrics } : null;
 const freshness = manifestValid ? classifyFreshness(manifest, { artifactSha256, manifestSha256: artifactSha256['figma-browser.json'], runnerVersion, systemVersion, sourceFingerprint: manifest.sourceFingerprint ?? null, sourceProjectionVersion: manifest.sourceProjectionVersion ?? null, exportRunId: manifest.exportRunId ?? null, result: acceptance }, currentHashes ?? artifactSha256, liveSource, systemVersion) : { local: 'UNVERIFIED', source: 'UNVERIFIED', overall: 'UNVERIFIED' };
 const report = {
   version: 2,
   systemVersion,
   result: acceptance,
+  artifactIntegrity,
+  artifactSnapshots:{before:snapshotBefore??{status:'UNVERIFIED',files:[]},after:snapshotAfter},
+  policyCode,
   browserAcceptance: acceptance,
   coverage: legacy ? 'legacy-navigation-only' : manifest?.motion?.contractVersion ? 'navigation-control-hooks-and-motion' : 'navigation-and-control-hooks',
   motion: { contractVersion:manifest?.motion?.contractVersion ?? null, results:motionResults, totals:motionResults.reduce((totals,r) => { const key=`${r.token}: ${r.parity}`; totals[key]=(totals[key] ?? 0)+1; return totals; },{}) },
@@ -366,7 +383,19 @@ const report = {
   tests: results
 };
 
-await writeFile(reportPath, JSON.stringify(report, null, 2) + '\n', 'utf8');
+  // A competing runner must not overwrite the active run's report.
+  if(artifactLease)await writeBrowserTestOutput(workspace,reportPath,JSON.stringify(report,null,2)+'\n');
+  if(process.send)await new Promise((resolveAck,rejectAck)=>{
+    const disconnected=()=>{process.removeListener('message',ack);rejectAck(Error(policyCodes.unverified));};
+    const ack=message=>{
+      if(!message?.browserTestAck)return;
+      process.removeListener('disconnect',disconnected);process.removeListener('message',ack);
+      if(message.error)rejectAck(Error(policyCodes.unverified));
+      else{Object.assign(report,message.result);resolveAck();}
+    };
+    process.on('message',ack);process.once('disconnect',disconnected);
+    process.send({browserTestReport:report,leaseHeld:!!artifactLease});
+  });
 console.log(`\nTest report: ${reportPath}\n`);
 console.log(`SOURCE_FRESHNESS: ${report.sourceFreshness}\nLOCAL_FRESHNESS: ${report.localFreshness}\nOVERALL_FRESHNESS: ${report.overallFreshness}`);
 for(const key of ['SOURCE_FIDELITY','BROWSER_VISUAL_REGRESSION','PIXEL_REGRESSION','NATIVE_RENDER_PARITY','FIGMA_PIXEL_PARITY']) console.log(`${key}: ${fidelity[key]}`);
@@ -375,3 +404,6 @@ for (const [token,count] of Object.entries(report.motion.totals)) console.log(`$
 console.log(`FIGMA_BROWSER_TEST: ${report.passed ? report.result : 'FAIL'}`);
 // Let live-source HTTP handles close before Windows tears down the event loop.
 process.exitCode = report.passed ? 0 : 1;
+} finally {
+  await artifactLease?.release();
+}

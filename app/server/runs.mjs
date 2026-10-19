@@ -1,11 +1,12 @@
 import {randomUUID} from 'node:crypto';
 import {isCritiqueReadTool} from '../../.opencode/plugins/figma-critique-guard.js';
 import {qaReportTool} from '../../rules/figma-qa-guard.mjs';
-import {redact} from '../shared/result-contract.mjs';
+import {redact,sanitizeArtifactIntegrity} from '../shared/result-contract.mjs';
 import {operationRecovery} from './operation-recovery.mjs';
 import {observeActivityContext,observeActivityRun} from './agent-activity.mjs';
+import {runCanonicalBrowserTest} from '../../scripts/browser-test-canonical.mjs';
+import {policyCodes,canonicalBrowserTestExecution} from '../../rules/browser-test-artifact-guard.mjs';
 export {redact} from '../shared/result-contract.mjs';
-
 export const modes=['AUTO','DESIGN','QA','BROWSER','BROWSER_TEST','STATUS'];
 export function safeError(error) {
   const tag=String(error?.code??error?.message??'');
@@ -13,6 +14,9 @@ export function safeError(error) {
   if(tag==='PROVIDER_CONNECT_INVALID')return {code:tag,title:'Check your provider details',message:'Enter an API key or choose a supported sign-in method.',recoverable:true};
   if(tag==='MCP_INCOMPATIBLE')return {code:tag,title:'Plugin update needed',message:'Run the matching Figma Designer MCP development plugin and choose Check Again.',recoverable:true};
   if(['PLUGIN_NOT_CONNECTED','MCP_UNAVAILABLE','FIGMA_DISCONNECTED'].includes(tag))return {code:tag,title:'Figma disconnected',message:'Open your Figma file and run the Figma Designer development plugin, then choose Check Again.',recoverable:true};
+  if(tag==='BROWSER_TEST_ARTIFACT_WRITE_BLOCKED'||tag==='BROWSER_TEST_ARTIFACT_INTEGRITY_VIOLATION')return {code:tag,title:'I stopped a change to the test files.',message:'The test evidence needs to stay unchanged so the result remains trustworthy.',recoverable:true};
+  if(tag==='BROWSER_TEST_ARTIFACT_INTEGRITY_UNVERIFIED')return {code:tag,title:'Browser test could not be verified',message:'The test files or run environment could not be verified.',recoverable:true};
+  if(tag==='BROWSER_ARTIFACTS_BUSY')return {code:tag,title:'Browser test in progress',message:'Another build or test operation is currently using the browser test files. Wait for it to complete.',recoverable:true};
   const code=['PROVIDER_REQUIRED','MODEL_REQUIRED','PROVIDER_AUTH_REQUIRED','MODEL_CHANGE_LOCKED','MODEL_UNAVAILABLE','READ_ONLY_VERIFICATION_FAILED'].includes(tag)?tag:/auth|credential/i.test(tag)?'PROVIDER_AUTH_REQUIRED':error?.providerStatus===429?'PROVIDER_RATE_LIMITED':/model/i.test(tag)?'MODEL_UNAVAILABLE':/provider/i.test(tag)?'PROVIDER_UNAVAILABLE':/runtime/i.test(tag)?'RUNTIME_HASH_MISMATCH':/OPENCODE|ENGINE/i.test(tag)?'OPENCODE_START_FAILED':'SESSION_FAILED';
   const copy={PROVIDER_REQUIRED:['AI provider needed','Connect an AI provider before starting a design.'],MODEL_REQUIRED:['Choose an AI model','Choose an available model to continue.'],PROVIDER_AUTH_REQUIRED:['Reconnect your AI provider','Your provider needs authentication before it can continue.'],MODEL_UNAVAILABLE:['Selected model unavailable','Choose another available model to continue.'],MODEL_CHANGE_LOCKED:['Finish the current task first','Models stay locked while a task is running or its result needs checking.'],PROVIDER_UNAVAILABLE:['AI provider unavailable','Your provider could not complete the request.'],PROVIDER_RATE_LIMITED:['Your provider needs a moment','The provider reported a request limit. Wait before trying again.'],RUNTIME_HASH_MISMATCH:['Runtime verification needs attention','Restore the approved runtime before starting design work.'],OPENCODE_START_FAILED:['Design engine unavailable','Check the application setup and choose Check Again.'],SESSION_FAILED:['This task needs attention','The design engine could not finish this task.']};
   copy.READ_ONLY_VERIFICATION_FAILED=['Read-only verification failed','The current Figma page changed during this check. Its read-only result was not accepted. Review the changes before continuing.'];
@@ -39,6 +43,7 @@ export class Runs {
     this.workPending=this.work(run,input);return run;
   }
   async work(run,input){
+    if(run.mode==='BROWSER_TEST')return this.workBrowserTest(run);
     let resultContext;
     try{
       run.beforeFingerprint=await this.fingerprint().catch(()=>null);
@@ -76,6 +81,56 @@ export class Runs {
       }
     }catch(error){run.state='FAILED';run.error=safeError(error);run.recovery='RECONCILIATION_REQUIRED';this.uncertain=true;this.uncertainOffset=run.offset??0;await this.reconcileRun(run);}
     finally{await this.result(run,resultContext).catch(()=>{run.validationUnavailable=true;});run.finishedAt=new Date().toISOString();run.activity='';if(this.closed&&run.state==='RUNNING'){run.state='FAILED';run.recovery='RECONCILIATION_REQUIRED';}observeActivityRun(run);await this.checkpoint(run).catch(()=>{this.uncertain=true;});this.active=null;this.log({event:'run',id:run.id,state:run.state,code:run.error?.code});}
+  }
+  async workBrowserTest(run){
+    let resultContext;
+    run.execution=canonicalBrowserTestExecution;
+    run.workspaceSessionId=this.session?.id;
+    try{
+      await this.checkpoint({...run,submissionStarted:true});
+      const root=this.root??process.cwd();
+      const {report,output}=await (this.browserTest??runCanonicalBrowserTest)(root);
+      run.result=redact(output||'').slice(-100000);
+      run.artifactIntegrity=sanitizeArtifactIntegrity(report.artifactIntegrity);
+      if(report.policyCode===policyCodes.blocked||run.artifactIntegrity.blockedWriteAttempts>0){
+        run.state='FAILED';
+        run.error=safeError(Object.assign(Error(policyCodes.blocked),{code:policyCodes.blocked}));
+        run.recovery='RETRY_SAFE';
+      }else if(run.artifactIntegrity.status==='CHANGED'){
+        run.state='FAILED';
+        run.error=safeError(Object.assign(Error(policyCodes.changed),{code:policyCodes.changed}));
+        run.recovery='RETRY_SAFE';
+      }else if(run.artifactIntegrity.status==='UNVERIFIED'){
+        run.state='FAILED';
+        run.error=safeError(Object.assign(Error(policyCodes.unverified),{code:policyCodes.unverified}));
+        run.recovery='RETRY_SAFE';
+      }else if(run.cancelRequested){
+        run.state='CANCELLED';
+      }else if(this.closed){
+        run.state='FAILED';
+        run.recovery='RETRY_SAFE';
+        run.error={code:'SESSION_INTERRUPTED',title:'Test was stopped',message:'The application closed before the browser test completed. Review the saved evidence before starting another test.',recoverable:true};
+        run.artifactIntegrity={...run.artifactIntegrity,status:'UNVERIFIED'};
+      }else{
+        run.state='COMPLETED';
+      }
+      run.validation={kind:'BROWSER_TEST',status:run.artifactIntegrity.status==='UNCHANGED'&&!run.artifactIntegrity.blockedWriteAttempts?report.result:'FAIL',generatedAt:report.generatedAt};
+      if(run.state==='FAILED')run.result=run.result.replace(/FIGMA_BROWSER_TEST:\s*(PASS|WARN)/g,'FIGMA_BROWSER_TEST: FAIL');
+    }catch(error){
+      run.state='FAILED';
+      run.artifactIntegrity??=sanitizeArtifactIntegrity(null);
+      run.error=safeError(error);
+      run.recovery='RETRY_SAFE';
+    }finally{
+      await this.result(run,resultContext).catch(()=>{run.validationUnavailable=true;});
+      run.finishedAt=new Date().toISOString();
+      run.activity='';
+      if(this.closed&&run.state==='RUNNING'){run.state='FAILED';run.recovery='RETRY_SAFE';}
+      observeActivityRun(run);
+      await this.checkpoint(run).catch(()=>{});
+      this.active=null;
+      this.log({event:'run',id:run.id,state:run.state,code:run.error?.code});
+    }
   }
   async reconcileRun(run){
     if(run.checking||this.resolutionPending||run.recovery==='USER_ACCEPTED_CURRENT_STATE')return;
@@ -139,5 +194,17 @@ export class Runs {
       return run;
     }finally{this.resolutionPending=false;}
   }
-  async cancel(id){const run=this.runs.find(r=>r.id===id);if(!run)throw Object.assign(Error('Run not found'),{status:404});if(run!==this.active)return run; if(!run.sessionId)throw Object.assign(Error('Run is starting; check again'),{status:409});const value=await this.engine.interrupt(run.sessionId);run.cancelRequested=value.interrupted===true;return {interrupted:run.cancelRequested,message:run.cancelRequested?'Interrupt requested. Any completed Figma writes remain; verify before retrying.':'No active engine operation was interrupted.'};}
+  async cancel(id){
+    const run=this.runs.find(r=>r.id===id);
+    if(!run)throw Object.assign(Error('Run not found'),{status:404});
+    if(run!==this.active)return run;
+    if(run.mode==='BROWSER_TEST'){
+      run.cancelRequested=true;
+      return {interrupted:false,message:'The read-only check will finish its current verification before stopping.'};
+    }
+    if(!run.sessionId)throw Object.assign(Error('Run is starting; check again'),{status:409});
+    const value=await this.engine.interrupt(run.sessionId);
+    run.cancelRequested=value.interrupted===true;
+    return {interrupted:run.cancelRequested,message:run.cancelRequested?'Interrupt requested. Any completed Figma writes remain; verify before retrying.':'No active engine operation was interrupted.'};
+  }
 }

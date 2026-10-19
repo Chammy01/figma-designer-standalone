@@ -1,7 +1,7 @@
 import { readFile, stat } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { artifactHashes, classifyFreshness } from './figma-browser-freshness.mjs';
+import { artifactHashes, classifyFreshness, resolveBrowserAcceptance } from './figma-browser-freshness.mjs';
 import { collectLiveSource } from './figma-live-source.mjs';
 
 async function optionalJSON(file) {
@@ -29,7 +29,7 @@ export async function browserStatus(root, read) {
   return { figmaConnection: live.figmaConnection, runtimeSourceFingerprintAvailable: live.status === 'AVAILABLE',
     manifestPresent, reportPresent, manifestSchema: manifest?.version ?? null,
     schema: manifest?.version === 2 ? 'CURRENT' : manifest ? 'LEGACY' : 'MISSING', exportRunId: manifest?.exportRunId ?? null,
-    ...freshness, browserAcceptance: freshness.validationResult, localFreshness: freshness.local, sourceFreshness: freshness.source, overallFreshness: freshness.overall,
+    ...freshness, browserAcceptance: resolveBrowserAcceptance(report, freshness.overall, freshness.validationResult), localFreshness: freshness.local, sourceFreshness: freshness.source, overallFreshness: freshness.overall,
     reason: localError || (freshness.source === 'STALE' ? manifest.sourceEvidenceReason || 'Figma changed after export' : freshness.source === 'UNVERIFIED' ? live.reason || 'Missing or incompatible export source evidence' : null),
     liveSource: { status: live.status, reason: live.reason ?? null, sourceFingerprint: live.sourceFingerprint ?? null, sourceProjectionVersion: live.sourceProjectionVersion, sourceRuntimeId: live.sourceRuntimeId ?? null, metrics: live.metrics } };
 }

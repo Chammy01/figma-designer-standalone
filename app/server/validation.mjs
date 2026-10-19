@@ -7,7 +7,9 @@ import {collectLiveSource} from '../../scripts/figma-live-source.mjs';
 import {readQATool} from '../../scripts/figma-interaction-qa.mjs';
 import {documentFingerprint} from '../../rules/figma-interaction-qa.mjs';
 import {sha256} from '../../scripts/figma-browser-freshness.mjs';
-import {resultContractVersion,validQA,qaView,browserView,fingerprint} from '../shared/result-contract.mjs';
+import {resultContractVersion,validQA,qaView,browserView,fingerprint,sanitizeArtifactIntegrity} from '../shared/result-contract.mjs';
+import {policyCodes} from '../../rules/browser-test-artifact-guard.mjs';
+import {safeError} from './runs.mjs';
 
 const maxBytes=8*1024*1024;
 export class Validation {
@@ -21,22 +23,57 @@ export class Validation {
     }catch(error){return {state:error.code==='ENOENT'?'UNAVAILABLE':'UNVERIFIED'};}
   }
   async capture(run,context){
-    if(run.mode!=='QA')return;
-    const records=context?.flatMap(m=>(m.content??[]).filter(t=>t.type==='tool'&&t.name==='figma_qa_report'&&t.state?.status==='completed').map(t=>t.state.metadata?.qaResult))??[];
-    const result=records.at(-1);
-    const fp=sha256=>fingerprint({algorithm:'canonical-json-sha256-v1',sha256});
-    const record=validQA(result)?{...result,wholeRunIntegrity:run.integrity?.state??'UNVERIFIED'}:run.integrity?.state==='CHANGED'?{contractVersion:resultContractVersion,producer:'application-qa-integrity',status:'FAIL',generatedAt:new Date().toISOString(),wholeRunIntegrity:'CHANGED',integrity:{status:'FAILED',before:{document:fp(run.integrity.beforeFingerprint)},after:{document:fp(run.integrity.afterFingerprint)}}}:null;
-    if(!record)return;
-    if(run.integrity?.state==='CHANGED')record.integrity={...record.integrity,status:'FAILED'};
-    const safe=qaView(record); // Remove unknown fields and sanitize before persistence.
-    const saved={...safe,status:record.status,producer:record.producer,sourceProjectionVersion:record.sourceProjectionVersion,wholeRunIntegrity:record.wholeRunIntegrity};
-    const bytes=JSON.stringify(saved);if(Buffer.byteLength(bytes)>maxBytes)throw Error('QA_RESULT_TOO_LARGE');
-    const dir=join(this.root,'.figma-designer/app');await mkdir(dir,{recursive:true});
-    if(!isWithinRoot(await realpath(this.root),await realpath(dir)))throw Error('QA_RESULT_BOUNDARY');
-    if((await lstat(this.qaFile).catch(()=>null))?.isSymbolicLink())throw Error('QA_RESULT_BOUNDARY');
-    const temporary=join(dir,'qa-result-'+randomUUID()+'.tmp');
-    try{await writeFile(temporary,bytes,{flag:'wx'});await rename(temporary,this.qaFile);}finally{await unlink(temporary).catch(()=>{});}
-    run.validation={kind:'QA',status:saved.integrity.status==='FAILED'?'FAIL':saved.status,generatedAt:saved.generatedAt};
+    if(run.mode==='QA'){
+      const records=context?.flatMap(m=>(m.content??[]).filter(t=>t.type==='tool'&&t.name==='figma_qa_report'&&t.state?.status==='completed').map(t=>t.state.metadata?.qaResult))??[];
+      const result=records.at(-1);
+      const fp=sha256=>fingerprint({algorithm:'canonical-json-sha256-v1',sha256});
+      const record=validQA(result)?{...result,wholeRunIntegrity:run.integrity?.state??'UNVERIFIED'}:run.integrity?.state==='CHANGED'?{contractVersion:resultContractVersion,producer:'application-qa-integrity',status:'FAIL',generatedAt:new Date().toISOString(),wholeRunIntegrity:'CHANGED',integrity:{status:'FAILED',before:{document:fp(run.integrity.beforeFingerprint)},after:{document:fp(run.integrity.afterFingerprint)}}}:null;
+      if(!record)return;
+      if(run.integrity?.state==='CHANGED')record.integrity={...record.integrity,status:'FAILED'};
+      const safe=qaView(record); // Remove unknown fields and sanitize before persistence.
+      const saved={...safe,status:record.status,producer:record.producer,sourceProjectionVersion:record.sourceProjectionVersion,wholeRunIntegrity:record.wholeRunIntegrity};
+      const bytes=JSON.stringify(saved);if(Buffer.byteLength(bytes)>maxBytes)throw Error('QA_RESULT_TOO_LARGE');
+      const dir=join(this.root,'.figma-designer/app');await mkdir(dir,{recursive:true});
+      if(!isWithinRoot(await realpath(this.root),await realpath(dir)))throw Error('QA_RESULT_BOUNDARY');
+      if((await lstat(this.qaFile).catch(()=>null))?.isSymbolicLink())throw Error('QA_RESULT_BOUNDARY');
+      const temporary=join(dir,'qa-result-'+randomUUID()+'.tmp');
+      try{await writeFile(temporary,bytes,{flag:'wx'});await rename(temporary,this.qaFile);}finally{await unlink(temporary).catch(()=>{});}
+      run.validation={kind:'QA',status:saved.integrity.status==='FAILED'?'FAIL':saved.status,generatedAt:saved.generatedAt};
+      return;
+    }
+    if(run.mode==='BROWSER_TEST')return;
+    const toolReports=context?.flatMap(m=>(m.content??[])
+      .filter(t=>t.type==='tool'&&t.name==='figma_browser_test_report'&&t.state?.status==='completed')
+      .map(t=>t.state.metadata)
+      .filter(r=>r&&typeof r==='object'&&typeof r.generatedAt==='string'))??[];
+    const toolReport=toolReports.at(-1);
+    if(!toolReport)return;
+    const diskFile=await this.json(join(this.browserRoot,'figma-browser-test.json'));
+    let effectiveReport;
+    if(diskFile.state==='AVAILABLE'&&diskFile.data?.generatedAt===toolReport.generatedAt){
+      effectiveReport=diskFile.data;
+    }else{
+      effectiveReport={...toolReport,artifactIntegrity:{...sanitizeArtifactIntegrity(toolReport.artifactIntegrity),status:'UNVERIFIED'}};
+    }
+    run.artifactIntegrity=sanitizeArtifactIntegrity(effectiveReport.artifactIntegrity);
+    const blocked=effectiveReport.policyCode===policyCodes.blocked||run.artifactIntegrity.blockedWriteAttempts>0;
+    const changed=run.artifactIntegrity.status==='CHANGED';
+    const unverified=run.artifactIntegrity.status==='UNVERIFIED';
+    if(blocked){
+      run.state='FAILED';
+      run.error=safeError(Object.assign(Error(policyCodes.blocked),{code:policyCodes.blocked}));
+    }else if(changed){
+      run.state='FAILED';
+      run.error=safeError(Object.assign(Error(policyCodes.changed),{code:policyCodes.changed}));
+    }else if(unverified){
+      run.state='FAILED';
+      run.error=safeError(Object.assign(Error(policyCodes.unverified),{code:policyCodes.unverified}));
+    }
+    const status=!blocked&&!changed&&!unverified&&['PASS','WARN','FAIL'].includes(effectiveReport.result)?effectiveReport.result:'FAIL';
+    run.validation={kind:'BROWSER_TEST',status,generatedAt:effectiveReport.generatedAt};
+    if(status==='FAIL'){
+      run.result=(run.result||'').replace(/FIGMA_BROWSER_TEST:\s*(PASS|WARN)/g,'FIGMA_BROWSER_TEST: FAIL');
+    }
   }
   async get(){
     this.pending??=this.load().finally(()=>this.pending=null);return this.pending;

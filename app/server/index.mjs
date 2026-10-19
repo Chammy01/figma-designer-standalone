@@ -25,7 +25,7 @@ export async function createApplication({root=projectRoot,engine=new OpenCodeCli
   const events=[];let logChain=Promise.resolve(),closed=false;
   const log=event=>{events.push({...event,time:new Date().toISOString()});if(events.length>100)events.shift();logChain=logChain.then(async()=>{await mkdir(join(root,'.figma-designer/app'),{recursive:true});await writeFile(join(root,'.figma-designer/app/events.json'),JSON.stringify(events));}).catch(()=>{});};
   const store=recoveryStore(recoveryFile??join(root,'.figma-designer/app/recovery.json'));
-  const runs=new Runs(engine,log,fingerprint,(run,context)=>validation.capture(run,context),id=>root===projectRoot?lookupCurrentOperation(id):null,store?.save),ai=new AI(engine,runs,root);runs.ai=ai;await store?.restore(runs);let cachedStatus,lastCheck=0,statusPending,preview;
+  const runs=new Runs(engine,log,fingerprint,(run,context)=>validation.capture(run,context),id=>root===projectRoot?lookupCurrentOperation(id):null,store?.save);runs.root=root;const ai=new AI(engine,runs,root);runs.ai=ai;await store?.restore(runs);let cachedStatus,lastCheck=0,statusPending,preview;
   async function check(force=false){if(force || !cachedStatus || Date.now()-lastCheck>3000){statusPending??=status().then(s=>{cachedStatus=s;lastCheck=Date.now();return s;}).finally(()=>statusPending=undefined);await statusPending;}return cachedStatus;}
   async function previewUrl(){
     const state=await browser();if(state.state==='NOT_BUILT')throw Object.assign(Error('Browser preview has not been built'),{status:404});

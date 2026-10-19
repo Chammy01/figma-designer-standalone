@@ -34,6 +34,8 @@ $paths = @('opencode.example.json','package.json','package-lock.json','docs/APPR
     '.opencode/agents/figma-designer.md',
     '.opencode/plugins/figma-critique-guard.js',
     '.opencode/plugins/figma-qa-guard.js',
+    '.opencode/plugins/figma-browser-test-guard.js','rules/browser-test-artifact-guard.mjs','rules/browser-test-workflow.mjs','scripts/browser-test-canonical.mjs',
+    'rules/browser-workspace-capabilities.mjs',
     'app/shared/result-contract.mjs','app/server/validation.mjs','app/web/validation.js','app/server/ai.mjs','app/server/index.mjs','app/server/opencode-client.mjs','app/server/runs.mjs','app/server/operation-recovery.mjs','app/server/status.mjs','app/web/index.html','app/web/styles.css','app/web/app.js','rules/figma-qa-guard.mjs','rules/figma-standalone-rules.md','rules/figma-design-rules.md','rules/figma-intent-router.mjs','rules/figma-prototype-planner.md',
     'rules/figma-motion-semantics.mjs','rules/figma-motion-semantics.md','rules/figma-browser-motion.mjs','rules/figma-browser-motion.md','rules/figma-browser-fidelity.mjs','rules/figma-browser-fidelity.md',
     'rules/figma-interaction-qa.mjs','rules/figma-interaction-qa.md','scripts/figma-interaction-qa.mjs',

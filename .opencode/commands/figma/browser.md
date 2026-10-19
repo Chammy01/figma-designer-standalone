@@ -10,6 +10,12 @@ to measure source fidelity; no precomputed/fabricated measurements are required.
 
 FIGMA DESIGNER FUNCTIONAL BROWSER INTERFACE — STANDALONE V1.2.1
 
+The workspace uses finite capabilities. Call Figma tools directly, not Code Mode.
+Use `figma_browser_build_begin` and `figma_browser_build_finish` with no arguments
+for source collection/binding. Use bounded write/edit/patch tools for generated
+files only. Generic shell, Node/PowerShell, delegation, formatters and unknown
+execution tools are unavailable. Do not attempt a shell workaround.
+
 Run health_check first.
 
 Follow AGENTS.md, the figma-designer agent instructions, `rules/figma-standalone-rules.md`, and any project design rules relevant to visual fidelity.
@@ -62,7 +68,7 @@ Read the current Figma document and identify:
 
 If only legacy `Figma Designer — Prototype Flows` exists and no canonical Interactive App exists, STOP and tell the user to run `/figma/interactive`. Do not silently export the legacy narrow-flow architecture as the finished working interface.
 
-Before generating output, run `node scripts/figma-browser-source.mjs begin`. It performs two stable read-only source captures and writes `figma-source.json` with a UUID exportRunId, the complete dependency-closed projection, and fingerprint. Use that projection as the browser source; include its exportRunId in the new manifest. Other read-only inspections remain available for visual interpretation.
+Before generating output, call `figma_browser_build_begin` directly with no arguments. It performs two stable read-only source captures and writes `figma-source.json` with a UUID exportRunId, the complete dependency-closed projection, and fingerprint. Read the saved projection as the browser source; include its exportRunId in the new manifest. Other read-only inspections remain available for visual interpretation. Only the fixed collector may write the source snapshot.
 
 If begin returns UNVERIFIED/nonzero, stop generation, explain the read/projection failure, and preserve existing browser output. Never substitute a saved export snapshot for a live read. See `SOURCE_FRESHNESS.md` for included fields, parent-relative coordinates, exclusions, dependency closure, and numeric quantization.
 
@@ -235,7 +241,7 @@ Minimum shape:
 
 Include all validated runtime screens and meaningful controls in the manifest, not only the first CTA. Each control hook must live inside its declared screen.
 
-Add `systemVersion: "1.2.1"` and the exact exportRunId from begin; keep manifest `version: 2`. After all browser files are generated, run `node scripts/figma-browser-source.mjs finish`. It collects the live projection again, verifies the manifest run/runtime/screen IDs, and binds sourceFingerprint, fingerprintAlgorithm, sourceProjectionVersion, sourceRuntimeId, sourceRuntimeName, sourceFingerprintBefore/After, and sourceExportState.
+Add `systemVersion: "1.2.1"` and the exact exportRunId from begin; keep manifest `version: 2`. After all browser files are generated, call `figma_browser_build_finish` directly with no arguments. It collects the live projection again, verifies the manifest run/runtime/screen IDs, and binds sourceFingerprint, fingerprintAlgorithm, sourceProjectionVersion, sourceRuntimeId, sourceRuntimeName, sourceFingerprintBefore/After, and sourceExportState.
 
 Equal comparable fingerprints yield STABLE export evidence. Different fingerprints yield STALE plus `SOURCE_CHANGED_DURING_EXPORT`; report this and do not call the output current or automatically regenerate. Missing/incompatible evidence yields UNVERIFIED. Preserve the output and explain the reason. Do not manually invent these fields or suppress a failed finish. The run ID links evidence; it does not imply an atomic Figma transaction.
 

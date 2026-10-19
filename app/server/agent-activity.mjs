@@ -11,6 +11,7 @@ export function classifyActivityTool(name){
  const n=name.replace(/^figma(?:_critique_|_qa_|_|\.)/,'');
  if(n==='get_operation_receipt')return 'RECOVERY';
  if(name==='figma_qa_report')return 'QA';
+ if(name==='figma_browser_test_report')return 'BROWSER';
  if(reads.has(n))return 'READ_DESIGN';if(components.has(n))return 'COMPONENTS';if(prototypes.has(n))return 'PROTOTYPE';if(exports.has(n))return 'EXPORT';if(writes.has(n))return 'WRITE_DESIGN';return 'OTHER';
 }
 function state(run){let s=observers.get(run);if(!s){s={index:0,pending:new Set(),seen:new Map(),wrote:false};observers.set(run,s);}return s;}
@@ -40,7 +41,7 @@ function event(run,group,status){
  if(group==='RECOVERY'){emit(run,run.responseLost||run.checking?'recoveryStart':active?'receiptStart':'receiptDone',{group,active,observation:active?'started':'completed'});return;}
  if(group!=='OTHER')s.known=true;
  const fixed=modeMessage(run.mode);
- const key=fixed??({READ_DESIGN:s.wrote?active?'checkStart':'checkDone':active?'readStart':'readDone',WRITE_DESIGN:active?'writeStart':'writeDone',COMPONENTS:active?'componentsStart':'componentsDone',PROTOTYPE:active?'prototypeStart':'prototypeDone',EXPORT:active?'exportStart':'exportDone',QA:'qaStart',OTHER:'planning'})[group]??'planning';
+ const key=fixed??({READ_DESIGN:s.wrote?active?'checkStart':'checkDone':active?'readStart':'readDone',WRITE_DESIGN:active?'writeStart':'writeDone',COMPONENTS:active?'componentsStart':'componentsDone',PROTOTYPE:active?'prototypeStart':'prototypeDone',EXPORT:active?'exportStart':'exportDone',QA:'qaStart',BROWSER:active?'testStart':'testDone',OTHER:'planning'})[group]??'planning';
  if(['WRITE_DESIGN','COMPONENTS','PROTOTYPE'].includes(group))s.wrote=true;
  emit(run,key,{group,active,observation:active?'started':'completed'});
 }
@@ -81,6 +82,7 @@ export function observeActivityRun(run,{recovering=false,restored=false}={}){
  const options={terminal:run.state!=='RUNNING',restored};
  if(run.recovery==='USER_ACCEPTED_CURRENT_STATE'){if(!run.agentActivity)emit(run,'unknown',{...options,attention:true,group:'RECOVERY'});emit(run,'accepted',{...options,group:'RECOVERY',observation:'completed'});return;}
  if(run.integrity?.state==='CHANGED'){emit(run,'integrity',{...options,attention:true});return;}
+ if(run.artifactIntegrity?.status==='CHANGED'||run.artifactIntegrity?.blockedWriteAttempts>0||run.error?.code==='BROWSER_TEST_ARTIFACT_WRITE_BLOCKED'||run.error?.code==='BROWSER_TEST_ARTIFACT_INTEGRITY_VIOLATION'){emit(run,'blockedMutation',{...options,attention:true});return;}
  if(recovering||run.checking){emit(run,'recoveryStart',{group:'RECOVERY',active:true});return;}
  if(run.recovery==='RECOVERED_COMPLETED'){emit(run,'recovered',options);return;}
  if(run.recoveryEvidence?.counts?.FAILED_AFTER_PARTIAL_WRITE){emit(run,'partial',{...options,attention:true,group:'RECOVERY'});return;}
@@ -98,5 +100,6 @@ export function observeActivityRun(run,{recovering=false,restored=false}={}){
   const limited=markers.some(m=>['HOLD','BLOCKED'].includes(m)),findings=['WARN','FAIL'].includes(run.validation?.status)||markers.some(m=>['WARN','FAIL'].includes(m));
   emit(run,restored?'restored':limited?'limited':findings?'findings':({QA:'qaDone',BROWSER:'previewDone',BROWSER_TEST:'testDone',STATUS:'statusDone'})[run.mode]??'completed',{...options,attention:limited||findings});return;
  }
+ if(run.state==='RUNNING'&&run.mode==='BROWSER_TEST'){emit(run,'testStart',{active:true,group:'BROWSER'});return;}
  if(!run.agentActivity)emit(run,'submitted',{active:false});
 }

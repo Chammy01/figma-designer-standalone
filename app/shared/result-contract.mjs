@@ -1,6 +1,7 @@
 import {fidelityVersion} from '../../rules/figma-browser-fidelity.mjs';
 import {browserMotionVersion} from '../../rules/figma-browser-motion.mjs';
-import {runnerVersion} from '../../scripts/figma-browser-freshness.mjs';
+import {runnerVersion,sanitizeArtifactIntegrity,redact,evidenceText} from '../../scripts/figma-browser-freshness.mjs';
+export {sanitizeArtifactIntegrity,redact,evidenceText};
 
 export const resultContractVersion='1.4.2';
 export const freshnessStates=['CURRENT','STALE','UNAVAILABLE','UNVERIFIED'];
@@ -8,12 +9,6 @@ const statuses=['PASS','WARN','FAIL','UNVERIFIED','NOT_RUN'],severities=['BLOCKE
 const count=n=>Number.isSafeInteger(n)&&n>=0?n:null;
 const status=s=>statuses.includes(s)?s:'UNVERIFIED';
 const list=v=>Array.isArray(v)&&v.length<=5000?v:[];
-export function redact(text){
-  let value=String(text);
-  for(const [key,secret]of Object.entries(process.env))if(/TOKEN|SECRET|PASSWORD|API_KEY/i.test(key)&&secret?.length>=8)value=value.replaceAll(secret,'[redacted]');
-  return value.replace(/\b(?:sk-[\w-]{12,}|gh[pousr]_[\w]{15,}|github_pat_[\w]{15,})\b/g,'[redacted]').replace(/\b(?:Bearer|Basic)\s+[A-Za-z0-9+/=._-]{8,}/gi,'[redacted]');
-}
-export const evidenceText=v=>v===undefined||v===null?null:redact(typeof v==='string'?v:JSON.stringify(v)).replace(/([?&](?:api[_-]?key|token|access_token|refresh_token|client_secret|password)=)[^&#\s"<>]+/gi,'$1[redacted]').replace(/(?:(?<![A-Za-z])[A-Za-z]:[\\/]|file:\/\/|\/(?:Users|home|tmp)\/)[^\r\n"<>]*/g,'[local path]').slice(0,2400);
 export const fingerprint=f=>f?.algorithm==='canonical-json-sha256-v1'&&/^[a-f0-9]{64}$/.test(f.sha256)?{algorithm:f.algorithm,sha256:f.sha256}:null;
 const same=(a,b)=>!!fingerprint(a)&&!!fingerprint(b)&&a.sha256===b.sha256;
 const date=s=>typeof s==='string'&&Number.isFinite(Date.parse(s))?s:null;
@@ -63,6 +58,18 @@ export function browserView({manifest,report,state,names={}}={}){
   const freshness=!built?'UNAVAILABLE':state?.overallFreshness==='STALE'?'STALE':tested&&bound&&state?.overallFreshness==='CURRENT'?'CURRENT':'UNVERIFIED';
   const testFreshness=tested?state?.overallFreshness==='STALE'?'STALE':bound&&state?.overallFreshness==='CURRENT'?'CURRENT':'UNVERIFIED':report?'UNVERIFIED':'UNAVAILABLE';
   const browser={buildState:built?'BUILT':manifest?'UNVERIFIED':'NOT_BUILT',freshness,generatedAt:date(manifest?.generatedAt),sourceFingerprint:fingerprint(manifest?.sourceFingerprint),testFreshness,acceptance:testFreshness==='CURRENT'?status(report.result):tested?testFreshness:report?'UNVERIFIED':'NOT_RUN',lastAcceptance:tested?status(report.result):null,testedAt:date(report?.generatedAt),sourceFreshness:state?.sourceFreshness??'UNVERIFIED',localFreshness:state?.localFreshness??'UNVERIFIED',checks:tested?list(report.tests).map(t=>({name:evidenceText(t.name),status:t.skipped?'NOT_RUN':t.passed?'PASS':'FAIL',detail:evidenceText(t.detail)})):[]};
+  browser.artifactIntegrity=sanitizeArtifactIntegrity(tested?report.artifactIntegrity:null);
+  if(tested){
+    if(report?.artifactIntegrity){
+      if(browser.artifactIntegrity.status!=='UNCHANGED'||browser.artifactIntegrity.blockedWriteAttempts>0){
+        browser.acceptance='FAIL';browser.lastAcceptance='FAIL';
+      }
+    }else{
+      if(browser.acceptance==='PASS'||browser.acceptance==='WARN'){
+        browser.acceptance='UNVERIFIED';
+      }
+    }
+  }
   const motionOK=tested&&manifest?.motion?.contractVersion===browserMotionVersion&&report.motion?.contractVersion===browserMotionVersion&&Array.isArray(report.motion.results)&&report.motion.results.length<=5000&&report.motion.results.every(r=>r&&typeof r.passed==='boolean'&&typeof r.token==='string'&&typeof r.mode==='string');
   const motion={status:!motionOK||!report.motion.results.length?'UNVERIFIED':testFreshness!=='CURRENT'?testFreshness:report.motion.results.every(r=>r.passed===true)?'PASS':'FAIL',freshness:testFreshness,contractVersion:motionOK?browserMotionVersion:null,rows:motionOK?list(report.motion.results).map(r=>({token:evidenceText(r.token),mode:evidenceText(r.mode),parity:evidenceText(r.parity),status:typeof r.passed!=='boolean'?'UNVERIFIED':r.passed?'PASS':'FAIL'})):[]};
   const f=tested&&report.fidelity?.contractVersion===fidelityVersion&&Array.isArray(report.fidelity.findings)&&report.fidelity.findings.length<=5000&&report.fidelity.findings.every(x=>x&&severities.includes(x.severity)&&typeof x.code==='string'&&typeof x.nodeId==='string'&&typeof x.screenId==='string')?report.fidelity:null;

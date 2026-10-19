@@ -74,6 +74,14 @@ Motion may only change transition objects on already-existing eligible reactions
 QA is strictly read-only.
 Critique is strictly read-only: report evidence-based design findings and never execute recommendations. Its command-scoped guard permits inspection tools only; authoring and repair instructions do not apply during critique.
 Browser generation is strictly read-only in Figma and writes only `.figma-designer/browser-prototype/`.
+Browser Test is artifact-read-only and never repairs. The workspace's approved
+capability profile forbids arbitrary shell, Code Mode execution, Node/PowerShell,
+delegation and unknown tools in every model session. Call approved Figma tools
+directly. Browser Build has finite file tools only in its output directory and
+fixed no-argument source begin/finish tools; no formatter execution or configuration
+edits. Use the app-managed engine for writable Browser Build; it enforces the
+formatter-disabled configuration. Report unavailable capabilities; never work around
+the policy or treat it as permission to change another workflow's ownership.
 
 WORKING-INTERFACE CONTRACT
 

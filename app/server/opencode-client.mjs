@@ -33,7 +33,9 @@ export class OpenCodeClient {
         if(!['2.0.24','2.0.28'].includes(this.version))throw Error('ENGINE_VERSION_UNVERIFIED');
         const probe=createServer();await new Promise(r=>probe.listen(0,'127.0.0.1',r));const port=probe.address().port;await new Promise(r=>probe.close(r));
         this.#password=randomBytes(32).toString('hex');this.#url=`http://127.0.0.1:${port}`;
-        this.#child=this.launch(this.executable,['serve','--hostname','127.0.0.1','--port',String(port)],{cwd:this.root,env:{...process.env,OPENCODE_PASSWORD:this.#password},windowsHide:true,stdio:'ignore'});
+        const configContent=JSON.parse(process.env.OPENCODE_CONFIG_CONTENT||'{}');
+        if(!configContent||typeof configContent!=='object'||Array.isArray(configContent))throw Error('ENGINE_CONFIG_UNVERIFIED');
+        this.#child=this.launch(this.executable,['serve','--hostname','127.0.0.1','--port',String(port)],{cwd:this.root,env:{...process.env,OPENCODE_PASSWORD:this.#password,OPENCODE_CONFIG_CONTENT:JSON.stringify({...configContent,formatter:false})},windowsHide:true,stdio:'ignore'});
         this.owned=true;this.#child.on('error',()=>{this.state='FAILED';});this.#child.on('exit',()=>{if(this.state!=='STOPPED')this.state='FAILED';});
       }
       let info;

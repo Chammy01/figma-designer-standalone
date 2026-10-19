@@ -39,6 +39,7 @@ export const activityCopy={
  unknown:copy('RECOVERING','RECOVER',"I couldn't confirm the last change.",'You can keep the file exactly as it is now and continue without retrying the old task.'),
  accepted:copy('IDLE','IDLE',"I'll continue from the design that's currently in Figma."),
  integrity:copy('BLOCKED','ALERT','The design changed during a read-only check.','Review the changes before continuing.'),
+ blockedMutation:copy('BLOCKED','ALERT','I stopped a change to the test files.','The test evidence needs to stay unchanged so the result remains trustworthy.'),
  waiting:copy('WAITING','TALK','I need your input before I continue.','Reply to the question in the conversation below.'),
  cancelled:copy('CANCELLED','WAIT','The task stopped. Any completed changes remain.','Check the result before starting again.'),
  completed:copy('COMPLETED','DONE','Your design task is finished. Review the result below.'),
