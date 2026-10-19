@@ -6,11 +6,11 @@ A Windows desktop AI design tool that creates editable native Figma interfaces f
 
 ## Current development preview
 
-Current `main` contains the **unreleased V1.5.2 monochromatic UI/UX overhaul**, with a Deep Cool Slate palette. The desktop screenshots below show current development source, **not the Beta 4 download**. Beta 4 packages the earlier V1.4.4 desktop application; its published files are unchanged.
+Current `main` contains the **unreleased V1.5.3 UI architecture rebuild** (Concept C: Design document), organized around a monochromatic graphite system. The desktop screenshots below show current development source, **not the Beta 4 download**. Beta 4 packages the earlier V1.4.4 desktop application; its published files are unchanged, and Beta 4 remains the recommended public release.
 
-![Figma Designer monochromatic Studio workspace on unreleased development main](docs/assets/v1.5.2-monochromatic/studio.png)
+![Figma Designer V1.5.3 Studio workspace on unreleased development main](docs/visual-evidence/v1.5.3-ui-rebuild/after/studio-1320x860.png)
 
-Studio brings the conversation, prompt composer, agent activity, and workflow actions into one workspace. This is the real application's ready state, captured at a 1320 × 860 content viewport.
+Studio places the composer above factual activity and a newest-first revision ledger. This 1320 × 860 source capture shows an existing unresolved change and an engine connection problem; it does not claim the previous task completed.
 
 ## From an idea to an editable interface
 
@@ -40,38 +40,45 @@ A generated layout does not automatically make every control work. Add supported
 
 ## Inside the development workspace
 
-All six captures in this gallery are from the real current-source desktop application. The capture workspace starts with an empty Figma document and no browser build. Unavailable or unverified evidence is shown as such; these images do not demonstrate a completed design or a passing browser test.
+The gallery shows the running V1.5.3 source interface with restored history. QA evidence is unverified against the current source, and the saved Browser evidence is stale. These images show how the app presents those limits; they do not certify completed design output or passing checks. Separately labeled state fixtures in the acceptance evidence exercise idle, working, waiting, completed, recovery and error presentation.
 
 ### Studio
 
 <details>
-<summary>See Studio during a real connection check</summary>
+<summary>Studio at compact desktop size (900 × 650)</summary>
 
-![Studio running a read-only connection check with agent activity and conversation visible](docs/assets/v1.5.2-monochromatic/studio-working.png)
+![Studio compact view at 900 × 650](docs/visual-evidence/v1.5.3-ui-rebuild/after/studio-900x650.png)
 
-The active state shows an actual readiness check, not simulated design generation.
+At 900 × 650, the workspace uses natural document scrolling, keeps navigation labeled, and places the composer above the current request and recovery actions.
 
 </details>
 
-### Review and validation
+### Workflow and validation
 
-QA inspects the Figma design. Browser keeps preview readiness, test results, motion, and fidelity evidence separate.
+<details>
+<summary>Prototype planning surface</summary>
+
+![Current development Prototype interaction planning surface](docs/visual-evidence/v1.5.3-ui-rebuild/after/prototype-1320x860.png)
+
+Prototype provides a three-stage sequence covering design context, user interaction intent, and read-only QA review without simulating unverified interactions.
+
+</details>
 
 <details>
 <summary>QA review desk</summary>
 
-![Current development QA review desk with evidence status and findings](docs/assets/v1.5.2-monochromatic/qa.png)
+![Current development QA review desk with verdict and findings ledger](docs/visual-evidence/v1.5.3-ui-rebuild/after/qa-1320x860.png)
 
-QA reports the inspected scope and its limitations. An empty document cannot demonstrate working prototype controls.
+QA places the verdict and document integrity beside the findings ledger. Coverage counts and raw evidence expand on demand.
 
 </details>
 
 <details>
-<summary>Browser preview and validation</summary>
+<summary>Browser validation surface</summary>
 
-![Current development Browser workspace showing an unbuilt preview and unverified validation evidence](docs/assets/v1.5.2-monochromatic/browser.png)
+![Current development Browser workspace showing chapter navigation and validation truth](docs/visual-evidence/v1.5.3-ui-rebuild/after/browser-1320x860.png)
 
-This workspace has no generated browser preview. NOT BUILT and UNVERIFIED are prerequisite states, not successful validation results.
+Browser validation organizes Preview, Behavior, Motion, Fidelity, and Limitations into distinct chapters with persistent truth and guard status.
 
 </details>
 
@@ -80,18 +87,18 @@ This workspace has no generated browser preview. NOT BUILT and UNVERIFIED are pr
 <details>
 <summary>Recent Runs</summary>
 
-![Current development Recent Runs view with actual workspace check history](docs/assets/v1.5.2-monochromatic/runs.png)
+![Current development Recent Runs master and detail journal](docs/visual-evidence/v1.5.3-ui-rebuild/after/runs-1320x860.png)
 
-This connection-check run was stopped normally after capturing the active Studio state. Recent Runs preserves its request and stopped outcome.
+Recent Runs displays an indexed run history with intent summary, timing, and detailed outcome records.
 
 </details>
 
 <details>
 <summary>Settings</summary>
 
-![Current development Settings with model selection, Figma connection, and application sections](docs/assets/v1.5.2-monochromatic/settings.png)
+![Current development Settings with contextual category navigation](docs/visual-evidence/v1.5.3-ui-rebuild/after/settings-1320x860.png)
 
-Model availability depends on your provider and account. Figma connection status is reported separately.
+Settings groups AI provider/model controls, Figma connection setup, browser-validation guidance and application information.
 
 </details>
 
@@ -114,7 +121,7 @@ See [Installation](docs/INSTALLATION.md), [Updating](docs/UPDATING.md), and the 
 
 ![Historical generated coffee-shop website with editable native frames, text, sections, and layers in Figma](docs/assets/editable-design.png)
 
-This earlier Velvet Brew example shows generated Figma output, not the V1.5.2 application shell. The frames, text, and layers remain editable. Historical terminal, setup, and plugin screenshots are preserved in [`docs/assets/`](docs/assets/) and explained in the [earlier README presentation record](docs/README_REVISION.md); their branding and runtime versions are not current setup guidance.
+This earlier Velvet Brew example shows generated Figma output, not the V1.5.3 application shell. The frames, text, and layers remain editable. Historical terminal, setup, and plugin screenshots are preserved in [`docs/assets/`](docs/assets/) and explained in the [earlier README presentation record](docs/README_REVISION.md); their branding and runtime versions are not current setup guidance.
 
 ## How it works
 
@@ -124,7 +131,7 @@ See [Architecture](docs/ARCHITECTURE.md) for the integration details. OpenCode i
 
 ## Known limitations
 
-- Current `main` is newer than the published Beta 4 download. The monochromatic screenshots show unreleased development work.
+- Current `main` is newer than the published Beta 4 download. The gallery captures show unreleased V1.5.3 development work.
 - V1.2.5 stateful variables and conditionals remain **HOLD**. Supported prototype interactions do not imply unrestricted Figma conditionals.
 - Native pixel/render parity remains **UNVERIFIED**. Browser validation does not certify perfect visual parity or every possible interaction.
 - Existing development Browser findings include five MEDIUM stroke-width differences and a normal-motion intermediate-frame sample finding. They remain findings, not a passing fidelity/motion result.

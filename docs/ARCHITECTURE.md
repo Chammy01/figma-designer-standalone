@@ -38,3 +38,12 @@ V1.5.2 overhauls the application UI and visual architecture with a disciplined, 
 - Collaborative workstation: Two-column layout prioritizing collaborative conversation and creative prompt composition on the left, with an integrated agent companion vignette on the right.
 - Review surfaces: Clean tabular QA review desk, 4-pillar Browser validation surface, and unified Settings view without nested cards.
 - Accessibility & Safety: Retains all existing security boundaries (loopback, CSP, origin checks), read-only QA enforcement, and V1.5.1 cross-process Browser Test artifact guards.
+
+## Structural UI architecture rebuild (V1.5.3 source)
+
+V1.5.3 replaces the previous room-first vignette and vertical sidebar layout with Concept C: Design document, a continuous top-down document architecture:
+- Top workflow navigation: Full-width top bar organizes primary workflows (Studio, Prototype, QA, Browser) and separates utility views (Runs, Settings), backed by a quiet footer disclosure for connection, model, and engine state.
+- Studio document composition: Positions the multiline prompt and revision composer at the top in natural reading order, followed by a compact single-strip activity bar (phase, factual summary, expandable observed steps) and a full-width revision ledger pairing request annotations with expandable outcomes, keeping unanswered questions and recovery actions visible. Active UI renders no bedroom or character artwork; historical assets remain preserved on disk.
+- Task-focused review surfaces: QA operates as a split evidence desk (sticky scope, verdict, and integrity rail paired with a wide findings ledger). Browser organizes Preview, Behavior, Motion, Fidelity, and Limitations into distinct local chapters under a persistent cross-chapter truth and guard summary. Prototype provides a three-stage planning sequence (context, intent, read-only review).
+- Runs and Settings: Master-detail run journal with structured purpose and outcome indexing; flat category-indexed settings pane without nested cards.
+- Underlying stability: Retains all existing local Node service APIs, OpenCode integration, loopback isolation, CSP, read-only QA enforcement, capability limits, and artifact guard boundaries without modification. See [UI architecture rebuild design](UI_ARCHITECTURE_REBUILD_V1_5_3.md) and [concept selection](UI_ARCHITECTURE_CONCEPT_SELECTION_V1_5_3.md).

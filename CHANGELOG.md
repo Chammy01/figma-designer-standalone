@@ -1,8 +1,15 @@
 # Changelog
 
-## Unreleased — repository presentation
+## v1.5.3-source — structural UI rebuild (Concept C: Design document)
 
-Refreshes the README around the Windows desktop app and real current-source monochromatic screenshots. Separates the unreleased V1.5.2 preview from the recommended public `v1.2.1-beta.4` download, groups the workspace gallery, and retains historical editable-output and setup evidence. No product behavior or published release files change.
+Rebuilds the desktop interface around Concept C: Design document, replacing the room vignette and sidebar navigation with a continuous document hierarchy:
+- Shell and Navigation: Top horizontal workflow bar organizing primary tasks (Studio, Prototype, QA, Browser) with separated utility destinations (Runs, Settings); minimal status footer with expandable connection and runtime details.
+- Collaborative Studio: Top-placed multiline brief and revision composer in primary reading order, compact single-strip agent activity display (phase, factual status sentence, and expandable observed steps), and full-width two-column revision ledger pairing requests and outcomes.
+- Prototype: Structured three-stage interaction planning sequence (Design context, Interaction intent, Read-only review) without speculative screen graphs or simulated playback proof.
+- Review and Validation: QA two-column desk separating scope verdict and integrity evidence from findings; Browser local chapters (Preview, Behavior, Motion, Fidelity, Limitations) with persistent truth and artifact guard status.
+- Management: Master-detail Runs journal with intent and outcome indexing; flat categorized Settings without nested cards.
+- Design System: Monochromatic graphite visual system with strict luminance hierarchy, high-contrast focus indicators, responsive reflow down to 900 × 650, and reduced-motion support. All underlying MCP, sandbox, verification, recovery, and security boundaries remain unchanged.
+- Documentation and Presentation: Updates repository README with V1.5.3 gallery captures and truthful captions, preserves Beta 4 as the recommended download, notes unchanged presentation privacy semantics, and includes rebuild design documentation in allowlists.
 
 ## v1.5.2-source — complete monochromatic UI/UX overhaul
 

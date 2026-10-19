@@ -27,3 +27,7 @@ The Browser Test artifact guard and workspace capability profile enforce strict 
 ## Monochromatic UI overhaul privacy
 
 V1.5.2 monochromatic styling uses exclusively local CSS custom properties, self-contained SVG icons, and existing local static art assets. It adds zero remote fonts, telemetry, external icon CDNs, remote trackers, or new IPC methods. All credentials, API keys, and sensitive environment variables remain strictly redacted and server-side.
+
+## Structural UI rebuild privacy (V1.5.3 source)
+
+The V1.5.3 UI architecture rebuild maintains all existing privacy and data boundaries. The top workflow bar, Studio revision ledger, compact activity strip, and footer status disclosure consume only existing in-memory state and sanitized backend metadata. Status details and sanitized error messages remain unchanged; no unsanitized system paths, raw command executions, or model chain-of-thought are exposed. No remote fonts, tracking, telemetry, or new IPC capabilities are introduced.
