@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — repository presentation
+
+Refreshes the README around the Windows desktop app and real current-source monochromatic screenshots. Separates the unreleased V1.5.2 preview from the recommended public `v1.2.1-beta.4` download, groups the workspace gallery, and retains historical editable-output and setup evidence. No product behavior or published release files change.
+
 ## v1.5.2-source — complete monochromatic UI/UX overhaul
 
 Redesigns the full Figma Designer desktop interface around a cohesive monochromatic Deep Cool Slate (220° Hue) design system. Replaces muddy olive/khaki tones and decorative kickers with an editorial, professional creative tool hierarchy:

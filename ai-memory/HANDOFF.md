@@ -6,6 +6,14 @@
 
 ## Current Objective
 
+Repository presentation refresh is now active (2026-10-19), exact starting HEAD/origin/main `b2e5ce239d38760046f7a84c24f7ae5ecbce1bf4` after fetch. User requests real current-source desktop screenshots (Studio, active Studio, QA, Browser, Runs, Settings), README overhaul, privacy/independent visual review, one docs/assets commit, push main and exact-head CI verification. No release publication or runtime/product changes. Preserve the existing modified bedroom-base.jpg and all historical recovery evidence.
+
+Capture/review complete: actual source desktop prepared (727 payload files; approved runtime unchanged) and launched with loopback CDP. Six selected1320x860PNGs total681,071bytes. Actual Studio remains room-dominant/106pxsidebar; README depicts it truthfully. Figma empty Untitled/Page1. STATUS check was real then normally cancelled; QA not run, Browser not built, stopped Runs history captioned. No product source changes or Figma generation.
+
+README rewritten desktop-first with explicit Beta4 versus unreleased V152 notices, grouped gallery, capabilities/limitations/design links. Seven historical PNGs byte-identical. Docs allowlists gain6PNGs and3design docs; CHANGELOG and historical presentation record updated. Independent visual review PASS after1caption fix; independent docs/privacy reviewer found no blockers. Parent verified36relative references, release dependency closure, dimensions/no metadata, GitHub Markdown API render and local1280px/390pxpreview with all7images loaded/no mobile overflow.
+
+Local Source check35setup cases/privacy self-check pass, then8pre-existing ignored JSON files fail parse; preserved untouched. Same command passes in clean tracked-source export with current docs/assets. Remaining: commit, push, exact-head CI, hosted README/assets verification, final report. Close own preview server and desktop capture process; commit no disposable screenshots.
+
 V1.5.2 Complete Monochromatic UI/UX Overhaul: VERIFIED AND DELIVERED.
 Verified starting HEAD `6b76b572f004d96ab926503716b5a54905125cb9`; user-owned `design-references/1.5-agent-studio/bedroom-base.jpg` preserved untouched throughout.
 Complete monochromatic visual redesign of shell, navigation, Studio, prompt composer, conversation, inspection views (QA, Browser, Prototype, Runs, Settings), and recovery states under Deep Cool Slate (220° Hue) design system.

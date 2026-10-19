@@ -1,6 +1,29 @@
-# README revision
+# README presentation records
 
-Status: README and screenshot validation passed. Runtime behavior was not changed. Hosted CI is checked after pushing; its result is reported separately.
+## Current development refresh: V1.5.2
+
+The README now leads with the Windows desktop product, an explicit Beta 4 download notice, and a separately labeled unreleased development preview. The gallery uses six real current-source desktop captures in `assets/v1.5.2-monochromatic/`, with expandable groups for Studio activity, QA, Browser, Runs, and Settings. The earlier terminal-first walkthrough is consolidated into existing installation and command guides.
+
+The connected document during capture is an empty Untitled / Page 1. Studio activity demonstrates a real read-only connection check, not design generation. Browser shows NOT BUILT and UNVERIFIED; no successful browser result is implied. The current live Studio retains a room-dominant layout and 106px sidebar, despite the wider sidebar and conversation-first composition described in the V1.5.2 architecture plan. Screenshots preserve the implemented UI; this documentation task does not change it.
+
+All seven historical PNGs listed below remain unchanged. `editable-design.png` remains a labeled generated-output example in README. `hero-before.png`, `hero-after.png`, `setup-pass.png`, `import-plugin.png`, `plugin-connected.png`, and `doctor-pass.png` are retained as historical evidence, not reused as current desktop visuals. In particular, the old terminal/plugin screenshots contain earlier branding and runtime versions.
+
+Source/release documentation allowlists include the new screenshots and the linked V1.5.2 design documents so future source packaging does not omit README dependencies. Published Beta 3/4 assets, version tags, and binaries are not changed.
+
+### Verification for this refresh
+
+- Six selected PNGs are 1320 × 860 and total 681,071 bytes. They contain only IHDR, IDAT, and IEND chunks, with valid chunk checksums and no text/EXIF metadata. All six were visually reviewed for composition and privacy.
+- All 36 relative Markdown references in README resolve. Every referenced file is present in the release documentation allowlist. The seven historical PNGs remain byte-identical to the starting commit.
+- GitHub's Markdown API rendered the README successfully. A local preview was inspected at 1280px and 390px widths: all seven images loaded and no horizontal page overflow was present at 390px. The five supporting gallery images use disclosures. This preview used local layout CSS, not the hosted GitHub stylesheet.
+- Independent visual review: `REPOSITORY_VISUAL_REVIEW: PASS` after clarifying that the connection-check run was intentionally stopped following the active capture. Independent documentation, image-metadata, and dependency review found no remaining blockers.
+- The normal local source check passed 35 setup regressions and the binary-privacy self-check, then failed parsing eight pre-existing ignored JSON evidence files under `.ai-state/` and `.figma-designer/`. Those files were not changed. The same `scripts/release-check.ps1 -Mode Source` passed in a clean tracked-source export with the current documentation and screenshots overlaid.
+- No product source or runtime logic changed. Hosted CI is a separate exact-commit gate and is reported after push.
+
+## Historical terminal-first README revision
+
+The record below describes the earlier README, not its current structure or release status. Its validation results apply to that earlier revision only.
+
+Status at that revision: README and screenshot validation passed. Runtime behavior was not changed. Hosted CI was checked separately after pushing.
 
 ## README structure
 

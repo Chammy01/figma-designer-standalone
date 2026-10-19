@@ -1,374 +1,159 @@
 # Figma Designer
 
-> **[Figma Designer v1.2.1 Beta 4](https://github.com/Chammy01/figma-designer-standalone/releases/tag/v1.2.1-beta.4)** is the recommended Windows desktop prerelease. **It is unsigned. Windows may show a SmartScreen/reputation warning.** Beta 3 remains the previous rollback checkpoint.
+A Windows desktop AI design tool that creates editable native Figma interfaces from plain-language instructions. Describe what you want, revise it naturally, and use the prototype, QA, and browser validation workflows to check the result.
 
-Create editable Figma interfaces by describing what you want.
+> **Public download: [v1.2.1-beta.4](https://github.com/Chammy01/figma-designer-standalone/releases/tag/v1.2.1-beta.4)** remains the recommended published prerelease. It is unsigned; Windows may show a SmartScreen/reputation warning. Beta 3 remains available as a rollback checkpoint.
 
-## Start with the Beta 4 desktop app
+## Current development preview
 
-1. Download **Figma-Designer-v1.2.1-beta.4-Windows-Setup.exe** from the release's Assets and install it for your user account.
-2. Open Figma Desktop and a Design file.
-3. Launch **Figma Designer** from the Start Menu.
-4. In Settings → Figma Plugin Setup → Open Plugin Folder, locate the manifest. In Figma, import it through Plugins → Development → Import plugin from manifest, then run **Figma Designer MCP** and keep it open.
-5. Configure your AI provider/model if needed, then describe your interface. Review/revise it and use QA/Browser validation when useful.
+Current `main` contains the **unreleased V1.5.2 monochromatic UI/UX overhaul**, with a Deep Cool Slate palette. The desktop screenshots below show current development source, **not the Beta 4 download**. Beta 4 packages the earlier V1.4.4 desktop application; its published files are unchanged.
 
-No terminal, npm, Go, Bun or source checkout is required for normal desktop use.
-Figma Desktop, development-plugin import permission and internet/provider access are required.
-The alternative **Figma-Designer-v1.2.1-beta.4-Windows-Portable.zip** must be fully
-extracted before opening **Figma Designer.exe**. Keep its files together.
+![Figma Designer monochromatic Studio workspace on unreleased development main](docs/assets/v1.5.2-monochromatic/studio.png)
 
-Install/extract Beta 4 separately: **do not merge it with Beta 3**. Close older
-OpenCode/MCP sessions and use the matching plugin from the Beta 4 folder.
-Installation roots currently have a 100-character limit. See [Installation](docs/INSTALLATION.md)
-and the [release notes and limitations](docs/RELEASE_NOTES_v1.2.1-beta.4.md).
+Studio brings the conversation, prompt composer, agent activity, and workflow actions into one workspace. This is the real application's ready state, captured at a 1320 × 860 content viewport.
 
-The app bundles OpenCode 2.0.28 and owned Figma Designer MCP 1.1.0 / bridge protocol 2.
-Source setup and `npm run app` remain available for developers. The manual OpenCode
-examples and historical Beta 3 instructions below are optional terminal workflows;
-they are not needed for desktop usage.
+## From an idea to an editable interface
 
-Write your instructions in **OpenCode** and watch the design appear in **Figma Desktop** through the connected plugin. Figma Designer creates real, editable frames, text, components, and layers. It is not an image generator.
+**Describe → Design → Review in Figma → Revise → Prototype → QA → Browser validation**
 
-**Before**
+Start with the screen you need, its content, and the parts that matter most. Figma Designer creates native frames, text, components, and layers through the connected Figma Desktop plugin. You can edit them directly in Figma and ask for focused revisions that preserve the rest of the design.
 
-![Design instructions in OpenCode before Figma generation](docs/assets/hero-before.png)
-
-**After**
-
-![The resulting interface created as editable content in Figma](docs/assets/hero-after.png)
-
-## What can it do?
-
-- Create website and app layouts.
-- Revise existing designs.
-- Create component states, such as hover and pressed buttons.
-- Connect screens and add supported interactions.
-- Adjust existing transitions and inspect the result.
-- Generate and test browser prototypes from a validated interactive design.
-
-## Example
-
-Enter this in **OpenCode chat**:
+For example, describe this in Studio:
 
 ```text
-/figma/design
-
-Create a rich, playful coffee shop website for a brand called Velvet Brew.
-
-Include:
-- top navigation with logo, menu links, and a “Book a Table” button
-- large hero section with a strong headline, short description, two call-to-action buttons, and a featured coffee image
-- featured drinks section with 4 detailed drink cards
-- menu section with category filters and a highlighted offer
-- “Our Story” section
-- testimonials
-- photo gallery
-- visit/contact section
-- footer
-
-Design direction:
-- warm coffee-inspired colors
-- dark brown sections mixed with soft cream backgrounds
-- elegant serif headlines
-- large editorial-style images
-- varied section layouts
-- cozy, premium, handcrafted feeling
-- visually rich, not minimal or corporate
+Design a project dashboard for a small creative team.
+Include active projects, upcoming milestones, and recent activity.
+Use a calm layout with clear typography. Make the next action easy to find.
 ```
 
-![Generated design with editable frames, text, sections, and layers in Figma](docs/assets/editable-design.png)
+A generated layout does not automatically make every control work. Add supported prototype interactions when needed, then inspect their behavior with QA before building and testing a browser preview.
 
-You can continue editing the generated frames, text, sections, and layers directly in Figma. Creating the layout does not automatically make every control work; use the interaction commands when you need a prototype.
+### Capabilities
 
-## Legacy Beta 3 terminal installation
+- Generate editable native Figma interfaces and make focused revisions.
+- Create component states and native component-set variants.
+- Connect screens and add supported prototype interactions and transitions.
+- Run read-only QA with findings, limitations, and document-integrity evidence.
+- Use **Browser Build** to generate a local preview, then **Browser Test** to check behavior, motion, source freshness, and fidelity separately.
+- Follow agent activity and run status, revisit recent runs, and configure providers and models in the Windows desktop app.
+- Check interrupted work before continuing. Recovery safeguards preserve uncertainty instead of blindly replaying a request.
 
-### 1. Requirements
+## Inside the development workspace
 
-You need:
+All six captures in this gallery are from the real current-source desktop application. The capture workspace starts with an empty Figma document and no browser build. Unavailable or unverified evidence is shown as such; these images do not demonstrate a completed design or a passing browser test.
 
-- **Windows x64** — the current validated beta platform.
-- **Figma Desktop** — download the Windows desktop app from [Figma Downloads](https://www.figma.com/downloads/), install it, and sign in. Your account must allow development-plugin imports.
-- **Node.js 20+ and npm** — download the Windows installer from [Node.js](https://nodejs.org/en/download). Keep npm selected during installation. npm is the package installer included with Node.js.
-- **OpenCode** — install it using the command below after installing Node.js.
-- **Internet access** — for installation and your AI provider.
+### Studio
 
-Open the Windows Start menu, type **PowerShell**, and open it. Check Node.js and npm:
+<details>
+<summary>See Studio during a real connection check</summary>
 
-```powershell
-node --version
-npm --version
-```
+![Studio running a read-only connection check with agent activity and conversation visible](docs/assets/v1.5.2-monochromatic/studio-working.png)
 
-Node.js should report version 20 or newer. Both commands should print a version. If Windows cannot find them, close and reopen PowerShell after installing Node.js.
+The active state shows an actual readiness check, not simulated design generation.
 
-In that PowerShell window, install OpenCode using its [official npm installation command](https://opencode.ai/docs/):
+</details>
 
-```powershell
-npm install -g opencode-ai
-```
+### Review and validation
 
-Close and reopen PowerShell, then check:
+QA inspects the Figma design. Browser keeps preview readiness, test results, motion, and fidelity evidence separate.
 
-```powershell
-opencode --version
-```
+<details>
+<summary>QA review desk</summary>
 
-Use native Windows PowerShell for this beta. You do not need Go, Bun, or Git for the official Windows ZIP. OpenCode may ask you to sign in to an AI provider; model availability, limits, and costs are separate from Figma Designer.
+![Current development QA review desk with evidence status and findings](docs/assets/v1.5.2-monochromatic/qa.png)
 
-### 2. Download Figma Designer
+QA reports the inspected scope and its limitations. An empty document cannot demonstrate working prototype controls.
 
-Open [Figma Designer Beta 3](https://github.com/Chammy01/figma-designer-standalone/releases/tag/v1.2.1-beta.3). Under **Assets**, download:
+</details>
 
-**Figma-Designer-v1.2.1-beta.3-Windows.zip**
+<details>
+<summary>Browser preview and validation</summary>
 
-**Do NOT choose “Source code (zip)” or “Source code (tar.gz)” if you only want to use Figma Designer.** Those are source packages for developers and require build tools.
+![Current development Browser workspace showing an unbuilt preview and unverified validation evidence](docs/assets/v1.5.2-monochromatic/browser.png)
 
-If the Windows ZIP is not listed yet, wait for the official release asset rather than substituting a source archive.
+This workspace has no generated browser preview. NOT BUILT and UNVERIFIED are prerequisite states, not successful validation results.
 
-### 3. Extract the ZIP
+</details>
 
-Right-click the downloaded ZIP and choose **Extract All**. Use a writable folder, for example:
+### Workspace management
 
-```text
-C:\Users\YourName\Documents\Figma-Designer\
-```
+<details>
+<summary>Recent Runs</summary>
 
-Open the extracted folder containing `setup.ps1`, `README.md`, and `vendor`. There may be an extra folder inside the extraction location.
+![Current development Recent Runs view with actual workspace check history](docs/assets/v1.5.2-monochromatic/runs.png)
 
-**Do not run setup from inside the compressed ZIP viewer.** Keep the extracted files together. When updating from Beta 2, extract into a new folder and follow [Updating](docs/UPDATING.md).
+This connection-check run was stopped normally after capturing the active Studio state. Recent Runs preserves its request and stopped outcome.
 
-### 4. Open PowerShell in the folder and run setup
+</details>
 
-1. Open the extracted Figma Designer folder in File Explorer.
-2. Click the address bar at the top.
-3. Type `powershell` and press **Enter**.
-4. In the PowerShell window that opens, paste this command and press **Enter**:
+<details>
+<summary>Settings</summary>
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -Configure -InstallDependencies -InstallBrowser
-```
+![Current development Settings with model selection, Figma connection, and application sections](docs/assets/v1.5.2-monochromatic/settings.png)
 
-Setup verifies the required runtime files, creates local OpenCode configuration if it is missing, installs local dependencies, and installs Chromium for browser tests. Existing settings are preserved; `-Configure` migrates only a removed legacy default-agent selection to `figma-designer`. The execution-policy exception applies only to this process.
+Model availability depends on your provider and account. Figma connection status is reported separately.
 
-![PowerShell setup results showing successful runtime, configuration, and dependency checks](docs/assets/setup-pass.png)
+</details>
 
-This example shows setup after a source build. The official Windows ZIP verifies its included runtime files without rebuilding them. Your folder path will differ.
+## Download and start Beta 4
 
-**If setup shows any FAIL, do not continue.** Follow its recovery message or read [Troubleshooting](docs/TROUBLESHOOTING.md).
+The instructions here apply to the **published Beta 4 app**, whose interface differs from the development preview above.
 
-## Connect Figma
+1. Download **Figma-Designer-v1.2.1-beta.4-Windows-Setup.exe** from the [Beta 4 release assets](https://github.com/Chammy01/figma-designer-standalone/releases/tag/v1.2.1-beta.4) and install it for your user account.
+2. Open Figma Desktop and a Design file, then launch **Figma Designer** from the Start Menu.
+3. In **Settings → Figma Plugin Setup → Open Plugin Folder**, locate the manifest. In Figma, use **Plugins → Development → Import plugin from manifest**, then run **Figma Designer MCP** and keep it open.
+4. Configure your AI provider/model if needed, then describe your interface in the app.
 
-1. Open **Figma Desktop**.
-2. Open or create a **Design file**. A new empty file is a good place to practice.
-3. Open the **Figma menu** at the top left, then go to **Plugins → Development → Import plugin from manifest…**.
-4. Select `vendor\figma-mcp\plugin\manifest.json` inside your extracted Figma Designer folder. Setup also prints its full location.
-5. Run the imported **Figma Designer MCP** plugin from **Plugins → Development** (frozen Beta 3 retains its historical plugin name).
-6. Keep the plugin window open.
-7. Start OpenCode using the next section, then wait until the plugin says **Connected**. It may say **Disconnected** until OpenCode is running.
+No terminal, npm, Go, Bun, or source checkout is required for normal desktop use. You need Figma Desktop, permission to import a development plugin, and internet/provider access.
 
-![Importing the Figma Designer development plugin from its manifest](docs/assets/import-plugin.png)
+The alternative **Figma-Designer-v1.2.1-beta.4-Windows-Portable.zip** must be fully extracted before opening **Figma Designer.exe**. Keep its files together. Install or extract Beta 4 separately; **do not merge it with Beta 3**. Close older OpenCode/MCP sessions and use the matching plugin from the Beta 4 folder. Installation roots currently have a 100-character limit.
 
-![Figma Designer plugin showing a Connected status](docs/assets/plugin-connected.png)
+See [Installation](docs/INSTALLATION.md), [Updating](docs/UPDATING.md), and the [Beta 4 release notes](docs/RELEASE_NOTES_v1.2.1-beta.4.md) for setup details and release-specific limitations.
 
-## Start Figma Designer
+## Editable Figma output
 
-In **PowerShell opened in the extracted Figma Designer folder**, run:
+![Historical generated coffee-shop website with editable native frames, text, sections, and layers in Figma](docs/assets/editable-design.png)
 
-```powershell
-opencode
-```
-
-Keep OpenCode and the Figma plugin open. On first use, follow OpenCode's sign-in/provider instructions. If needed, enter `/connect` in **OpenCode chat**. If the selected model is unavailable, use `/models` to choose one you can access; setup does not choose a replacement for you. You do not need to run `/init` for this project.
-
-Once the plugin says **Connected**, enter this in **OpenCode chat**, not PowerShell:
-
-```text
-/figma/doctor
-```
-
-Doctor checks the local runtime, Figma connector, plugin, current document, and browser tools. It reports what needs attention without changing your design.
-
-![OpenCode readiness check reporting that Figma Designer is ready](docs/assets/doctor-pass.png)
-
-If Doctor reports that everything is ready and ends with `FIGMA_DOCTOR: PASS`, continue to `/figma/design`.
-
-## Create your first design
-
-Paste this into **OpenCode chat**:
-
-```text
-/figma/design
-
-Create a playful website for a cozy neighborhood coffee shop called Little Bean.
-
-Include:
-- navigation
-- welcoming hero section
-- featured drinks
-- small about section
-- visit-us section
-- footer
-
-Make it warm, colorful, charming, and a little quirky.
-Avoid a sleek corporate or overly modern look.
-```
-
-Watch the layers appear in your open Figma file. Let the command finish before sending another request.
-
-Then describe the next step normally, such as “Make the hero shorter” or “Check for
-broken controls.” Figma Designer chooses the workflow or asks one clarification.
-
-For clearer instructions, include four things:
-
-| Part | What to describe | Example |
-| --- | --- | --- |
-| **WHAT** | What are you designing? | A coffee shop website. |
-| **CONTENT** | What sections or features should it contain? | Drinks, our story, opening hours, and a map. |
-| **STYLE** | How should it look and feel? | Warm cream and brown, playful type, and handmade details. |
-| **PRIORITIES** | What matters most? | Make opening hours and the visit-us button easy to find. |
-
-## A typical workflow
-
-Use these commands in **OpenCode chat** as your project needs them:
-
-- `/figma/design` → create
-- `/figma/revise` → improve or change
-- `/figma/states` → component states
-- `/figma/flow` → connect screens
-- `/figma/interactive` → supported interactions
-- `/figma/qa` → inspect and check
-
-You do not need every command for every project. For a static layout, design and revise may be enough. To export a browser prototype, first create and check the interactive design, then run:
-
-```text
-/figma/browser
-/figma/browser-test
-```
-
-See [Commands](docs/COMMANDS.md) for the optional interaction, motion, and browser workflows.
-
-## Revising a design
-
-Name the part to change and what you want to keep. Enter each request in **OpenCode chat**:
-
-```text
-/figma/revise
-
-Make the hero feel warmer and more handcrafted.
-Reduce the navigation emphasis and make the primary CTA easier to notice.
-```
-
-```text
-/figma/revise
-
-Make the featured drinks section more visually varied.
-Keep the existing content but improve hierarchy and spacing.
-```
-
-You can also edit in Figma, then ask for another focused revision. To continue later, open the same Figma file, run its imported plugin, start OpenCode from the same Figma Designer folder, and run `/figma/doctor` again.
-
-If a command times out, do not resend the whole design request. Ask OpenCode to inspect what completed and continue only the missing work.
-
-## Command reference
-
-All `/figma/` commands go in **OpenCode chat**.
-
-| Command | What it does |
-| --- | --- |
-| `/figma/doctor` | Check readiness. |
-| `/figma/design` | Create a new interface or extend a requested part. |
-| `/figma/revise` | Change an existing design. |
-| `/figma/critique` | Review the current design and identify prioritized quality issues. |
-| `/figma/states` | Create component states. |
-| `/figma/flow` | Connect screens for a specific journey. |
-| `/figma/interactive` | Add supported interactions. |
-| `/figma/motion` | Adjust supported transitions on existing interactions. |
-| `/figma/qa` | Check the Figma result without changing it. |
-| `/figma/browser` | Generate a browser prototype from the validated interactive design. |
-| `/figma/browser-test` | Test the generated browser prototype. |
-| `/figma/status` | Inspect the current design, connection, and browser-output state. |
-
-## Troubleshooting
-
-Find the problem you see:
-
-| Problem | What to do |
-| --- | --- |
-| **Figma plugin will not load** | Run setup again from the extracted folder. Resolve every FAIL, then import the manifest from that same folder. Re-extract an incomplete official ZIP. |
-| **Plugin does not say Connected** | Keep the plugin open and start `opencode` from the Figma Designer folder. If needed, close and reopen only the plugin window. |
-| **`/figma/doctor` fails** | Follow its next corrective step. Check that the design file, plugin, and OpenCode are all open. |
-| **`setup.ps1` shows FAIL** | Stop and follow the recovery message. Check that prerequisites are installed and the entire ZIP was extracted. |
-| **OpenCode cannot find the Figma connector** | Start it from the folder containing `opencode.json`. Run setup again; it reports a missing or incorrect executable path. |
-| **Browser test is unavailable** | In PowerShell in the Figma Designer folder, run the dependency/browser setup command below. Create browser output with `/figma/browser` before testing. |
-
-To install missing browser tools, run in **PowerShell in the Figma Designer folder**:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -InstallDependencies -InstallBrowser
-```
-
-More help: [Troubleshooting](docs/TROUBLESHOOTING.md). If you moved the installation, follow [Updating](docs/UPDATING.md) to correct its paths without losing your settings.
+This earlier Velvet Brew example shows generated Figma output, not the V1.5.2 application shell. The frames, text, and layers remain editable. Historical terminal, setup, and plugin screenshots are preserved in [`docs/assets/`](docs/assets/) and explained in the [earlier README presentation record](docs/README_REVISION.md); their branding and runtime versions are not current setup guidance.
 
 ## How it works
 
-```text
-You
- ↓
-OpenCode
- ↓
-Figma Designer
- ↓
-Figma connector
- ↓
-Figma Desktop
- ↓
-Editable design
-```
+The desktop app sends your request to OpenCode, which runs the Figma Designer workflows through the local MCP executable and localhost WebSocket bridge. The development plugin creates or edits native layers in the open Figma document. Browser generation and testing use local Node and Playwright, separate from Figma write operations.
 
-OpenCode passes your request through the local connector to the Figma plugin, which creates or edits the document. [Architecture](docs/ARCHITECTURE.md) has the technical details.
+See [Architecture](docs/ARCHITECTURE.md) for the integration details. OpenCode is the product runtime; you do not need its terminal interface for normal desktop use. The optional `/figma/` commands are documented in [Commands](docs/COMMANDS.md).
 
 ## Known limitations
 
-- A prototype is not a full production app. Accounts, saved data, payments, and backend behavior need application code.
-- Some interactions and Figma features are limited. Read the reported limitations and try the prototype yourself.
-- Browser validation checks specific behaviors; it does not prove every Figma interaction or guarantee visual quality.
-- AI provider access, model availability, output quality, usage limits, and cost are separate from this project.
-- Windows x64 is the current validated beta platform.
+- Current `main` is newer than the published Beta 4 download. The monochromatic screenshots show unreleased development work.
+- V1.2.5 stateful variables and conditionals remain **HOLD**. Supported prototype interactions do not imply unrestricted Figma conditionals.
+- Native pixel/render parity remains **UNVERIFIED**. Browser validation does not certify perfect visual parity or every possible interaction.
+- Existing development Browser findings include five MEDIUM stroke-width differences and a normal-motion intermediate-frame sample finding. They remain findings, not a passing fidelity/motion result.
+- A prototype is not a production app. Authentication, persistent data, payments, and backend behavior require application code.
+- AI provider access, model availability, output quality, usage limits, and costs are separate from this project. Windows x64 is the validated desktop platform.
 
-See [Known limitations](docs/KNOWN_LIMITATIONS.md) for more detail.
+See [Known limitations](docs/KNOWN_LIMITATIONS.md) for supported behavior and constraints. Browser Test protects the artifacts it checks; implementation details belong in the [V1.5.1 Browser Test artifact guard documentation](docs/BROWSER_TEST_ARTIFACT_GUARD_V1_5_1.md).
 
-## Developers / contributors
+## Build and run current source
 
-Git clones and GitHub's Source code archives are supported source installations. They require **Go 1.26.1 for Windows x64**, **Bun 1.4.2**, and the normal Node.js/npm/OpenCode prerequisites. Install Git if you use the clone command.
-
-In PowerShell in the parent folder where you want the checkout:
+Git clones and GitHub source archives are developer installations. They require **Go 1.26.1 for Windows x64**, **Bun 1.4.2**, and the Node.js/npm/OpenCode prerequisites. From a checkout:
 
 ```powershell
-git clone https://github.com/Chammy01/figma-designer-standalone.git
-cd figma-designer-standalone
 powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -Configure -InstallDependencies -InstallBrowser
+npm run app
 ```
 
-Setup builds missing MCP and plugin runtime files from the pinned source and verifies their exact approved hashes. The repository intentionally excludes generated binaries and plugin `dist` assets; they do not need to be committed. Existing approved runtime files are preserved without rebuilding. Setup does not install Go or Bun.
+Setup builds missing MCP and plugin runtime files from the pinned source and verifies their approved hashes. Existing approved runtime files are preserved. Generated binaries and plugin `dist` files are intentionally excluded from Git. Setup does not install Go or Bun.
 
-See [Installation](docs/INSTALLATION.md) for source toolchain installation. Read [Development](docs/DEVELOPMENT.md), [Source Bootstrap](docs/SOURCE_BOOTSTRAP.md), and [Release Packaging](docs/RELEASE_PACKAGING.md) for tests and build details.
+`npm run app` opens the local source application service; `npm run desktop:prepare` followed by `npm run desktop` runs the desktop shell. See [Development](docs/DEVELOPMENT.md), [Source Bootstrap](docs/SOURCE_BOOTSTRAP.md), and [Release Packaging](docs/RELEASE_PACKAGING.md) for tool versions, tests, and build instructions. Legacy terminal installation is covered in [Quick Start](docs/QUICKSTART.md) and [Installation](docs/INSTALLATION.md).
 
 ## Documentation
 
-- [Quick Start](docs/QUICKSTART.md)
-- [Installation](docs/INSTALLATION.md)
-- [Troubleshooting](docs/TROUBLESHOOTING.md)
-- [Development](docs/DEVELOPMENT.md)
-- [Source Bootstrap](docs/SOURCE_BOOTSTRAP.md)
-- [Release Packaging](docs/RELEASE_PACKAGING.md)
-- [Browser Test Artifact Guard](docs/BROWSER_TEST_ARTIFACT_GUARD_V1_5_1.md)
-- [Security](SECURITY.md)
-- [Contributing](CONTRIBUTING.md)
+- [Installation](docs/INSTALLATION.md) · [Troubleshooting](docs/TROUBLESHOOTING.md) · [Updating](docs/UPDATING.md)
+- [Commands](docs/COMMANDS.md) · [Architecture](docs/ARCHITECTURE.md) · [Known limitations](docs/KNOWN_LIMITATIONS.md)
+- V1.5.2: [UI audit](docs/MONOCHROMATIC_UI_AUDIT_V1_5_2.md) · [Design system](docs/MONOCHROMATIC_DESIGN_SYSTEM_V1_5_2.md) · [Overhaul architecture plan](docs/MONOCHROMATIC_UI_OVERHAUL_V1_5_2.md)
+- [Beta 4 desktop architecture and acceptance](docs/FIGMA_DESIGNER_DESKTOP_V1_4_4.md) · [Changelog](CHANGELOG.md)
+- [Security](SECURITY.md) · [Contributing](CONTRIBUTING.md) · [Third-party notices](THIRD_PARTY_LICENSES.md)
 
 ## License
 
-Project-owned code and documentation use the [MIT License](LICENSE). Dependencies and bundled third-party material retain their own [licenses and notices](THIRD_PARTY_LICENSES.md).
-
-Beta 4 packages the V1.4.4 desktop application. See [desktop architecture and acceptance](docs/FIGMA_DESIGNER_DESKTOP_V1_4_4.md) for the historical candidate evidence; release-specific inventories and checksums accompany the published release.
-
-Source main includes the unreleased V1.5.0 AI Designer presence, V1.5.1 browser testing safeguards (immutable artifact guard and workspace capability isolation), and V1.5.2 complete monochromatic UI/UX overhaul (cohesive Slate 220° monochromatic design system, editorial shell, refined conversation canvas, and restrained agent companion). Beta 4 downloads remain unchanged.
+Project-owned code and documentation use the [MIT License](LICENSE). Dependencies and bundled third-party material retain their own licenses and notices.

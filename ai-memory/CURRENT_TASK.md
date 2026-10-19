@@ -6,6 +6,14 @@
 
 ## Active Objective
 
+Repository presentation refresh for V1.5.2 is active (2026-10-19). Starting HEAD and freshly fetched origin/main are both `b2e5ce239d38760046f7a84c24f7ae5ecbce1bf4`. Scope is README, truthful current-source screenshots and directly related documentation only; no product or release changes. Beta 4 remains the recommended published prerelease. Preserve and exclude the pre-existing modified `design-references/1.5-agent-studio/bedroom-base.jpg`.
+
+Capture and review complete: six actual Electron screenshots at 1320x860 in `docs/assets/v1.5.2-monochromatic/` (681,071 bytes total). Actual current source remains room-dominant with a 106px sidebar, unlike the architecture plan; README depicts implemented UI. Figma was empty Untitled/Page1. A real STATUS check supplied active Studio evidence and was normally cancelled; Runs caption explains its stopped outcome. QA NOT RUN; Browser NOT BUILT/UNVERIFIED. No fake data or product-code changes.
+
+README is desktop-first with explicit Beta4 versus unreleased V1.5.2 notices, grouped gallery, historical editable output, capabilities, limitations and design links. Seven historical PNGs are byte-identical. Docs allowlists include six images and three design docs. Independent visual review PASS; independent documentation/privacy review found no blockers. Parent verified36relative references, release dependency closure, PNG dimensions/no metadata, GitHub Markdown API rendering and local1280px/390pxpreview with all7images loaded/no mobile overflow.
+
+Local Source check passed35setup cases/privacy self-check, then failed on8pre-existing ignored JSON evidence files; preserved untouched. Clean tracked-source export with current docs/assets passed the same full Source check. Remaining: focused commit, main push, exact-head CI and hosted README/assets verification. Published release files untouched.
+
 V1.5.2 Complete Monochromatic UI/UX Overhaul: VERIFIED AND DELIVERED.
 Complete redesign of application shell, navigation, Studio layout, composer, conversation, inspection views (QA, Browser, Prototype, Runs, Settings), and recovery states under a cohesive Deep Cool Slate (220° Hue) monochromatic design system.
 
