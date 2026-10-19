@@ -371,6 +371,20 @@ the workspace authoring session separately without submitting to it.
 
 ---
 
+
+## 2026-10-20 — V1.5.3 Structural UI/UX Rebuild (Concept C: Design document)
+
+### Decision
+
+Completely replace the incumbent vertical-rail and pixel-room application shell with Concept C (Design document):
+1. **Workflow Navigation & Shell:** Top horizontal workflow navigation bar separating primary workflows (Studio, Prototype, QA, Browser) from utility destinations (Runs, Settings). Consolidated footer status disclosure for healthy connectivity details.
+2. **Studio Design Document:** Prompt composer positioned at the top in natural reading order; compact, factual single-strip agent activity display; full-width, newest-first revision ledger pairing requests and outcomes without chatbot bubble styling.
+3. **Review & Validation Surfaces:** Prototype structured as a three-stage planning sequence; QA organized as an evidence desk with a sticky verdict/integrity context column and readable findings ledger; Browser divided into five explicit chapters (Preview, Behavior, Motion, Fidelity, Limitations) with persistent cross-chapter truth and artifact guard status; Runs organized as master/detail intent journal; Settings structured as categorized flat preference panes.
+4. **Preserved Invariants:** Zero backend or MCP modifications (pinned at 1.1.0 / protocol 2 / 108 tools with `combine_as_variants`); V1.2.5 HOLD maintained; read-only QA and critique enforcement; V1.5.1 Browser Test artifact guard and capability restriction; truthful baseline findings preserved.
+
+### Reason
+
+The prior visual system was rejected by the product owner as insufficiently structural because it retained the room-dominated silhouette and vertical navigation rail. Concept C establishes a professional creative-tool hierarchy designed directly around the user workflow: Describe → Design → Observe progress → Inspect result → Revise → Prototype → QA → Browser validation.
 ## 2026-10-19 — V1.5.2 Complete Monochromatic UI/UX Overhaul (Deep Cool Slate 220°)
 
 ### Decision

@@ -6,6 +6,27 @@
 
 ## Active Objective
 
+V1.5.3 Complete Structural UI/UX Rebuild: VERIFIED AND DELIVERED.
+Verified starting HEAD `c36e4557af70394a862c23a2b0fbcb987eab9049` (replacing expected `b2e5ce239d38760046f7a84c24f7ae5ecbce1bf4` after origin/main fetch). User-owned `design-references/1.5-agent-studio/bedroom-base.jpg` and pre-existing critique assertion deletion preserved untouched throughout.
+Complete architectural redesign of application shell, navigation, Studio layout, composer placement, conversation ledger, inspection views (QA, Browser, Prototype, Runs, Settings), and recovery states under Concept C (Design document) monochromatic graphite system.
+
+Verification status:
+- Verified: 716 node contract tests pass.
+- Verified: 153 Bun tests (hardening, variants, live source) pass.
+- Verified: 328 plugin Bun tests pass.
+- Verified: Go tests and Go vet pass.
+- Verified: MCP 1.1.0 / protocol 2 / 108 tool probe pass (including `combine_as_variants` and 5 malformed reaction rejections).
+- Verified: 38 app UI test cases pass (including 8 new rebuild tests covering unknown route fallback, focus order, 5 viewports, long content wrapping, chapter/preference selection, honest status, persistent overview, and 900x650 recovery).
+- Verified: 8 browser integration / motion tests pass.
+- Verified: 9 Playwright fidelity tests pass.
+- Verified: 25 desktop tests pass.
+- Verified: 35 setup regressions and privacy scanner pass.
+- Verified: Source and Release mode release checks pass with clean-source export and approved runtime hashes.
+- Verified: Desktop packaging verified (822 payload files, Setup installer, Portable zip).
+- Verified: Packaged desktop smoke passes with System32-only PATH and zero startup tasks.
+- Verified: Independent visual review (`FinalVision`): PASS.
+- Verified: Independent advisor & Ponytail complexity review (`FinalAdvisor`): PASS (Ship).
+- Truthful fidelity/motion/parity findings preserved: 5 MEDIUM stroke-width findings, 1 normal-motion intermediate frame sample, native parity UNVERIFIED.
 Repository presentation refresh for V1.5.2 is active (2026-10-19). Starting HEAD and freshly fetched origin/main are both `b2e5ce239d38760046f7a84c24f7ae5ecbce1bf4`. Scope is README, truthful current-source screenshots and directly related documentation only; no product or release changes. Beta 4 remains the recommended published prerelease. Preserve and exclude the pre-existing modified `design-references/1.5-agent-studio/bedroom-base.jpg`.
 
 Capture and review complete: six actual Electron screenshots at 1320x860 in `docs/assets/v1.5.2-monochromatic/` (681,071 bytes total). Actual current source remains room-dominant with a 106px sidebar, unlike the architecture plan; README depicts implemented UI. Figma was empty Untitled/Page1. A real STATUS check supplied active Studio evidence and was normally cancelled; Runs caption explains its stopped outcome. QA NOT RUN; Browser NOT BUILT/UNVERIFIED. No fake data or product-code changes.

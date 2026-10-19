@@ -6,6 +6,14 @@
 
 ## Current Objective
 
+V1.5.3 Complete Structural UI/UX Rebuild: VERIFIED AND DELIVERED.
+Verified starting HEAD `c36e4557af70394a862c23a2b0fbcb987eab9049` (replacing expected `b2e5ce239d38760046f7a84c24f7ae5ecbce1bf4` after origin/main fetch). User-owned `design-references/1.5-agent-studio/bedroom-base.jpg` and pre-existing critique assertion deletion preserved untouched throughout.
+Complete architectural redesign of application shell, navigation, Studio layout, composer, conversation ledger, inspection views (QA, Browser, Prototype, Runs, Settings), and recovery states under Concept C (Design document) monochromatic graphite system.
+Full regression: 716 node contract tests, 153 Bun tests (hardening, variants, live source), 328 plugin Bun tests, Go tests + vet, 38 app UI test cases, 8 browser integration / motion test cases, 9 Playwright fidelity test cases, 25 desktop test cases, 35 setup regressions pass.
+Desktop packaging and native MCP release contracts verified (822 payload files, portable zip and setup exe; packaged smoke passes on System32-only PATH).
+Visual acceptance captured across all required viewports (1320x860, 900x650) and states (working, waiting, completed, recovery, error, accepted).
+Independent visual review (`FinalVision`): PASS. Independent advisor review (`FinalAdvisor`): PASS (Ponytail: Ship).
+Truthful fidelity/motion/parity findings preserved: 5 MEDIUM stroke-width findings, 1 normal-motion intermediate frame sample, native parity UNVERIFIED.
 Repository presentation refresh is now active (2026-10-19), exact starting HEAD/origin/main `b2e5ce239d38760046f7a84c24f7ae5ecbce1bf4` after fetch. User requests real current-source desktop screenshots (Studio, active Studio, QA, Browser, Runs, Settings), README overhaul, privacy/independent visual review, one docs/assets commit, push main and exact-head CI verification. No release publication or runtime/product changes. Preserve the existing modified bedroom-base.jpg and all historical recovery evidence.
 
 Capture/review complete: actual source desktop prepared (727 payload files; approved runtime unchanged) and launched with loopback CDP. Six selected1320x860PNGs total681,071bytes. Actual Studio remains room-dominant/106pxsidebar; README depicts it truthfully. Figma empty Untitled/Page1. STATUS check was real then normally cancelled; QA not run, Browser not built, stopped Runs history captioned. No product source changes or Figma generation.
