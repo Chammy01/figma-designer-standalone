@@ -23,3 +23,7 @@ The Browser Test artifact guard and workspace capability profile enforce strict 
 - **Bounded, sanitized blocked evidence:** Denied operations record at most 32 entries with allowlisted category enums. The `relativePath` field only records known fixed required input artifacts (`.figma-designer/browser-prototype/<name>`); arbitrary filenames, command lines, script contents, prompts, model reasoning, or absolute machine paths are never captured.
 - **Content-free integrity snapshots:** Before-and-after snapshots record only relative paths, file sizes, and SHA-256 hashes. File contents and diff payloads are never stored in reports or run records.
 - **Workspace-wide capability restriction:** Generic shell, Code Mode, Node, PowerShell, delegation, and formatters are completely disabled across all workspace sessions, preventing arbitrary script execution, environmental inspection, or unapproved network exfiltration.
+
+## Monochromatic UI overhaul privacy
+
+V1.5.2 monochromatic styling uses exclusively local CSS custom properties, self-contained SVG icons, and existing local static art assets. It adds zero remote fonts, telemetry, external icon CDNs, remote trackers, or new IPC methods. All credentials, API keys, and sensitive environment variables remain strictly redacted and server-side.

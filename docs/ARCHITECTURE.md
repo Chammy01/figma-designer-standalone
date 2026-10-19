@@ -30,3 +30,11 @@ V1.4.4 adds one sandboxed Electron window and an owned bundled-Node service side
 ## Agent Studio (V1.5.0 source)
 
 The existing run observer translates tool names/statuses and authoritative run/recovery outcomes into an allowlisted shared activity model. No model call, workflow decision, extra Figma read, retry, or second transport is added. Existing run APIs carry current activity plus ten coalesced entries. The overhauled workspace renders locally prepared user-provided bedroom/character/CRT artwork; the Electron shell gains no privileges. See [activity architecture](AGENT_ACTIVITY_V1_5_0.md).
+
+## Monochromatic UI overhaul (V1.5.2 source)
+
+V1.5.2 overhauls the application UI and visual architecture with a disciplined, editorial monochromatic design system based on Deep Cool Slate (220° Hue). It eliminates muddy multi-hue palettes, decorative kickers, and nested cards:
+- Tonal hierarchy: 11-step scale (`--mono-50` to `--mono-950`) driving surfaces, typography, hairlines, and controls.
+- Collaborative workstation: Two-column layout prioritizing collaborative conversation and creative prompt composition on the left, with an integrated agent companion vignette on the right.
+- Review surfaces: Clean tabular QA review desk, 4-pillar Browser validation surface, and unified Settings view without nested cards.
+- Accessibility & Safety: Retains all existing security boundaries (loopback, CSP, origin checks), read-only QA enforcement, and V1.5.1 cross-process Browser Test artifact guards.

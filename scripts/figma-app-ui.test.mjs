@@ -81,3 +81,26 @@ test('lost app submission response is found in history without replaying or reta
 test('unresolved delivery loss disables authoring and model changes without inventing a safe retry',async t=>{const w=await workspace(t),{page}=w;await page.waitForFunction(()=>!document.getElementById('send').disabled);await page.route('**/api/run',r=>r.abort());await page.fill('#prompt','Create a design.');await page.click('#send');await page.waitForFunction(()=>document.getElementById('connection-title').textContent.includes('Checking the last request'));assert.equal(await page.locator('#send').isDisabled(),true);assert.equal(await page.locator('#new-design').isDisabled(),true);assert.equal(w.mock.calls.filter(c=>c.path.endsWith('/prompt')).length,0);await page.getByRole('link',{name:'Settings',exact:true}).click();assert.equal(await page.locator('#model').isDisabled(),true);assert.equal(await page.getByRole('button',{name:'Try Again',exact:true}).count(),0);});
 
 test('QA that changes Figma is flagged instead of displaying a trusted read-only success',async t=>{const w=await workspace(t),{page}=w;await page.waitForFunction(()=>!document.getElementById('send').disabled);let reads=0;w.app.runs.fingerprint=async()=>++reads===1?'before':'changed';await page.locator('.workflow-actions [data-mode="QA"]').click();await page.getByRole('heading',{name:'Read-only verification failed',exact:true}).waitFor();assert.match(await page.locator('#conversation').textContent(),/read-only result was not accepted/);assert.equal(await page.getByRole('button',{name:'Try Again',exact:true}).count(),0);assert.match(await page.locator('#conversation').textContent(),/Current-page integrity · CHANGED/);assert.equal(await page.locator('#conversation .result-card').last().getAttribute('data-outcome'),'FAIL');});
+
+test('V1.5.2 monochromatic design system tokens, contrast, focus rings and accessibility', async t => {
+  const w = await workspace(t), { page } = w;
+  await page.waitForFunction(() => !document.getElementById('send').disabled);
+  const tokens = await page.evaluate(() => {
+    const s = getComputedStyle(document.documentElement);
+    return {
+      mono50: s.getPropertyValue('--mono-50').trim(),
+      mono950: s.getPropertyValue('--mono-950').trim(),
+      bgCanvas: s.getPropertyValue('--bg-canvas').trim(),
+      textPrimary: s.getPropertyValue('--text-primary').trim(),
+      borderDefault: s.getPropertyValue('--border-default').trim()
+    };
+  });
+  assert.equal(tokens.mono50, '#f8fafc');
+  assert.equal(tokens.mono950, '#080d1a');
+  assert.ok(tokens.bgCanvas);
+  assert.ok(tokens.textPrimary);
+  assert.ok(tokens.borderDefault);
+  await page.getByLabel('What should we design?').focus();
+  await page.keyboard.press('Tab');
+  assert.equal(await page.locator('#send').evaluate(el => getComputedStyle(el).outlineStyle), 'solid');
+});

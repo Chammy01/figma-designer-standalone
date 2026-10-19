@@ -6,24 +6,22 @@
 
 ## Active Objective
 
-V1.5.1 Browser Test artifact-read-only guard: VERIFIED AND DELIVERED.
-Deterministic fixed runner, positive capability restriction, central path policy, SHA-256 integrity snapshots, and Browser Build/Test mutual exclusion.
-Preserved five MEDIUM stroke-width findings, normal-motion intermediate-frame failure, native parity UNVERIFIED, V1.2.5 HOLD and published Beta 3/4.
+V1.5.2 Complete Monochromatic UI/UX Overhaul: VERIFIED AND DELIVERED.
+Complete redesign of application shell, navigation, Studio layout, composer, conversation, inspection views (QA, Browser, Prototype, Runs, Settings), and recovery states under a cohesive Deep Cool Slate (220° Hue) monochromatic design system.
 
 ## Current Status
 
-V1.5.1 verification completed:
+V1.5.2 verification completed:
 - 716 node test cases pass
 - 153 Bun test cases pass (hardening, variants, live source)
-- 30 app UI test cases pass
+- 31 app UI test cases pass (including V1.5.2 monochromatic tokens and focus rings)
 - 8 browser integration / motion test cases pass
 - 9 Playwright fidelity test cases pass
 - 25 desktop test cases pass
 - 35 setup regressions pass
 - Native MCP release check pass (108 tools, variants, invalid reaction rejection)
-- Desktop packaging succeeded (portable zip, setup exe, win-unpacked)
-- Disposable live adversarial exercise verified: 22 mutation vectors blocked before execution, protected file hashes unchanged, canonical report and screenshot produced, concurrent Build blocked, Studio visually showed CHECKING and required safety copy.
-- Live source Build verified: fixed begin/finish tools, zero Figma writes, truthful report.
+- Desktop packaging verified (portable zip, setup exe, win-unpacked, 801 payload files)
+- Visual acceptance captured across all required viewports (1320x860, 900x650) and states (working, waiting, completed, recovery, error)
 - User-owned `design-references/1.5-agent-studio/bedroom-base.jpg` remains untouched throughout.
 Native Orca removal actively progressing from baseline `0c513890cad08dc923fdb5a5f75e0f8b502c52cf`. Obsolete root legacy script (`orca.ps1`) and old agent (`.opencode/agents/web-designer.md`) deleted; canonical `figma-designer` agent updated with construction/revision discipline. Local/template configuration defaults (`opencode.json`, `opencode.example.json`), setup requirements, allowlists, tests, and documentation aligned to canonical OpenCode runtime. Desktop upgrade policy (`desktop/policy.mjs`) configured to remove obsolete files on upgrade. Local Native Orca installation, updater, profile, hooks, shortcut, User PATH, uninstall registry entry, and auto-hooks across OMP, OpenCode, Codex, and Qoder cleanly removed without elevation, preserving all other settings.
 

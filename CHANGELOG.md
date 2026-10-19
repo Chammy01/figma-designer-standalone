@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.5.2-source — complete monochromatic UI/UX overhaul
+
+Redesigns the full Figma Designer desktop interface around a cohesive monochromatic Deep Cool Slate (220° Hue) design system. Replaces muddy olive/khaki tones and decorative kickers with an editorial, professional creative tool hierarchy:
+- Shell & Navigation: Responsive sidebar with custom SVG vector icons, minimal top bar chrome, and quiet status indicators.
+- Collaborative Studio Workspace: Spacious layout with collaborative design conversation, prominent architectural prompt composer, and restrained agent companion vignette.
+- Review Surfaces: Clean tabular QA review desk, 4-pillar Browser validation surface (Preview, Test, Motion, Fidelity), and master-detail Studio journal.
+- Design System & Accessibility: Strict 11-step tonal scale (`--mono-50` to `--mono-950`), WCAG AA text contrast, high-contrast focus rings, and full reduced-motion support. All underlying reliability, read-only QA, and artifact guard boundaries preserved.
+
 ## v1.5.1-source — unreleased Browser Test artifact guard and workspace capability profile
 
 Enforces explicit user-approved workspace-wide positive capability restriction: preserves exact approved 108 Figma MCP operations, finite Build write/edit/patch tools restricted to `.figma-designer/browser-prototype/`, fixed no-argument source begin/finish tools (`figma_browser_build_begin`, `figma_browser_build_finish`), and safe read tools. Denies generic shell, Node, PowerShell, Code Mode `execute`, delegation, and formatters across all workspace sessions. Collector-owned `figma-source.json` cannot be model-authored. All mutating callbacks hold atomic shared Build-write member leases through `finally`. Formatter execution is disabled at highest priority in owned-engine configuration (`OPENCODE_CONFIG_CONTENT` with `formatter: false`); unmanaged engines fail closed on the Build-write precondition. Direct canonical `BROWSER_TEST` launcher bypasses model interaction, preserving `workspaceSessionId`. Natural OpenCode Test allows only safe reads and the fixed no-argument `figma_browser_test_report` tool once per turn. Immutable artifact guard captures complete before/after SHA-256 snapshots and enforces atomic directory leases (`.figma-designer/browser-artifacts.lock`). Preserves truthful known 5 MEDIUM stroke-width and motion FAIL / parity UNVERIFIED findings. No OS sandbox claimed; no retrospective historical shell certification. Beta 4 remains immutable; no new release; V1.2.5 remains HOLD.

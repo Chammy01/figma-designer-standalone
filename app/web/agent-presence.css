@@ -12,5 +12,5 @@
 
 /* Static room/CRT casing; right-facing sprites share a bottom-centered canvas. */
 .studio-character{left:68%;top:22%;width:18%;height:27%;transform:none}.studio-monitor{left:87.1%;top:21.5%;width:4.5%;height:10%;clip-path:polygon(0 0,100% 24%,100% 100%,0 76%)}
-.agent-visual{max-width:690px;background:transparent}.studio-heading{padding-bottom:3px}.studio-heading h2{font-size:19px}.agent-copy{align-self:center;max-width:540px;width:100%;padding:7px 10px 4px;gap:9px}.agent-avatar{width:23px;height:23px}#agent-message{font-size:13px}#agent-detail{font-size:10px;margin-top:3px}.workflow-actions{justify-content:center}
+.agent-visual{max-width:690px;background:transparent;filter:grayscale(1) contrast(1.05) brightness(0.92);transition:filter .2s ease}.agent-visual:hover{filter:grayscale(0.85) contrast(1.05) brightness(0.98)}.studio-heading{padding-bottom:3px}.studio-heading h2{font-size:19px}.agent-copy{align-self:center;max-width:540px;width:100%;padding:7px 10px 4px;gap:9px}.agent-avatar{width:23px;height:23px}#agent-message{font-size:13px}#agent-detail{font-size:10px;margin-top:3px}.workflow-actions{justify-content:center}
 @media(min-width:801px) and (max-height:750px){.agent-visual{max-width:620px}.studio-heading h2{font-size:17px}.agent-copy{padding:5px 0}#agent-detail{display:none}.workflow-actions button{padding:3px 0}}

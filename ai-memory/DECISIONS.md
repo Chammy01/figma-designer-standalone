@@ -368,3 +368,19 @@ execution is not retroactively certified by a restart or PID inventory.
 New fixed Browser Tests carry explicit execution provenance. Legacy interrupted
 model Test runs retain original reconciliation quarantine; a fixed check preserves
 the workspace authoring session separately without submitting to it.
+
+---
+
+## 2026-10-19 — V1.5.2 Complete Monochromatic UI/UX Overhaul (Deep Cool Slate 220°)
+
+### Decision
+
+Replace the legacy earthy olive/khaki palette and decorative bedroom-centric visual hierarchy with an editorial, professional monochromatic creative tool system based on Deep Cool Slate (~220° Hue):
+1. **Monochromatic Tonal Scale:** Strict 11-step scale (`--mono-50` to `--mono-950`) driving surfaces, typography, hairlines, and controls. Status is communicated through icons, weights, and luminance first; subtle semantic overrides are strictly restrained.
+2. **Collaborative Studio Workspace:** Spacious layout with conversation stream and prominent prompt composer on the left, paired with an integrated agent companion vignette and recent activity journal on the right.
+3. **Review Surfaces:** Clean tabular QA desk, 4-pillar Browser validation surface, and master-detail Studio journal with zero nested cards.
+4. **Preserved Invariants:** Zero backend changes, read-only QA enforcement, V1.5.1 cross-process Browser Test artifact guards, and truthful baseline findings (5 MEDIUM strokes, normal-motion intermediate sample, native parity UNVERIFIED).
+
+### Reason
+
+The prior visual system was fragmented across multiple conflicting hues, decorative kickers, and an oversized pixel-art room scene that pushed the creative prompt composer and conversation into cramped boundaries. The monochromatic overhaul establishes an architectural, calm, and focused workspace suitable for creative design.

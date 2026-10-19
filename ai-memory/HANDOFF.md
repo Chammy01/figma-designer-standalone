@@ -6,13 +6,12 @@
 
 ## Current Objective
 
-V1.5.1 Browser Test artifact-read-only guard: VERIFIED AND DELIVERED.
-Verified starting HEAD `6a0695d0318b447829596ec13131f77270ee8e32`; user-owned `design-references/1.5-agent-studio/bedroom-base.jpg` preserved untouched throughout.
-All independent audit findings, product and security reviews resolved and passed.
-Full regression: 716 node test cases, 153 Bun test cases, 30 app UI test cases, 8 browser integration / motion test cases, 9 Playwright fidelity test cases, 25 desktop test cases, 35 setup regressions pass.
-Desktop packaging and native MCP release contracts verified.
-Live adversarial exercise verified: 22 mutation vectors blocked before effect, protected hashes unchanged, canonical report and screenshot produced, concurrent Build blocked, Studio visual CHECKING and required safety copy rendered.
-Live Build verified: `figma_browser_build_begin` and `figma_browser_build_finish` executed without shell, zero Figma writes, clean report produced.
+V1.5.2 Complete Monochromatic UI/UX Overhaul: VERIFIED AND DELIVERED.
+Verified starting HEAD `6b76b572f004d96ab926503716b5a54905125cb9`; user-owned `design-references/1.5-agent-studio/bedroom-base.jpg` preserved untouched throughout.
+Complete monochromatic visual redesign of shell, navigation, Studio, prompt composer, conversation, inspection views (QA, Browser, Prototype, Runs, Settings), and recovery states under Deep Cool Slate (220° Hue) design system.
+Full regression: 716 node test cases, 153 Bun test cases, 31 app UI test cases, 8 browser integration / motion test cases, 9 Playwright fidelity test cases, 25 desktop test cases, 35 setup regressions pass.
+Desktop packaging and native MCP release contracts verified (801 files, portable zip and setup exe).
+Visual acceptance captured across all required viewports (1320x860, 900x650) and states (working, waiting, completed, recovery, error).
 Truthful fidelity/motion/parity findings preserved: 5 MEDIUM stroke-width findings, 1 normal-motion intermediate frame sample, native parity UNVERIFIED.
 
 Current verification status:
