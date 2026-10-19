@@ -8,329 +8,103 @@
   <link rel="stylesheet" href="/agent-presence.css">
 </head>
 <body>
-  <aside class="sidebar">
-    <a class="brand" href="#workspace">
-      <span class="mark" aria-hidden="true">f/</span>
-      <span>Figma<br>Designer</span>
-    </a>
-    <button id="new-design" class="new">＋ New</button>
-    <nav aria-label="Workspace">
-      <a href="#workspace">
-        <span aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg></span>
-        Studio
-      </a>
-      <a href="#prototype">
-        <span aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="4" cy="4" r="2"/><circle cx="12" cy="12" r="2"/><path d="M4 6v4a2 2 0 0 0 2 2h4"/></svg></span>
-        Prototype
-      </a>
-      <a href="#qa">
-        <span aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2l5 2v4c0 3.5-2.5 6-5 7-2.5-1-5-3.5-5-7V4l5-2z"/><path d="M6 8l1.5 1.5L10 6"/></svg></span>
-        QA
-      </a>
-      <a href="#browser">
-        <span aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 6h12"/></svg></span>
-        Browser
-      </a>
-      <a href="#runs">
-        <span aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2 1"/></svg></span>
-        Runs
-      </a>
+  <a class="skip-link" href="#main-content">Skip to workspace</a>
+  <header class="app-bar">
+    <a class="brand" href="#workspace" aria-label="Figma Designer"><span class="mark" aria-hidden="true">f/</span><span>Figma Designer</span></a>
+    <nav class="workflow-nav" aria-label="Workspace">
+      <a href="#workspace">Studio</a>
+      <a href="#prototype">Prototype</a>
+      <a href="#qa">QA</a>
+      <a href="#browser">Browser</a>
     </nav>
-    <a class="settings" href="#settings">
-      <span aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M8 2v1.5M8 12.5V14M2 8h1.5M12.5 8H14M3.8 3.8l1 1M11.2 11.2l1 1M3.8 12.2l1-1M11.2 4.8l1-1"/></svg></span>
-      Settings
-    </a>
-    <small>Your Local Studio</small>
-  </aside>
+    <nav class="utility-nav" aria-label="Application">
+      <a href="#runs">Runs</a>
+      <a href="#settings">Settings</a>
+    </nav>
+  </header>
 
-  <main>
-    <header>
-      <div>
-        <span id="view-label">Figma Designer · Studio</span>
-        <h1 id="workspace-title">Your design studio</h1>
-      </div>
-      <div id="statuses" class="statuses" aria-live="polite"></div>
-    </header>
-
+  <main id="main-content" tabindex="-1">
+    <div class="document-heading"><h1 id="workspace-title" tabindex="-1">Design workspace</h1><span id="view-label" class="sr-only">Studio</span><button id="new-design">New design</button></div>
     <section id="connection" class="connection" aria-live="polite">
-      <div>
-        <h2 id="connection-title">Connecting your workspace</h2>
-        <p id="connection-copy">Checking the design engine and Figma…</p>
-      </div>
-      <div class="actions">
-        <button id="connect-shortcut" hidden>Connect Provider</button>
-        <button id="choose-shortcut" hidden>Choose Model</button>
-        <button id="check">Check Again</button>
-      </div>
+      <div><h2 id="connection-title">Connecting your workspace</h2><p id="connection-copy">Checking the design engine and Figma…</p></div>
+      <div class="actions"><button id="connect-shortcut" hidden>Connect Provider</button><button id="choose-shortcut" hidden>Choose Model</button><button id="check">Check Again</button></div>
     </section>
+    <section id="error" class="recovery app-error" role="alert" hidden></section>
 
-    <!-- STUDIO VIEW -->
-    <section id="workspace" class="view studio-layout">
-      <!-- Column 1 Row 1: Agent Studio -->
-      <section id="agent-studio" class="agent-studio" aria-label="AI Designer" data-phase="IDLE">
-        <div class="studio-heading">
-          <h2>AI Designer</h2>
-          <span id="agent-phase">Ready</span>
-        </div>
-        <div class="scene-fit">
-          <div class="agent-visual" id="agent-scene" data-animation="IDLE" data-active="false" aria-hidden="true">
-            <img class="studio-room" src="/assets/agent-studio/room/bedroom-base.png" width="620" height="520" alt="">
-            <img id="studio-monitor" class="studio-monitor" src="/assets/agent-studio/monitor/ready.png" width="88" height="60" alt="">
-            <img id="studio-character" class="studio-character" src="/assets/agent-studio/character/idle.png" width="128" height="180" alt="">
-          </div>
-        </div>
-        <div class="agent-copy">
-          <span class="agent-avatar" aria-hidden="true">✦</span>
-          <div>
-            <p id="agent-message" role="status" aria-live="polite" aria-atomic="true">Ready when you are.</p>
-            <p id="agent-detail" hidden></p>
-          </div>
-        </div>
-        <div class="actions workflow-actions">
-          <button data-mode="QA">Run QA</button>
-          <button data-mode="BROWSER">Build Browser</button>
-          <button data-mode="BROWSER_TEST">Test Browser</button>
-          <button data-mode="STATUS">Check System</button>
-        </div>
-      </section>
-
-      <!-- Column 2 Row 1/3: Collaborative Conversation & Sidebar Details -->
-      <aside class="conversation-panel" aria-label="Current task and conversation">
-        <div class="intro">
-          <span class="intro-symbol" aria-hidden="true">✧</span>
-          <h3>What are you imagining?</h3>
-          <p>Tell me what you want to create. We’ll build it in Figma, then refine it together.</p>
-          <p class="muted">Your work stays editable. Your next idea can start right here.</p>
-        </div>
-        <div id="conversation" role="log" aria-label="Design conversation" aria-live="polite"></div>
-        <div id="run-state" role="status"></div>
-        <div class="agent-recent">
-          <h3>Recent activity</h3>
-          <ol id="agent-history" aria-label="Recent activity"></ol>
-          <p id="agent-history-empty">The story of your next design starts here.</p>
-        </div>
-        <details id="agent-details">
-          <summary>View details</summary>
-          <pre id="agent-technical"></pre>
-        </details>
-        <section id="validation-summary" class="validation-summary" hidden>
-          <h3>Current workspace</h3>
-          <div id="validation-summary-status"></div>
-          <div class="actions">
-            <a class="text-link" href="#qa">Review QA →</a>
-            <a class="text-link" href="#browser">Open Browser →</a>
-          </div>
-        </section>
-      </aside>
-
-      <!-- Column 1 Row 2: Prompt Composer -->
+    <section id="workspace" class="view design-document" aria-label="Studio">
       <form id="composer">
         <label for="prompt">What should we design?</label>
-        <textarea id="prompt" placeholder="Describe a screen, idea, or change…" rows="2" maxlength="32000" required></textarea>
-        <div class="compose-actions">
-          <span>Enter to add a line · Ctrl + Enter to send</span>
-          <button id="cancel" type="button" hidden>Stop run</button>
-          <button id="send" type="submit" class="primary">Send</button>
-        </div>
+        <textarea id="prompt" placeholder="Describe a screen, a flow, or the next revision…" rows="2" maxlength="32000" required aria-describedby="compose-help"></textarea>
+        <div class="compose-actions"><span id="compose-help">Enter for a new line · Ctrl + Enter to send</span><button id="cancel" type="button" hidden>Stop run</button><button id="send" type="submit" class="primary">Send</button></div>
       </form>
+      <section id="agent-studio" class="activity-strip" aria-label="Design activity" data-phase="IDLE">
+        <div class="activity-current"><strong id="agent-phase">Ready</strong><div><p id="agent-message" role="status" aria-live="polite" aria-atomic="true">Ready when you are.</p><p id="agent-detail" hidden></p></div></div>
+        <details class="activity-observed"><summary>Observed activity</summary><ol id="agent-history" aria-label="Recent activity"></ol><p id="agent-history-empty">Activity appears here when work starts.</p><details id="agent-details"><summary>Technical details</summary><pre id="agent-technical"></pre></details></details>
+        <div id="run-state" class="sr-only" role="status"></div>
+      </section>
+      <section class="revision-document" aria-label="Revision record">
+        <div class="record-heading"><h2>Revision record</h2><div class="actions workflow-actions"><button data-mode="QA">Run QA</button><button data-mode="BROWSER">Build Browser</button><button data-mode="BROWSER_TEST">Test Browser</button><button data-mode="STATUS">Check System</button></div></div>
+        <div class="record-scroll" tabindex="0" aria-label="Requests and outcomes">
+          <div class="intro"><h3>Start with a design brief.</h3><p>Describe what you want to create above. Your requests, design outcomes and revisions will build a record here.</p><ol class="start-path"><li><strong>Describe the work</strong><span>A screen, a journey, or a change to an existing design.</span></li><li><strong>Inspect and revise</strong><span>Review the editable result in Figma. Keep refining in this workspace.</span></li><li><strong>Make it work</strong><span>Define interactions, check QA, then validate the browser preview.</span></li></ol></div>
+          <div id="conversation" role="log" aria-label="Design revision record" aria-live="polite"></div>
+          <section id="validation-summary" class="validation-summary" hidden><h3>Workspace evidence</h3><div id="validation-summary-status"></div><div class="actions"><a class="text-link" href="#qa">Review QA</a><a class="text-link" href="#browser">Open Browser</a></div></section>
+        </div>
+      </section>
     </section>
 
-    <!-- PROTOTYPE VIEW -->
-    <section id="prototype" class="view" hidden>
-      <h2>Prototype workshop</h2>
-      <p>Describe the controls or journey you want to make interactive.</p>
-      <button id="prototype-compose" class="primary">Describe an interaction</button>
-      <p class="muted">Only defined, supported behavior is authored. Conditional variable workflows remain unavailable.</p>
-    </section>
-
-    <!-- QA VIEW -->
-    <section id="qa" class="view" hidden>
-      <h2>Review desk</h2>
-      <p>Find broken behavior, unknown expectations and native limitations in the inspected scope.</p>
-      <div class="actions">
-        <button data-mode="QA" class="primary">Run QA</button>
-        <button class="refresh-validation">Refresh Evidence</button>
-        <button id="qa-continue">Continue Designing</button>
+    <section id="prototype" class="view" aria-label="Prototype" hidden>
+      <div class="prototype-workbench">
+        <section class="interaction-brief"><h2>Give your design a journey.</h2><p>Describe what happens when someone uses a control, moves between screens, or opens an overlay.</p><button id="prototype-compose" class="primary">Describe an interaction</button><p class="muted">This opens the Studio composer. Nothing is authored until you send the request.</p></section>
+        <section class="capability-sequence" aria-label="Prototype workflow"><h2>From design to interaction</h2><article><h3>Design context</h3><p>Start with the editable screens in your current Figma document. Existing source must be inspected before changes.</p></article><article><h3>Interaction intent</h3><p>Name the control, the action and the destination. Only defined, supported behavior is authored; missing behavior is not invented.</p></article><article><h3>Read-only review</h3><p>QA checks working, broken and unknown behavior in the inspected scope. Structural evidence does not prove native playback.</p><a class="text-link" href="#qa">Inspect QA evidence</a></article></section>
       </div>
-      <div id="qa-result" class="inspection-section" role="status">No structured QA evidence yet.</div>
-      <section id="qa-integrity" class="inspection-section" aria-label="Document integrity"></section>
-      <section class="inspection-section">
-        <div class="section-heading">
-          <h3>Findings</h3>
-          <label>Show
-            <select id="qa-filter">
-              <option value="ALL">All</option>
-              <option value="BROKEN">Broken</option>
-              <option value="UNKNOWN">Unknown expectations</option>
-              <option value="LIMITATIONS">Figma limitations</option>
-              <option value="BLOCKER">Blocker</option>
-              <option value="HIGH">High</option>
-              <option value="MEDIUM">Medium</option>
-              <option value="LOW">Low</option>
-            </select>
-          </label>
-        </div>
-        <div id="qa-findings"></div>
-      </section>
-      <details id="qa-raw" class="inspection-section">
-        <summary>Raw Evidence — normalized</summary>
-      </details>
+      <aside class="limitations-note"><h3>Capability limits</h3><p>Conditional variable workflows remain unavailable (V1.2.5 HOLD). Browser validation is separate from native Figma playback.</p></aside>
     </section>
 
-    <!-- BROWSER VIEW -->
-    <section id="browser" class="view" hidden>
-      <h2>Preview room</h2>
-      <p>Freshness, functional checks and visual evidence answer different questions.</p>
-      <div class="actions">
-        <button data-mode="BROWSER" class="primary">Build Browser</button>
-        <button data-mode="BROWSER_TEST">Run Browser Test</button>
-        <button id="open-preview">Open Preview</button>
-        <button id="refresh-browser">Refresh Status</button>
-        <button id="browser-continue">Continue Designing</button>
+    <section id="qa" class="view" aria-label="QA" hidden>
+      <div class="surface-toolbar"><p>Read-only interaction review. Findings describe the inspected scope, not a design score.</p><div class="actions"><button data-mode="QA" class="primary">Run QA</button><button class="refresh-validation">Refresh Evidence</button><button id="qa-continue">Continue Designing</button></div></div>
+      <div class="qa-workbench">
+        <aside class="qa-context" aria-label="Verdict and integrity"><div id="qa-result" role="status">No structured QA evidence yet.</div><section id="qa-integrity" aria-label="Document integrity"></section><details id="qa-raw"><summary>Raw Evidence — normalized</summary></details></aside>
+        <section class="qa-ledger"><div class="section-heading"><h2>Findings</h2><label>Show<select id="qa-filter"><option value="ALL">All</option><option value="BROKEN">Broken</option><option value="UNKNOWN">Unknown expectations</option><option value="LIMITATIONS">Figma limitations</option><option value="BLOCKER">Blocker</option><option value="HIGH">High</option><option value="MEDIUM">Medium</option><option value="LOW">Low</option></select></label></div><div id="qa-findings"></div></section>
       </div>
-      <p id="validation-asof" class="muted"></p>
-      <section id="browser-status" class="inspection-section" aria-label="Preview and freshness" role="status">Checking evidence…</section>
-      <section class="inspection-section">
-        <h3>Browser test</h3>
-        <div id="browser-tests"></div>
-      </section>
-      <section id="browser-motion" class="inspection-section" aria-label="Motion evidence"></section>
-      <section class="inspection-section">
-        <h3>Source fidelity</h3>
-        <div id="fidelity"></div>
-        <div class="section-heading">
-          <h3>Fidelity findings</h3>
-          <label>Show
-            <select id="fidelity-filter">
-              <option value="DEFECTS">Defects</option>
-              <option value="ALL">All</option>
-              <option value="FONTS">Fonts</option>
-              <option value="LIMITATIONS">Limitations</option>
-            </select>
-          </label>
-        </div>
-        <div id="fidelity-findings"></div>
-      </section>
-      <section id="font-limitations" class="inspection-section"></section>
-      <section id="property-limitations" class="inspection-section"></section>
-      <section id="browser-regression" class="inspection-section" aria-label="Browser visual regression"></section>
-      <section id="native-parity" class="inspection-section" aria-label="Native render comparison"></section>
-      <section class="inspection-section">
-        <h3>Validation history</h3>
-        <div id="validation-history"></div>
-      </section>
-      <details id="browser-raw" class="inspection-section">
-        <summary>Raw Evidence — normalized</summary>
-      </details>
     </section>
 
-    <!-- RECENT RUNS -->
-    <section id="runs" class="view" hidden>
-      <h2>Studio journal</h2>
-      <div id="recent-runs"></div>
-      <article id="run-detail" hidden></article>
+    <section id="browser" class="view" aria-label="Browser" hidden>
+      <div class="surface-toolbar"><p>Preview, behavior and fidelity are independent evidence.</p><div class="actions"><button data-mode="BROWSER" class="primary">Build Browser</button><button data-mode="BROWSER_TEST">Run Browser Test</button><button id="open-preview">Open Preview</button><button id="refresh-browser">Refresh Status</button><button id="browser-continue">Continue Designing</button></div></div>
+      <div id="browser-overview" class="browser-overview" aria-label="Browser evidence overview"></div>
+      <div id="browser-artifact-integrity" class="artifact-integrity" aria-label="Browser artifact integrity"></div>
+      <p id="validation-asof" class="metadata"></p>
+      <div class="chapter-controls" role="group" aria-label="Browser evidence categories"><button data-chapter="preview" aria-pressed="true">Preview</button><button data-chapter="behavior" aria-pressed="false">Behavior</button><button data-chapter="motion" aria-pressed="false">Motion</button><button data-chapter="fidelity" aria-pressed="false">Fidelity</button><button data-chapter="limitations" aria-pressed="false">Limitations</button></div>
+      <section id="browser-preview-panel" class="evidence-chapter"><h2>Preview and freshness</h2><p>The browser opens separately from the design workspace. A built preview is not proof of current source fidelity.</p><div id="browser-status" role="status">Checking evidence…</div><h3>Validation history</h3><div id="validation-history"></div></section>
+      <section id="browser-behavior-panel" class="evidence-chapter" hidden><h2>Behavior checks</h2><p>Browser Test observes protected artifacts; it does not repair or rebuild them.</p><div id="browser-tests"></div><details id="browser-raw"><summary>Raw Evidence — normalized</summary></details></section>
+      <section id="browser-motion-panel" class="evidence-chapter" hidden><h2>Motion evidence</h2><p>Normal and reduced motion are checked separately. Intermediate-frame findings remain findings.</p><div id="browser-motion" aria-label="Motion evidence"></div></section>
+      <section id="browser-fidelity-panel" class="evidence-chapter" hidden><h2>Source fidelity</h2><div id="fidelity"></div><div class="section-heading"><h3>Fidelity findings</h3><label>Show<select id="fidelity-filter"><option value="DEFECTS">Defects</option><option value="ALL">All</option><option value="FONTS">Fonts</option><option value="LIMITATIONS">Limitations</option></select></label></div><div id="fidelity-findings"></div><section id="browser-regression" aria-label="Browser visual regression"></section></section>
+      <section id="browser-limitations-panel" class="evidence-chapter" hidden><h2>Limits of this evidence</h2><section id="native-parity" aria-label="Native render comparison"></section><section id="font-limitations"></section><section id="property-limitations"></section></section>
     </section>
 
-    <!-- SETTINGS -->
-    <section id="settings" class="view" hidden>
-      <h2>Studio settings</h2>
-      <section class="settings-section">
-        <div>
-          <h3>AI</h3>
-          <p>Your model, your choice.</p>
-        </div>
-        <div>
-          <p id="ai-status" role="status">Checking models…</p>
-          <label for="model">Model</label>
-          <select id="model"></select>
-          <p id="model-help" class="muted">Model changes keep this conversation.</p>
-          <div class="actions">
-            <button id="apply-model">Change Model</button>
-            <button id="test-model">Check Connection</button>
-            <button id="connect-provider">Connect Provider</button>
-          </div>
-          <p id="ai-notice" role="status"></p>
-        </div>
-      </section>
-      <section class="settings-section">
-        <div>
-          <h3>Figma</h3>
-          <p>Native design connection.</p>
-        </div>
-        <div>
-          <p id="figma-settings">Checking…</p>
-          <button id="settings-check">Check Again</button>
-          <details>
-            <summary>Figma Plugin Setup</summary>
-            <ol>
-              <li>Open Figma Desktop and a Design file.</li>
-              <li>Choose Plugins → Development → Import plugin from manifest.</li>
-              <li>Choose manifest.json in the Figma Designer MCP plugin folder, then run the plugin.</li>
-            </ol>
-            <button id="open-plugin-folder" hidden>Open Plugin Folder</button>
-          </details>
-        </div>
-      </section>
-      <section class="settings-section">
-        <div>
-          <h3>Browser</h3>
-          <p>Preview and fidelity.</p>
-        </div>
-        <div>
-          <a href="#browser" class="text-link">View preview status →</a>
-          <p class="muted">Freshness, functional tests and fidelity are reported separately.</p>
-        </div>
-      </section>
-      <section class="settings-section">
-        <div>
-          <h3>Application</h3>
-          <p>Source and desktop workspace</p>
-        </div>
-        <div>
-          <p>Uses your device’s reduced-motion preference. Conversations survive page refresh; desktop restarts check interrupted work without replaying it.</p>
-          <details id="diagnostics">
-            <summary>Developer diagnostics</summary>
-            <pre id="diagnostic-output">Not checked</pre>
-          </details>
-          <p class="muted">Advanced capability: Stateful Variables — HOLD. Beta 3 terminal workflows are unchanged.</p>
-        </div>
-      </section>
+    <section id="runs" class="view runs-workbench" aria-label="Runs" hidden>
+      <aside class="run-index"><h2>Requests</h2><p class="muted">Purpose, outcome and time. Select a request to inspect its record.</p><div id="recent-runs"></div></aside>
+      <section class="run-inspector" aria-label="Selected request"><div id="run-detail-empty"><h2>Your work has a history.</h2><p>Choose a request to read its outcome, original brief and recovery record.</p></div><article id="run-detail" hidden></article></section>
     </section>
 
-    <!-- RECOVERY ERROR TOAST -->
-    <section id="error" class="recovery" role="alert" hidden></section>
+    <section id="settings" class="view preferences-workbench" aria-label="Settings" hidden>
+      <div class="preference-index" role="group" aria-label="Preference categories"><button data-preference="ai" aria-pressed="true">AI</button><button data-preference="figma" aria-pressed="false">Figma</button><button data-preference="browser" aria-pressed="false">Browser</button><button data-preference="application" aria-pressed="false">Application</button></div>
+      <div class="preference-content">
+        <section id="preferences-ai" class="preference-pane"><h2>AI connection</h2><p>Choose the provider and model for your design work.</p><p id="ai-status" role="status">Checking models…</p><label for="model">Model</label><select id="model"></select><p id="model-help" class="muted">Model changes keep this conversation.</p><div class="actions"><button id="apply-model">Change Model</button><button id="test-model">Check Connection</button><button id="connect-provider">Connect Provider</button></div><p id="ai-notice" role="status"></p></section>
+        <section id="preferences-figma" class="preference-pane" hidden><h2>Figma connection</h2><p>Connect the development plugin to the design document you want to work in.</p><p id="figma-settings">Checking…</p><button id="settings-check">Check Again</button><details><summary>Figma Plugin Setup</summary><ol><li>Open Figma Desktop and a Design file.</li><li>Choose Plugins → Development → Import plugin from manifest.</li><li>Choose manifest.json in the Figma Designer MCP plugin folder, then run the plugin.</li></ol><button id="open-plugin-folder" hidden>Open Plugin Folder</button></details></section>
+        <section id="preferences-browser" class="preference-pane" hidden><h2>Browser validation</h2><p>Preview and tests run locally, separately from Figma write operations.</p><a href="#browser" class="text-link">View preview status</a><p class="muted">Freshness, behavior, motion and fidelity are reported independently. Browser Test does not modify protected artifacts.</p></section>
+        <section id="preferences-application" class="preference-pane" hidden><h2>Application</h2><h3>Motion and display</h3><p>Uses your device’s color scheme and reduced-motion preference. No decorative motion runs in the workspace.</p><h3>Continuity</h3><p>Conversations survive page refresh; desktop restarts check interrupted work without replaying it.</p><details id="diagnostics"><summary>Developer diagnostics</summary><pre id="diagnostic-output">Not checked</pre></details><p class="muted">Advanced capability: Stateful Variables — HOLD. Beta 3 terminal workflows are unchanged.</p></section>
+      </div>
+    </section>
   </main>
 
-  <!-- PROVIDER MODAL -->
-  <dialog id="provider-dialog" aria-labelledby="provider-title">
-    <div class="dialog-heading">
-      <h2 id="provider-title">Connect AI Provider</h2>
-      <button id="close-provider" aria-label="Close provider setup">×</button>
-    </div>
-    <p>OpenCode handles the connection. Figma Designer does not save your credentials.</p>
-    <form id="provider-form">
-      <label for="provider">Provider</label>
-      <select id="provider"></select>
-      <button id="use-connection" type="button" hidden>Use existing connection</button>
-      <label for="auth-method">Connection method</label>
-      <select id="auth-method"></select>
-      <div id="key-field">
-        <label for="provider-key">API key</label>
-        <input id="provider-key" type="password" autocomplete="off" spellcheck="false">
-      </div>
-      <p id="auth-help" class="muted"></p>
-      <button id="provider-recheck" type="button">Check Again</button>
-      <button id="auth-submit" class="primary">Connect</button>
-    </form>
-    <div id="oauth-step" hidden>
-      <a id="oauth-link" target="_blank" rel="noopener noreferrer" class="text-link">Open Provider Setup →</a>
-      <label for="oauth-code">Code, only if your provider asks</label>
-      <input id="oauth-code" autocomplete="off">
-      <button id="oauth-complete">Check Connection</button>
-    </div>
-    <p id="provider-notice" role="status"></p>
-  </dialog>
+  <footer class="system-bar"><details id="system-status"><summary id="system-summary">Workspace connection</summary><div id="statuses" class="statuses"></div><p>Connection details are informational. Actionable problems appear above the workspace.</p></details><span>Editable in Figma · Local workspace</span></footer>
 
+  <dialog id="provider-dialog" aria-labelledby="provider-title">
+    <div class="dialog-heading"><h2 id="provider-title">Connect AI Provider</h2><button id="close-provider" aria-label="Close provider setup">×</button></div>
+    <p>OpenCode handles the connection. Figma Designer does not save your credentials.</p>
+    <form id="provider-form"><label for="provider">Provider</label><select id="provider"></select><button id="use-connection" type="button" hidden>Use existing connection</button><label for="auth-method">Connection method</label><select id="auth-method"></select><div id="key-field"><label for="provider-key">API key</label><input id="provider-key" type="password" autocomplete="off" spellcheck="false"></div><p id="auth-help" class="muted"></p><button id="provider-recheck" type="button">Check Again</button><button id="auth-submit" class="primary">Connect</button></form>
+    <div id="oauth-step" hidden><a id="oauth-link" target="_blank" rel="noopener noreferrer" class="text-link">Open Provider Setup →</a><label for="oauth-code">Code, only if your provider asks</label><input id="oauth-code" autocomplete="off"><button id="oauth-complete">Check Connection</button></div><p id="provider-notice" role="status"></p>
+  </dialog>
   <script type="module" src="/app.js"></script>
 </body>
 </html>

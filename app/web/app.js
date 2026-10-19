@@ -15,8 +15,27 @@ function showError(error){
  box.replaceChildren(text('h3','Something needs attention'),text('p','Check the connection and try checking the current result again.'),button('Check Again',async()=>{await refreshRuns();await refreshStatus(true);}),technical);
  box.dataset.kind=error?.code==='VALIDATION_EVIDENCE_INCOMPLETE'?'validation':error?.network?'network':'request';box.hidden=false;
 }
-function route(){const name=location.hash.slice(1)||'workspace';for(const el of document.querySelectorAll('.view'))el.hidden=el.id!==name;for(const a of document.querySelectorAll('nav a,.settings')){if(a.hash==='#'+name)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');}update('view-label',name==='workspace'?'FIGMA DESIGNER · AGENT STUDIO':name.toUpperCase());update('workspace-title',({workspace:'Your design studio',prototype:'Prototype workshop',qa:'Review desk',browser:'Preview room',runs:'Studio journal',settings:'Studio settings'})[name]??'Your design studio');if(['qa','browser'].includes(name))refreshValidation().catch(showError);}
-function compose(input=''){location.hash='workspace';$('prompt').value=input;$('prompt').focus();}
+function route(){
+ const titles={workspace:'Design workspace',prototype:'Prototype',qa:'Interaction QA',browser:'Browser validation',runs:'Run journal',settings:'Preferences'};
+ const requested=location.hash.slice(1),name=Object.hasOwn(titles,requested)?requested:'workspace';
+ if(requested&&requested!==name)window.history.replaceState(null,'','#workspace');
+ for(const el of document.querySelectorAll('.view'))el.hidden=el.id!==name;
+ for(const a of document.querySelectorAll('nav a')){if(a.hash==='#'+name)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');}
+ update('view-label',name);update('workspace-title',titles[name]);
+ if(name==='settings')selectCategory('preference','ai');
+ if(['qa','browser'].includes(name))refreshValidation().catch(showError);
+ if(document.activeElement?.matches('nav a'))$('workspace-title').focus();
+}
+function selectCategory(kind,value){
+ const values=kind==='chapter'?['preview','behavior','motion','fidelity','limitations']:['ai','figma','browser','application'];
+ const selected=values.includes(value)?value:values[0];
+ for(const control of document.querySelectorAll(`[data-${kind}]`)){
+  const active=control.dataset[kind]===selected;control.setAttribute('aria-pressed',String(active));
+  $(kind==='chapter'?`browser-${control.dataset[kind]}-panel`:`preferences-${control.dataset[kind]}`).hidden=!active;
+ }
+}
+function compose(input=''){location.hash='workspace';route();$('prompt').value=input;$('prompt').focus();}
+function openAISettings(){location.hash='settings';route();selectCategory('preference','ai');$('model').focus();}
 function confirmCurrentState(run){
  const dialog=document.createElement('dialog'),cancel=button('Cancel',()=>dialog.close());dialog.id='accept-current-dialog';
  dialog.setAttribute('aria-labelledby','accept-current-title');const title=text('h2','Keep the current Figma result?');title.id='accept-current-title';
@@ -40,23 +59,51 @@ function recovery(run){
   if(safe)actions.append(button('Try Again',()=>submit(run.mode,run.input)));
   if(partial&&run.integrity?.state!=='CHANGED')actions.append(button('Continue From Current Design',()=>compose('Inspect the current design and preserve completed work. Continue only the unfinished parts of this request: '+run.input)));
   if(!safe&&!recovered)actions.append(button('Check Current Result',async()=>{await api('/api/run/'+run.id+'/reconcile',{});await poll();}));
-  if(!recovered&&run.error?.code!=='READ_ONLY_VERIFICATION_FAILED')actions.append(button('Change Model',()=>{location.hash='settings';$('model').focus();}),button('Reconnect Provider',openProvider));
+  if(!recovered&&run.error?.code!=='READ_ONLY_VERIFICATION_FAILED')actions.append(button('Change Model',openAISettings),button('Reconnect Provider',openProvider));
   card.append(actions);const details=document.createElement('details');details.append(text('summary','Details'),text('pre',[run.error?.code,run.recovery,run.checking?'Checking native session…':'',run.sessionId?'Session '+run.sessionId:''].filter(Boolean).join('\n')));card.append(details);return card;
 }
-function runContent(run){const message=document.createElement('article');message.className='message';message.dataset.runId=run.id;message.dataset.state=run.state;message.append(text('h3',run.agentActivity?.technical?.restored?'PREVIOUS TASK':'YOU'));
+function runContent(run){
+ const message=document.createElement('article');message.className='message';message.dataset.runId=run.id;message.dataset.state=run.state;
+ const context=document.createElement('div');context.className='request-context';
+ context.append(text('h3',run.agentActivity?.technical?.restored?'Previous request':({QA:'Interaction review',BROWSER:'Browser build',BROWSER_TEST:'Browser test',STATUS:'System check'})[run.mode]??'Design request'));
  const input=run.input||({AUTO:'Design task',DESIGN:'Design task',QA:'Interaction check',BROWSER:'Preview build',BROWSER_TEST:'Preview check',STATUS:'Connection check'})[run.mode]||'Previous task';
- const preview=text('pre',input.length>240?input.slice(0,237)+'…':input);preview.className='request-preview';message.append(preview);
- if(input.length>240){const full=document.createElement('details');full.className='request-full';full.append(text('summary','Full request'),text('pre',input));message.append(full);}
+ const preview=text('pre',input.length>240?input.slice(0,237)+'…':input);preview.className='request-preview';context.append(preview);
+ if(input.length>240){const full=document.createElement('details');full.className='request-full';full.append(text('summary','Full request'),text('pre',input));context.append(full);}
+ if(run.startedAt){const time=text('time',new Date(run.startedAt).toLocaleString());time.dateTime=run.startedAt;time.className='metadata';context.append(time);}
+ message.append(context);
  if(run.recovery==='RECONCILIATION_REQUIRED'&&run.id===history.at(-1)?.id)message.append(recovery(run));
  else if(run.error||run.recovery){const more=document.createElement('details');more.className='run-recovery';more.append(text('summary',run.recovery==='USER_ACCEPTED_CURRENT_STATE'?'Outcome: Unverified · Kept current Figma state':run.recovery==='RECOVERED_COMPLETED'?'Recovery record':'Recovery actions'),recovery(run));if(run.state==='FAILED'&&run.recovery!=='RECONCILIATION_REQUIRED'&&run.id===history.at(-1)?.id)more.open=true;message.append(more);}
-if(run.result){const result=document.createElement('div');result.className='result-card';const label=summary(run);result.dataset.outcome=run.state==='FAILED'||label.includes('FAIL')?'FAIL':/WARN|HOLD|BLOCKED/.test(label)?'WARN':'DEFAULT';result.append(text('h3',label));if(run.integrity)result.append(text('p','Current-page integrity · '+run.integrity.state));if(run.state==='COMPLETED'&&run.id===history.at(-1)?.id){const actions=document.createElement('div');actions.className='actions';if(run.mode==='QA')actions.append(button('View Findings',()=>{location.hash='qa';}));else if(run.mode.startsWith('BROWSER'))actions.append(button('View Browser Status',()=>{location.hash='browser';}));else if(run.mode!=='STATUS')actions.append(button('Revise',()=>compose()),button('Make Interactive',()=>compose('Make the existing design interactive. ')),button('Run QA',()=>submit('QA')));result.append(actions);}message.append(result);if(['QA','BROWSER','BROWSER_TEST'].includes(run.mode)){const details=document.createElement('details');details.append(text('summary','Canonical report text'),text('pre',run.result));message.append(details);}else if(run.state==='WAITING_FOR_USER')message.append(text('h3','YOUR DESIGNER'),text('pre',run.result));else{const details=document.createElement('details');details.className='designer-response';details.append(text('summary','Designer’s full response'),text('pre',run.result));message.append(details);}}return message;}
+ if(run.result){
+  const result=document.createElement('div');result.className='result-card';const label=summary(run);
+  result.dataset.outcome=run.state==='FAILED'||label.includes('FAIL')?'FAIL':/WARN|HOLD|BLOCKED/.test(label)?'WARN':'DEFAULT';
+  result.append(text('h3',label));
+  if(run.integrity)result.append(text('p','Current-page integrity · '+run.integrity.state));
+  if(run.state==='COMPLETED'&&run.id===history.at(-1)?.id){
+   const actions=document.createElement('div');actions.className='actions';
+   if(run.mode==='QA')actions.append(button('View Findings',()=>{location.hash='qa';}));
+   else if(run.mode.startsWith('BROWSER'))actions.append(button('View Browser Status',()=>{location.hash='browser';}));
+   else if(run.mode!=='STATUS')actions.append(button('Revise',()=>compose()),button('Make Interactive',()=>compose('Make the existing design interactive. ')),button('Run QA',()=>submit('QA')));
+   result.append(actions);
+  }
+  message.append(result);
+  if(['QA','BROWSER','BROWSER_TEST'].includes(run.mode)){const details=document.createElement('details');details.append(text('summary','Canonical report text'),text('pre',run.result));message.append(details);}
+  else if(run.state==='WAITING_FOR_USER')message.append(text('h3','Input needed'),text('pre',run.result));
+  else{const details=document.createElement('details');details.className='designer-response';details.append(text('summary','Designer’s full response'),text('pre',run.result));message.append(details);}
+ }else if(run.state==='RUNNING')message.append(text('h3','Work in progress'),text('p','Observed activity appears above. No result has been confirmed yet.'));
+ return message;
+}
 function renderRuns(){
   active=history.find(r=>r.state==='RUNNING')??null;
   // Presence timestamps must not rebuild the conversation or repeat its screen-reader log.
   const signature=JSON.stringify([status.workspaceId,status.sessionId,history.map(({agentActivity,activityHistory,...run})=>({...run,restored:agentActivity?.technical?.restored===true}))]);
-  if(signature!==rendered){rendered=signature;const conversation=$('conversation'),top=conversation.scrollTop,atEnd=conversation.scrollHeight-top-conversation.clientHeight<40;conversation.replaceChildren();$('recent-runs').replaceChildren();
-    for(const run of history){if(status.workspaceId?run.workspaceId===status.workspaceId:!status.sessionId||!run.sessionId||run.sessionId===status.sessionId)conversation.append(runContent(run));const title=(run.input||run.mode.replaceAll('_',' ')).slice(0,85);const item=button(title,()=>{selectedRun=run.id;renderDetail();});item.append(text('small',summary(run)+' · '+new Date(run.startedAt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})));$('recent-runs').append(item);}
-    if(!history.length)$('recent-runs').append(text('p','Your completed and recent tasks will appear here.'));conversation.scrollTop=atEnd?conversation.scrollHeight:top;document.querySelector('.intro').hidden=!!conversation.children.length;renderDetail();
+  if(signature!==rendered){rendered=signature;const conversation=$('conversation'),scroll=conversation.closest('.record-scroll'),top=scroll.scrollTop,previous=conversation.firstElementChild?.dataset.runId;conversation.replaceChildren();$('recent-runs').replaceChildren();
+    for(const run of history){
+     if(status.workspaceId?run.workspaceId===status.workspaceId:!status.sessionId||!run.sessionId||run.sessionId===status.sessionId)conversation.prepend(runContent(run));
+     const title=(run.input||run.mode.replaceAll('_',' ')).slice(0,160),item=button(title,()=>{selectedRun=run.id;renderDetail();});item.dataset.runId=run.id;
+     item.append(text('small',run.mode.replaceAll('_',' ')+' · '+summary(run)+' · '+new Date(run.startedAt).toLocaleString()));$('recent-runs').append(item);
+    }
+    if(!history.length)$('recent-runs').append(text('p','Your completed and recent tasks will appear here.'));
+    document.querySelector('.intro').hidden=!!conversation.children.length;renderDetail();scroll.scrollTop=conversation.firstElementChild?.dataset.runId===previous?top:0;
   }
   update('run-state',active?'Working…':status.reconciliationRequired?'Checking the current result before another task can start.':history.filter(r=>r.sessionId===status.sessionId).at(-1)?.state==='WAITING_FOR_USER'?'Ready for your reply.':'');
   $('send').disabled=!!pendingSubmission||!!status.activeRun||!!active||!['READY','EXTERNAL'].includes(status.engine?.state)||status.figma!=='CONNECTED'||status.runtime!=='VERIFIED'||(status.mcp&&status.mcp.state!=='COMPATIBLE')||status.reconciliationRequired||status.ai?.state!=='READY'||status.ai?.busy;
@@ -64,7 +111,11 @@ function renderRuns(){
   for(const b of document.querySelectorAll('.recovery button'))if(['Try Again','Continue From Current Design'].includes(b.textContent))b.disabled=!!active||!!status.reconciliationRequired;
   renderAI();renderAgentPresence(history,status);
 }
-function renderDetail(){const run=history.find(r=>r.id===selectedRun);$('run-detail').hidden=!run;if(run)$('run-detail').replaceChildren(text('h2',summary(run)),text('p',new Date(run.startedAt).toLocaleString()),runContent(run));}
+function renderDetail(){
+ const run=history.find(r=>r.id===selectedRun);$('run-detail').hidden=!run;$('run-detail-empty').hidden=!!run;
+ for(const item of $('recent-runs').children)if(item.matches('button'))item.setAttribute('aria-pressed',String(item.dataset.runId===selectedRun));
+ if(run){const technical=document.createElement('details');technical.append(text('summary','Run reference'),text('pre',run.id));$('run-detail').replaceChildren(text('h2',summary(run)),text('p',new Date(run.startedAt).toLocaleString()),runContent(run),technical);}
+}
 function renderAI(){
   const ai=status.ai??{},signature=JSON.stringify([ai.models,ai.integrations,ai.selected]);
   if(signature!==aiRendered){aiRendered=signature;const current=$('model').value;$('model').replaceChildren();for(const providerID of [...new Set((ai.models??[]).map(m=>m.providerID))]){const group=document.createElement('optgroup');group.label=ai.providers.find(p=>p.id===providerID)?.name??providerID;for(const model of ai.models.filter(m=>m.providerID===providerID)){const option=text('option',model.name+(model.available?'':' · unavailable'));option.value=JSON.stringify({id:model.id,providerID:model.providerID});option.disabled=!model.available;group.append(option);}$('model').append(group);}const wanted=JSON.stringify(ai.selected?{id:ai.selected.id,providerID:ai.selected.providerID}:null);if(ai.selected&&!ai.models.some(m=>m.id===ai.selected.id&&m.providerID===ai.selected.providerID)){const option=text('option',ai.selected.name+' · unavailable');option.value=wanted;option.disabled=true;$('model').prepend(option);}$('model').value=wanted;if(!$('model').value&&current)$('model').value=current;
@@ -87,6 +138,7 @@ async function refreshStatus(force=false){
   else if(status.reconciliationRequired){title='Previous change could not be confirmed';copy='Keep the current file and continue, or check the last change again below.';}
   else if(ai.state!=='READY'){const missing={PROVIDER_REQUIRED:['AI provider needed','Runtime verified and Figma connected. Connect an AI provider before starting a design.'],PROVIDER_AUTH_REQUIRED:['Reconnect your AI provider','Your provider needs authentication before you can continue.'],MODEL_REQUIRED:['Choose an AI model','Choose an available model to start designing.'],MODEL_UNAVAILABLE:['Selected model unavailable','Choose another available model to continue.']};[title,copy]=missing[ai.state]??['Checking AI availability','The engine is loading its provider and model catalog.'];}
   $('connection').dataset.ready=String(status.runtime==='VERIFIED'&&engineReady&&status.figma==='CONNECTED'&&(!status.mcp||status.mcp.state==='COMPATIBLE')&&ai.state==='READY'&&!status.reconciliationRequired&&!pendingSubmission);update('connection-title',title);update('connection-copy',copy);$('connect-shortcut').hidden=!['PROVIDER_REQUIRED','PROVIDER_AUTH_REQUIRED'].includes(ai.state);$('choose-shortcut').hidden=!['MODEL_REQUIRED','MODEL_UNAVAILABLE'].includes(ai.state);if(force||$('error').dataset.kind==='network')$('error').hidden=true;
+  update('system-summary',$('connection').dataset.ready==='true'?'Workspace connected':'Workspace needs attention');
   const c=status.connection??{};update('figma-settings',`Plugin: ${c.plugin??(status.figma==='CONNECTED'?'CONNECTED':'UNKNOWN')} · Bridge: ${c.bridge??'UNKNOWN'} · Document: ${c.document??'UNKNOWN'} · Runtime: ${status.runtime}`+(status.figma!=='CONNECTED'?' — Open your Figma design file. In Figma Desktop, run the imported Figma Designer development plugin. Return here and choose Check Again.':''));
   update('diagnostic-output',JSON.stringify({applicationVersion:'1.2.1',desktopVersion:window.figmaDesktop?.version??null,engine:status.engine,runtime:status.runtime,mcp:status.mcp,connection:status.connection,figma:status.figma,sessionId:status.sessionId,statefulVariables:'HOLD'},null,2));renderRuns();
 }
@@ -102,12 +154,12 @@ async function submit(mode,input=''){
 }
 function renderAuth(){const integration=status.ai?.integrations.find(p=>p.id===$('provider').value);$('use-connection').hidden=!integration?.connected||integration?.needsAuth;$('auth-method').replaceChildren(...(integration?.methods??[]).map((m,i)=>{const option=text('option',m.label+(m.supported?'':' · additional setup needed'));option.value=String(i);return option;}));renderAuthMethod();}
 function renderAuthMethod(){const integration=status.ai?.integrations.find(p=>p.id===$('provider').value),method=integration?.methods[Number($('auth-method').value)];$('provider-key').value='';$('key-field').hidden=method?.type!=='key'||!method?.supported;$('auth-submit').disabled=!method?.supported;update('auth-help',!method?.supported?'Additional setup required. This authentication method cannot be completed inside this app yet. Complete sign-in through OpenCode, then return here and choose Check Again.':method?.type==='oauth'?'Continue in your provider’s secure sign-in page.':'Your key is forwarded once to OpenCode and cleared here.');$('oauth-step').hidden=true;}
-function openProvider(){location.hash='settings';$('provider-notice').textContent='';$('provider-key').value='';$('oauth-code').value='';$('provider-dialog').showModal();}
+function openProvider(){openAISettings();$('provider-notice').textContent='';$('provider-key').value='';$('oauth-code').value='';$('provider-dialog').showModal();}
 $('prompt').addEventListener('keydown',event=>{if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)&&!$('send').disabled){event.preventDefault();$('composer').requestSubmit();}});
 $('composer').addEventListener('submit',event=>{event.preventDefault();submit('AUTO',$('prompt').value);});for(const b of document.querySelectorAll('[data-mode]'))b.addEventListener('click',()=>submit(b.dataset.mode));
 for(const id of ['check','settings-check'])$(id).addEventListener('click',()=>refreshStatus(true).catch(showError));
 for(const id of ['connect-provider','connect-shortcut'])$(id).addEventListener('click',openProvider);
-$('choose-shortcut').addEventListener('click',()=>{location.hash='settings';$('model').focus();});
+$('choose-shortcut').addEventListener('click',openAISettings);
 $('cancel').addEventListener('click',async()=>{try{const value=await api(`/api/run/${active.id}/cancel`,{});update('run-state',value.message);}catch(error){showError(error);}});
 $('new-design').addEventListener('click',async()=>{try{await api('/api/session',{});await refreshStatus();compose();}catch(error){showError(error);}});
 $('prototype-compose').addEventListener('click',()=>compose());$('refresh-browser').addEventListener('click',()=>refreshValidation().catch(showError));
@@ -124,6 +176,7 @@ for(const id of ['qa-continue','browser-continue'])$(id).addEventListener('click
 $('provider-recheck').addEventListener('click',()=>refreshStatus(true).catch(showError));
 window.addEventListener('error',event=>{event.preventDefault();showError(event.error);});
 window.addEventListener('unhandledrejection',event=>{event.preventDefault();showError(event.reason);});
+for(const control of document.querySelectorAll('[data-chapter],[data-preference]'))control.addEventListener('click',()=>{const kind=control.hasAttribute('data-chapter')?'chapter':'preference';selectCategory(kind,control.dataset[kind]);});
 window.addEventListener('hashchange',route);route();
 async function poll(){if(polling)return;polling=true;try{await refreshRuns();await refreshStatus();const stamp=JSON.stringify(history.filter(r=>r.finishedAt).map(r=>[r.id,r.state,r.validation]));if(stamp!==validationRuns||Date.now()-lastValidation>15000){validationRuns=stamp;refreshValidation().catch(showError);}}catch{showError(Object.assign(Error('The local service is unavailable. Check again after it reconnects.'),{network:true}));}finally{polling=false;}}
 await poll();setInterval(poll,1500);

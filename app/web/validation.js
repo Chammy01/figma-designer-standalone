@@ -19,7 +19,7 @@ function finding(f,kind){
 function renderQA(){
   const q=current.qa,box=$('qa-result');box.replaceChildren(line('Interaction QA',q.status),line('Evidence freshness',q.freshness),el('p','Last completed check: '+stamp(q.generatedAt),'muted'));
   if(q.reason)box.append(el('p',q.reason));if(q.freshness!=='CURRENT'&&q.lastStatus)box.append(el('p','Historical reported result: '+q.lastStatus,'muted'));
-  if(Object.keys(q.counts??{}).length)box.append(metrics([['Working actions',q.counts.workingActions],['Working states',q.counts.workingStates],['Broken controls',q.counts.brokenControls],['Broken edges',q.counts.brokenEdges],['Unknown expectations',q.counts.unknown],['Limited controls',q.counts.limitedControls],['Limitation findings',q.counts.limitations],['Unreachable from evidenced starts',q.counts.unreachable]]));
+  if(Object.keys(q.counts??{}).length){const coverage=details('Scope and coverage',[]);coverage.append(metrics([['Working actions',q.counts.workingActions],['Working states',q.counts.workingStates],['Broken controls',q.counts.brokenControls],['Broken edges',q.counts.brokenEdges],['Unknown expectations',q.counts.unknown],['Limited controls',q.counts.limitedControls],['Limitation findings',q.counts.limitations],['Unreachable from evidenced starts',q.counts.unreachable]]));box.append(coverage);}
   if(q.status==='PASS'&&q.freshness==='CURRENT')box.append(el('p','No broken controls or prototype edges were found in the inspected scope. Structural checks do not prove native playback.'));
   const integrity=$('qa-integrity');integrity.replaceChildren(el('h3','Document integrity'),line('Read-only evidence',q.integrity.status));if(q.integrity.status==='FAILED')integrity.append(el('p','The QA integrity check failed. This result is not trusted.'));
   integrity.append(details('Integrity details',[['Before fingerprints',q.integrity.before],['After fingerprints',q.integrity.after],['Collector reads',q.integrity.readCalls],['Collector writes',q.integrity.writeCalls],['Scope',q.evidenceMode]]));
@@ -30,6 +30,19 @@ function renderQA(){
 function shown(value,freshness){return value==='UNVERIFIED'||value==='NOT_RUN'?value:freshness==='CURRENT'?value:freshness==='UNAVAILABLE'?'NOT_RUN':freshness;}
 function renderBrowser(){
   const {browser:b,motion:m,fidelity:f}=current;
+  $('browser-overview').replaceChildren(
+    line('Preview freshness',b.buildState==='NOT_BUILT'?'NOT_BUILT':b.freshness),
+    line('Browser Test',b.acceptance),line('Test freshness',b.testFreshness),
+    line('Motion',m.status),line('Source Fidelity',shown(f.sourceFidelity,f.freshness)),
+    line('Native Render Parity',shown(f.nativeRenderParity,f.freshness))
+  );
+  const integrity=b.artifactIntegrity,integrityBox=$('browser-artifact-integrity');
+  integrityBox.replaceChildren(
+    line('Artifact integrity',integrity?.status??'UNVERIFIED'),
+    metrics([['Protected files',integrity?.protectedFileCount],['Changed files',integrity?.changedFileCount],['Blocked write attempts',integrity?.blockedWriteAttempts]]),
+    details('Artifact integrity details',[['Changed files',integrity?.changedFiles],['Blocked write evidence',integrity?.blockedWriteEvidence]])
+  );
+  if(integrity?.status==='CHANGED'||integrity?.blockedWriteAttempts>0)integrityBox.append(el('p','The artifact guard reported changes or blocked writes. Review the Browser Test verdict and evidence.','muted'));
   const preview=$('browser-status');preview.replaceChildren(line('Browser Preview',b.buildState==='NOT_BUILT'?'NOT_BUILT':b.freshness),el('p','Reported generated time: '+stamp(b.generatedAt),'muted'),line('Source freshness',b.sourceFreshness));
   if(b.freshness==='STALE')preview.append(el('p',b.sourceFreshness==='STALE'?'Your Figma source changed after this preview was created. Rebuild when you are ready.':'Preview files or validation bindings changed. Rebuild or run Browser Test as appropriate.'));
   if(b.freshness==='UNVERIFIED')preview.append(el('p','Current source evidence is unavailable or incompatible. This preview is not certified current.'));
@@ -56,7 +69,7 @@ export function renderValidation(value){
   // Reject incomplete evidence before dereferencing nested status/count fields.
   if(!value?.qa?.counts||!value.qa.integrity||!Array.isArray(value.qa.findings)||!value.browser||!Array.isArray(value.browser.checks)||!value.motion||!Array.isArray(value.motion.rows)||!value.fidelity?.coverage||!Array.isArray(value.fidelity.findings)||!Array.isArray(value.fidelity.fonts)){
     current=undefined;rendered=undefined;
-    for(const id of ['qa-result','browser-status','qa-integrity','qa-findings','qa-raw','browser-tests','browser-motion','fidelity','fidelity-findings','font-limitations','property-limitations','browser-regression','native-parity','browser-raw'])$(id).replaceChildren(el('h3','Evidence unavailable'),el('p','Check again to load complete validation evidence.'));
+    for(const id of ['qa-result','browser-status','qa-integrity','qa-findings','qa-raw','browser-overview','browser-artifact-integrity','browser-tests','browser-motion','fidelity','fidelity-findings','font-limitations','property-limitations','browser-regression','native-parity','browser-raw'])$(id)?.replaceChildren(el('h3','Evidence unavailable'),el('p','Check again to load complete validation evidence.'));
     $('validation-summary').hidden=true;$('open-preview').disabled=true;
     throw Object.assign(new TypeError('Incomplete validation evidence'),{code:'VALIDATION_EVIDENCE_INCOMPLETE'});
   }

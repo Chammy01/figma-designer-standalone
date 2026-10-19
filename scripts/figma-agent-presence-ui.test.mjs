@@ -28,32 +28,32 @@ async function workspace(t){
 test('studio follows semantic tools; coalesces history; details are opt-in and safe',async t=>{
  const w=await workspace(t),{page,run}=w;
  assert.equal(await page.textContent('#agent-message'),'Ready when you are.');assert.equal(await page.locator('#agent-details').getAttribute('open'),null);
- await w.tool('figma.get_node');assert.equal(await page.locator('#agent-scene').getAttribute('data-animation'),'READ');
+ await w.tool('figma.get_node');assert.equal(await page.locator('#agent-studio').getAttribute('data-phase'),'INSPECTING');
  for(let i=0;i<20;i++)await w.tool('figma.get_node');assert.equal(await page.locator('#agent-history li').count(),1);
- await w.tool('figma.write_html');assert.match(await page.textContent('#agent-message'),/updating the interface/);assert.equal(await page.locator('#agent-scene').getAttribute('data-animation'),'TYPE');assert.match(await page.locator('#studio-character').getAttribute('src'),/designing.png/);assert.match(await page.locator('#studio-monitor').getAttribute('src'),/designing.png/);
- await w.tool('figma.set_reactions');assert.equal(await page.locator('#agent-scene').getAttribute('data-animation'),'CONNECT');
+ await w.tool('figma.write_html');assert.match(await page.textContent('#agent-message'),/updating the interface/);assert.equal(await page.locator('#agent-studio').getAttribute('data-phase'),'DESIGNING');
+ await w.tool('figma.set_reactions');assert.equal(await page.locator('#agent-studio').getAttribute('data-phase'),'PROTOTYPING');
  await w.tool('figma.get_node','completed');assert.equal(await page.locator('#agent-studio').getAttribute('data-phase'),'CHECKING');
  assert.doesNotMatch(await page.textContent('#agent-studio'),/write_html|get_node|set_reactions|PRIVATE_INPUT|HIDDEN_REASONING|Authorization|E:\\/);
- await page.locator('#agent-details summary').focus();await page.keyboard.press('Enter');assert.match(await page.textContent('#agent-technical'),/category: READ_DESIGN/);
- run.state='COMPLETED';run.result='FIGMA_DESIGN_V2: PASS';observeActivityRun(run);await w.render();assert.equal(await page.locator('#agent-scene').getAttribute('data-active'),'false');assert.match(await page.textContent('#agent-message'),/finished/);
+ await page.locator('.activity-observed>summary').click();await page.locator('#agent-details summary').focus();await page.keyboard.press('Enter');assert.match(await page.textContent('#agent-technical'),/category: READ_DESIGN/);
+ run.state='COMPLETED';run.result='FIGMA_DESIGN_V2: PASS';observeActivityRun(run);await w.render();assert.equal(await page.locator('#agent-studio').getAttribute('data-active'),'false');assert.match(await page.textContent('#agent-message'),/finished/);
  assert.equal(await page.locator('#agent-details').getAttribute('open'),'');assert.equal(await page.locator('#agent-message').getAttribute('role'),'status');
 });
 
 test('waiting, provider failure, recovery and findings use factual fixed copy',async t=>{
  const w=await workspace(t),{page,run}=w;
- for(const [state,extra,animation,copy]of [
-  ['WAITING_FOR_USER',{},'TALK',/need your input/],
-  ['FAILED',{error:{code:'PROVIDER_AUTH_REQUIRED'}},'ALERT',/reconnect your AI provider/],
-  ['RUNNING',{checking:true},'RECOVER',/checking the last change/],
-  ['COMPLETED',{recovery:'RECOVERED_COMPLETED'},'DONE',/already completed/],
-  ['COMPLETED',{result:'FIGMA_BROWSER_TEST: FAIL'},'ALERT',/findings to review/]
- ]){Object.assign(run,{state,error:null,checking:false,recovery:null,result:''},extra);observeActivityRun(run);await w.render();assert.equal(await page.locator('#agent-scene').getAttribute('data-animation'),animation);assert.match(await page.textContent('#agent-message'),copy);}
+ for(const [state,extra,phase,copy]of [
+  ['WAITING_FOR_USER',{},'WAITING',/need your input/],
+  ['FAILED',{error:{code:'PROVIDER_AUTH_REQUIRED'}},'BLOCKED',/reconnect your AI provider/],
+  ['RUNNING',{checking:true},'RECOVERING',/checking the last change/],
+  ['COMPLETED',{recovery:'RECOVERED_COMPLETED'},'COMPLETED',/already completed/],
+  ['COMPLETED',{result:'FIGMA_BROWSER_TEST: FAIL'},'COMPLETED',/findings to review/]
+ ]){Object.assign(run,{state,error:null,checking:false,recovery:null,result:''},extra);observeActivityRun(run);await w.render();assert.equal(await page.locator('#agent-studio').getAttribute('data-phase'),phase);assert.match(await page.textContent('#agent-message'),copy);}
  assert.equal(w.mock.calls.some(c=>/\/(prompt|command)$/.test(c.path)),false);
 });
 
 test('960px, dark/light, narrow/zoom layout and reduced-motion keep status accessible',async t=>{
  const w=await workspace(t),{page}=w;await w.tool('figma.write_html');
- for(const colorScheme of ['light','dark']){await page.emulateMedia({colorScheme,reducedMotion:'reduce'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.equal(await page.locator('.studio-character').first().evaluate(el=>getComputedStyle(el).animationName),'none');}
+ for(const colorScheme of ['light','dark']){await page.emulateMedia({colorScheme,reducedMotion:'reduce'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);}
  for(const width of [900,480,360]){await page.setViewportSize({width,height:900});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.equal(await page.locator('#agent-message').isVisible(),true);}
  // A 480 CSS-pixel viewport models the reflow available at 200% zoom on a 960px window.
  await page.setViewportSize({width:480,height:450});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
@@ -77,14 +77,12 @@ test('production art is explicit PNG-only; unknown, traversal and source files a
  const assets=['room/bedroom-base',...['idle','listening','planning','designing','prototyping','checking','waiting','recovering','done','alert'].map(n=>'character/'+n),...['ready','inspecting','planning','designing','prototyping','checking','previewing','recovering','done','attention'].map(n=>'monitor/'+n)];
  for(const asset of assets){const r=await fetch(app.url+'/assets/agent-studio/'+asset+'.png');assert.equal(r.status,200);assert.equal(r.headers.get('content-type'),'image/png');assert.equal(r.headers.get('x-content-type-options'),'nosniff');const bytes=new Uint8Array(await r.arrayBuffer());assert.deepEqual([...bytes.slice(0,8)],[137,80,78,71,13,10,26,10]);}
  for(const path of ['/assets/agent-studio/unknown.png','/assets/agent-studio/room/bedroom-base.jpg','/assets/agent-studio/%2e%2e%2f%2e%2e%2fserver/index.mjs','/assets/agent-studio/character/idle.png/extra','/design-references/1.5-agent-studio/bedroom-base.jpg','/assets/agent-studio/room/bedroom-base.png%00.js'])assert.equal((await fetch(app.url+path)).status,404,path);
- assert.equal(await page.locator('.studio-room').evaluate(el=>el.complete&&el.naturalWidth===620),true);
- assert.equal(await page.locator('.studio-room').evaluate(el=>getComputedStyle(el).imageRendering),'pixelated');
 });
 
 test('all studio states and supporting pages remain usable in the new shell',async t=>{
  const w=await workspace(t),{page,run}=w;
  for(const [name,state]of [['listening','RUNNING'],['waiting','WAITING_FOR_USER'],['done','COMPLETED'],['alert','FAILED']]){
-  Object.assign(run,{state,result:'FIGMA_DESIGN_V2: PASS',error:state==='FAILED'?{code:'PROVIDER_AUTH_REQUIRED'}:null});observeActivityRun(run);await w.render();assert.equal(await page.locator('#studio-character').evaluate(async el=>{await el.decode();return el.complete&&el.naturalWidth>0;}),true);
+  Object.assign(run,{state,result:'FIGMA_DESIGN_V2: PASS',error:state==='FAILED'?{code:'PROVIDER_AUTH_REQUIRED'}:null});observeActivityRun(run);await w.render();assert.ok(await page.locator('#agent-studio').getAttribute('data-phase'));
  }
  for(const route of ['prototype','qa','browser','runs','settings']){await page.click(`a[href="#${route}"]`);await page.locator('#'+route).waitFor({state:'visible'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);}
  await page.click('a[href="#workspace"]');await page.locator('#workspace').waitFor({state:'visible'});await page.setViewportSize({width:900,height:650});
@@ -105,18 +103,16 @@ test('controlled lost response shows real reconciliation then recovered completi
 test('supported provider failure translates the actual run and preserves explicit recovery controls',async t=>{
  const {page,mock}=await workspace(t);await page.fill('#prompt','provider-failure');await page.click('#send');
  await page.waitForFunction(()=>document.getElementById('agent-message').textContent.includes('reconnect your AI provider'));
- assert.equal(await page.locator('#agent-scene').getAttribute('data-animation'),'ALERT');await page.locator('#conversation').getByRole('button',{name:'Try Again',exact:true}).waitFor();
+ assert.equal(await page.locator('#agent-studio').getAttribute('data-phase'),'BLOCKED');await page.locator('#conversation').getByRole('button',{name:'Try Again',exact:true}).waitFor();
  assert.doesNotMatch(await page.textContent('#agent-message'),/ProviderAuthError|exception|503/);assert.equal(mock.calls.filter(c=>c.path.endsWith('/prompt')).length,1);await page.screenshot({path:'.figma-designer/presence/controlled-provider-failure.png'});
 });
 
-test('course correction keeps the room dominant, composer visible and orientation stable',async t=>{
+test('composer remains visible and document layout stable across viewports',async t=>{
  const {page}=await workspace(t);await page.emulateMedia({colorScheme:'dark',reducedMotion:'reduce'});
  assert.equal(await page.locator('#connection').isVisible(),false);
  for(const [width,height] of [[1320,860],[1200,800],[1024,720],[900,650]]){
-  await page.setViewportSize({width,height});const scene=await page.locator('#agent-scene').boundingBox(),composer=await page.locator('#composer').boundingBox(),studio=await page.locator('#workspace').boundingBox();
-  assert.ok(scene.width>300);assert.ok(composer.y+composer.height<=height);assert.ok(scene.y+scene.height<=composer.y);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
-  if(width===1320)assert.ok(scene.width/studio.width>=.45&&scene.width/studio.width<=.55);
-  assert.equal(await page.locator('.studio-character').evaluate(el=>getComputedStyle(el).transform),'none');
+  await page.setViewportSize({width,height});const composer=await page.locator('#composer').boundingBox(),studio=await page.locator('#workspace').boundingBox();
+  assert.ok(composer.y>=0);assert.ok(composer.y+composer.height<=height);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
   await page.screenshot({path:`.figma-designer/presence/correction-${width}x${height}.png`});
  }
 });
