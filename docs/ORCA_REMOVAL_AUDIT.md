@@ -116,7 +116,7 @@ All verification child environments omit `ORCA_*`; Native Orca launchers are abs
 | Desktop package | Built installer/portable candidate only, not published. 794-file inventory/privacy/runtime validation PASS; obsolete-file gate PASS. |
 | Packaged desktop startup | PASS with System32-only PATH/no retired variables: READY engine, VERIFIED runtime, single-instance behavior, zero startup tasks, owned service/engine shutdown. |
 | Independent advisor | `ORCA_REMOVAL_REVIEW: PASS`; existing-config gap fixed and re-reviewed. |
-| Graphify | Updated after structural cutover: 4,262 nodes / 8,384 edges / 283 communities; generated output remains ignored. |
+| Graphify | Refreshed after structural cutover; latest pre-commit rebuild: 4,269 nodes / 8,395 edges / 288 communities. Generated output remains ignored. |
 
 The first clean-source attempt lacked the documented OpenCode launcher on PATH;
 the final run used the already-installed local OpenCode and Bun toolchain, not
@@ -134,5 +134,53 @@ The user explicitly authorized the existing Keep Current Figma confirmation:
 old run `6b819bcd-8356-4343-8c4f-578b3d2ed574` remains FAILED with
 USER_ACCEPTED_CURRENT_STATE, not a completed or safely replayed request. A fresh
 workspace/session was created through the normal UI, without editing recovery
-metadata or replaying the interrupted request. Fresh live Browser validation is
-recorded when complete; these events do not change recovery semantics.
+metadata or replaying the interrupted request. Fresh run
+`0718248c-0b22-432b-a2be-e3af890a6929` produced both runtime screens and all four
+browser artifacts but did not settle within the bounded watch. It was stopped
+through the app's supported native interruption and settled CANCELLED with no
+recovery lock. Valid output was preserved; the confirmed missing canonical
+`figma-browser-source.mjs finish` step then completed successfully, binding export
+`5c776a54-d466-40c3-891a-0938e8d540f9` to stable source fingerprint
+`129cd01193e0d6d52a3c992380c48ed41650ea372316dadbd30d22ece81fcd27`.
+
+The live generated preview was visually inspected and pointer navigation exercised.
+A glyph-background defect in generated CSS was repaired only in ignored browser
+output (native TEXT fills are glyph colors, not rectangular backgrounds). The
+canonical embedded motion runtime, QA/fidelity algorithms and thresholds were not
+changed.
+
+Final direct Browser Test executed without Native Orca and reported source/local/
+overall freshness CURRENT, two screens, 617 nodes, 199 text nodes and 38 controls.
+Pointer/Enter navigation, history, deep links, control ownership, reduced motion,
+local-resource isolation and unchanged artifact hashes passed. Canonical overall
+result remains **FAIL**: the five previously known MEDIUM fractional stroke-width
+findings remain, and the first NAV_DEFAULT normal-motion intermediate sample
+reported opacity endpoints rather than an intermediate frame. The other three
+motion cases passed. No result was relabeled and no timing/threshold was changed.
+Native pixel/render parity remains UNVERIFIED; this removal does not certify
+browser visual or native-pixel parity.
+
+Live read-only QA returned **WARN**: two runtime screens, 46 meaningful controls,
+2 WORKING_ACTION and 44 UNKNOWN_EXPECTATION; no broken edges/controls, one
+journey-start limitation. Six read calls and zero writes; document unchanged.
+Critique/QA guard regressions remain included in the passing contract suite.
+
+Final native page fingerprint in the product's Node runtime matches the original
+protected value exactly:
+`a68cfd586576aa6f2d199c8edd4e46c541b5d7e9a22508a16781e8fff3712be6`.
+The old accepted run remains FAILED/UNVERIFIED, the later cancelled run remains
+CANCELLED, and no interrupted request was replayed. Local smoke model selection
+used the normal product selector; the shared configured model is unchanged.
+
+Implementation commit `413a41305c4882af7090f52202ec25ece66ace79` passed all four
+hosted jobs in [run 39210955888](https://github.com/Chammy01/figma-designer-standalone/actions/runs/39210955888):
+`node-contracts`, `plugin`, `go`, `desktop`. Desktop CI includes installer,
+upgrade/uninstall and portable extraction. Final documentation-head CI is a
+separate exact-head gate; this source-head result is not substituted for it.
+
+Owned smoke tabs/services were closed after an idle/unlocked application status;
+their isolated service/engine ports are no longer listening. Throwaway smoke/
+verification scripts and the temporary Git index were removed; evidence logs and
+reports remain ignored. The original local source-smoke model preference was
+restored after shutdown; shared model/default configuration and credentials were
+not changed by smoke model selection.

@@ -23,7 +23,9 @@ Active project transition (2026-10-19): Clean removal of obsolete Native Orca fr
   - Verified: Go tests and Go vet pass
   - Verified: MCP 1.1.0 / protocol 2 / 108 tool probe pass
   - Verified: Browser integration/motion8, fidelity9, all30 UI cases across focused runs,33 setup scenarios,clean source/archive/232-entry ZIP setup,clean-source release/privacy,794-file desktop validation and packaged smoke with no Orca executable/variables; independent advisor and exclusion audit PASS.
-  - Remaining gates: fresh live Browser validation and exact-head CI. A prior own smoke interruption was explicitly resolved by the user's normal Keep Current Figma confirmation, preserving FAILED/UNVERIFIED history without replay.
+  - Source413a413 CI39210955888 all4 jobs SUCCESS, including full browser/UI and installer/upgrade/uninstall/portable acceptance. Final documentation-head CI is the remaining report gate.
+  - Live Browser binding STABLE, preview/navigation verified, all freshness CURRENT; canonical Browser Test FAIL retains5 MEDIUM strokes plus one motion intermediate-sample finding. Live QA WARN,6reads/0writes/no broken controls. Protected native page fingerprint unchanged (`a68cfd58…`). No QA/fidelity/motion policy changes.
+  - Own smoke service interruption was explicitly resolved by the user's normal Keep Current Figma confirmation, preserving FAILED/UNVERIFIED history without replay. Later generated-output run normally CANCELLED; existing canonical finish completed its missing binding. No active app run/uncertainty lock remains.
 - Invariants: Requested Gemini role models (advisor/planner) unavailable through OMP dispatcher (no worker model override / no native `plan` role); assigned roles operated honestly without Native Orca tools. Historical recovery evidence, V1.2.5 HOLD, Beta 3/4 published assets, MCP 1.1.0 / protocol 2 / 108 tools (`combine_as_variants`), and user-modified `bedroom-base.jpg` preserved untouched.
 ## Current Architecture Direction
 
