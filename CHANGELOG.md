@@ -1,9 +1,12 @@
 # Changelog
 
+## v1.5.1-source — unreleased Browser Test artifact guard and workspace capability profile
+
+Enforces explicit user-approved workspace-wide positive capability restriction: preserves exact approved 108 Figma MCP operations, finite Build write/edit/patch tools restricted to `.figma-designer/browser-prototype/`, fixed no-argument source begin/finish tools (`figma_browser_build_begin`, `figma_browser_build_finish`), and safe read tools. Denies generic shell, Node, PowerShell, Code Mode `execute`, delegation, and formatters across all workspace sessions. Collector-owned `figma-source.json` cannot be model-authored. All mutating callbacks hold atomic shared Build-write member leases through `finally`. Formatter execution is disabled at highest priority in owned-engine configuration (`OPENCODE_CONFIG_CONTENT` with `formatter: false`); unmanaged engines fail closed on the Build-write precondition. Direct canonical `BROWSER_TEST` launcher bypasses model interaction, preserving `workspaceSessionId`. Natural OpenCode Test allows only safe reads and the fixed no-argument `figma_browser_test_report` tool once per turn. Immutable artifact guard captures complete before/after SHA-256 snapshots and enforces atomic directory leases (`.figma-designer/browser-artifacts.lock`). Preserves truthful known 5 MEDIUM stroke-width and motion FAIL / parity UNVERIFIED findings. No OS sandbox claimed; no retrospective historical shell certification. Beta 4 remains immutable; no new release; V1.2.5 remains HOLD.
+
 ## v1.5.0-source — unreleased Agent Studio
 
 Bedroom Agent Studio UI overhaul, deterministic activity translation, coalesced history and truthful waiting/recovery states. Cut over to figma-designer as sole primary agent; removed legacy web-designer instructions and obsolete Native Orca scripts/references. No MCP, workflow or Figma authoring change. Beta 4 is immutable; no new public release. Design-System Intelligence moves to V1.6.
-
 ## v1.2.1-beta.4 — Windows desktop prerelease
 
 Per-user installer and portable app with bundled OpenCode 2.0.28, owned MCP 1.1.0/protocol 2, provider/model controls, structured validation, receipt-based recovery and isolated previews. Desktop package version remains 1.4.4. Unsigned; Beta 3 stays available for rollback and V1.2.5 remains HOLD. See [release notes](docs/RELEASE_NOTES_v1.2.1-beta.4.md).

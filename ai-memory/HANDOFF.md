@@ -6,9 +6,14 @@
 
 ## Current Objective
 
-Native Orca clean removal actively progressing from verified baseline `0c513890cad08dc923fdb5a5f75e0f8b502c52cf`. Consult `docs/ORCA_REMOVAL_AUDIT.md`.
-
-Architecture separation: OMP is the external developer harness for developers and agents; OpenCode is the product runtime (`Figma Designer App -> OpenCode -> Figma Designer workflows -> Figma Designer MCP -> Figma Desktop plugin`). Native Orca is obsolete and cleanly removed across repository and local environments.
+V1.5.1 Browser Test artifact-read-only guard: VERIFIED AND DELIVERED.
+Verified starting HEAD `6a0695d0318b447829596ec13131f77270ee8e32`; user-owned `design-references/1.5-agent-studio/bedroom-base.jpg` preserved untouched throughout.
+All independent audit findings, product and security reviews resolved and passed.
+Full regression: 716 node test cases, 153 Bun test cases, 30 app UI test cases, 8 browser integration / motion test cases, 9 Playwright fidelity test cases, 25 desktop test cases, 35 setup regressions pass.
+Desktop packaging and native MCP release contracts verified.
+Live adversarial exercise verified: 22 mutation vectors blocked before effect, protected hashes unchanged, canonical report and screenshot produced, concurrent Build blocked, Studio visual CHECKING and required safety copy rendered.
+Live Build verified: `figma_browser_build_begin` and `figma_browser_build_finish` executed without shell, zero Figma writes, clean report produced.
+Truthful fidelity/motion/parity findings preserved: 5 MEDIUM stroke-width findings, 1 normal-motion intermediate frame sample, native parity UNVERIFIED.
 
 Current verification status:
 - Verified: 588 npm contracts pass

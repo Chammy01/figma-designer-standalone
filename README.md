@@ -361,6 +361,7 @@ See [Installation](docs/INSTALLATION.md) for source toolchain installation. Read
 - [Development](docs/DEVELOPMENT.md)
 - [Source Bootstrap](docs/SOURCE_BOOTSTRAP.md)
 - [Release Packaging](docs/RELEASE_PACKAGING.md)
+- [Browser Test Artifact Guard](docs/BROWSER_TEST_ARTIFACT_GUARD_V1_5_1.md)
 - [Security](SECURITY.md)
 - [Contributing](CONTRIBUTING.md)
 
@@ -370,4 +371,4 @@ Project-owned code and documentation use the [MIT License](LICENSE). Dependencie
 
 Beta 4 packages the V1.4.4 desktop application. See [desktop architecture and acceptance](docs/FIGMA_DESIGNER_DESKTOP_V1_4_4.md) for the historical candidate evidence; release-specific inventories and checksums accompany the published release.
 
-Source main now includes the unreleased V1.5.0 AI Designer presence: the bedroom-centered Agent Studio and short activity updates derived from observed work, with private details excluded. Beta 4 downloads remain unchanged.
+Source main includes the unreleased V1.5.0 AI Designer presence (bedroom-centered Agent Studio and private-detail-excluded activity updates) and V1.5.1 browser testing safeguards: an explicit workspace-wide finite capability profile (approved 108 Figma tools, finite prototype Build file mutations, fixed source begin/finish tools, and denial of generic shell/Node/PowerShell/CodeMode/delegation across all sessions) and an immutable artifact-read-only Browser Test guard. Beta 4 downloads remain unchanged.

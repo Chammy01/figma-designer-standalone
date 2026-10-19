@@ -343,3 +343,28 @@ Native Orca was an obsolete standalone command dispatcher whose active reference
 - Do not add wrappers, shims, or discovery heuristics for `orca.ps1` or Native Orca binaries.
 - All testing verifies absence of Native Orca variables, commands, and packaged artifacts.
 - OMP remains solely an external development harness.
+
+## 2026-10-19 — Browser artifact isolation requires finite workspace capabilities
+
+Independent V1.5.1 security review found that Test-only tool denial cannot prevent
+a writer admitted in another product session before freeze, including detached
+shell descendants. The user explicitly selected **Restrict workspace model execution**
+over preserving arbitrary execution with HOLD or expanding to OS containment.
+
+Keep approved Figma authoring tools direct, known finite file operations bounded
+to Browser Build output, fixed source collection/binding, and the fixed Test runner.
+Deny arbitrary shell/Node/PowerShell, Code Mode execution, delegation and unknown
+model capabilities workspace-wide. This is an authorized permission change, not
+a change to the MCP catalog, native authoring payloads, motion/fidelity policy or
+the external OMP harness's developer tools.
+
+Every finite mutation's actual callback holds browser-artifact exclusion through
+completion/error. Build watchers are bound to exact lease generations; stale
+callbacks cannot release replacement builds. App-managed OpenCode receives a
+highest-priority formatter-disabled config document; unmanaged engines cannot
+claim that precondition merely from a project config file. Historical uncontained
+execution is not retroactively certified by a restart or PID inventory.
+
+New fixed Browser Tests carry explicit execution provenance. Legacy interrupted
+model Test runs retain original reconciliation quarantine; a fixed check preserves
+the workspace authoring session separately without submitting to it.
