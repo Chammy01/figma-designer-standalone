@@ -127,7 +127,7 @@ This earlier Velvet Brew example shows generated Figma output, not the V1.5.3 ap
 
 The desktop app sends your request to OpenCode, which runs the Figma Designer workflows through the local MCP executable and localhost WebSocket bridge. The development plugin creates or edits native layers in the open Figma document. Browser generation and testing use local Node and Playwright, separate from Figma write operations.
 
-See [Architecture](docs/ARCHITECTURE.md) for the integration details. OpenCode is the product runtime; you do not need its terminal interface for normal desktop use. The optional `/figma/` commands are documented in [Commands](docs/COMMANDS.md).
+See [Architecture](docs/ARCHITECTURE.md) for the integration details. OpenCode is the product runtime; you do not need its terminal interface for normal desktop use. Optional commands include `/figma/critique` | Review the current design and identify prioritized quality issues. Detailed slash workflows are documented in [Commands](docs/COMMANDS.md).
 
 ## Known limitations
 
