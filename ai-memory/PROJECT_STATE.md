@@ -11,9 +11,20 @@ This repository is an active standalone Figma automation project.
 The project is being developed as an AI-assisted pipeline for generating, validating, and maintaining structured Figma designs while preserving reliable state across multiple AI harnesses.
 
 Project memory is tracked at `aedddf46ef884effa88ae4957376a18fe1054132`. Shared `ai checkpoint` / `ai resume` / `ai status` automation is installed; checkpoint Graphify update and Obsidian export succeeded on 2026-10-18. The earlier stale analysis sidecar has been refreshed, and the following `ai checkpoint` completed without that warning.
+V1.5.0 source/live/package acceptance is complete; the final documentation-head CI is the remaining report gate. Source 0c105a4 CI 39162090680 passed all four jobs. The old request stays FAILED/UNVERIFIED with explicit USER_ACCEPTED_CURRENT_STATE resolution. QA and Browser fidelity FAIL findings remain visible; see `docs/USER_ACCEPTED_CURRENT_STATE_V1_5_0.md`. V1.2.5 remains HOLD. Published Beta 3/Beta 4 assets and approved MCP runtime are unchanged.
 
-V1.5.0 source/live/package acceptance is complete; the final documentation-head CI is the remaining report gate. Source0c105a4 CI39162090680 passed allfourjobs. The old request stays FAILED/UNVERIFIED with explicit USER_ACCEPTED_CURRENT_STATE resolution. QA and Browser fidelity FAIL findings remain visible; see docs/USER_ACCEPTED_CURRENT_STATE_V1_5_0.md. V1.2.5 remains HOLD. Published Beta3/Beta4 and approved MCP runtime are unchanged.
-
+Active project transition (2026-10-19): Clean removal of obsolete Native Orca from baseline `0c513890cad08dc923fdb5a5f75e0f8b502c52cf`.
+- Architecture boundary: OMP is the external developer harness; OpenCode is the product runtime (`Figma Designer App -> OpenCode -> Figma Designer workflows -> Figma Designer MCP -> Figma Desktop plugin`).
+- Native Orca is obsolete: `orca.ps1` and `.opencode/agents/web-designer.md` removed; canonical `figma-designer` agent guidance migrated; local/template configs, setup, allowlists, tests, docs, and desktop upgrade policy aligned.
+- Local environment sanitized: Native Orca installation, updater, profile, hooks, shortcut, User PATH entry, uninstall registry key, and auto-hooks across OMP, OpenCode, Codex, and Qoder removed without elevation while preserving all other settings.
+- Verification status:
+  - Verified: 588 npm contracts pass
+  - Verified: 328 plugin + 153 hardening/source Bun tests pass
+  - Verified: Go tests and Go vet pass
+  - Verified: MCP 1.1.0 / protocol 2 / 108 tool probe pass
+  - Verified: Browser integration/motion8, fidelity9, all30 UI cases across focused runs,33 setup scenarios,clean source/archive/232-entry ZIP setup,clean-source release/privacy,794-file desktop validation and packaged smoke with no Orca executable/variables; independent advisor and exclusion audit PASS.
+  - Remaining gates: fresh live Browser validation and exact-head CI. A prior own smoke interruption was explicitly resolved by the user's normal Keep Current Figma confirmation, preserving FAILED/UNVERIFIED history without replay.
+- Invariants: Requested Gemini role models (advisor/planner) unavailable through OMP dispatcher (no worker model override / no native `plan` role); assigned roles operated honestly without Native Orca tools. Historical recovery evidence, V1.2.5 HOLD, Beta 3/4 published assets, MCP 1.1.0 / protocol 2 / 108 tools (`combine_as_variants`), and user-modified `bedroom-base.jpg` preserved untouched.
 ## Current Architecture Direction
 
 The system should favor:
@@ -24,6 +35,8 @@ The system should favor:
 - safe recovery after tool timeouts or interrupted agent sessions
 - reusable automation rather than one-off manual fixes
 - compatibility with multi-agent workflows
+- clean boundary between external developer harnesses (OMP) and the product runtime (OpenCode)
+- complete absence of obsolete Native Orca dependencies, scripts, or hooks
 
 ## Known Reliability Rules
 

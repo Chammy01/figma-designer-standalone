@@ -12,6 +12,15 @@ if (Test-Path -LiteralPath $OutputRoot) { throw 'Use a fresh disposable acceptan
 New-Item -ItemType Directory -Path $OutputRoot | Out-Null
 $shell = (Get-Process -Id $PID).Path
 function Assert([bool]$OK, [string]$Message) { if (-not $OK) { throw $Message } }
+$savedOrcaVars = @{}
+foreach ($item in (Get-ChildItem Env:ORCA_*)) {
+    $savedOrcaVars[$item.Name] = $item.Value
+}
+foreach ($item in (Get-ChildItem Env:ORCA_*)) {
+    Remove-Item "Env:$($item.Name)"
+}
+try {
+Assert (@(Get-ChildItem Env:ORCA_*).Count -eq 0) 'Source bootstrap must not require ORCA_* environment variables'
 $archive = Join-Path $OutputRoot 'clean-source.zip'
 & git -C $root archive --format=zip --output=$archive $SourceRef
 $setupExit = $LASTEXITCODE
@@ -21,6 +30,9 @@ $source = Join-Path $OutputRoot 'Clean source with spaces'
 Expand-Archive -LiteralPath $archive -DestinationPath $source
 $runtimeFiles = @('bin/figma-designer-mcp.exe','vendor/figma-mcp/plugin/dist/code.js','vendor/figma-mcp/plugin/dist/index.html')
 foreach ($relative in $runtimeFiles) { Assert (-not (Test-Path -LiteralPath (Join-Path $source $relative))) "Source archive included generated runtime: $relative" }
+$obsoleteEntries = @('orca.ps1', '.opencode/agents/web-designer.md')
+foreach ($relative in $obsoleteEntries) { Assert (-not (Test-Path -LiteralPath (Join-Path $source $relative))) "Source archive included obsolete file/agent: $relative" }
+Assert (Test-Path -LiteralPath (Join-Path $source '.opencode/agents/figma-designer.md')) 'Source archive missing canonical agent'
 $setup = Join-Path $source 'setup.ps1'
 $ErrorActionPreference = 'Continue' # Windows PowerShell 5.1 represents native stderr as error records.
 & $shell -NoProfile -ExecutionPolicy Bypass -File $setup -Configure -InstallDependencies -InstallBrowser *> (Join-Path $OutputRoot 'source-setup.txt')
@@ -33,6 +45,7 @@ foreach ($relative in $runtimeFiles) {
 }
 $config = Get-Content -LiteralPath (Join-Path $source 'opencode.json') -Raw | ConvertFrom-Json
 Assert ($config.mcp.figma.command[0] -eq (Join-Path $source 'bin/figma-designer-mcp.exe').Replace('\','/')) 'Source config points outside disposable checkout'
+Assert ($config.default_agent -eq 'figma-designer') 'Source config default agent is not canonical figma-designer'
 $before = @{}
 foreach ($relative in $runtimeFiles + 'opencode.json') { $before[$relative] = (Get-FileHash -LiteralPath (Join-Path $source $relative)).Hash }
 $ErrorActionPreference = 'Continue' # Windows PowerShell 5.1 represents native stderr as error records.
@@ -49,6 +62,8 @@ $releaseName = 'Figma-Designer-' + (Get-Content -LiteralPath (Join-Path $root 'V
 $extract = Join-Path $OutputRoot 'Release extraction with spaces'
 Expand-Archive -LiteralPath (Join-Path $package "$releaseName.zip") -DestinationPath $extract
 $release = Join-Path $extract $releaseName
+foreach ($relative in $obsoleteEntries) { Assert (-not (Test-Path -LiteralPath (Join-Path $release $relative))) "Release extraction included obsolete file/agent: $relative" }
+Assert (Test-Path -LiteralPath (Join-Path $release '.opencode/agents/figma-designer.md')) 'Release extraction missing canonical agent'
 # Remove Go/Bun from PATH and make accidental tool calls fail and leave evidence.
 $tools = Join-Path $OutputRoot 'Release tools'
 New-Item -ItemType Directory -Path $tools | Out-Null
@@ -81,5 +96,14 @@ $approved = Get-Content -LiteralPath (Join-Path $root 'docs/APPROVED_RUNTIME.jso
 foreach ($entry in $approved.sha256.PSObject.Properties) { Assert ((Get-FileHash -LiteralPath (Join-Path $release $entry.Name)).Hash.ToLowerInvariant() -eq $entry.Value) "Release runtime changed: $($entry.Name)" }
 $config = Get-Content -LiteralPath (Join-Path $release 'opencode.json') -Raw | ConvertFrom-Json
 Assert ($config.mcp.figma.command[0] -eq (Join-Path $release 'bin/figma-designer-mcp.exe').Replace('\','/')) 'Release config path incorrect'
+Assert ($config.default_agent -eq 'figma-designer') 'Release config default agent is not canonical figma-designer'
 Write-Host 'Source archive acceptance PASS: all three runtime files, exact hashes, local configuration, repeated setup.'
 Write-Host 'Release ZIP regression PASS: canonical package/extraction, setup without Go/Bun, preserved runtime, repeated setup.'
+} finally {
+    foreach ($item in (Get-ChildItem Env:ORCA_*)) {
+        Remove-Item "Env:$($item.Name)"
+    }
+    foreach ($kv in $savedOrcaVars.GetEnumerator()) {
+        Set-Item "Env:$($kv.Key)" $kv.Value
+    }
+}

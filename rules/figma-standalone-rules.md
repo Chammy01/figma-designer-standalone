@@ -85,10 +85,10 @@ reaction semantics, source verification and output truthfulness remain authorita
 
 ## Architecture
 
-- OpenCode is the orchestration/chat surface.
-- The local Figma MCP executable and Figma Desktop development plugin provide Figma read/write tools.
-- Native Orca is not required.
-- Browser regression testing uses local Playwright.
+Product, browser, and external developer harness architectures are strictly distinct:
+- **Product Architecture**: App → OpenCode → workflows (`.opencode/agents/figma-designer.md` as sole primary agent) → local Figma MCP executable → localhost WebSocket bridge → Figma Desktop development plugin → editable native layers in the design document.
+- **Browser Architecture**: Browser regression testing and prototype validation use local Node and Playwright, completely isolated from Figma write operations.
+- **Developer Harness Architecture**: OMP is the current external developer harness. Native Orca is obsolete; do not search for, install, invoke, or require it. An absent executable is expected and not a blocker.
 
 ## Canonical page-level ownership
 

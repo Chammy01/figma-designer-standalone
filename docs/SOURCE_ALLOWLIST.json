@@ -1,6 +1,5 @@
 [
   ".opencode/agents/figma-designer.md",
-  ".opencode/agents/web-designer.md",
   ".opencode/commands/figma/browser-test.md",
   ".opencode/commands/figma/browser.md",
   ".opencode/commands/figma/critique.md",
@@ -174,6 +173,7 @@
   "docs/INTENT_ROUTER_V1_2_3_2.md",
   "docs/INTERACTION_QA_V2_V1_2_7.md",
   "docs/NATIVE_SCROLL_MOTION_V1_3.md",
+  "docs/ORCA_REMOVAL_AUDIT.md",
   "docs/OWNED_MCP_EQUIVALENCE.json",
   "docs/OWNED_MCP_LIVE.json",
   "docs/OWNED_MCP_SOURCE.json",
@@ -196,7 +196,6 @@
   "docs/assets/import-plugin.png",
   "docs/assets/plugin-connected.png",
   "docs/assets/setup-pass.png",
-  "orca.ps1",
   "package-lock.json",
   "package.json",
   "rules/figma-browser-fidelity.md",

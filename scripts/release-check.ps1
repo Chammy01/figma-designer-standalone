@@ -36,7 +36,7 @@ foreach ($file in Get-ChildItem -LiteralPath $PSScriptRoot -File | Where-Object 
     if ($LASTEXITCODE -ne 0) { $failures += "JavaScript: $($file.Name)" }
 }
 $template = Get-Content -LiteralPath (Join-Path $root 'opencode.example.json') -Raw | ConvertFrom-Json
-if ($template.model -ne 'opencode/space-bunny-free' -or $template.default_agent -ne 'web-designer' -or $template.mcp.figma.timeout -ne 10000 -or $template.mcp.figma.command[0] -ne '__SETUP_MANAGED_MCP_EXECUTABLE__') { $failures += 'Preserved config policy' }
+if ($template.model -ne 'opencode/space-bunny-free' -or $template.default_agent -ne 'figma-designer' -or $template.mcp.figma.timeout -ne 10000 -or $template.mcp.figma.command[0] -ne '__SETUP_MANAGED_MCP_EXECUTABLE__') { $failures += 'Preserved config policy' }
 $approved = Get-Content -LiteralPath (Join-Path $root 'docs/APPROVED_RUNTIME.json') -Raw | ConvertFrom-Json
 $sourceFiles = Get-Content -LiteralPath (Join-Path $root 'docs/SOURCE_ALLOWLIST.json') -Raw | ConvertFrom-Json
 foreach ($relative in $sourceFiles | Where-Object { $_ -notin @($approved.sha256.PSObject.Properties.Name) }) {

@@ -9,6 +9,13 @@ $savedPath = $env:PATH
 $savedMode = $env:FIGMA_SETUP_TEST_MODE
 $savedLog = $env:FIGMA_SETUP_TEST_LOG
 $savedGoLog = $env:FIGMA_SETUP_GO_LOG
+$savedOrcaVars = @{}
+foreach ($item in (Get-ChildItem Env:ORCA_*)) {
+    $savedOrcaVars[$item.Name] = $item.Value
+}
+foreach ($item in (Get-ChildItem Env:ORCA_*)) {
+    Remove-Item "Env:$($item.Name)"
+}
 function Assert([bool]$OK, [string]$Message) { if (-not $OK) { throw $Message } }
 $nodeTools = Join-Path $temporary 'node tool'
 New-Item -ItemType Directory -Path $nodeTools -Force | Out-Null
@@ -20,7 +27,7 @@ try {
         $plugin = Join-Path $fixture 'vendor/figma-mcp/plugin'
         New-Item -ItemType Directory -Path $tools,(Join-Path $plugin 'dist') -Force | Out-Null
         $files = @('setup.ps1','opencode.example.json','package.json','package-lock.json','docs/APPROVED_RUNTIME.json',
-            '.opencode/agents/figma-designer.md','.opencode/agents/web-designer.md',
+            '.opencode/agents/figma-designer.md',
             '.opencode/plugins/figma-critique-guard.js',
             '.opencode/plugins/figma-qa-guard.js',
             'app/shared/result-contract.mjs','app/server/validation.mjs','app/web/validation.js','app/server/ai.mjs','app/server/index.mjs','app/server/opencode-client.mjs','app/server/runs.mjs','app/server/operation-recovery.mjs','app/server/status.mjs','app/web/index.html','app/web/styles.css','app/web/app.js','rules/figma-qa-guard.mjs','rules/figma-standalone-rules.md','rules/figma-design-rules.md','rules/figma-intent-router.mjs','rules/figma-prototype-planner.md',
@@ -158,6 +165,9 @@ exit /b 0
 '@)
         }
         $env:PATH = $tools + ';' + $nodeTools + ';' + (Join-Path $env:SystemRoot 'System32')
+        foreach ($orcaCmd in @('orca','orca.exe','orca.cmd','orca.ps1')) {
+            Assert ($null -eq (Get-Command $orcaCmd -ErrorAction SilentlyContinue)) "Orca executable must not resolve: $orcaCmd"
+        }
         $env:FIGMA_SETUP_TEST_MODE = $mode
         $env:FIGMA_SETUP_TEST_LOG = Join-Path $fixture 'bun-calls.txt'
         $env:FIGMA_SETUP_GO_LOG = Join-Path $fixture 'go-calls.txt'
@@ -201,6 +211,23 @@ exit /b 0
             else { Assert (-not (Test-Path -LiteralPath $env:FIGMA_SETUP_TEST_LOG)) 'Repeated release invoked Bun' }
             if ($goBefore) { Assert ([IO.File]::ReadAllText($env:FIGMA_SETUP_GO_LOG) -eq $goBefore) 'Repeated setup called Go' }
             else { Assert (-not (Test-Path -LiteralPath $env:FIGMA_SETUP_GO_LOG)) 'Repeated release invoked Go' }
+            if ($mode -eq 'release') {
+                # Existing source users must not retain a default naming a removed agent.
+                $config.default_agent = 'web-designer'
+                $config.model = 'fixture/preserved-model'
+                $config.mcp.figma.timeout = 12345
+                $config | Add-Member -NotePropertyName fixtureUserSetting -NotePropertyValue @{ keep = 'user preference' }
+                [IO.File]::WriteAllText($configPath, ($config | ConvertTo-Json -Depth 100))
+                $legacyHash = (Get-FileHash -LiteralPath $configPath).Hash
+                $notConfigured = & $shell -NoProfile -File (Join-Path $fixture 'setup.ps1') -SkipBrowser 2>&1 | Out-String
+                Assert ($LASTEXITCODE -ne 0 -and $notConfigured.Contains('Default agent migration required')) 'Legacy config must not report ready without migration'
+                Assert ((Get-FileHash -LiteralPath $configPath).Hash -eq $legacyHash) 'Setup changed configuration without Configure'
+                $migrated = & $shell -NoProfile -File (Join-Path $fixture 'setup.ps1') -Configure -SkipBrowser 2>&1 | Out-String
+                Assert ($LASTEXITCODE -eq 0) "Legacy default migration failed: $migrated"
+                $actualConfig = Get-Content -LiteralPath $configPath -Raw | ConvertFrom-Json
+                $config.default_agent = 'figma-designer'
+                Assert (($actualConfig | ConvertTo-Json -Depth 100 -Compress) -eq ($config | ConvertTo-Json -Depth 100 -Compress)) 'Migration changed unrelated configuration'
+            }
         } elseif ($mode -in @('missing-critique','missing-critique-guard')) {
             Assert ($setupExit -ne 0 -and $output.Contains('[FAIL] Project files')) "$mode must fail project validation: $output"
             Assert ($output.Contains('.opencode/commands/figma/critique.md') -or $output.Contains('.opencode/plugins/figma-critique-guard.js')) "$mode omitted the missing critique file"
@@ -244,5 +271,11 @@ exit /b 0
     $env:FIGMA_SETUP_TEST_MODE = $savedMode
     $env:FIGMA_SETUP_TEST_LOG = $savedLog
     $env:FIGMA_SETUP_GO_LOG = $savedGoLog
+    foreach ($item in (Get-ChildItem Env:ORCA_*)) {
+        Remove-Item "Env:$($item.Name)"
+    }
+    foreach ($kv in $savedOrcaVars.GetEnumerator()) {
+        Set-Item "Env:$($kv.Key)" $kv.Value
+    }
 }
 Write-Host "Setup regressions PASS. Isolated fixtures retained at: $temporary"

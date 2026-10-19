@@ -35,7 +35,7 @@ One workspace, manual plugin import, unsigned status, bounded recovery and curre
 The source UI starts with `npm run app` after source setup. Keep that process running.
 These developer instructions are not required for normal Beta 4 desktop usage.
 
-Use the prebuilt Release ZIP for normal use. Go, Bun, Git, and native Orca are not required. Use a writable folder, keep its files together, and avoid synchronizing or moving it during a session.
+Use the prebuilt Release ZIP for normal use. Go, Bun, and Git are not required. Native Orca is obsolete: do not search for, install, invoke, or require it (an absent executable is expected and not a blocker). Use a writable folder, keep its files together, and avoid synchronizing or moving it during a session.
 
 For current main, use the matched **Figma Designer MCP 1.1.0 / bridge protocol 2** server and plugin; Beta 3 remains the older rollback. Existing source users keep `mcp.figma.command[0]` pointing to `bin/figma-designer-mcp.exe` and reimport/reload the same plugin manifest. Close older OpenCode/MCP sessions that own port 1994 before activation. Check Again must report the matching pair as compatible before writes. Setup preserves existing configuration and reports stale paths without changing provider/model settings. The technical plugin ID stays stable; do not create a duplicate plugin. See [reliability limits and rollback](FIGMA_DESIGNER_MCP_RELIABILITY_V1_4_3B.md).
 
@@ -46,7 +46,7 @@ For current main, use the matched **Figma Designer MCP 1.1.0 / bridge protocol 2
 - OpenCode: follow [official Windows installation](https://opencode.ai/docs/). Its npm route is `npm install -g opencode-ai`; check `opencode --version`. The historical known-good environment used OpenCode 2.0.24. This candidate does not pin or install a newer OpenCode globally.
 - Internet to install dependencies/browser and reach your AI provider. No Figma API key is needed. The AI provider may require sign-in and may impose usage limits or costs. Do not put credentials into project files.
 
-The configuration intentionally keeps `opencode/space-bunny-free`, `web-designer`, and the approved numeric timeout `10000`. Model availability is provider-controlled. If unavailable, use OpenCode's provider/model selection deliberately and save your choice outside shared source; report the chosen model when diagnosing behavior. Setup never changes the model for you.
+The configuration uses `figma-designer` (`.opencode/agents/figma-designer.md`) as the sole primary agent, keeping `opencode/space-bunny-free` and the approved numeric timeout `10000`. Model availability is provider-controlled. If unavailable, use OpenCode's provider/model selection deliberately and save your choice outside shared source; report the chosen model when diagnosing behavior. Setup never changes the model for you.
 
 ## Run setup
 
@@ -56,9 +56,9 @@ Open the extracted folder in File Explorer, type `powershell` in the address bar
 powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -Configure -InstallDependencies -InstallBrowser
 ```
 
-`-Configure` creates only missing local `opencode.json` from the template and your current folder path. `-InstallDependencies` uses `npm ci` with the unchanged lockfile. It replaces only local `node_modules`, as npm ci normally does. `-InstallBrowser` invokes the installed pinned Playwright CLI to install Chromium to its normal user cache. Each action is announced. No elevated terminal is required. Every setup invocation also builds a missing MCP executable and prepares missing Figma plugin assets from checked-out source and verifies the dispatcher SHA-256 against `APPROVED_RUNTIME.json`. Existing approved ZIP assets are verified without installing plugin dependencies or rebuilding. Other configuration/browser actions require their flags. Setup exits nonzero if required checks fail and prints recovery instructions instead of plugin-import instructions.
+`-Configure` creates missing local `opencode.json` from the template and your current folder path, or migrates only the removed default-agent selection in an existing config. `-InstallDependencies` uses `npm ci` with the unchanged lockfile. It replaces only local `node_modules`, as npm ci normally does. `-InstallBrowser` invokes the installed pinned Playwright CLI to install Chromium to its normal user cache. Each action is announced. No elevated terminal is required. Every setup invocation also builds a missing MCP executable and prepares missing Figma plugin assets from checked-out source and verifies the dispatcher SHA-256 against `APPROVED_RUNTIME.json`. Existing approved ZIP assets are verified without installing plugin dependencies or rebuilding. Other configuration/browser actions require their flags. Setup exits nonzero if required checks fail and prints recovery instructions instead of plugin-import instructions.
 
-Existing config is read and preserved. A wrong executable path is reported; edit only `mcp.figma.command[0]` to the current `bin/figma-designer-mcp.exe`, retaining your settings. The placeholder in `opencode.example.json` is not executable and must not be copied unchanged into `opencode.json`.
+Existing config is read and preserved, except that `-Configure` migrates the exact removed `web-designer` default to `figma-designer` while retaining model, provider, MCP and other settings. Without `-Configure`, that obsolete default fails readiness with migration instructions. A wrong executable path is reported; edit only `mcp.figma.command[0]` to the current `bin/figma-designer-mcp.exe`, retaining your settings. The placeholder in `opencode.example.json` is not executable and must not be copied unchanged into `opencode.json`.
 
 ## Connect Figma
 

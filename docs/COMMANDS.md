@@ -5,7 +5,7 @@ same agent/session. Its QA, Browser, Browser Test and System Check buttons invok
 the existing canonical commands. All fourteen commands remain available in OpenCode;
 no application-specific Figma command is added. See [Application foundation](FIGMA_DESIGNER_APP_V1_4_0.md) and the [V1.4.1 provider and workspace guide](FIGMA_DESIGNER_APP_V1_4_1.md), plus [structured validation dashboards](FIGMA_DESIGNER_APP_V1_4_2.md).
 
-Enter these in OpenCode chat while opened in the extracted project folder. Each `/figma/*` command selects `figma-designer`; ordinary chat retains `web-designer` compatibility.
+Enter these in OpenCode chat while opened in the extracted project folder. OpenCode uses `figma-designer` (`.opencode/agents/figma-designer.md`) as the sole primary agent for all `/figma/*` commands and ordinary chat.
 
 ## `/figma/setup`
 

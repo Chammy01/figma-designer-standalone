@@ -15,11 +15,12 @@ import {mockOpenCode} from './fixtures/app-opencode.mjs';
 import {systemStatus} from '../app/server/status.mjs';
 import {validationFixture} from './fixtures/app-validation.mjs';
 async function fixture(t,options={}){
-  const mock=mockOpenCode();await new Promise(r=>mock.server.listen(0,'127.0.0.1',r));const url=`http://127.0.0.1:${mock.server.address().port}`;
+  const {mockOptions,...appOptions}=options;
+  const mock=mockOpenCode(mockOptions);await new Promise(r=>mock.server.listen(0,'127.0.0.1',r));const url=`http://127.0.0.1:${mock.server.address().port}`;
   const root=await mkdtemp(join(tmpdir(),'figma-app-'));
   const engine=new OpenCodeClient({root:projectRoot,url,password:'fixture-private-password'});
   let health={runtime:'VERIFIED',figma:'CONNECTED'};
-  const app=await createApplication({root,engine,status:async()=>health,browser:async()=>({state:'NOT_BUILT',fidelity:{SOURCE_FIDELITY:'NOT_RUN'}}),...options});await app.ready;
+  const app=await createApplication({root,engine,status:async()=>health,browser:async()=>({state:'NOT_BUILT',fidelity:{SOURCE_FIDELITY:'NOT_RUN'}}),...appOptions});await app.ready;
   async function api(path,body,headers={}){const r=await fetch(app.url+path,{method:body===undefined?'GET':'POST',headers:{Origin:app.url,'Content-Type':'application/json',...headers},body:body===undefined?undefined:JSON.stringify(body)});return {status:r.status,value:await r.json()};}
   t.after(async()=>{await app.close();await new Promise(r=>mock.server.close(r));assert.ok(root.startsWith(join(tmpdir(),'figma-app-')));await rm(root,{recursive:true,force:true});});
   async function wait(id){for(let i=0;i<30;i++){const r=(await api('/api/run/'+id)).value;if(r.state!=='RUNNING'&&!app.runs.active)return r;await new Promise(r=>setTimeout(r,100));}throw Error('run did not finish');}
@@ -76,7 +77,7 @@ test('invalid external configuration fails safely without breaking status',async
   const engine=new OpenCodeClient({root:projectRoot,url:'invalid',password:'private-sentinel'});await assert.rejects(engine.start());assert.deepEqual(engine.status(),{state:'FAILED',version:null,owned:false,port:null});
 });
 test('cancel uses native interrupt; no process kill or false rollback',async t=>{
-  const f=await fixture(t),r=await f.api('/api/run',{input:'create',requestId:randomUUID()});
+  const f=await fixture(t,{mockOptions:{delay:null}}),r=await f.api('/api/run',{input:'create',requestId:randomUUID()});
   for(let i=0;i<20&&!f.app.runs.active.sessionId;i++)await new Promise(r=>setTimeout(r,10));
   assert.equal((await f.api('/api/run/'+r.value.id+'/cancel',{})).value.interrupted,true);assert.equal((await f.wait(r.value.id)).state,'CANCELLED');
 });

@@ -6,7 +6,24 @@
 
 ## Current Objective
 
-Finish final documentation-head CI for V1.5.0 user-accepted recovery, then report. All source/live/package acceptance is recorded in docs/USER_ACCEPTED_CURRENT_STATE_V1_5_0.md. Original outcome UNVERIFIED; manual resolution USER_ACCEPTED_CURRENT_STATE; no replay. No active app task or uncertainty lock remains.
+Native Orca clean removal actively progressing from verified baseline `0c513890cad08dc923fdb5a5f75e0f8b502c52cf`. Consult `docs/ORCA_REMOVAL_AUDIT.md`.
+
+Architecture separation: OMP is the external developer harness for developers and agents; OpenCode is the product runtime (`Figma Designer App -> OpenCode -> Figma Designer workflows -> Figma Designer MCP -> Figma Desktop plugin`). Native Orca is obsolete and cleanly removed across repository and local environments.
+
+Current verification status:
+- Verified: 588 npm contracts pass
+- Verified: 328 plugin + 153 hardening/source Bun tests pass
+- Verified: Go tests and Go vet pass
+- Verified: MCP 1.1.0 / protocol 2 / 108 tool probe pass
+- Verified: Browser 8 integration/motion + 9 fidelity; all 30 UI cases passing across focused runs (final Studio13/13); 33 setup fixtures; real clean source/archive/232-entry ZIP setup; clean-source release/privacy; 794-file desktop validation and packaged smoke with System32-only PATH/no ORCA variables; advisor and final exclusion audit PASS.
+- Pending: fresh live Browser run `0718248c-0b22-432b-a2be-e3af890a6929`, commit/push and exact-head CI. A prior own smoke request was interrupted by service exit127; user explicitly authorized normal Keep Current Figma confirmation. Old run `6b819bcd-8356-4343-8c4f-578b3d2ed574` remains FAILED/UNVERIFIED with USER_ACCEPTED_CURRENT_STATE; fresh workspace/session boundary established without replay or metadata edits. Never misreport acceptance as completion.
+
+Invariants:
+- Requested Gemini role models (advisor/planner) unavailable through OMP dispatcher (no worker model override / no native `plan` role); assigned roles operated honestly without invoking Native Orca tools or skills.
+- Preserved: historical recovery evidence (USER_ACCEPTED_CURRENT_STATE, run IDs, receipts, fingerprints) and V1.2.5 HOLD.
+- Preserved: Beta 3/4 published assets remain immutable; MCP 1.1.0 / protocol 2 / 108 tools (`combine_as_variants`) and recovery/receipt/QA/fidelity semantics preserved.
+- Preserved: unrelated user-modified `design-references/1.5-agent-studio/bedroom-base.jpg` untouched.
+- Historical inventories frozen except explicit historical scope metadata. No release publication. Prior V1.5 acceptance below is historical context, not the current objective.
 
 ## Verified Working
 
@@ -205,3 +222,33 @@ Source90cc143 CI39161490548 exposed a real shutdown/checkpoint race (ENOTEMPTY d
 ## Final live/package acceptance — 2026-10-19
 
 All five historical run IDs persisted through normal restart, portable smoke, and final relaunch; no active run, lock or native replay. MCP connected/compatible1.1.0 protocol2,108tools; loaded code matches0c105a4. Protected fingerprinta68cfd58… unchanged afterrestart; disposable root1053:1059/314nodes fingerprint7b41848f… unchanged after approved title edit. QA truthfully FAIL (no runtime on visual page); Browser preview works from existing Page1 runtime; final direct read-only Browser Test FAIL retains5MEDIUM strokes, hashes unchanged. Model-orchestrated Test earlier made8artifact editcalls to fix6HIGH generated defects; do not call that procedure artifact-read-only. No runner/threshold changes. Standard staging promoted to final candidate,795-file validation/extraction/smoke pass; Setup/ZIP hashes and all proof in the report. Source0c105a4 CI39162090680 allfourgreen; final documentation commit must get its own green run before final marker. User JPG remains untouched.
+
+## Native Orca Clean Removal and Verification — 2026-10-19
+
+Audit reference: `docs/ORCA_REMOVAL_AUDIT.md`.
+
+1. **Architecture Clarification**: OMP is strictly an external developer harness; OpenCode is the product runtime. Native Orca is obsolete.
+2. **Files & Agents**:
+   - Deleted obsolete root dispatcher `orca.ps1` and old agent `.opencode/agents/web-designer.md`. Zero active references remain.
+   - Migrated section-by-section construction/inspection/revision discipline to canonical `.opencode/agents/figma-designer.md`.
+   - Configured `opencode.json` and `opencode.example.json` to select `figma-designer`.
+   - Updated setup requirements (`setup.ps1`), test fixtures (`scripts/setup.test.ps1`), router tests (`scripts/figma-intent-router.test.mjs`), release check (`scripts/release-check.ps1`), and allowlists (`docs/SOURCE_ALLOWLIST.json`, `docs/RELEASE_ALLOWLIST.json`).
+   - Desktop upgrade policy (`desktop/policy.mjs`) removes legacy `orca.ps1` and `web-designer.md` from the user writable workspace upon upgrade, preventing duplicate agent discovery while preserving `.figma-designer/` outputs, recovery state, and user data.
+3. **Local Environment Sanitization**:
+   - Native Orca per-user installation (`%LOCALAPPDATA%/Programs/orca`), updater, profile (`%APPDATA%/orca`), hooks, shortcut, User PATH entry, and HKCU uninstall registry key removed without elevation.
+   - Auto-hooks targeting Native Orca in OMP, OpenCode, Codex (`hooks.json`), and Qoder removed while strictly preserving all other configuration.
+   - Verification confirms 0 `orca*` commands discoverable.
+4. **Verified Verification Gates**:
+   - 588 npm contracts pass.
+   - 328 plugin + 153 hardening/source Bun tests pass.
+   - Go tests + Go vet pass.
+   - MCP 1.1.0 / protocol 2 / 108 tool probe pass.
+5. **Pending Gates**:
+   - Browser validation tests, desktop rebuild/smoke, source setup tests, CI, and independent review. Current desktop rebuild is in progress.
+6. **Invariants Preserved**:
+   - Historical recovery state and evidence preserved; V1.2.5 HOLD maintained.
+   - Published Beta 3 and Beta 4 assets remain immutable.
+   - Pinned MCP 1.1.0 / protocol 2 / 108 tools (`combine_as_variants`) preserved.
+   - Historical inventory/provenance JSON records preserved.
+   - Unrelated user-modified `bedroom-base.jpg` excluded and untouched.
+   - Requested Gemini role models unavailable through OMP dispatcher; no Native Orca invoked.

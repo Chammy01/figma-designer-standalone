@@ -148,7 +148,7 @@ Open the extracted folder containing `setup.ps1`, `README.md`, and `vendor`. The
 powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -Configure -InstallDependencies -InstallBrowser
 ```
 
-Setup verifies the required runtime files, creates local OpenCode configuration if it is missing, installs local dependencies, and installs Chromium for browser tests. Existing configuration is preserved. The execution-policy exception applies only to this process.
+Setup verifies the required runtime files, creates local OpenCode configuration if it is missing, installs local dependencies, and installs Chromium for browser tests. Existing settings are preserved; `-Configure` migrates only a removed legacy default-agent selection to `figma-designer`. The execution-policy exception applies only to this process.
 
 ![PowerShell setup results showing successful runtime, configuration, and dependency checks](docs/assets/setup-pass.png)
 

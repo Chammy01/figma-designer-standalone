@@ -1,5 +1,5 @@
 {
-  "scope": "Final public source candidate; dependencies, private validation staging, local configuration, and Git metadata excluded.",
+  "scope": "Historical v1.2.1-beta.1 public source candidate snapshot, not the current workspace or package inventory; dependencies, private validation staging, local configuration, and Git metadata excluded. Current package inputs are defined by SOURCE_ALLOWLIST.json.",
   "files": [
     ".gitattributes",
     ".github/ISSUE_TEMPLATE/bug.yml",

@@ -361,7 +361,6 @@ const report = {
   tested: ['ON_CLICK NAVIGATE: pointer, native Enter, Back/Forward', 'screen deep links and invalid-route fallback', 'declared control ownership and uniqueness', 'computed CSS reduced motion on screens and navigation hover/focus', 'context HTTP requests and WebSockets; service workers blocked', ...(motionResults.length ? ['Supported semantic motion: computed/intermediate/final DOM behavior in normal and reduced motion'] : [])],
   unsupported,
   limitations: [manifest?.motion?.contractVersion ? 'Behavioral/timing-bounded motion only; no native pixel, renderer or exact frame timing equivalence.' : 'Working state behavior beyond hook ownership and JavaScript animation timing are untested.', 'Experimental/shared-element/custom easing/timed sequences remain unimplemented.', 'Network checks cover exercised Chromium contexts, not all future behavior.'],
-  nativeOrcaRequired: false,
   passed: failures.length === 0,
   fatal,
   tests: results

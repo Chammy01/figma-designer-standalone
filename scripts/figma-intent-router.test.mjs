@@ -72,7 +72,7 @@ test('every direct specialist command bypasses routing unchanged, including CRLF
 });
 
 test('other agents are not routed and literal argument replacement cannot alter user copy', async () => {
-  const other = await harness(new Error('Must not classify'), { agent: 'web-designer' });
+  const other = await harness(new Error('Must not classify'), { agent: 'build' });
   assert.equal((await other.prompt('Explain this.')).prompt.text, 'Explain this.');
   const h = await harness({ intent: 'production_revision' });
   const text = "Change heading to literal $& $' $$ $ARGUMENTS.";

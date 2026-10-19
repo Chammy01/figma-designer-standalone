@@ -30,7 +30,13 @@ async function fixture(kind) {
     ${kind === 'worker' ? "new Worker('worker.js');" : ''}`;
   for (const [name, content] of Object.entries({ 'figma-browser.json': JSON.stringify(manifest), 'index.html': html, 'styles.css': css, 'app.js': app, 'worker.js': "fetch('https://outside.invalid/worker').catch(()=>{});" })) await writeFile(join(root, name), content);
   try {
-    await execute(process.execPath, [runner], { cwd: dir, timeout: 45000, env: process.env }).catch(error => {
+    const env = { ...process.env, PATH: join(process.env.SystemRoot, 'System32') };
+    for (const key of Object.keys(env)) {
+      if (key.toUpperCase().startsWith('ORCA_')) delete env[key];
+    }
+    // Synthetic fixtures must never inspect the user's live Figma bridge.
+    const offlineSource = `const nativeFetch=globalThis.fetch;globalThis.fetch=(input,options)=>String(input)==='http://127.0.0.1:1994/rpc'?Promise.reject(new Error('Live source unavailable in isolated browser fixture')):nativeFetch(input,options);`;
+    await execute(process.execPath, ['--import', 'data:text/javascript,' + encodeURIComponent(offlineSource), runner], { cwd: dir, timeout: 45000, env }).catch(error => {
       if (error.code !== 1) throw error;
     });
     const report = JSON.parse(await readFile(join(root, 'figma-browser-test.json'), 'utf8'));

@@ -31,7 +31,7 @@ $openCodeVersion = ToolVersion 'opencode.cmd'
 Result ([bool]$openCodeVersion) "OpenCode $openCodeVersion" 'Install OpenCode following docs/INSTALLATION.md. If already installed, verify it can start and write its user log.'
 Write-Host 'OpenCode compatibility reference: 2.0.24. Provider/model availability must be checked in OpenCode.'
 $paths = @('opencode.example.json','package.json','package-lock.json','docs/APPROVED_RUNTIME.json',
-    '.opencode/agents/figma-designer.md','.opencode/agents/web-designer.md',
+    '.opencode/agents/figma-designer.md',
     '.opencode/plugins/figma-critique-guard.js',
     '.opencode/plugins/figma-qa-guard.js',
     'app/shared/result-contract.mjs','app/server/validation.mjs','app/web/validation.js','app/server/ai.mjs','app/server/index.mjs','app/server/opencode-client.mjs','app/server/runs.mjs','app/server/operation-recovery.mjs','app/server/status.mjs','app/web/index.html','app/web/styles.css','app/web/app.js','rules/figma-qa-guard.mjs','rules/figma-standalone-rules.md','rules/figma-design-rules.md','rules/figma-intent-router.mjs','rules/figma-prototype-planner.md',
@@ -191,9 +191,25 @@ if ($Configure -and -not (Test-Path -LiteralPath $configPath)) {
         $file = [IO.File]::Open($configPath, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
         try { $file.Write($bytes, 0, $bytes.Length) } finally { $file.Dispose() }
     } catch { Result $false 'Create local configuration' 'Template invalid or another config appeared; inspect the local file. Existing files are never overwritten.' }
-} elseif ($Configure) { Write-Host 'Existing opencode.json preserved. Setup will check its path without changing it.' }
+} elseif ($Configure) { Write-Host 'Existing opencode.json retained; only an obsolete default agent may be migrated.' }
 try {
     $config = Get-Content -LiteralPath $configPath -Raw | ConvertFrom-Json
+    # One-time migration of the removed agent; provider/model/MCP settings stay intact.
+    if ($config.default_agent -eq 'web-designer') {
+        if ($Configure) {
+            $config.default_agent = 'figma-designer'
+            $temporaryConfig = $configPath + '.' + [guid]::NewGuid().ToString('N') + '.tmp'
+            try {
+                [IO.File]::WriteAllText($temporaryConfig, ($config | ConvertTo-Json -Depth 100) + [Environment]::NewLine, [Text.UTF8Encoding]::new($false))
+                Move-Item -LiteralPath $temporaryConfig -Destination $configPath -Force
+                Write-Host '[INFO] Migrated obsolete default agent to figma-designer; other configuration preserved.'
+            } finally {
+                if (Test-Path -LiteralPath $temporaryConfig) { Remove-Item -LiteralPath $temporaryConfig }
+            }
+        } else {
+            Result $false 'Default agent migration required' 'Run setup.ps1 -Configure to migrate the removed default agent to figma-designer without changing model/provider/MCP settings.'
+        }
+    }
     $configuredExe = $config.mcp.figma.command[0]
     $pathOK = $configuredExe -and [IO.Path]::IsPathRooted($configuredExe) -and [IO.Path]::GetFullPath($configuredExe) -eq $exe
     Result ([bool]$pathOK) 'Configuration executable path' 'Run with -Configure if missing. If you moved folders, edit only mcp.figma.command[0] to this folder executable; see docs/UPDATING.md.'

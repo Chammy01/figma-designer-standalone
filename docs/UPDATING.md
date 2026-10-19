@@ -10,4 +10,9 @@ Current checkpoint: [Figma Designer v1.2.1 Beta 3](https://github.com/Chammy01/f
 6. Run `/figma/doctor`, then `/figma/version`. Keep the old folder until this works.
 7. Copy wanted browser output to the new folder only after reviewing it. Existing evidence may be STALE or UNVERIFIED; deliberately export/test again to establish new evidence. Do not relabel historical PASS as current.
 
+Current source cutover: `setup.ps1 -Configure` migrates an existing removed
+`web-designer` default to the sole primary agent `figma-designer`, preserving
+provider/model/MCP and other settings. Without the flag, setup reports that the
+obsolete selection must be migrated; it never reports that configuration ready.
+
 Rollback: reopen the previous folder/session and its previous development-plugin import as a pair. Do not change Figma layer ownership or rebuild your designs as part of an update.

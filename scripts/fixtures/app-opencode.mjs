@@ -29,6 +29,7 @@ export function mockOpenCode({password='fixture-private-password',delay=60}={}) 
     if(body?.text==='uncertain-failure'){context.push({type:'assistant',content:[{type:'tool',name:'write',state:{}}]},{type:'error',error:{type:'ProviderError'}},{type:'idle',outcome:'failed'});send({data:{}});return;}
     context.push({type:'user',text:body?.text??''});
     const result=action==='command'?`${body.name}\nFIGMA_${body.name==='figma/qa'?'INTERFACE_QA':body.name==='figma/browser-test'?'BROWSER_TEST':body.name==='figma/browser'?'BROWSER':'DOCTOR'}: PASS`:body.text.includes('vague')?'What should users do first?':'Native design created.\nFIGMA_DESIGN_V2: PASS';
+    if(delay!==null)
     setTimeout(()=>{if(context.at(-1)?.outcome==='interrupted')return;context.push({type:'assistant',agent:'figma-designer',content:[{type:'reasoning',text:'HIDDEN_REASONING_SENTINEL'},{type:'tool',name:'private_tool',state:{input:{Authorization:'Basic secret'}}},...(body?.name==='figma/qa'?[{type:'tool',name:'figma_qa_report',state:{status:'completed',metadata:{qaResult:validationFixture().qa}}}]:[]),{type:'text',text:result}]},{type:'idle',outcome:'succeeded'});},delay).unref();
     if(action==='command'){res.writeHead(204);res.end();}else send({data:{id:'message_'+context.length}});
   });

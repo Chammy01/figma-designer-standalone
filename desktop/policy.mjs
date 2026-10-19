@@ -41,6 +41,15 @@ export async function prepareWorkspace(payload,root){
     try{if((await lstat(target)).isSymbolicLink())throw Error('Workspace symlink refused');if(sha256(await readFile(target))===entry.sha256)continue;await chmod(target,0o666);}catch(e){if(e.code!=='ENOENT')throw e;}
     await copyFile(source,target);await chmod(target,0o666);
   }
+  // Migration of formerly shipped inputs: never leave a second agent discoverable.
+  for(const relative of ['orca.ps1','.opencode/agents/web-designer.md']){
+    const target=join(root,relative);
+    try{
+      const info=await lstat(target);
+      if(!info.isFile()||info.isSymbolicLink())throw Error('Legacy workspace input is not an owned regular file');
+      await chmod(target,0o666);await rm(target);
+    }catch(error){if(error.code!=='ENOENT')throw error;}
+  }
   const config=JSON.parse(await readFile(join(root,'opencode.example.json'),'utf8'));
   config.mcp.figma.command=[join(root,'bin/figma-designer-mcp.exe')];
   await atomicJSON(join(root,'opencode.json'),config);

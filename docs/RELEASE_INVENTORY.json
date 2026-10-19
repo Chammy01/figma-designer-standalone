@@ -1,4 +1,5 @@
 {
+  "recordScope": "Historical v1.2.1-beta.1 release inventory; original entry hashes and ZIP digest preserved. Not current package inputs, which are defined by RELEASE_ALLOWLIST.json.",
   "files": [
     {
       "file": ".opencode/agents/figma-designer.md",

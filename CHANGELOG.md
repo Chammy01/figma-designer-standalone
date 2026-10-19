@@ -2,7 +2,7 @@
 
 ## v1.5.0-source — unreleased Agent Studio
 
-Bedroom Agent Studio UI overhaul, deterministic activity translation, coalesced history and truthful waiting/recovery states. No MCP, workflow or Figma authoring change. Beta 4 is immutable; no new public release. Design-System Intelligence moves to V1.6.
+Bedroom Agent Studio UI overhaul, deterministic activity translation, coalesced history and truthful waiting/recovery states. Cut over to figma-designer as sole primary agent; removed legacy web-designer instructions and obsolete Native Orca scripts/references. No MCP, workflow or Figma authoring change. Beta 4 is immutable; no new public release. Design-System Intelligence moves to V1.6.
 
 ## v1.2.1-beta.4 — Windows desktop prerelease
 

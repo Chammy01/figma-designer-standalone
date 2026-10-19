@@ -10,6 +10,8 @@ const secrets=Object.entries(process.env).filter(([key,value])=>/TOKEN|PASSWORD|
 async function walk(dir){for(const name of(await readdir(dir)).sort()){const path=join(dir,name),s=await lstat(path);if(s.isSymbolicLink())throw Error('Package contains a symlink');if(s.isDirectory())await walk(path);else{const rel=relative(unpacked,path).replaceAll('\\','/');if(/(^|\/)(\.git|\.env(?:\..*)?|\.figma-designer|test-results|playwright-report)(\/|$)|\.(log|bak|tmp)$/i.test(rel))throw Error('Forbidden package file: '+rel);const bytes=await readFile(path);if(secrets.some(secret=>bytes.includes(secret)))throw Error('Private build environment data found in package');files.push({path:rel,bytes:s.size,sha256:sha256(bytes)});}}}
 await walk(unpacked);
 const actual=new Map(files.map(f=>[f.path,f]));
+// Removal gate: no obsolete Native Orca runtime, agent or state may ship.
+if(files.some(f=>/(^|\/)(orca\.(ps1|exe|cmd)|web-designer\.md)$|(^|\/)\.orca(\/|$)/i.test(f.path)))throw Error('Obsolete Native Orca package input');
 for(const entry of expected.files){if(actual.get('resources/payload/'+entry.path)?.sha256!==entry.sha256)throw Error('Payload mismatch: '+entry.path);}
 const extra=files.filter(f=>f.path.startsWith('resources/payload/')&&f.path!=='resources/payload/PAYLOAD_INVENTORY.json'&&!expected.files.some(e=>'resources/payload/'+e.path===f.path));if(extra.length)throw Error('Unexpected payload files');
 await access(join(payload,'workspace/vendor/figma-mcp/plugin/manifest.json'));

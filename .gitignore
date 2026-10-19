@@ -6,6 +6,7 @@ opencode.jsonc
 .env.*
 !.env.example
 .figma-designer/
+# Retired Native Orca state must never re-enter source or packages.
 .orca/
 .vendor/
 out/

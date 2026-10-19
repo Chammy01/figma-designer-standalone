@@ -22,19 +22,23 @@ Inspect `git status` and `git diff` before assuming what a previous agent comple
 
 Repository state, tests, and validation results are more authoritative than stale memory notes.
 
-## Project Integration
+## Project Integration and Architecture
 
-OpenCode uses the local Figma MCP executable, localhost WebSocket bridge, and Figma Desktop development plugin to create editable native layers. Native Orca is not required. Do not replace this integration with the Figma REST API.
+The product, browser, and external development harness architectures are strictly distinct:
+- **Product Architecture**: App → OpenCode → workflows (`.opencode/agents/figma-designer.md` as sole primary agent) → local Figma MCP executable → localhost WebSocket bridge → Figma Desktop development plugin → editable native layers in the current design document. Do not replace this integration with the Figma REST API.
+- **Browser Architecture**: Browser regression testing and prototype validation use local Node and Playwright, completely isolated from Figma write paths.
+- **Developer Harness Architecture**: OMP is the current external developer harness for development sessions. Native Orca is obsolete; do not search for, install, invoke, or require it. An absent executable is expected and not a blocker. Never invoke legacy scripts or look for orca binaries.
+
+The primary agent is `.opencode/agents/figma-designer.md`. Legacy `web-designer` and legacy scripts have been removed; do not retain or reference them.
 
 Read `rules/figma-standalone-rules.md` and `rules/figma-design-rules.md` before every Figma task. They govern ownership, source inspection, authoring, revisions, and partial-write recovery.
-
 Resolve `bin/figma-designer-mcp.exe` relative to this project. The default bridge is `127.0.0.1:1994`. Run health_check, inspect the current document, plan the requested sections, create section-by-section using higher-level HTML operations, inspect generated sections and repair material layout defects. Prefer Auto Layout. Default desktop width is 1440px with about 1200px content and vertical page growth.
 
 For revisions, identify and inspect the smallest affected subtree, preserve unaffected layers and IDs, use patch_html or focused updates, and re-inspect. Do not duplicate existing sections or rebuild entire pages for small edits.
 
 A timed-out write is indeterminate: read back, wait for stable state, preserve valid completed work, and retry only confirmed missing work. Read the actual error; retry a confirmed transient failure once or use a smaller operation. Retry a font-loading text failure once before another approach. Report significant remaining defects.
 
-For release engineering, preserve the approved runtime and pinned upstream source, including combine_as_variants. Do not mass-format vendor code or change timeouts, model/default agent, reaction/motion semantics, or fingerprint versions as release metadata changes.
+For release engineering, preserve the approved runtime and pinned upstream source, including combine_as_variants. Do not mass-format vendor code or change timeouts, reaction/motion semantics, or fingerprint versions as release metadata changes.
 
 ## Memory Maintenance
 

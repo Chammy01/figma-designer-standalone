@@ -6,11 +6,26 @@
 
 ## Active Objective
 
-Finish V1.5.0 user-accepted current-state recovery, live Browser/restart/package acceptance and exact-head CI. Do not replay the old request.
+Remove obsolete Native Orca integration, active instructions/config/package residue and safely identifiable local-only installation/state. Audit: `docs/ORCA_REMOVAL_AUDIT.md`. Baseline `0c513890cad08dc923fdb5a5f75e0f8b502c52cf`; OMP is the external developer harness, not the product runtime.
 
 ## Current Status
 
-Implementation and live/package acceptance are complete. Source head 0c105a4 passed all four hosted jobs (39162090680). Only final documentation-head CI and final reporting remain; no more Figma writes or replay are needed. Read docs/USER_ACCEPTED_CURRENT_STATE_V1_5_0.md for full evidence and the Browser Test procedure deviation.
+Native Orca removal actively progressing from baseline `0c513890cad08dc923fdb5a5f75e0f8b502c52cf`. Obsolete root legacy script (`orca.ps1`) and old agent (`.opencode/agents/web-designer.md`) deleted; canonical `figma-designer` agent updated with construction/revision discipline. Local/template configuration defaults (`opencode.json`, `opencode.example.json`), setup requirements, allowlists, tests, and documentation aligned to canonical OpenCode runtime. Desktop upgrade policy (`desktop/policy.mjs`) configured to remove obsolete files on upgrade. Local Native Orca installation, updater, profile, hooks, shortcut, User PATH, uninstall registry entry, and auto-hooks across OMP, OpenCode, Codex, and Qoder cleanly removed without elevation, preserving all other settings.
+
+Verification status:
+- Verified: 588 npm contracts pass.
+- Verified: 328 plugin + 153 hardening/source Bun tests pass.
+- Verified: Go tests and Go vet pass.
+- Verified: MCP 1.1.0 / protocol 2 / 108 tool probe pass.
+- Verified: Browser 8 integration/motion and 9 fidelity cases; all 30 UI cases exercised passing across focused runs (final Studio 13/13); 33 setup fixtures including exact legacy-default migration; clean source/archive and 232-entry release ZIP setup; clean-source release/privacy gates; 794-file desktop validation and real packaged smoke on System32-only PATH/no ORCA variables. Advisor and final exclusion audit PASS (zero ambiguous active dependencies).
+- Pending: live Browser validation and exact-head hosted CI. Fresh run `0718248c-0b22-432b-a2be-e3af890a6929` is active in owned source smoke app. Earlier smoke service exited 127 during run `6b819bcd-8356-4343-8c4f-578b3d2ed574`; user explicitly authorized normal Keep Current Figma confirmation, preserving old run FAILED/UNVERIFIED with USER_ACCEPTED_CURRENT_STATE and a fresh session boundary. No replay or recovery-file edits. See audit for details.
+
+Invariants:
+- Requested Gemini role models (advisor/planner) unavailable through OMP dispatcher (no model override for worker roles; no native `plan` role); assigned roles operated honestly without invoking Native Orca tools or skills.
+- Preserved: historical recovery evidence (USER_ACCEPTED_CURRENT_STATE, run IDs, receipts, fingerprints) and V1.2.5 HOLD.
+- Preserved: Beta 3/4 published assets remain immutable; MCP 1.1.0 / protocol 2 / 108 tools (including `combine_as_variants`) and recovery/receipt/QA/fidelity semantics preserved.
+- Preserved: unrelated modified binary `design-references/1.5-agent-studio/bedroom-base.jpg` untouched.
+- Historical inventories frozen except explicit historical scope metadata. No release publication.
 
 ## Completed
 
@@ -114,3 +129,28 @@ QA completed read-only (0 writes), unchanged page fingerprint7b41848fd6a5263b775
 ## Latest source/CI — 2026-10-19
 
 Source90cc143 CI39161490548 exposed a real shutdown/checkpoint race (ENOTEMPTY during test workspace cleanup); node-contracts failed, desktop skipped, plugin/Go passed. Fixed in0c105a4b51ded9748c92df660db5857fbda72629: track workPending, reject submits after closed, await final worker checkpoint on close. Added regression;588npm contracts and30UI cases pass. NewCI39162090680 node-contracts/plugin/Go green, desktop pending. Latest package now rebuilding in recovery-candidate from refreshed payload including0c105a4. Running desktop remains the earlier recovery build until liveBrowser finishes and a normal restart activates the final package. Browser56e5731b-4636-40f7-9582-63138bf454fe still active; metadata-only SQLite read of that exact native session confirmed recent read/shell/edit tool completions and no pending permissions. No credentials or reasoning were inspected. Do not resend.
+
+## Native Orca Clean Removal and Verification — 2026-10-19
+
+Audit reference: `docs/ORCA_REMOVAL_AUDIT.md`.
+
+Architecture boundary clarified: OMP is the external developer harness for developers and agents; OpenCode is the product runtime (`Figma Designer App -> OpenCode -> Figma Designer workflows -> Figma Designer MCP -> Figma Desktop plugin`). Native Orca is obsolete and cleanly removed.
+
+Summary of changes and verified state:
+1. **Files Removed**: `orca.ps1` and `.opencode/agents/web-designer.md` deleted with zero active dependencies remaining across repository.
+2. **Agent & Config Migration**: Section-by-section construction and revision guidance migrated to `.opencode/agents/figma-designer.md`. `opencode.json` and `opencode.example.json` updated to select `figma-designer`. Setup script, test fixtures, router tests, and release check updated.
+3. **Desktop Upgrade Policy**: `desktop/policy.mjs` removes formerly shipped `orca.ps1` and `.opencode/agents/web-designer.md` from the user writable workspace upon upgrade, preventing duplicate agent discovery while preserving `.figma-designer/` outputs, recovery state, and user data.
+4. **Local Environment Sanitization**: Native Orca per-user installation (`%LOCALAPPDATA%/Programs/orca`), updater, profile (`%APPDATA%/orca`), hooks, shortcut, User PATH entry, and HKCU uninstall registry entry removed without elevation. Auto-hooks in OMP, OpenCode, Codex (`hooks.json`), and Qoder removed while strictly preserving all other configuration. Command discovery confirms zero `orca*` commands.
+5. **Verified Test Gates**:
+   - 588 npm contracts pass
+   - 328 plugin + 153 hardening/source Bun tests pass
+   - Go tests + vet pass
+   - MCP 1.1.0 / protocol 2 / 108 tool probe pass
+6. **Pending Gates**: Browser validation, desktop rebuild/smoke, source setup tests, CI, and independent review.
+7. **Invariants Preserved**:
+   - Historical recovery state and evidence preserved; V1.2.5 HOLD maintained.
+   - Published Beta 3 and Beta 4 assets remain immutable.
+   - Owned MCP 1.1.0 / protocol 2 / 108 tools (`combine_as_variants`) preserved.
+   - Historical inventory/provenance JSON records preserved.
+   - Unrelated user-modified `bedroom-base.jpg` excluded and untouched.
+   - Requested Gemini role models unavailable through OMP dispatcher; no Native Orca invoked.

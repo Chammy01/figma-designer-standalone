@@ -36,9 +36,13 @@ test('workspace restart/upgrade handles read-only vendor licenses and preserves 
  const inventory=()=>writeFile(join(payload,'PAYLOAD_INVENTORY.json'),JSON.stringify({files}));await inventory();
  await prepareWorkspace(payload,root);await chmod(join(root,'license.txt'),0o444);
  await mkdir(join(root,'.figma-designer'),{recursive:true});await writeFile(join(root,'.figma-designer/keep.json'),'retained');
+ // Migration removes only the two formerly shipped legacy inputs, not user output.
+ await mkdir(join(root,'.opencode/agents'),{recursive:true});
+ for(const path of ['orca.ps1','.opencode/agents/web-designer.md']){await writeFile(join(root,path),'retired package input');await chmod(join(root,path),0o444);}
  await prepareWorkspace(payload,root);assert.equal(await readFile(join(root,'license.txt'),'utf8'),'old license');
  await writeFile(join(payload,'workspace/license.txt'),'updated license');files.find(f=>f.path==='workspace/license.txt').sha256=sha256('updated license');await inventory();
  await prepareWorkspace(payload,root);assert.equal(await readFile(join(root,'license.txt'),'utf8'),'updated license');assert.equal(await readFile(join(root,'.figma-designer/keep.json'),'utf8'),'retained');
+ for(const path of ['orca.ps1','.opencode/agents/web-designer.md'])await assert.rejects(readFile(join(root,path)),{code:'ENOENT'});
 });
 for(const mode of ['AUTO','DESIGN','QA','BROWSER','BROWSER_TEST'])test(`closing during ${mode} preserves an uncertain checkpoint instead of claiming rollback`,async t=>{
  const root=await temporary(t),store=recoveryStore(join(root,'recovery.json'));let release,started;const entered=new Promise(r=>started=r),pending=new Promise(r=>release=r);

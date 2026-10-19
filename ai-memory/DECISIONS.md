@@ -306,3 +306,40 @@ Adds a reporting constraint to "Recovery Tests Are Only Valid for the Scenario A
 ## 2026-10-19 — Explicit Acceptance Resolves the Lock, Not the Old Outcome
 
 The current user task authorizes a confirmed USER_ACCEPTED_CURRENT_STATE path. It saves acceptance before clearing uncertainty and discards old session context. The old run remains FAILED/UNVERIFIED and is never replayed. This supersedes earlier memory statements that only native completion evidence could ever clear this lock; it does not alter what counts as completion or retry safety. Memory checkpoints alone still cannot resolve it.
+
+---
+
+## 2026-10-19 — Clean Removal of Obsolete Native Orca; OMP as Developer Harness vs OpenCode Product Runtime
+
+### Decision
+
+1. **Architectural Separation**: OMP is an external developer harness for developers and agents. It is NOT the product runtime. The product runtime is strictly:
+   `Figma Designer App -> OpenCode -> Figma Designer workflows -> Figma Designer MCP -> Figma Desktop plugin`.
+2. **Native Orca Is Obsolete**: Complete and clean removal of obsolete Native Orca integration across repository, configuration, packaging, and local environments:
+   - Root dispatcher script (`orca.ps1`) and obsolete agent (`.opencode/agents/web-designer.md`) are deleted without compatibility shims.
+   - Valid section-by-section construction, inspection, and completion discipline is migrated into the canonical `figma-designer` agent (`.opencode/agents/figma-designer.md`).
+   - Default agent selection in `opencode.json` and `opencode.example.json` is set to `figma-designer`.
+   - Setup requirements (`setup.ps1`), test fixtures (`scripts/setup.test.ps1`), router tests (`scripts/figma-intent-router.test.mjs`), release check (`scripts/release-check.ps1`), and allowlists (`docs/SOURCE_ALLOWLIST.json`, `docs/RELEASE_ALLOWLIST.json`) are updated to require and ship only canonical files.
+   - Desktop upgrade policy (`desktop/policy.mjs`) explicitly removes formerly shipped `orca.ps1` and `.opencode/agents/web-designer.md` from the user writable workspace upon upgrade, preventing stale dual-agent confusion while preserving `.figma-designer/` outputs, recovery state, and user data.
+   - Local Native Orca installation, updater, profile, hooks, shortcuts, User PATH entry, and HKCU uninstall registry entry were cleanly removed without privilege escalation.
+   - Auto-hooks targeting Native Orca in OMP, OpenCode, Codex, and Qoder were removed while strictly preserving all other provider, model, MCP, and project settings.
+   - Neither agents nor runtime code may search for, install, invoke, or require Native Orca. Its absence is expected and verified by absence regression tests.
+3. **Dispatcher & Role Invariants**: Requested Gemini role models (e.g. Gemini 3.8 Flash advisor/planner) are unavailable through the current OMP task dispatcher due to lack of model override support for workers and absence of a native `plan` role. Subagents operate with their true assigned roles (e.g., reviewer, scout, task); no Native Orca coordination or orchestration tools are invoked.
+4. **Preservation Invariants**:
+   - Historical recovery state and evidence (USER_ACCEPTED_CURRENT_STATE, run IDs, receipts, fingerprints) remain intact.
+   - Product V1.2.5 remains HOLD.
+   - Published Beta 3 and Beta 4 assets remain immutable.
+   - Pinned MCP 1.1.0 / protocol 2 / 108 tools (including `combine_as_variants`) remains untouched.
+   - Historical inventory, provenance, and privacy records (`docs/SOURCE_CONTENTS.json`, etc.) remain frozen as original Beta provenance.
+   - User-modified binary `design-references/1.5-agent-studio/bedroom-base.jpg` remains excluded and untouched.
+
+### Reason
+
+Native Orca was an obsolete standalone command dispatcher whose active references created architectural confusion, brittle setup dependencies, and legacy residue in user environments. Aligning repository and packaging to the canonical OpenCode product runtime simplifies developer workflow and ensures clean, repeatable desktop distribution.
+
+### Consequences
+
+- All future development and automation must use the canonical `figma-designer` agent and the OpenCode product runtime.
+- Do not add wrappers, shims, or discovery heuristics for `orca.ps1` or Native Orca binaries.
+- All testing verifies absence of Native Orca variables, commands, and packaged artifacts.
+- OMP remains solely an external development harness.

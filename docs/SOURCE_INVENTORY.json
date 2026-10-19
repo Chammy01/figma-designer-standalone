@@ -1,5 +1,5 @@
 {
-  "scope": "Complete public source inventory; this inventory is listed in SOURCE_CONTENTS but excludes its own hash to avoid self-reference.",
+  "scope": "Historical v1.2.1-beta.1 public source inventory, not current workspace/package contents; listed in the historical SOURCE_CONTENTS and excludes its own hash. Current package inputs are defined by SOURCE_ALLOWLIST.json.",
   "files": [
     {
       "file": ".gitattributes",

@@ -8,6 +8,7 @@ import assert from 'node:assert/strict';
 const exe=resolve(process.argv[2]??'release-staging/desktop/win-unpacked/Figma Designer.exe');
 const record=join(process.env.APPDATA,'Figma Designer/desktop-status.json');
 const env={...process.env,PATH:join(process.env.SystemRoot,'System32')};
+for(const key of Object.keys(env)){if(key.toUpperCase().startsWith('ORCA_'))delete env[key];}
 const launchedAt=Date.now(),child=spawn(exe,[],{cwd:tmpdir(),env,stdio:'ignore',windowsHide:true});
 let status,health;
 try{

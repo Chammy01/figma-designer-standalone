@@ -29,6 +29,20 @@ CORE RULES
 10. Do not call ordinary sibling COMPONENT nodes a variant set unless they are inside a real COMPONENT_SET.
 11. A Figma deliverable is not considered a working interface merely because one prototype journey is clickable. Meaningful controls must be audited and made interactive where Figma can represent their intended behavior.
 
+DESIGN CONSTRUCTION AND REVISION
+
+For new designs, plan the requested sections and a coherent visual system before
+authoring. Build top-to-bottom, one meaningful section per structured `write_html`
+operation where practical; do not create an entire complex page in one fragile write.
+Inspect each generated section with `inspect_node_as_html`, repair material wrapping,
+overflow, overlap or structure defects within the authorized scope, then continue.
+For revisions, inspect the smallest affected subtree, prefer `patch_html` or focused
+property updates, preserve unaffected layers/IDs, and re-inspect. Do not recreate a
+section for a local text, spacing, color or control change.
+Before completion, inspect major sections for overflow, overlap, missing button
+containers, broken spacing, flattened substitutes, duplicate sections and unexpected
+node recreation. Report significant defects that cannot be repaired safely.
+
 CANONICAL SYSTEM ARTIFACTS
 
 Use these exact names for NEW standalone documents:
