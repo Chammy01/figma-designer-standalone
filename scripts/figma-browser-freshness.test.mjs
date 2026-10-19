@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { sourceFingerprint, classifyFreshness, runnerVersion, sourceProjectionVersion, fingerprintAlgorithm } from './figma-browser-freshness.mjs';
+import { sourceFingerprint, classifyFreshness, runnerVersion, sourceProjectionVersion, fingerprintAlgorithm, resolveBrowserAcceptance, sanitizeArtifactIntegrity } from './figma-browser-freshness.mjs';
 
 test('canonical source fingerprint sorts keys, preserves child order, rejects non-JSON', () => {
   assert.deepEqual(sourceFingerprint({ b: 2, a: 1 }), sourceFingerprint({ a: 1, b: 2 }));
@@ -28,4 +28,48 @@ test('older reports and missing source are UNVERIFIED', () => {
 test('runner/system version changes invalidate local report', () => {
   assert.equal(classifyFreshness(manifest, { ...report, runnerVersion: 'old' }, hashes).local, 'STALE');
   assert.equal(classifyFreshness(manifest, report, hashes, undefined, 'future').local, 'STALE');
+});
+
+test('acceptance helper requires valid guarded integrity evidence before current PASS or WARN', () => {
+  const currentReport = { ...report };
+  assert.equal(resolveBrowserAcceptance(currentReport, 'CURRENT'), 'UNVERIFIED');
+  assert.equal(resolveBrowserAcceptance(currentReport, 'STALE'), 'PASS');
+  assert.equal(resolveBrowserAcceptance({ ...report, result: 'WARN' }, 'CURRENT'), 'UNVERIFIED');
+  assert.equal(resolveBrowserAcceptance({ ...report, result: 'FAIL' }, 'CURRENT'), 'FAIL');
+});
+
+test('acceptance helper accepts valid unchanged guarded integrity evidence', () => {
+  const validReport = {
+    ...report,
+    artifactIntegrity: {
+      status: 'UNCHANGED',
+      protectedFileCount: 5,
+      changedFileCount: 0,
+      changedFiles: [],
+      blockedWriteAttempts: 0,
+      blockedWriteEvidence: []
+    }
+  };
+  assert.equal(resolveBrowserAcceptance(validReport, 'CURRENT'), 'PASS');
+  assert.equal(resolveBrowserAcceptance({ ...validReport, result: 'WARN' }, 'CURRENT'), 'WARN');
+});
+
+test('acceptance helper fails closed on integrity mutations, blocked attempts and contradictions', () => {
+  const base = {
+    status: 'UNCHANGED',
+    protectedFileCount: 5,
+    changedFileCount: 0,
+    changedFiles: [],
+    blockedWriteAttempts: 0,
+    blockedWriteEvidence: []
+  };
+  assert.equal(resolveBrowserAcceptance({ ...report, artifactIntegrity: { ...base, status: 'CHANGED', changedFileCount: 1, changedFiles: [{ relativePath: '.figma-designer/browser-prototype/index.html' }] } }, 'CURRENT'), 'FAIL');
+  assert.equal(resolveBrowserAcceptance({ ...report, artifactIntegrity: { ...base, blockedWriteAttempts: 1 } }, 'CURRENT'), 'FAIL');
+  assert.equal(resolveBrowserAcceptance({ ...report, artifactIntegrity: { ...base, changedFileCount: 0, changedFiles: [{ relativePath: '.figma-designer/browser-prototype/index.html' }] } }, 'CURRENT'), 'FAIL');
+  assert.equal(resolveBrowserAcceptance({ ...report, artifactIntegrity: { ...base, blockedWriteAttempts: -1 } }, 'CURRENT'), 'FAIL');
+});
+
+test('legacy reports and missing reports fail closed without guarded evidence', () => {
+  assert.equal(resolveBrowserAcceptance({ version: 1, passed: true }, 'CURRENT'), 'UNVERIFIED');
+  assert.equal(resolveBrowserAcceptance(null, 'CURRENT'), 'UNVERIFIED');
 });

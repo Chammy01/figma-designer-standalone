@@ -10,7 +10,9 @@ import {mockOpenCode} from './fixtures/app-opencode.mjs';
 async function workspace(t,{delay=400}={}){
   const mock=mockOpenCode({delay});await new Promise(r=>mock.server.listen(0,'127.0.0.1',r));const engine=new OpenCodeClient({root:projectRoot,url:`http://127.0.0.1:${mock.server.address().port}`,password:'fixture-private-password'});
   const root=await mkdtemp(join(tmpdir(),'figma-app-ui-'));let health={figma:'CONNECTED',runtime:'VERIFIED'};
-  const app=await createApplication({root,engine,status:async()=>health,browser:async()=>({state:'NOT_BUILT',fidelity:{SOURCE_FIDELITY:'NOT_RUN'}})});await app.ready;
+  const app=await createApplication({root,engine,status:async()=>health,browser:async()=>({state:'NOT_BUILT',fidelity:{SOURCE_FIDELITY:'NOT_RUN'}})});
+  app.runs.browserTest=async()=>({report:{result:'PASS',generatedAt:new Date().toISOString(),artifactIntegrity:{status:'UNCHANGED',protectedFileCount:5,changedFileCount:0,changedFiles:[],blockedWriteAttempts:0,blockedWriteEvidence:[]}},output:'FIGMA_BROWSER_TEST: PASS'});
+  await app.ready;
   const browser=await chromium.launch(),context=await browser.newContext({viewport:{width:1100,height:800},reducedMotion:'reduce'}),page=await context.newPage();
   const external=[];await context.route('**/*',r=>new URL(r.request().url()).origin===app.url?r.continue():(external.push(r.request().url()),r.abort()));
   t.after(async()=>{assert.deepEqual(external,[]);await browser.close();await app.close();await new Promise(r=>mock.server.close(r));assert.ok(root.startsWith(join(tmpdir(),'figma-app-ui-')));await rm(root,{recursive:true,force:true});});await page.goto(app.url);
@@ -28,7 +30,7 @@ test('application protocol UI: conversation, briefing, revision, specialist acti
   await w.send('Make the cards softer.');
   await w.send('vague design');assert.match(await page.locator('#conversation').textContent(),/What should users do first/);await w.send('Create a new task.');
   for(const name of ['Run QA','Build Browser','Test Browser']){await page.locator('.workflow-actions').getByRole('button',{name,exact:true}).click();await page.waitForTimeout(1600);await w.settled();}
-  assert.equal(w.mock.calls.filter(c=>c.path==='/api/session').length,1);assert.deepEqual(w.mock.calls.filter(c=>c.path.endsWith('/command')).map(c=>c.body.name),['figma/qa','figma/browser','figma/browser-test']);
+  assert.equal(w.mock.calls.filter(c=>c.path==='/api/session').length,1);assert.deepEqual(w.mock.calls.filter(c=>c.path.endsWith('/command')).map(c=>c.body.name),['figma/qa','figma/browser']);
   await page.reload();await page.waitForFunction(()=>document.getElementById('conversation').textContent.includes('Make the cards softer.'));
   await page.getByRole('link',{name:'Settings',exact:true}).click();await page.getByText('Developer diagnostics',{exact:true}).click();assert.doesNotMatch(await page.locator('#diagnostic-output').textContent(),/fixture-private-password|Authorization|HIDDEN_REASONING/);
   await page.getByText('Developer diagnostics',{exact:true}).click();assert.equal(await page.locator('#diagnostics').getAttribute('open'),null);

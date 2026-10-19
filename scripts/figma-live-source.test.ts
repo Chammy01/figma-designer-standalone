@@ -6,7 +6,7 @@ import { pluginDispatch } from './figma-plugin-test-dispatch';
 import { beginExport, finishExport } from './figma-browser-source.mjs';
 import { browserStatus } from './figma-browser-status.mjs';
 import { artifactHashes } from './figma-browser-freshness.mjs';
-import { mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import statefulActions from './fixtures/stateful-actions.json';
@@ -382,7 +382,8 @@ test('export A to B records source change, unchanged export binds run ID', async
 test('export files, report, and automatic status share live evidence and run ID', async () => {
   const f = fixture(); const capture = await collectBrowserSource(f.api, f.runtime);
   const read: any = async (tool: string) => tool === 'get_metadata' ? { currentPageId: f.page.id } : capture;
-  const root = await mkdtemp(join(tmpdir(), 'figma-source-test-'));
+  const workspace = await mkdtemp(join(tmpdir(), 'figma-source-test-'));
+  const root=join(workspace,'.figma-designer/browser-prototype');await mkdir(root,{recursive:true});
   try {
     const before = await beginExport(root, read);
     await writeFile(join(root, 'figma-browser.json'), JSON.stringify({ version: 2, exportRunId: before.exportRunId, runtimeSectionId: f.runtime.id, screens: [{ id: f.screen.id }] }));
@@ -401,7 +402,7 @@ test('export files, report, and automatic status share live evidence and run ID'
     const saved = await readFile(join(root, 'figma-source.json'), 'utf8');
     expect((await beginExport(root, async () => { throw new Error('No connection'); })).status).toBe('UNVERIFIED');
     expect(await readFile(join(root, 'figma-source.json'), 'utf8')).toBe(saved);
-  } finally { await rm(root, { recursive: true, force: true }); }
+  } finally { await rm(workspace, { recursive: true, force: true }); }
 });
 test('missing browser artifacts still report live source, without writes', async () => {
   const root = await mkdtemp(join(tmpdir(), 'figma-source-status-'));

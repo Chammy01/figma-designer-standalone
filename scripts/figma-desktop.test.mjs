@@ -48,8 +48,12 @@ for(const mode of ['AUTO','DESIGN','QA','BROWSER','BROWSER_TEST'])test(`closing 
  const root=await temporary(t),store=recoveryStore(join(root,'recovery.json'));let release,started;const entered=new Promise(r=>started=r),pending=new Promise(r=>release=r);
  const engine={createSession:async()=>({id:'fixture'}),context:async()=>[],submit:async()=>{started();await pending;}};
  const runs=new Runs(engine,()=>{},async()=>null,async()=>{},async()=>null,store.save);
+ runs.browserTest=async()=>{started();await pending;return {report:{result:'PASS',artifactIntegrity:{status:'UNCHANGED',protectedFileCount:5,changedFiles:[],blockedWriteAttempts:0}},output:''};};
  await runs.submit({mode,input:'synthetic acceptance',requestId:randomUUID()});await entered;runs.closed=true;release();while(runs.active)await new Promise(r=>setTimeout(r,10));
- const restored=new Runs({});await store.restore(restored);assert.equal(restored.uncertain,true);assert.equal(restored.runs[0].recovery,'RECONCILIATION_REQUIRED');assert.equal(restored.runs[0].mode,mode);
+ const restored=new Runs({});await store.restore(restored);
+ if(mode==='BROWSER_TEST'){assert.ok(!restored.uncertain);assert.equal(restored.runs[0].recovery,'RETRY_SAFE');}
+ else{assert.equal(restored.uncertain,true);assert.equal(restored.runs[0].recovery,'RECONCILIATION_REQUIRED');}
+ assert.equal(restored.runs[0].mode,mode);
 });
 
 test('installer rejects unsafe path lengths before copying, without weakening package completeness',async()=>{const hook=await readFile('desktop/installer.nsh','utf8'),prepare=await readFile('scripts/desktop-prepare.mjs','utf8'),check=await readFile('scripts/desktop-extraction-check.mjs','utf8');assert.match(hook,/\$R9 > 100/);assert.match(hook,/customInit/);assert.match(hook,/customPageAfterChangeDir/);assert.match(prepare,/length>149/);assert.match(check,/missing\.length/);});

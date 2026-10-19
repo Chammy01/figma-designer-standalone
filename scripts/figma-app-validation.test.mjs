@@ -33,3 +33,62 @@ test('local artifact drift cannot masquerade as a current preview even when Figm
 test('a report replaced during canonical freshness collection cannot borrow the new report status',async t=>{const {v,f}=await store(t);v.browser=async()=>{await writeFile(join(v.browserRoot,'figma-browser-test.json'),JSON.stringify({...f.report,result:'FAIL'}));return f.state;};const r=await v.get();assert.equal(r.browser.testFreshness,'UNVERIFIED');assert.notEqual(r.browser.acceptance,'PASS');});
 test('a claimed unchanged result without complete before fingerprints remains unverified',()=>{const f=validationFixture();f.qa.integrity.before.document=null;const v=f.view().qa;assert.equal(v.integrity.status,'UNVERIFIED');assert.equal(v.freshness,'UNVERIFIED');assert.notEqual(v.status,'PASS');});
 test('credential query values in validation details are redacted',()=>{const f=validationFixture();f.report.tests[0].detail='Unexpected https://example.test/?token=private-query-value&api_key=another-private-value';const v=JSON.stringify(f.view());assert.doesNotMatch(v,/private-query-value|another-private-value/);assert.match(v,/redacted/);});
+
+for(const contradiction of [
+  {changedFileCount:0,changedFiles:[{relativePath:'.figma-designer/browser-prototype/index.html'}]},
+  {blockedWriteAttempts:0,blockedWriteEvidence:[{workflow:'BROWSER_TEST',category:'WRITE',blocked:true,timestamp:'2026-10-19T00:00:00.000Z'}]},
+  {blockedWriteAttempts:undefined,blockedWriteEvidence:[{workflow:'BROWSER_TEST',category:'WRITE',blocked:true,timestamp:'2026-10-19T00:00:00.000Z'}]},
+  {blockedWriteAttempts:-1}
+])test('contradictory saved integrity cannot project normal PASS: '+JSON.stringify(contradiction),()=>{
+  const f=validationFixture();
+  f.report.artifactIntegrity={status:'UNCHANGED',protectedFileCount:5,changedFileCount:0,changedFiles:[],blockedWriteAttempts:0,blockedWriteEvidence:[],...contradiction};
+  const browser=f.view().browser;
+  assert.equal(browser.artifactIntegrity.status,'UNVERIFIED');
+  assert.equal(browser.acceptance,'FAIL');assert.equal(browser.lastAcceptance,'FAIL');
+  if(contradiction.blockedWriteEvidence)assert.ok(browser.artifactIntegrity.blockedWriteAttempts>=1);
+});
+test('natural AUTO browser-test structured FAIL dominates model prose PASS',async t=>{
+  const {f,v}=await store(t);
+  const generatedAt=f.report.generatedAt;
+  await writeFile(join(v.browserRoot,'figma-browser-test.json'),JSON.stringify({...f.report,result:'FAIL',generatedAt}));
+  const run={mode:'AUTO',state:'COMPLETED',result:'Task completed successfully.\nFIGMA_BROWSER_TEST: PASS'};
+  const ctx=[{content:[{type:'tool',name:'figma_browser_test_report',state:{status:'completed',metadata:{...f.report,result:'FAIL',generatedAt}}}]}];
+  await v.capture(run,ctx);
+  assert.equal(run.validation.kind,'BROWSER_TEST');
+  assert.equal(run.validation.status,'FAIL');
+  assert.equal(run.validation.generatedAt,generatedAt);
+  assert.match(run.result,/FIGMA_BROWSER_TEST: FAIL/);
+  assert.doesNotMatch(run.result,/FIGMA_BROWSER_TEST: PASS/);
+});
+test('natural AUTO absorbs late blocked attempt from correlated disk report',async t=>{
+  const {f,v}=await store(t);
+  const generatedAt=f.report.generatedAt;
+  await writeFile(join(v.browserRoot,'figma-browser-test.json'),JSON.stringify({
+    ...f.report,
+    result:'FAIL',
+    policyCode:'BROWSER_TEST_ARTIFACT_WRITE_BLOCKED',
+    generatedAt,
+    artifactIntegrity:{status:'UNCHANGED',protectedFileCount:5,changedFiles:[],blockedWriteAttempts:1,blockedWriteEvidence:[{workflow:'BROWSER_TEST',category:'WRITE',blocked:true,timestamp:generatedAt}]}
+  }));
+  const run={mode:'AUTO',state:'COMPLETED',result:'FIGMA_BROWSER_TEST: PASS'};
+  const ctx=[{content:[{type:'tool',name:'figma_browser_test_report',state:{status:'completed',metadata:{...f.report,result:'PASS',generatedAt}}}]}];
+  await v.capture(run,ctx);
+  assert.equal(run.state,'FAILED');
+  assert.equal(run.error.code,'BROWSER_TEST_ARTIFACT_WRITE_BLOCKED');
+  assert.equal(run.validation.status,'FAIL');
+  assert.equal(run.artifactIntegrity.blockedWriteAttempts,1);
+  assert.match(run.result,/FIGMA_BROWSER_TEST: FAIL/);
+});
+test('absent or mismatched disk report fails conservatively and does not borrow another generation',async t=>{
+  const {f,v}=await store(t);
+  const oldGen='2026-10-18T00:00:00.000Z';
+  await writeFile(join(v.browserRoot,'figma-browser-test.json'),JSON.stringify({...f.report,result:'PASS',generatedAt:oldGen}));
+  const currentGen='2026-10-19T12:00:00.000Z';
+  const run={mode:'AUTO',state:'COMPLETED',result:'FIGMA_BROWSER_TEST: PASS'};
+  const ctx=[{content:[{type:'tool',name:'figma_browser_test_report',state:{status:'completed',metadata:{...f.report,result:'PASS',generatedAt:currentGen}}}]}];
+  await v.capture(run,ctx);
+  assert.equal(run.state,'FAILED');
+  assert.equal(run.error.code,'BROWSER_TEST_ARTIFACT_INTEGRITY_UNVERIFIED');
+  assert.equal(run.artifactIntegrity.status,'UNVERIFIED');
+  assert.equal(run.validation.status,'FAIL');
+});

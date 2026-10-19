@@ -28,7 +28,7 @@ async function fixture(kind) {
   const app = `function render(){let id=location.hash.slice(9);if(!['1:2','1:3'].includes(id))id='1:2';document.querySelectorAll('[data-figma-screen]').forEach(s=>s.hidden=s.dataset.figmaScreen!==id)}addEventListener('hashchange',render);render();
     ${kind === 'popup' ? "window.open('https://outside.invalid/escape');" : ''}
     ${kind === 'worker' ? "new Worker('worker.js');" : ''}`;
-  for (const [name, content] of Object.entries({ 'figma-browser.json': JSON.stringify(manifest), 'index.html': html, 'styles.css': css, 'app.js': app, 'worker.js': "fetch('https://outside.invalid/worker').catch(()=>{});" })) await writeFile(join(root, name), content);
+  for (const [name, content] of Object.entries({ 'figma-browser.json': JSON.stringify(manifest), 'figma-source.json':'{}', 'index.html': html, 'styles.css': css, 'app.js': app, 'worker.js': "fetch('https://outside.invalid/worker').catch(()=>{});" })) await writeFile(join(root, name), content);
   try {
     const env = { ...process.env, PATH: join(process.env.SystemRoot, 'System32') };
     for (const key of Object.keys(env)) {

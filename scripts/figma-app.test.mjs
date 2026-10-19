@@ -14,6 +14,8 @@ import {Runs,redact,safeError} from '../app/server/runs.mjs';
 import {mockOpenCode} from './fixtures/app-opencode.mjs';
 import {systemStatus} from '../app/server/status.mjs';
 import {validationFixture} from './fixtures/app-validation.mjs';
+import {recoveryStore} from '../app/server/recovery-store.mjs';
+import {canonicalBrowserTestExecution} from '../rules/browser-test-artifact-guard.mjs';
 async function fixture(t,options={}){
   const {mockOptions,...appOptions}=options;
   const mock=mockOpenCode(mockOptions);await new Promise(r=>mock.server.listen(0,'127.0.0.1',r));const url=`http://127.0.0.1:${mock.server.address().port}`;
@@ -38,10 +40,10 @@ test('loopback, same-origin boundary, strict paths, credentials and read-only st
 test('protocol E2E preserves prompt, explicit agent, commands and one conversation',async t=>{
   const f=await fixture(t),input='Create a neumorphic task management dashboard.';
   const a=await f.api('/api/run',{input,mode:'AUTO',requestId:randomUUID()});assert.equal(a.status,202);assert.equal((await f.wait(a.value.id)).state,'COMPLETED');
-  for(const [input,mode]of [['Make the cards softer.','AUTO'],['','QA'],['','BROWSER'],['','BROWSER_TEST'],['','STATUS']]){const r=await f.api('/api/run',{input,mode,requestId:randomUUID()});assert.equal((await f.wait(r.value.id)).state,'COMPLETED');}
+  for(const [input,mode]of [['Make the cards softer.','AUTO'],['','QA'],['','BROWSER'],['','STATUS']]){const r=await f.api('/api/run',{input,mode,requestId:randomUUID()});assert.equal((await f.wait(r.value.id)).state,'COMPLETED');}
   const creates=f.mock.calls.filter(c=>c.path==='/api/session');assert.equal(creates.length,1);assert.equal(creates[0].body.agent,'figma-designer');
   assert.equal(f.mock.calls.find(c=>c.path.endsWith('/prompt')).body.text,input);
-  assert.deepEqual(f.mock.calls.filter(c=>c.path.endsWith('/command')).map(c=>c.body.name),['figma/qa','figma/browser','figma/browser-test','figma/doctor']);
+  assert.deepEqual(f.mock.calls.filter(c=>c.path.endsWith('/command')).map(c=>c.body.name),['figma/qa','figma/browser','figma/doctor']);
   assert.doesNotMatch(JSON.stringify((await f.api('/api/runs')).value),/HIDDEN_REASONING_SENTINEL|Authorization|private_tool/);
 });
 
@@ -78,7 +80,7 @@ test('invalid external configuration fails safely without breaking status',async
 });
 test('cancel uses native interrupt; no process kill or false rollback',async t=>{
   const f=await fixture(t,{mockOptions:{delay:null}}),r=await f.api('/api/run',{input:'create',requestId:randomUUID()});
-  for(let i=0;i<20&&!f.app.runs.active.sessionId;i++)await new Promise(r=>setTimeout(r,10));
+  while(!f.mock.calls.some(c=>c.path.endsWith('/prompt')))await new Promise(r=>setTimeout(r,10));
   assert.equal((await f.api('/api/run/'+r.value.id+'/cancel',{})).value.interrupted,true);assert.equal((await f.wait(r.value.id)).state,'CANCELLED');
 });
 test('bounded logs contain no auth/context, and state is ignored',async t=>{
@@ -216,4 +218,116 @@ test('application close drains the final durable checkpoint before workspace cle
  runs.checkpoint=async run=>{if(run.finishedAt){entered();await pending;}await save(run);};
  await f.api('/api/run',{input:'fresh shutdown task',requestId:randomUUID()});await started;
  let closed=false;const closing=f.app.close().then(()=>closed=true);await new Promise(r=>setImmediate(r));assert.equal(closed,false);await assert.rejects(runs.submit({input:'late task',requestId:randomUUID()}),{status:409});release();await closing;assert.equal(closed,true);assert.equal(runs.active,null);const stored=JSON.parse(await readFile(join(f.root,'.figma-designer/app/recovery.json'),'utf8'));assert.ok(stored.runs.at(-1).finishedAt);
+});
+
+test('Browser Test executes once without submitting to the authoring engine and starts in CHECKING',async t=>{
+  const f=await fixture(t);
+  let engineSubmitted=0,runnerCalls=0,finish;
+  f.app.runs.engine.submit=async()=>{engineSubmitted++;throw Error('Authoring must not run');};
+  f.app.runs.browserTest=async()=>{runnerCalls++;await new Promise(r=>finish=r);return {report:{result:'FAIL',generatedAt:new Date().toISOString(),artifactIntegrity:{status:'UNCHANGED',protectedFileCount:5,changedFiles:[],blockedWriteAttempts:0}},output:'FIGMA_BROWSER_TEST: FAIL'};};
+  const r=await f.api('/api/run',{input:'Repair first and run a different test',mode:'BROWSER_TEST',requestId:randomUUID()});
+  while(!finish)await new Promise(r=>setTimeout(r,5));
+  const active=(await f.api('/api/run/'+r.value.id)).value;
+  assert.equal(active.agentActivity.phase,'CHECKING');
+  assert.equal(active.agentActivity.message,"I'm testing the preview and comparing it with the design.");
+  finish();const done=await f.wait(r.value.id);
+  assert.equal(runnerCalls,1);assert.equal(engineSubmitted,0);assert.equal(done.sessionId,undefined);
+  assert.equal(done.state,'COMPLETED');assert.equal(done.validation.status,'FAIL');assert.equal(done.artifactIntegrity.status,'UNCHANGED');
+});
+
+for(const [integrity,policyCode,expectedCode]of [
+  [{status:'CHANGED',protectedFileCount:5,blockedWriteAttempts:0,changedFiles:[{relativePath:'.figma-designer/browser-prototype/index.html'}]},null,'BROWSER_TEST_ARTIFACT_INTEGRITY_VIOLATION'],
+  [{status:'UNVERIFIED'},null,'BROWSER_TEST_ARTIFACT_INTEGRITY_UNVERIFIED'],
+  [null,null,'BROWSER_TEST_ARTIFACT_INTEGRITY_UNVERIFIED'],
+  [{status:'UNCHANGED',protectedFileCount:5,blockedWriteAttempts:1},'BROWSER_TEST_ARTIFACT_WRITE_BLOCKED','BROWSER_TEST_ARTIFACT_WRITE_BLOCKED']
+])test('Browser policy cannot become a normal PASS: '+expectedCode+':'+integrity?.status,async t=>{
+  const f=await fixture(t);
+  f.app.runs.browserTest=async()=>({report:{result:'PASS',artifactIntegrity:integrity,policyCode},output:'FIGMA_BROWSER_TEST: PASS'});
+  const r=await f.api('/api/run',{mode:'BROWSER_TEST',requestId:randomUUID()});
+  const done=await f.wait(r.value.id);
+  assert.equal(done.state,'FAILED');assert.equal(done.error.code,expectedCode);assert.equal(done.validation.status,'FAIL');
+  assert.ok(!f.app.runs.uncertain);
+  if(expectedCode!=='BROWSER_TEST_ARTIFACT_INTEGRITY_UNVERIFIED'){
+    assert.equal(done.agentActivity.message,'I stopped a change to the test files.');
+    assert.equal(done.agentActivity.detail,'The test evidence needs to stay unchanged so the result remains trustworthy.');
+  }
+});
+
+test('Browser cancellation does not interrupt an unrelated model session or claim premature completion',async t=>{
+  const f=await fixture(t);let finish,interrupts=0;
+  f.app.runs.engine.interrupt=async()=>{interrupts++;};
+  f.app.runs.browserTest=async()=>{await new Promise(r=>finish=r);return {report:{result:'PASS',artifactIntegrity:{status:'UNCHANGED',protectedFileCount:5,changedFiles:[],blockedWriteAttempts:0}},output:'FIGMA_BROWSER_TEST: PASS'};};
+  const r=await f.api('/api/run',{mode:'BROWSER_TEST',requestId:randomUUID()});
+  while(!finish)await new Promise(r=>setTimeout(r,5));
+  const stopped=await f.app.runs.cancel(r.value.id);assert.equal(stopped.interrupted,false);assert.equal(f.app.runs.active.state,'RUNNING');
+  finish();assert.equal((await f.wait(r.value.id)).state,'CANCELLED');assert.equal(interrupts,0);
+});
+
+test('restart preserves completed browser integrity without replay, but interrupted fixed checks are UNVERIFIED',async t=>{
+  const root=await mkdtemp(join(tmpdir(),'figma-browser-restart-'));t.after(()=>rm(root,{recursive:true,force:true}));
+  for(const state of ['COMPLETED','RUNNING']){
+    const store=recoveryStore(join(root,state+'.json')),id=randomUUID();
+    await store.save({id,workspaceId:randomUUID(),mode:'BROWSER_TEST',execution:canonicalBrowserTestExecution,state,startedAt:new Date().toISOString(),artifactIntegrity:{status:'UNCHANGED',protectedFileCount:5,changedFiles:[],blockedWriteAttempts:0},validation:{kind:'BROWSER_TEST',status:'FAIL',generatedAt:new Date().toISOString()}});
+    const runs=new Runs({submit:()=>assert.fail('Restart must not replay'),createSession:()=>assert.fail('Restart must not create a model session')});
+    await store.restore(runs);assert.ok(!runs.uncertain);assert.equal(runs.runs[0].artifactIntegrity.status,state==='COMPLETED'?'UNCHANGED':'UNVERIFIED');
+    assert.equal(runs.runs[0].validation.status,'FAIL');
+  }
+});
+
+test('legacy model-orchestrated interrupted Browser Test retains the original reconciliation quarantine',async t=>{
+  const root=await mkdtemp(join(tmpdir(),'figma-browser-legacy-'));t.after(()=>rm(root,{recursive:true,force:true}));
+  const store=recoveryStore(join(root,'recovery.json'));await store.save({id:randomUUID(),workspaceId:randomUUID(),mode:'BROWSER_TEST',state:'RUNNING',startedAt:new Date().toISOString()});
+  const runs=new Runs({});await store.restore(runs);assert.equal(runs.uncertain,true);assert.equal(runs.runs[0].recovery,'RECONCILIATION_REQUIRED');
+});
+test('natural AUTO browser-test preserves safety copy on restart, while interrupted stays quarantined',async t=>{
+  const root=await mkdtemp(join(tmpdir(),'figma-auto-test-restart-'));t.after(()=>rm(root,{recursive:true,force:true}));
+  const storeCompleted=recoveryStore(join(root,'completed.json')),id1=randomUUID();
+  await storeCompleted.save({id:id1,workspaceId:randomUUID(),mode:'AUTO',sessionId:'session-1',state:'COMPLETED',startedAt:new Date().toISOString(),artifactIntegrity:{status:'UNCHANGED',protectedFileCount:5,changedFiles:[],blockedWriteAttempts:0},validation:{kind:'BROWSER_TEST',status:'FAIL',generatedAt:new Date().toISOString()}});
+  const runsCompleted=new Runs({});
+  await storeCompleted.restore(runsCompleted);
+  assert.equal(runsCompleted.runs[0].mode,'AUTO');
+  assert.equal(runsCompleted.runs[0].validation.kind,'BROWSER_TEST');
+  assert.equal(runsCompleted.runs[0].validation.status,'FAIL');
+  assert.equal(runsCompleted.runs[0].artifactIntegrity.status,'UNCHANGED');
+  assert.ok(!runsCompleted.uncertain);
+  const storeRunning=recoveryStore(join(root,'running.json')),id2=randomUUID();
+  await storeRunning.save({id:id2,workspaceId:randomUUID(),mode:'AUTO',sessionId:'session-2',state:'RUNNING',startedAt:new Date().toISOString(),artifactIntegrity:{status:'UNCHANGED',protectedFileCount:5,changedFiles:[],blockedWriteAttempts:0},validation:{kind:'BROWSER_TEST',status:'FAIL',generatedAt:new Date().toISOString()}});
+  const runsRunning=new Runs({});
+  await storeRunning.restore(runsRunning);
+  assert.equal(runsRunning.uncertain,true);
+  assert.equal(runsRunning.runs[0].mode,'AUTO');
+  assert.equal(runsRunning.runs[0].state,'FAILED');
+  assert.equal(runsRunning.runs[0].recovery,'RECONCILIATION_REQUIRED');
+  assert.equal(runsRunning.runs[0].artifactIntegrity.status,'UNVERIFIED');
+});
+
+test('actual app to canonical child boundary reports missing inputs without model submission or regeneration',{timeout:30000},async t=>{
+  const f=await fixture(t),root=join(f.root,'.figma-designer/browser-prototype');
+  await mkdir(root,{recursive:true});await writeFile(join(root,'index.html'),'incomplete accepted bytes');
+  const response=await f.api('/api/run',{mode:'BROWSER_TEST',requestId:randomUUID()});
+  await f.app.runs.workPending;
+  const done=(await f.api('/api/run/'+response.value.id)).value;
+  const report=JSON.parse(await readFile(join(root,'figma-browser-test.json'),'utf8'));
+  assert.equal(done.state,'FAILED');assert.equal(done.error.code,'BROWSER_TEST_ARTIFACT_INTEGRITY_UNVERIFIED');
+  assert.equal(report.result,'FAIL');assert.equal(report.artifactIntegrity.status,'UNVERIFIED');
+  assert.equal(report.liveSource.status,'UNAVAILABLE');assert.equal(await readFile(join(root,'index.html'),'utf8'),'incomplete accepted bytes');
+  for(const file of ['styles.css','app.js','figma-browser.json','figma-source.json'])await assert.rejects(readFile(join(root,file)),{code:'ENOENT'});
+  assert.equal(f.mock.calls.some(c=>c.path.endsWith('/command')||c.path.endsWith('/prompt')),false);
+});
+
+test('authoring then Browser Test then restart retains the same native conversation for the next revision',async t=>{
+  const f=await fixture(t);
+  let response=await f.api('/api/run',{mode:'AUTO',input:'Create the fixture design',requestId:randomUUID()});await f.wait(response.value.id);
+  const previousSession=f.app.runs.session.id,workspace=f.app.runs.workspaceId;
+  f.app.runs.browserTest=async()=>({report:{result:'FAIL',artifactIntegrity:{status:'UNCHANGED',protectedFileCount:5,changedFiles:[],blockedWriteAttempts:0}},output:'FIGMA_BROWSER_TEST: FAIL'});
+  response=await f.api('/api/run',{mode:'BROWSER_TEST',requestId:randomUUID()});await f.wait(response.value.id);
+  await f.app.close();
+  const engine=new OpenCodeClient({root:projectRoot,url:`http://127.0.0.1:${f.mock.server.address().port}`,password:'fixture-private-password'});
+  const restarted=await createApplication({root:f.root,engine,status:async()=>({runtime:'VERIFIED',figma:'CONNECTED'})});
+  try{
+    await restarted.ready;assert.equal(restarted.runs.session.id,previousSession);assert.equal(restarted.runs.workspaceId,workspace);
+    await restarted.runs.submit({mode:'AUTO',input:'Revise only the existing fixture heading',requestId:randomUUID()});await restarted.runs.workPending;
+    assert.equal(restarted.runs.session.id,previousSession);
+    assert.equal(f.mock.calls.filter(c=>c.path==='/api/session').length,1);
+  }finally{await restarted.close();}
 });

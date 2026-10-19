@@ -36,7 +36,7 @@ test('a completed peer tool cannot hide a still-running tool',()=>{const r=run()
 test('history is bounded and chronological; old messages are not replayed',()=>{const r=run(),c=[];for(let i=0;i<40;i++){c.push(message(tool(i%2?'write_html':'get_node')));observe(r,c);}assert.equal(r.activityHistory.length,10);assert.ok(r.activityHistory.every((a,i,all)=>!i||a.sequence>all[i-1].sequence));const before=JSON.stringify(r.activityHistory);observe(r,c);assert.equal(JSON.stringify(r.activityHistory),before);observe(r,[]);assert.equal(JSON.stringify(r.activityHistory),before);});
 test('checkpoint excludes presence/context/prompts and restore never animates old work',async t=>{const root=await mkdtemp(join(tmpdir(),'figma-presence-'));t.after(()=>rm(root,{recursive:true,force:true}));const file=join(root,'recovery.json'),r=run({state:'COMPLETED',input:'private prompt',result:'private result'});update(r);await recoveryStore(file).save(r);const bytes=await readFile(file,'utf8');assert.doesNotMatch(bytes,/activityHistory|agentActivity|private/);const runs=new Runs({});await recoveryStore(file).restore(runs);assert.equal(runs.runs[0].agentActivity.messageId,'restored');assert.equal(runs.runs[0].agentActivity.active,false);assert.equal(runs.runs[0].activityHistory.length,1);});
 test('interrupted checkpoint restores uncertain attention without replay',async t=>{const root=await mkdtemp(join(tmpdir(),'figma-presence-'));t.after(()=>rm(root,{recursive:true,force:true}));const file=join(root,'recovery.json');await recoveryStore(file).save(run({sessionId:'fixture'}));let submits=0;const runs=new Runs({submit:()=>submits++});await recoveryStore(file).restore(runs);assert.equal(runs.uncertain,true);assert.equal(runs.runs[0].agentActivity.messageId,'unknown');assert.equal(submits,0);});
-test('all copy is bounded and uses declared phases/animations; technical values are allowlisted',()=>{for(const c of Object.values(activityCopy)){assert.ok(activityPhases.includes(c.phase));assert.ok(activityAnimations.includes(c.animation));assert.ok(c.message.length<=90,c.message);assert.ok(c.detail.length<=160);assert.doesNotMatch(c.message,/write_html|MCP|PRECONDITION|RECONCILIATION|context offset/);}assert.equal(classify('figma_qa_get_node'),'READ_DESIGN');assert.equal(classify('figma_qa_report'),'QA');assert.equal(classify('set_reactions'),'PROTOTYPE');});
+test('all copy is bounded and uses declared phases/animations; technical values are allowlisted',()=>{for(const c of Object.values(activityCopy)){assert.ok(activityPhases.includes(c.phase));assert.ok(activityAnimations.includes(c.animation));assert.ok(c.message.length<=90,c.message);assert.ok(c.detail.length<=160);assert.doesNotMatch(c.message,/write_html|MCP|PRECONDITION|RECONCILIATION|context offset/);}assert.equal(classify('figma_qa_get_node'),'READ_DESIGN');assert.equal(classify('figma_qa_report'),'QA');assert.equal(classify('figma_browser_test_report'),'BROWSER');assert.equal(classify('set_reactions'),'PROTOTYPE');});
 test('UI has opt-in safe details and no remote art/runtime integration',async()=>{const html=await readFile('app/web/index.html','utf8'),renderer=await readFile('app/web/agent-presence.js','utf8'),server=await readFile('app/server/agent-activity.mjs','utf8');assert.match(html,/<details id="agent-details">/);assert.doesNotMatch(html,/<details id="agent-details"[^>]*open/);assert.match(html,/id="agent-message" role="status"/);assert.doesNotMatch(renderer,/innerHTML|fetch\(|ipcRenderer|tool\.state\.input/);assert.doesNotMatch(server,/\.submit\(|\.request\(|\.text\b|\.input\b|\.error\.message|setTimeout/);});
 
 test('OpenCode 2.0.28 executed=false records use explicit native status, including Code Mode traces',()=>{const r=run();observe(r,[message(tool('figma_critique_get_node','completed',{executed:false}))]);assert.equal(r.agentActivity.messageId,'readDone');observe(r,[message(tool('execute','completed',{executed:false,state:{status:'completed',metadata:{toolCalls:[{tool:'figma.write_html',status:'completed'}]}}}))]);assert.equal(r.agentActivity.messageId,'writeDone');assert.equal(r.agentActivity.active,false);observe(r,[message(tool('figma.set_reactions','running',{executed:false}))]);assert.equal(r.agentActivity.messageId,'prototypeStart');assert.equal(r.agentActivity.active,true);});
@@ -48,4 +48,29 @@ test('opaque assistant steps do not alternate a known read phase with generic pl
 test('fixed workflow history coalesces across read/export tool categories',()=>{
  const r=run({mode:'BROWSER'}),c=[];for(const name of ['get_node','save_screenshots','get_document']){c.push(message(tool(name,'completed')));observe(r,c);}
  assert.equal(r.activityHistory.length,1);assert.equal(r.agentActivity.messageId,'previewStart');
+});
+test('figma_browser_test_report in AUTO mode observes CHECKING while running, testDone on complete',()=>{
+ const r=run({mode:'AUTO'}),t=tool('figma_browser_test_report','running');
+ observe(r,[message(t)]);
+ assert.equal(r.agentActivity.phase,'CHECKING');
+ assert.equal(r.agentActivity.messageId,'testStart');
+ assert.equal(r.agentActivity.active,true);
+ assert.equal(r.agentActivity.technical.category,'BROWSER');
+ t.state.status='completed';
+ observe(r,[message(t)]);
+ assert.equal(r.agentActivity.messageId,'testDone');
+ assert.equal(r.agentActivity.active,false);
+});
+test('blocked test mutation and structured FAIL project attention and owned copy',()=>{
+ const rBlocked=run({state:'FAILED',error:{code:'BROWSER_TEST_ARTIFACT_WRITE_BLOCKED'},artifactIntegrity:{status:'UNCHANGED',blockedWriteAttempts:1}});
+ update(rBlocked);
+ assert.equal(rBlocked.agentActivity.phase,'BLOCKED');
+ assert.equal(rBlocked.agentActivity.messageId,'blockedMutation');
+ assert.equal(rBlocked.agentActivity.message,'I stopped a change to the test files.');
+ assert.equal(rBlocked.agentActivity.detail,'The test evidence needs to stay unchanged so the result remains trustworthy.');
+ assert.equal(rBlocked.agentActivity.attention,true);
+ const rFail=run({mode:'AUTO',state:'COMPLETED',result:'FIGMA_BROWSER_TEST: FAIL',validation:{kind:'BROWSER_TEST',status:'FAIL'}});
+ update(rFail);
+ assert.equal(rFail.agentActivity.messageId,'findings');
+ assert.equal(rFail.agentActivity.attention,true);
 });
